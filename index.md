@@ -1,6 +1,6 @@
 ---
 layout: page
-title: La vie est dure...
+title: Answerrrrrrrrr
 tagline: Supporting tagline
 ---
 {% include JB/setup %}
