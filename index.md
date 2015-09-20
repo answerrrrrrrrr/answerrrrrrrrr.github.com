@@ -9,7 +9,9 @@ Hello, there.
 
 This is the first time I have a blog.
 
-Unfortunately, I haven't even figured out what to write about, which reminds me of one of my favorite 
+Since I haven't solved the problem of 中文字体样式不统一, I have to use English to blog for now.
+
+Unfortunately, I haven't yet figured out what to write about, which reminds me of one of my favorite 
 
 Song Lyrics:
 	
@@ -77,7 +79,9 @@ Now that this is my home page, let me just write something about myself:
         
         # Loading...
             	
-    	
+By the way, [Jekyll-bootstrap](http://jekyllbootstrap.com/) is awesome.
+
+0:00, Sep 21, 2015
     	
     	
     	
