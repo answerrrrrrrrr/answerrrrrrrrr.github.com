@@ -9,7 +9,12 @@ Hello, there.
 
 This is the first time I have a blog.
 
-Since I haven't solved the problem of 中文字体样式不统一, I have to use English to blog for now.
+Since I haven't solved the problem of
+![中文字体样式不统一](https://github.com/answerrrrrrrrr/Res/raw/master/Blog/index/ch.jpg)
+(Update: 虽然[解决了](https://answerrrrrrrrr.github.io/2015/09/23/%E8%A7%A3%E5%86%B3%E4%B8%AD%E6%96%87%E5%AD%97%E4%BD%93%E4%B8%8D%E7%BB%9F%E4%B8%80/)，但是重写好麻烦，当作练下英语了，就这样吧。。。)
+
+I'll try to blog by English for now.
+
 
 Unfortunately, I haven't yet figured out what to write about, which reminds me of one of my favorite 
 

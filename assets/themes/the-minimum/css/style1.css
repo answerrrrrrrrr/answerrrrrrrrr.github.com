@@ -212,12 +212,35 @@ pre {
 /* meta */
 /* HEADER
 --------------------------------------------------------------------------------- */
+
+.the-header {
+  background-color: #1a1a1a;
+  background-color: rgba(21, 25, 25, 0.8);
+  color: #fafafa;
+  color: rgba(250, 250, 250, 0.8);
+  padding-bottom: 1.625em;
+  padding-top: 1.625em;
+}
+
+.the-header .unit-inner {
+  width: 15em;
+  margin-top: 1.625em;
+  margin-bottom: 1.625em;
+  margin-left: auto;
+  margin-right: auto;
+}
+.the-header .logo a {
+  font-size: 22px;
+  line-height: 42px;
+}
+
 .the-header .logo {
   font-family: junctionregularRegular, "Frutiger Linotype", Univers, Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial,  maxSum Sans-Serif;
   margin: 0;
 }
 .the-header .logo a:visited {
-  color: #2d2d2d;
+  /*color: #2d2d2d;*/
+  color: #f5f6f6;
 }
 .the-header .nav-global {
   text-transform: uppercase;
@@ -540,25 +563,6 @@ pre {
   margin-bottom: 0;
 }
 
-/*.the-header {
-  background-color: #1a1a1a;
-  background-color: rgba(21, 25, 25, 0.8);
-  color: #fafafa;
-  color: rgba(250, 250, 250, 0.8);
-  padding-bottom: 1.625em;
-  padding-top: 1.625em;
-}*/
-.the-header .unit-inner {
-  width: 15em;
-  margin-top: 1.625em;
-  margin-bottom: 1.625em;
-  margin-left: auto;
-  margin-right: auto;
-}
-.the-header .logo a {
-  font-size: 32px;
-  line-height: 42px;
-}
 .unit-article .unit-head-inner,
 .unit-article .entry-content,
 .unit-article .misc-content,
@@ -680,7 +684,7 @@ pre {
     width: 26.25em;
   }
   .the-header .logo a {
-    font-size: 42px;
+    font-size: 32px;
     line-height: 52px;
     letter-spacing: -1px;
   }
