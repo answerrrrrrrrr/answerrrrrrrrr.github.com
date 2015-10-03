@@ -387,7 +387,7 @@ pre {
   -moz-border-radius: 10px;
   border-radius: 10px;
   color: white;
-  text-transform: uppercase;
+  /*text-transform: uppercase;*/
   margin: 0 6px 0 0;
   display: inline-block;
   position: relative;
@@ -398,10 +398,10 @@ pre {
 }
 .unit-article .list-category {
   margin-bottom: 0;
-  text-transform: capitalize;
+  /*text-transform: capitalize;*/
 }
 .unit-article .list-tag {
-  text-transform: capitalize;
+  /*text-transform: capitalize;*/
 }
 .unit-article .unit-foot {
   background: url('/assets/themes/the-minimum/skin/100-90-5-monochrome.png') repeat 0 0 #4d4d4d;
