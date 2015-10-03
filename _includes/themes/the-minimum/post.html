@@ -12,7 +12,8 @@
 			<div class="bd">
 				<div class="entry-content">
 					{{ content }}
-					<div class="meta">
+
+					<div class="meta" style="background-color:#F2F2F2">
 						<p class="date-publish">
 							Published: 
 							<date class="date-pub" title="{{ page.date | date_to_xmlschema }}" datetime="{{ page.date | date_to_xmlschema }}" pubdate>
@@ -21,25 +22,39 @@
 							<span class="year">{{ page.date | date: '%Y' }}</span>
 							</date>
 						</p>
+<!-- <div class="tag-box-wrapper">    
+    <ul class="tag-box inline">
+      <li><i class="icon-large icon-folder-open"></i></li>
+      	<li><a href="/categories.html#tech-ref">
+    		tech <span>40</span>
+    	</a></li>
+    </ul>
+    <ul class="tag-box inline">
+      <li><i class="icon-large icon-tags"></i></li>
+     	<li><a href="/tags.html#jekyll-ref">jekyll <span>7</span></a></li>
+     	<li><a href="/tags.html#标签云-ref">标签云 <span>1</span></a></li>
+    </ul>
+  </div> -->
 						<ul class="list-category list-linear">
-							<li class="list-head">category: </li>
+							<li class="list-head">category: &nbsp;</li>
 							{% assign categories_list = page.categories %}
 							{% include JB/categories_list %}
 						</ul>
 						<ul class="list-tag list-linear">
-							<li class="list-head">tags: </li>
+							<li class="list-head">tags: &nbsp;</li>
 							{% assign tags_list = page.tags %}
 							{% include JB/tags_list %}
 						</ul>
 					</div><!-- meta -->
+					
 				</div><!-- entry-content -->
 				<div class="misc-content">
-					<div class="social">
+					<!-- <div class="social">
 						<ul class="list-linear">
 							<li><div class="twitter-tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="{{ site.author.twitter }}" data-lang="en">Tweet</a></div></li>
 							<li><div class="twitter-follow"><a href="https://twitter.com/{{ site.author.twitter }}" class="twitter-follow-button" data-show-count="false" data-lang="en"></a></div></li>
 						</ul>
-					</div>
+					</div> -->
 					
 					{% include JB/comments %}
 				</div><!-- misc-content -->
