@@ -281,6 +281,8 @@ pre {
 .unit-article .entry-content:first-child h5,
 .unit-article .entry-content:first-child h6 {
   margin-top: 0;
+  /*text-transform: capitalize;*/
+
 }
 .unit-article a:link {
   border-bottom: 1px dotted #99cc99;
@@ -449,6 +451,7 @@ pre {
   vertical-align: middle;
 }
 .layout-page .tag_box a {
+  /*text-transform: capitalize;*/
   background-color: #99cc99;
   float: left;
   border: 1px solid #448844;

@@ -3,7 +3,7 @@ layout: post
 title: "iTerm下配置Powerline"
 description: ""
 category: [Mac]
-tags: [ Powerline,  iTerm]
+tags: [Powerline, iTerm]
 ---
 {% include JB/setup %}
 
