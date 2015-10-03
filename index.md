@@ -84,7 +84,7 @@ Now that this is my home page, let me just write something about myself:
         
         # Loading...
             	
-By the way, [Jekyll-bootstrap](http://jekyllbootstrap.com/) is awesome.
+
 
 0:00, Sep 21, 2015
     	

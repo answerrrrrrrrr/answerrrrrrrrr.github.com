@@ -132,6 +132,13 @@ JB :
   #   ./_includes/custom/[HELPER]
   # where [HELPER] is the name of the helper you are overriding.
   
-  markdown: rdiscount
+  # markdown: rdiscount
+  # markdown: kramdown
+  baseurl: /StrayBirds
+  markdown: redcarpet
+  safe: false
+  pygments: true
+  excerpt_separator: "\n\n\n"
+  paginate: 5
 
 
