@@ -1,15 +1,15 @@
 ---
 layout: post
-title: "Metasploit魔鬼训练营"
+title: "Metasploit渗透测试魔鬼训练营"
 description: ""
 category: [Metasploit]
 tags: [Metasploit, Penetration]
 ---
 {% include JB/setup %}
 
-##Metasploit渗透测试魔鬼训练营
 
-记录一下学习过程中遇到的问题
+
+###记录一下学习过程中遇到的问题
 
 * OSX 10.10下配置VMware Fusion虚拟网络环境
 
