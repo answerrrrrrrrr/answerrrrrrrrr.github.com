@@ -28,3 +28,7 @@ tags: [ROP, Archlinux]
 `sudo pacman -S python-capstone`
 
 `sudo pip install ropgadget`
+
+If gets errors about capstone:
+
+`sudo pip install ropgadget --upgrade`
