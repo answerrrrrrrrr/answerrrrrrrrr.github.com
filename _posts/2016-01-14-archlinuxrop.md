@@ -2,7 +2,7 @@
 layout: post
 title: "Setup ROP test environment on Archlinux"
 description: ""
-category: ROP
+category: Archlinux
 tags: [ROP, Archlinux]
 ---
 {% include JB/setup %}
