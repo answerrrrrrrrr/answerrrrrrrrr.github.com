@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "tmux copy to clipboard"
+title: "Mouse scrolling and copy2clipboard in tmux"
 description: ""
 category: tmux
 tags: [tmux, Archlinux]
