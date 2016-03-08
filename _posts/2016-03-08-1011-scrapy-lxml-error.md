@@ -2,7 +2,7 @@
 layout: post
 title: "10.11 scrapy lxml error"
 description: ""
-category: mac
+category: Mac
 tags: [scrapy]
 ---
 {% include JB/setup %}
