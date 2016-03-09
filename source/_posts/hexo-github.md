@@ -5,25 +5,24 @@ tags: [hexo, git, github]
 category: hexo
 ---
 
-# deploy_git & git
+# hexo & git
 
 一开始没有搞懂`.deploy_git`和`.git`的区别   
 后来发现`hexo deploy`到github上的内容只有纯粹的网页   
-才(好像)大致明白了hexo的工作流程
+才大致明白了hexo的工作流程
 
 首先   
 hexo并没有生成页面文件   
 项目目录中除了配置文件以外就只有`hex new`出来的一些`.md`而已   
-`hexo server`时虽然本地正常显示所有页面   
-但目录下并没有新`.md`对应的页面文件   
+`hexo generate`之后才会在`public`目录下生成一系列html，css等页面文件   
 
-在`hexo deploy`之后   
-hexo才会将所以页面文件push到项目的`master`分支上   
+`hexo deploy`之后   
+hexo才会将所有页面文件push到项目的`master`分支上   
 网站因而得以运作   
+
 但是这样一来   
 只有页面文件被放到了远程库   
-
-为了将`.md`也放到Github    
+为了将配置文件和`.md`也放到Github    
 可以新建一个`hexo`分支来存放
 
 ```
@@ -34,10 +33,11 @@ git push origin hexo:hexo
 这样一来   
 对hexo所做的修改也可以托管在Github上了
 
-以后只需使用`git push origin hexo:hexo`提交到`hexo`分支   
-然后用`hexo deploy`将修改体现到网站（即`master`分支）上
+以后只需在`hexo g`生成页面后   
+先用`hexo d`发布到网站（即`master`分支）上   
+然后`git push origin hexo:hexo`备份所有改动到`hexo`分支   
 
-# push CONFLICT
+# push conflict
 
 不过在实际的第二次push时   
 出现了冲突

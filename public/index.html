@@ -214,6 +214,130 @@
             
               
                 
+                <a class="post-title-link" href="/2016/03/09/hexo-github/" itemprop="url">
+                  hexo github
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-03-09T19:08:03+08:00" content="2016-03-09">
+              2016-03-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/hexo/" itemprop="url" rel="index">
+                    <span itemprop="name">hexo</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/03/09/hexo-github/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/09/hexo-github/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="hexo-amp-git"><a href="#hexo-amp-git" class="headerlink" title="hexo &amp; git"></a>hexo &amp; git</h1><p>一开始没有搞懂<code>.deploy_git</code>和<code>.git</code>的区别<br>后来发现<code>hexo deploy</code>到github上的内容只有纯粹的网页<br>才大致明白了hexo的工作流程</p>
+<p>首先<br>hexo并没有生成页面文件<br>项目目录中除了配置文件以外就只有<code>hex new</code>出来的一些<code>.md</code>而已<br><code>hexo generate</code>之后才会在<code>public</code>目录下生成一系列html，css等页面文件   </p>
+<p><code>hexo deploy</code>之后<br>hexo才会将所有页面文件push到项目的<code>master</code>分支上<br>网站因而得以运作   </p>
+<p>但是这样一来<br>只有页面文件被放到了远程库<br>为了将配置文件和<code>.md</code>也放到Github<br>可以新建一个<code>hexo</code>分支来存放</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b hexo</span><br><span class="line">git push origin hexo:hexo</span><br></pre></td></tr></table></figure>
+<p>这样一来<br>对hexo所做的修改也可以托管在Github上了</p>
+<p>以后只需在<code>hexo g</code>生成页面后<br>先用<code>hexo d</code>发布到网站（即<code>master</code>分支）上<br>然后<code>git push origin hexo:hexo</code>备份所有改动到<code>hexo</code>分支   </p>
+<h1 id="push-conflict"><a href="#push-conflict" class="headerlink" title="push conflict"></a>push conflict</h1><p>不过在实际的第二次push时<br>出现了冲突</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">git push origin hexo:hexo</span><br><span class="line">To git@github.com:answerrrrrrrrr/answerrrrrrrrr.github.com.git</span><br><span class="line"> ! [rejected]        hexo -&gt; hexo (non-fast-forward)</span><br><span class="line">error: failed to push some refs to &apos;git@github.com:answerrrrrrrrr/answerrrrrrrrr.github.com.git&apos;</span><br><span class="line">hint: Updates were rejected because the tip of your current branch is behind</span><br><span class="line">hint: its remote counterpart. Integrate the remote changes (e.g.</span><br><span class="line">hint: &apos;git pull ...&apos;) before pushing again.</span><br><span class="line">hint: See the &apos;Note about fast-forwards&apos; in &apos;git push --help&apos; for details.</span><br></pre></td></tr></table></figure>
+<p>参考<a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/0013760174128707b935b0be6fc4fc6ace66c4f15618f8d000" target="_blank" rel="external">廖雪峰的文章</a>得以解决</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">$ git pull</span><br><span class="line">There is no tracking information for the current branch.</span><br><span class="line">Please specify which branch you want to merge with.</span><br><span class="line">See git-pull(1) for details</span><br><span class="line"></span><br><span class="line">    git pull &lt;remote&gt; &lt;branch&gt;</span><br><span class="line"></span><br><span class="line">If you wish to set tracking information for this branch you can do so with:</span><br><span class="line"></span><br><span class="line">    git branch --set-upstream-to=origin/&lt;branch&gt; hexo</span><br><span class="line"></span><br><span class="line">$ git branch --set-upstream hexo origin/hexo</span><br><span class="line">The --set-upstream flag is deprecated and will be removed. Consider using --track or --set-upstream-to</span><br><span class="line">Branch hexo set up to track remote branch hexo from origin.</span><br><span class="line"></span><br><span class="line">$ git pull</span><br><span class="line">Auto-merging index.html</span><br><span class="line">CONFLICT (add/add): Merge conflict in index.html</span><br><span class="line">Automatic merge failed; fix conflicts and then commit the result.</span><br><span class="line"></span><br><span class="line">$ git status</span><br><span class="line">On branch hexo</span><br><span class="line">Your branch and &apos;origin/hexo&apos; have diverged,</span><br><span class="line">and have 1 and 1 different commit each, respectively.</span><br><span class="line">  (use &quot;git pull&quot; to merge the remote branch into yours)</span><br><span class="line">You have unmerged paths.</span><br><span class="line">  (fix conflicts and run &quot;git commit&quot;)</span><br><span class="line"></span><br><span class="line">Unmerged paths:</span><br><span class="line">  (use &quot;git add &lt;file&gt;...&quot; to mark resolution)</span><br><span class="line"></span><br><span class="line">	both added:      index.html</span><br><span class="line"></span><br><span class="line">no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)</span><br><span class="line"></span><br><span class="line">$ subl index.html</span><br><span class="line">$ git add .</span><br><span class="line">$ git commit -m &apos;index&apos;</span><br><span class="line">	[hexo b7ed9be] index</span><br><span class="line">$ git push origin hexo:hexo</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/03/09/10-11-privoxy/" itemprop="url">
                   10.11 privoxy [Errno 61] Connection refused
                 </a>
@@ -1106,7 +1230,7 @@ set background=light
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-count">8</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1114,7 +1238,7 @@ set background=light
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -1123,7 +1247,7 @@ set background=light
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
