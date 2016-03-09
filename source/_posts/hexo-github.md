@@ -5,7 +5,7 @@ tags: [hexo, git, github]
 category: hexo
 ---
 
-# hexo & git
+# hexo & github
 
 一开始没有搞懂`.deploy_git`和`.git`的区别   
 后来发现`hexo deploy`到github上的内容只有纯粹的网页   
@@ -17,7 +17,7 @@ hexo并没有生成页面文件
 `hexo generate`之后才会在`public`目录下生成一系列html，css等页面文件   
 
 `hexo deploy`之后   
-hexo才会将所有页面文件push到项目的`master`分支上   
+hexo才会将所有页面文件push到项目的`master`分支(在`/_config.yml`中指定)上   
 网站因而得以运作   
 
 但是这样一来   
@@ -34,8 +34,8 @@ git push origin hexo:hexo
 对hexo所做的修改也可以托管在Github上了
 
 以后只需在`hexo g`生成页面后   
-先用`hexo d`发布到网站（即`master`分支）上   
-然后`git push origin hexo:hexo`备份所有改动到`hexo`分支   
+先用`hexo d`发布到网站（即`master`分支）   
+然后`add`-`commit`-`push`所有改动到`hexo`分支   
 
 # push conflict
 
@@ -43,7 +43,7 @@ git push origin hexo:hexo
 出现了冲突
 
 ```
-git push origin hexo:hexo
+$ git push origin hexo:hexo
 To git@github.com:answerrrrrrrrr/answerrrrrrrrr.github.com.git
  ! [rejected]        hexo -> hexo (non-fast-forward)
 error: failed to push some refs to 'git@github.com:answerrrrrrrrr/answerrrrrrrrr.github.com.git'
