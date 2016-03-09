@@ -4,10 +4,10 @@
 
 # Site
 title: Answerrrrrrrrr
-subtitle:
-description:
-author:
-language:
+subtitle: 
+description: And it's turtles all the way down.
+author: Air9
+language: en
 timezone:
 
 # URL
@@ -71,3 +71,9 @@ deploy:
   type: git
   repository: https://github.com/answerrrrrrrrr/answerrrrrrrrr.github.com.git
   branch: master
+
+
+# Social links
+social:
+  # Github: https://github.com/answerrrrrrrrr
+  # Weibo: http://weibo.com/u/2695867114
