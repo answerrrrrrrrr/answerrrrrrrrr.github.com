@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Archlinux,gdb,pip," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -57,25 +57,16 @@
 
 
 
-<meta name="description" content="gdb plugin: gdb-pedasudo pacman -S gdb
-git clone https://github.com/longld/peda.git ~/peda
-echo &amp;quot;source ~/peda/peda.py&amp;quot; &amp;gt;&amp;gt; ~/.gdbinit
-gdb plugin: libheapcurl https://raw.githubusercont">
+<meta name="description" content="And it&apos;s turtles all the way down.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="arch gdb pip ropgadget">
-<meta property="og:url" content="http://answerrrrrrrrr.io/2016/03/09/arch-gdb-peda-pip-ropgadget/index.html">
+<meta property="og:title" content="hexo-scripts">
+<meta property="og:url" content="http://answerrrrrrrrr.io/2016/03/10/hexo-scripts-1/index.html">
 <meta property="og:site_name" content="Answerrrrrrrrr">
-<meta property="og:description" content="gdb plugin: gdb-pedasudo pacman -S gdb
-git clone https://github.com/longld/peda.git ~/peda
-echo &amp;quot;source ~/peda/peda.py&amp;quot; &amp;gt;&amp;gt; ~/.gdbinit
-gdb plugin: libheapcurl https://raw.githubusercont">
-<meta property="og:updated_time" content="2016-03-10T08:29:26.000Z">
+<meta property="og:description" content="And it&apos;s turtles all the way down.">
+<meta property="og:updated_time" content="2016-03-10T11:10:20.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="arch gdb pip ropgadget">
-<meta name="twitter:description" content="gdb plugin: gdb-pedasudo pacman -S gdb
-git clone https://github.com/longld/peda.git ~/peda
-echo &amp;quot;source ~/peda/peda.py&amp;quot; &amp;gt;&amp;gt; ~/.gdbinit
-gdb plugin: libheapcurl https://raw.githubusercont">
+<meta name="twitter:title" content="hexo-scripts">
+<meta name="twitter:description" content="And it&apos;s turtles all the way down.">
 
 
 
@@ -93,7 +84,7 @@ gdb plugin: libheapcurl https://raw.githubusercont">
   };
 </script>
 
-  <title> arch gdb pip ropgadget | Answerrrrrrrrr </title>
+  <title> hexo-scripts | Answerrrrrrrrr </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -221,7 +212,7 @@ gdb plugin: libheapcurl https://raw.githubusercont">
             
             
               
-                arch gdb pip ropgadget
+                hexo-scripts
               
             
           </h1>
@@ -233,38 +224,19 @@ gdb plugin: libheapcurl https://raw.githubusercont">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-03-09T15:28:36+08:00" content="2016-03-09">
-              2016-03-09
+            <time itemprop="dateCreated" datetime="2016-03-10T19:10:20+08:00" content="2016-03-10">
+              2016-03-10
             </time>
           </span>
 
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/rop/" itemprop="url" rel="index">
-                    <span itemprop="name">rop</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
           
 
           
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/03/09/arch-gdb-peda-pip-ropgadget/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/09/arch-gdb-peda-pip-ropgadget/" itemprop="commentsCount"></span>
+                <a href="/2016/03/10/hexo-scripts-1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/10/hexo-scripts-1/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -286,21 +258,7 @@ gdb plugin: libheapcurl https://raw.githubusercont">
       
 
       
-        <h3 id="gdb-plugin-gdb-peda"><a href="#gdb-plugin-gdb-peda" class="headerlink" title="gdb plugin: gdb-peda"></a>gdb plugin: <a href="https://github.com/longld/peda" target="_blank" rel="external">gdb-peda</a></h3><p><code>sudo pacman -S gdb</code></p>
-<p><code>git clone https://github.com/longld/peda.git ~/peda</code></p>
-<p><code>echo &quot;source ~/peda/peda.py&quot; &gt;&gt; ~/.gdbinit</code></p>
-<h3 id="gdb-plugin-libheap"><a href="#gdb-plugin-libheap" class="headerlink" title="gdb plugin: libheap"></a>gdb plugin: <a href="https://github.com/cloudburst/libheap" target="_blank" rel="external">libheap</a></h3><p><code>curl https://raw.githubusercontent.com/answerrrrrrrrr/VRL/master/test/exploits/lib/libheap.py &gt; libheap.py</code></p>
-<p><code>sudo mv libheap.py /usr/lib/python2.7</code></p>
-<p><code>gdb</code></p>
-<p><code>(gdb) python from libheap import *</code></p>
-<p><code>(gdb) heap -h</code></p>
-<h3 id="pip"><a href="#pip" class="headerlink" title="pip"></a>pip</h3><p><code>curl https://bootstrap.pypa.io/get-pip.py &gt; getpip.py</code></p>
-<p><code>sudo python getpip.py</code></p>
-<h3 id="ROPgadget"><a href="#ROPgadget" class="headerlink" title="ROPgadget"></a>ROPgadget</h3><p><code>sudo pacman -S python-capstone</code></p>
-<p><code>sudo pip install ropgadget</code></p>
-<p>If gets errors about capstone:</p>
-<p><code>sudo pip install ropgadget --upgrade</code></p>
-
+        
       
     </div>
 
@@ -312,32 +270,18 @@ gdb plugin: libheapcurl https://raw.githubusercont">
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Archlinux/" rel="tag">#Archlinux</a>
-          
-            <a href="/tags/gdb/" rel="tag">#gdb</a>
-          
-            <a href="/tags/pip/" rel="tag">#pip</a>
-          
-        </div>
-      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/03/09/tmux-copy2clipboard/" rel="next" title="tmux copy2clipboard">
-                <i class="fa fa-chevron-left"></i> tmux copy2clipboard
+              <a href="/2016/03/10/capstone/" rel="next" title="ropgadget capstone">
+                <i class="fa fa-chevron-left"></i> ropgadget capstone
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/03/09/arch-vmtools/" rel="prev" title="arch vmtools">
-                arch vmtools <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -363,8 +307,8 @@ gdb plugin: libheapcurl https://raw.githubusercont">
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/03/09/arch-gdb-peda-pip-ropgadget/"
-           data-title="arch gdb pip ropgadget" data-url="http://answerrrrrrrrr.io/2016/03/09/arch-gdb-peda-pip-ropgadget/">
+      <div class="ds-thread" data-thread-key="2016/03/10/hexo-scripts-1/"
+           data-title="hexo-scripts" data-url="http://answerrrrrrrrr.io/2016/03/10/hexo-scripts-1/">
       </div>
     
   </div>
@@ -459,7 +403,7 @@ gdb plugin: libheapcurl https://raw.githubusercont">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#gdb-plugin-gdb-peda"><span class="nav-number">1.</span> <span class="nav-text">gdb plugin: gdb-peda</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gdb-plugin-libheap"><span class="nav-number">2.</span> <span class="nav-text">gdb plugin: libheap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pip"><span class="nav-number">3.</span> <span class="nav-text">pip</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ROPgadget"><span class="nav-number">4.</span> <span class="nav-text">ROPgadget</span></a></li></ol></div>
+              <p class="post-toc-empty">This post does not have a Table of Contents</p>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
