@@ -1,8 +1,8 @@
 ---
 title: arch gdb pip ropgadget
 date: 2016-03-09 15:28:36
-category: Archlinux
-tags: [ROP, Archlinux, gdb, pip]
+category: rop
+tags: [Archlinux, gdb, pip]
 ---
 
 ### gdb plugin: [gdb-peda](https://github.com/longld/peda)
