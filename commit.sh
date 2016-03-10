@@ -1,5 +1,7 @@
 #!/bin/sh
 
+commit_log=$@
+
 hexo g
 
 echo
@@ -9,7 +11,7 @@ echo
 git add .
 
 echo
-git commit -m 'hexo commit'
+git commit -m $commit_log
 
 echo
 git push origin hexo:hexo

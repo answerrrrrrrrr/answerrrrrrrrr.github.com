@@ -58,21 +58,21 @@
 
 
 <meta name="description" content="偷师自http://www.xuxu1988.com/2015/05/16/config-my-hexo/
-commit.sh123456789101112131415#!/bin/shhexo gechohexo dechogit add .echogit commit -m &apos;hexo commit&apos;echogit push origin hexo:hexo
-edit.sh1234567891">
+commit.sh1234567891011121314151617#!/bin/shcommit_log=$@hexo gechohexo dechogit add .echogit commit -m $commit_logechogit push origin hexo:hexo
+ed">
 <meta property="og:type" content="article">
 <meta property="og:title" content="hexo-scripts">
 <meta property="og:url" content="http://answerrrrrrrrr.io/2016/03/09/hexo-scripts/index.html">
 <meta property="og:site_name" content="Answerrrrrrrrr">
 <meta property="og:description" content="偷师自http://www.xuxu1988.com/2015/05/16/config-my-hexo/
-commit.sh123456789101112131415#!/bin/shhexo gechohexo dechogit add .echogit commit -m &apos;hexo commit&apos;echogit push origin hexo:hexo
-edit.sh1234567891">
-<meta property="og:updated_time" content="2016-03-09T15:54:26.000Z">
+commit.sh1234567891011121314151617#!/bin/shcommit_log=$@hexo gechohexo dechogit add .echogit commit -m $commit_logechogit push origin hexo:hexo
+ed">
+<meta property="og:updated_time" content="2016-03-10T11:11:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hexo-scripts">
 <meta name="twitter:description" content="偷师自http://www.xuxu1988.com/2015/05/16/config-my-hexo/
-commit.sh123456789101112131415#!/bin/shhexo gechohexo dechogit add .echogit commit -m &apos;hexo commit&apos;echogit push origin hexo:hexo
-edit.sh1234567891">
+commit.sh1234567891011121314151617#!/bin/shcommit_log=$@hexo gechohexo dechogit add .echogit commit -m $commit_logechogit push origin hexo:hexo
+ed">
 
 
 
@@ -284,7 +284,7 @@ edit.sh1234567891">
 
       
         <p>偷师自<a href="http://www.xuxu1988.com/2015/05/16/config-my-hexo/" target="_blank" rel="external">http://www.xuxu1988.com/2015/05/16/config-my-hexo/</a></p>
-<h1 id="commit-sh"><a href="#commit-sh" class="headerlink" title="commit.sh"></a>commit.sh</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span><br><span class="line"></span></span><br><span class="line">hexo g</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span></span><br><span class="line">hexo d</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span></span><br><span class="line">git add .</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span></span><br><span class="line">git commit -m <span class="string">'hexo commit'</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span></span><br><span class="line">git push origin hexo:hexo</span><br></pre></td></tr></table></figure>
+<h1 id="commit-sh"><a href="#commit-sh" class="headerlink" title="commit.sh"></a>commit.sh</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span><br><span class="line"></span></span><br><span class="line">commit_<span class="built_in">log</span>=<span class="variable">$@</span></span><br><span class="line"></span><br><span class="line">hexo g</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span></span><br><span class="line">hexo d</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span></span><br><span class="line">git add .</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span></span><br><span class="line">git commit -m <span class="variable">$commit_log</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span></span><br><span class="line">git push origin hexo:hexo</span><br></pre></td></tr></table></figure>
 <h1 id="edit-sh"><a href="#edit-sh" class="headerlink" title="edit.sh"></a>edit.sh</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span><br><span class="line"></span></span><br><span class="line">filename=<span class="variable">$@</span></span><br><span class="line">file=./<span class="built_in">source</span>/_posts/<span class="variable">$filename</span>.md</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ ! <span class="_">-e</span> <span class="string">'$file'</span> ]</span><br><span class="line"><span class="keyword">then</span> </span><br><span class="line">    hexo new <span class="variable">$filename</span></span><br><span class="line"><span class="keyword">fi</span> </span><br><span class="line"></span><br><span class="line">open <span class="_">-a</span> /Applications/MacDown.app <span class="variable">$file</span></span><br></pre></td></tr></table></figure>
       
     </div>
@@ -387,8 +387,8 @@ edit.sh1234567891">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
-               alt="Air9" />
-          <p class="site-author-name" itemprop="name">Air9</p>
+               alt="Umeran" />
+          <p class="site-author-name" itemprop="name">Umeran</p>
           <p class="site-description motion-element" itemprop="description">And it's turtles all the way down.</p>
         </div>
         <nav class="site-state motion-element">
@@ -411,7 +411,7 @@ edit.sh1234567891">
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -470,7 +470,7 @@ edit.sh1234567891">
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Air9</span>
+  <span class="author" itemprop="copyrightHolder">Umeran</span>
 </div>
 
 <div class="powered-by">
