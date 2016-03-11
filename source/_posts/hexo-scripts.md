@@ -7,7 +7,7 @@ category: scripts
 
 偷师自[http://www.xuxu1988.com/2015/05/16/config-my-hexo/](http://www.xuxu1988.com/2015/05/16/config-my-hexo/)
 
-# commit.sh
+# ./commit.sh COMMIT_LOG
 ```sh
 #!/bin/sh
 
@@ -29,7 +29,7 @@ git push origin hexo:hexo
 
 ```
 
-# edit.sh
+# ./edit.sh FILENAME
 ```sh
 #!/bin/sh
 

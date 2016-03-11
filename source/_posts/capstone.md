@@ -46,8 +46,7 @@ Need a binary filename (--binary/--console or --help)
 只能用find   
 可以找到一个`/usr/lib/libcapstone.so.3`   
 然后
-`cp /usr/lib/libcapstone.so.3 /usr/local/lib/python2.7/dist-packages/capst│                                                                             
-one/libcapstone.dylib`
+`cp /usr/lib/libcapstone.so.3 /usr/local/lib/python2.7/dist-packages/capstone/libcapstone.dylib`
 解决
 
 
