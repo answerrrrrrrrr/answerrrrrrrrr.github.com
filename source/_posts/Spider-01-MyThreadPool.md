@@ -1,7 +1,8 @@
 ---
 title: Spider-01-MyThreadPool
 date: 2016-04-02 16:08:14
-tags:
+category: [Python]
+tags: [Spider, ThreadPool]
 ---
 
 知道创宇爬虫要求自己实现线程池，研究了好几篇博客之后，大致提取出几个要点：
