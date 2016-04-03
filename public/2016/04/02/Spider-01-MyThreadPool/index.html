@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Archlinux,gdb,pip," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -57,25 +57,28 @@
 
 
 
-<meta name="description" content="gdb plugin: gdb-pedasudo pacman -S gdb
-git clone https://github.com/longld/peda.git ~/peda
-echo &amp;quot;source ~/peda/peda.py&amp;quot; &amp;gt;&amp;gt; ~/.gdbinit
-gdb plugin: libheapcurl https://raw.githubusercont">
+<meta name="description" content="知道创宇爬虫要求自己实现线程池，研究了好几篇博客之后，大致提取出几个要点：
+
+使用默认的Thread()创建线程时，通常都是直接绑定一个具体的func但若使用线程池，初始化的线程数在有些时候可能会多于任务数因此，在自定义MyThread()时，采用先绑定整个任务队列，然后逐条取出任务func执行的方式   
+使用MyThreadPool提前创建所需数目的线程，再分配给具体任务func
+自定义MyT">
 <meta property="og:type" content="article">
-<meta property="og:title" content="arch gdb pip ropgadget">
-<meta property="og:url" content="http://answerrrrrrrrr.io/2016/03/09/arch-gdb-peda-pip-ropgadget/index.html">
+<meta property="og:title" content="Spider-01-MyThreadPool">
+<meta property="og:url" content="http://answerrrrrrrrr.io/2016/04/02/Spider-01-MyThreadPool/index.html">
 <meta property="og:site_name" content="Answerrrrrrrrr">
-<meta property="og:description" content="gdb plugin: gdb-pedasudo pacman -S gdb
-git clone https://github.com/longld/peda.git ~/peda
-echo &amp;quot;source ~/peda/peda.py&amp;quot; &amp;gt;&amp;gt; ~/.gdbinit
-gdb plugin: libheapcurl https://raw.githubusercont">
-<meta property="og:updated_time" content="2016-03-10T08:29:26.000Z">
+<meta property="og:description" content="知道创宇爬虫要求自己实现线程池，研究了好几篇博客之后，大致提取出几个要点：
+
+使用默认的Thread()创建线程时，通常都是直接绑定一个具体的func但若使用线程池，初始化的线程数在有些时候可能会多于任务数因此，在自定义MyThread()时，采用先绑定整个任务队列，然后逐条取出任务func执行的方式   
+使用MyThreadPool提前创建所需数目的线程，再分配给具体任务func
+自定义MyT">
+<meta property="og:updated_time" content="2016-04-03T13:31:48.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="arch gdb pip ropgadget">
-<meta name="twitter:description" content="gdb plugin: gdb-pedasudo pacman -S gdb
-git clone https://github.com/longld/peda.git ~/peda
-echo &amp;quot;source ~/peda/peda.py&amp;quot; &amp;gt;&amp;gt; ~/.gdbinit
-gdb plugin: libheapcurl https://raw.githubusercont">
+<meta name="twitter:title" content="Spider-01-MyThreadPool">
+<meta name="twitter:description" content="知道创宇爬虫要求自己实现线程池，研究了好几篇博客之后，大致提取出几个要点：
+
+使用默认的Thread()创建线程时，通常都是直接绑定一个具体的func但若使用线程池，初始化的线程数在有些时候可能会多于任务数因此，在自定义MyThread()时，采用先绑定整个任务队列，然后逐条取出任务func执行的方式   
+使用MyThreadPool提前创建所需数目的线程，再分配给具体任务func
+自定义MyT">
 
 
 
@@ -93,7 +96,7 @@ gdb plugin: libheapcurl https://raw.githubusercont">
   };
 </script>
 
-  <title> arch gdb pip ropgadget | Answerrrrrrrrr </title>
+  <title> Spider-01-MyThreadPool | Answerrrrrrrrr </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -221,7 +224,7 @@ gdb plugin: libheapcurl https://raw.githubusercont">
             
             
               
-                arch gdb pip ropgadget
+                Spider-01-MyThreadPool
               
             
           </h1>
@@ -233,38 +236,19 @@ gdb plugin: libheapcurl https://raw.githubusercont">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-03-09T15:28:36+08:00" content="2016-03-09">
-              2016-03-09
+            <time itemprop="dateCreated" datetime="2016-04-02T16:08:14+08:00" content="2016-04-02">
+              2016-04-02
             </time>
           </span>
 
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/rop/" itemprop="url" rel="index">
-                    <span itemprop="name">rop</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
           
 
           
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/03/09/arch-gdb-peda-pip-ropgadget/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/09/arch-gdb-peda-pip-ropgadget/" itemprop="commentsCount"></span>
+                <a href="/2016/04/02/Spider-01-MyThreadPool/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/02/Spider-01-MyThreadPool/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -286,20 +270,24 @@ gdb plugin: libheapcurl https://raw.githubusercont">
       
 
       
-        <h3 id="gdb-plugin-gdb-peda"><a href="#gdb-plugin-gdb-peda" class="headerlink" title="gdb plugin: gdb-peda"></a>gdb plugin: <a href="https://github.com/longld/peda" target="_blank" rel="external">gdb-peda</a></h3><p><code>sudo pacman -S gdb</code></p>
-<p><code>git clone https://github.com/longld/peda.git ~/peda</code></p>
-<p><code>echo &quot;source ~/peda/peda.py&quot; &gt;&gt; ~/.gdbinit</code></p>
-<h3 id="gdb-plugin-libheap"><a href="#gdb-plugin-libheap" class="headerlink" title="gdb plugin: libheap"></a>gdb plugin: <a href="https://github.com/cloudburst/libheap" target="_blank" rel="external">libheap</a></h3><p><code>curl https://raw.githubusercontent.com/answerrrrrrrrr/VRL/master/test/exploits/lib/libheap.py &gt; libheap.py</code></p>
-<p><code>sudo mv libheap.py /usr/lib/python2.7</code></p>
-<p><code>gdb</code></p>
-<p><code>(gdb) python from libheap import *</code></p>
-<p><code>(gdb) heap -h</code></p>
-<h3 id="pip"><a href="#pip" class="headerlink" title="pip"></a>pip</h3><p><code>curl https://bootstrap.pypa.io/get-pip.py &gt; getpip.py</code></p>
-<p><code>sudo python getpip.py</code></p>
-<h3 id="ROPgadget"><a href="#ROPgadget" class="headerlink" title="ROPgadget"></a>ROPgadget</h3><p><code>sudo pacman -S python-capstone</code></p>
-<p><code>sudo pip install ropgadget</code></p>
-<p>If gets errors about capstone:</p>
-<p><code>sudo pip install ropgadget --upgrade</code></p>
+        <p>知道创宇爬虫要求自己实现线程池，研究了好几篇博客之后，大致提取出几个要点：</p>
+<ul>
+<li>使用默认的<code>Thread()</code>创建线程时，通常都是直接绑定一个具体的<code>func</code><br>但若使用线程池，初始化的线程数在有些时候可能会多于任务数<br>因此，在自定义<code>MyThread()</code>时，采用先绑定整个任务队列，然后逐条取出任务<code>func</code>执行的方式   </li>
+<li>使用<code>MyThreadPool</code>提前创建所需数目的线程，再分配给具体任务<code>func</code></li>
+<li>自定义<code>MyThread()</code>中需设置<code>self.daemon = True</code>，否则完成所有任务后仍不会推出</li>
+<li><code>Queue()</code>提供了两个非常好用的方法<ul>
+<li><code>task_done()</code>一条任务完成时通知整个队列，空闲下来的线程就可以被分配新任务</li>
+<li><code>join()</code>在所有任务执行完成之前阻塞主线程</li>
+</ul>
+</li>
+</ul>
+<p>代码如下:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line">__author__ = <span class="string">'Air9'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> threading <span class="keyword">import</span> Thread</span><br><span class="line"><span class="keyword">from</span> Queue <span class="keyword">import</span> Queue</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyThreadPool</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, num_threads=<span class="number">20</span>)</span>:</span></span><br><span class="line">        self.tasks = Queue(num_threads)</span><br><span class="line">        <span class="keyword">for</span> _ <span class="keyword">in</span> xrange(num_threads):</span><br><span class="line">            MyThread(self.tasks) <span class="comment"># Init the pool with the number of num_threads</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add_task</span><span class="params">(self, func, *args, **kwargs)</span>:</span></span><br><span class="line">        self.tasks.put((func, args, kwargs))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wait_completion</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.tasks.join() <span class="comment"># Blocks until all items in the queue have been gotten and processed.</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyThread</span><span class="params">(Thread)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, tasks)</span>:</span></span><br><span class="line">        Thread.__init__(self)</span><br><span class="line">        self.tasks = tasks</span><br><span class="line">        self.daemon = <span class="keyword">True</span> <span class="comment"># This must be set before start() is called. The entire Python program exits when no alive non-daemon threads are left.</span></span><br><span class="line">        self.start()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">            func, args, kwargs = self.tasks.get() <span class="comment"># Block until an item is available.</span></span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                func(*args, **kwargs)</span><br><span class="line">            <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">                <span class="keyword">print</span> e</span><br><span class="line">            self.tasks.task_done() <span class="comment"># Tells the queue that the processing on the task is complete.</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="string">''' test task '''</span></span><br><span class="line">    <span class="keyword">from</span> time <span class="keyword">import</span> sleep</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">nap</span><span class="params">(sec)</span>:</span></span><br><span class="line">        sleep(sec)</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'Had a %ds nap...'</span> % sec</span><br><span class="line"></span><br><span class="line">    tp = MyThreadPool(<span class="number">5</span>)</span><br><span class="line">    nap_time = [i <span class="keyword">for</span> i <span class="keyword">in</span> xrange(<span class="number">1</span>, <span class="number">11</span>)]</span><br><span class="line">    <span class="keyword">for</span> i, t <span class="keyword">in</span> enumerate(nap_time, <span class="number">1</span>):</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'Worker No.%d needs a %ds nap.'</span> % (i, t)</span><br><span class="line">        tp.add_task(nap, t)</span><br><span class="line"></span><br><span class="line">    tp.wait_completion()</span><br></pre></td></tr></table></figure>
+<p>参考：   </p>
+<ol>
+<li><a href="http://www.the5fire.com/python-thread-pool.html" target="_blank" rel="external">python线程池</a>   </li>
+<li><a href="http://github.howie.wang/2016/01/07/python-threading/" target="_blank" rel="external">【Howie玩python】-多线程从0到1到澡堂子洗澡</a></li>
+</ol>
 
       
     </div>
@@ -312,32 +300,18 @@ gdb plugin: libheapcurl https://raw.githubusercont">
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Archlinux/" rel="tag">#Archlinux</a>
-          
-            <a href="/tags/gdb/" rel="tag">#gdb</a>
-          
-            <a href="/tags/pip/" rel="tag">#pip</a>
-          
-        </div>
-      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/03/09/tmux-copy2clipboard/" rel="next" title="tmux copy2clipboard">
-                <i class="fa fa-chevron-left"></i> tmux copy2clipboard
+              <a href="/2016/03/10/capstone/" rel="next" title="ropgadget capstone">
+                <i class="fa fa-chevron-left"></i> ropgadget capstone
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/03/09/arch-vmtools/" rel="prev" title="arch vmtools">
-                arch vmtools <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -363,8 +337,8 @@ gdb plugin: libheapcurl https://raw.githubusercont">
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/03/09/arch-gdb-peda-pip-ropgadget/"
-           data-title="arch gdb pip ropgadget" data-url="http://answerrrrrrrrr.io/2016/03/09/arch-gdb-peda-pip-ropgadget/">
+      <div class="ds-thread" data-thread-key="2016/04/02/Spider-01-MyThreadPool/"
+           data-title="Spider-01-MyThreadPool" data-url="http://answerrrrrrrrr.io/2016/04/02/Spider-01-MyThreadPool/">
       </div>
     
   </div>
@@ -459,7 +433,7 @@ gdb plugin: libheapcurl https://raw.githubusercont">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#gdb-plugin-gdb-peda"><span class="nav-number">1.</span> <span class="nav-text">gdb plugin: gdb-peda</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gdb-plugin-libheap"><span class="nav-number">2.</span> <span class="nav-text">gdb plugin: libheap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pip"><span class="nav-number">3.</span> <span class="nav-text">pip</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ROPgadget"><span class="nav-number">4.</span> <span class="nav-text">ROPgadget</span></a></li></ol></div>
+              <p class="post-toc-empty">This post does not have a Table of Contents</p>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
