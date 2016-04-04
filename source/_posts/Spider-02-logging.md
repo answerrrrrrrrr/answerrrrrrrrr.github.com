@@ -5,7 +5,7 @@ category: [Python]
 tags: [Spider]
 ---
 
-	# 知道创宇爬虫设计第二天：学习logging模块
+# 知道创宇爬虫设计第二天：logging
 
 [此文章](http://blog.chinaunix.net/uid-26000296-id-4372063.html)的测试用例详细实用，对logging模块的解析也很不错，现把自己理解的要点摘录如下
 
@@ -211,3 +211,8 @@ def testsubmod():
 2016-04-04 14:46:24,149 - main.mod.submod - [line:14] - DEBUG - test submod.looger
 2016-04-04 14:46:24,149 - root - [line:23] - INFO - finish test
 ```
+
+# 参考
+
+- http://my.oschina.net/leejun2005/blog/126713
+- http://blog.chinaunix.net/uid-26000296-id-4372063.html
