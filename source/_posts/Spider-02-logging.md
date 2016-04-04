@@ -5,7 +5,7 @@ category: [Python]
 tags: [Spider]
 ---
 
-# 知道创宇爬虫设计第二天：学习logging模块
+	# 知道创宇爬虫设计第二天：学习logging模块
 
 [此文章](http://blog.chinaunix.net/uid-26000296-id-4372063.html)的测试用例详细实用，对logging模块的解析也很不错，现把自己理解的要点摘录如下
 
