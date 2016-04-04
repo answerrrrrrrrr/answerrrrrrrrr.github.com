@@ -5,7 +5,7 @@ category: [Python]
 tags: [Spider]
 ---
 
-知道创宇爬虫设计第二天：学习logging模块
+# 知道创宇爬虫设计第二天：学习logging模块
 
 [此文章](http://blog.chinaunix.net/uid-26000296-id-4372063.html)的测试用例详细实用，对logging模块的解析也很不错，现把自己理解的要点摘录如下
 
@@ -13,7 +13,7 @@ tags: [Spider]
 - 子孙既会将消息分发给他的handler进行处理，也会传递给所有的祖先Logger处理
 - 若为Handler加Filter则所有使用了该Handler的Logger都会受到影响。而为Logger添加Filter只会影响到自身
 - 典型的多模块场景下使用logging的方式，是在main模块中配置logging，这个配置会作用于其所有子模块
-- `logging.config.fileConfig("logging.conf")`
+- 使用配置文件`logging.config.fileConfig("logging.conf")`([来源](http://my.oschina.net/leejun2005/blog/126713))
 
 ```python logging.conf
 # 定义logger模块，root是父类，必需存在的，其它的是自定义。
@@ -107,4 +107,107 @@ class=logging.Formatter
 format=%(asctime)s %(levelname)s %(message)s
 datefmt=
 class=logging.Formatter
+```
+
+# 测试用例
+
+```python main.py
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+__author__ = 'Air9'
+
+
+
+import logging
+import logging.config
+
+logging.config.fileConfig('main.conf')
+root_logger = logging.getLogger('root')
+root_logger.debug('test root logger')
+
+logger = logging.getLogger('main')
+logger.info('test main logger')
+logger.info('start import mod')
+import mod
+
+logger.debug('test mod.testmod()')
+mod.testmod()
+
+root_logger.info('finish test')
+```
+```python main.conf
+[loggers]
+keys = root, main
+
+[handlers]
+keys = consoleHandler
+
+[formatters]
+keys = simpleFormatter
+
+[logger_root]
+level = DEBUG
+handlers = consoleHandler
+
+[logger_main]
+level = DEBUG
+handlers = consoleHandler
+qualname = main
+propagate = 0
+
+[handler_consoleHandler]
+class = StreamHandler
+level = DEBUG
+formatter = simpleFormatter
+args = (sys.stdout,)
+
+[formatter_simpleFormatter]
+format = %(asctime)s - %(name)s - [line:%(lineno)d] - %(levelname)s - %(message)s
+datefmt = 
+```
+```python mod.py
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+__author__ = 'Air9'
+
+
+
+import logging
+import submod
+
+logger = logging.getLogger('main.mod')
+logger.info('logger main.mod')
+
+def testmod():
+    logger.debug('test mod.testmod()')
+    submod.testsubmod()
+```
+```python submod.py
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+__author__ = 'Air9'
+
+
+
+import logging
+
+logger = logging.getLogger('main.mod.submod')
+logger.info('submod.logger')
+
+def testsubmod():
+    logger.debug('test submod.testsubmod()')
+```
+```shell output
+2016-04-04 14:46:24,148 - root - [line:13] - DEBUG - test root logger
+2016-04-04 14:46:24,148 - main - [line:16] - INFO - test main logger
+2016-04-04 14:46:24,148 - main - [line:17] - INFO - start import mod
+2016-04-04 14:46:24,148 - main.mod.submod - [line:11] - INFO - submod.logger
+2016-04-04 14:46:24,148 - main.mod - [line:12] - INFO - logger main.mod
+2016-04-04 14:46:24,149 - main - [line:20] - DEBUG - test mod.testmod()
+2016-04-04 14:46:24,149 - main.mod - [line:15] - DEBUG - test mod.testmod()
+2016-04-04 14:46:24,149 - main.mod.submod - [line:14] - DEBUG - test submod.looger
+2016-04-04 14:46:24,149 - root - [line:23] - INFO - finish test
 ```
