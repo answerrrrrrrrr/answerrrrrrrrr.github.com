@@ -18,7 +18,7 @@ tags: [Spider, ThreadPool]
 	* `task_done()`一条任务完成时通知整个队列，空闲下来的线程就可以被分配新任务
 	* `join()`在所有任务执行完成之前阻塞主线程
 
-代码如下:
+# 代码
 
 ```python
 #!/usr/bin/env python
@@ -80,6 +80,6 @@ if __name__ == '__main__':
 ```
 
 
-参考：   
+# 参考
 1. [python线程池](http://www.the5fire.com/python-thread-pool.html)   
 2. [【Howie玩python】-多线程从0到1到澡堂子洗澡](http://github.howie.wang/2016/01/07/python-threading/)
