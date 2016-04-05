@@ -214,6 +214,130 @@
             
               
                 
+                <a class="post-title-link" href="/2016/03/09/tmux-copy2clipboard/" itemprop="url">
+                  tmux copy2clipboard
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-03-09T15:25:31+08:00" content="2016-03-09">
+              2016-03-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/tmux/" itemprop="url" rel="index">
+                    <span itemprop="name">tmux</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/03/09/tmux-copy2clipboard/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/09/tmux-copy2clipboard/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://wiki.archlinux.org/index.php/Tmux#Mouse_scrolling" target="_blank" rel="external">https://wiki.archlinux.org/index.php/Tmux#Mouse_scrolling</a></p>
+<h1 id="Mouse-scrolling"><a href="#Mouse-scrolling" class="headerlink" title="Mouse scrolling"></a>Mouse scrolling</h1><p><em>Note: This interferes with selection buffer copying and pasting. To copy/paste to/from the selection buffer hold the <code>shift</code> key.</em></p>
+<p>If you want to scroll with your mouse wheel, ensure mode-mouse is on in .tmux.conf</p>
+<pre><code>set -g mouse on
+</code></pre><p>You can set scroll History with:</p>
+<pre><code>set -g history-limit 30000
+</code></pre><p>For mouse wheel scrolling as from tmux 2.1 try adding one or both of these to ~/.tmux.conf</p>
+<pre><code>bind-key -T root WheelUpPane   if-shell -F -t = &quot;#{alternate_on}&quot; &quot;send-keys -M&quot; &quot;select-pane -t =; copy-mode -e; send-keys -M&quot;   
+bind-key -T root WheelDownPane if-shell -F -t = &quot;#{alternate_on}&quot; &quot;send-keys -M&quot; &quot;select-pane -t =; send-keys -M&quot;
+</code></pre><h1 id="Copy-from-tmux-to-clipboard"><a href="#Copy-from-tmux-to-clipboard" class="headerlink" title="Copy from tmux to clipboard"></a>Copy from tmux to clipboard</h1><p>Hold the <code>shift</code> key to select the text, then copy &amp; paste.</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/03/09/mac-vim74-lua/" itemprop="url">
                   mac vim74+lua
                 </a>
@@ -616,7 +740,7 @@ set background=light
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-count">14</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
