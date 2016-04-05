@@ -1,8 +1,8 @@
 ---
 title: Sublime-SublimeREPL
 date: 2016-04-05 16:24:00
-tags: [SublimeREPL]
 category: [Sublime]
+tags: [SublimeREPL]
 ---
 
 无意中发现一个类似 Vim 下 quickrun 的插件`SublimeREPL`
