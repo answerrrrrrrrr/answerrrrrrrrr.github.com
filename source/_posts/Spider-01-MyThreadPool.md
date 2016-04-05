@@ -24,9 +24,6 @@ tags: [Spider, ThreadPool]
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-__author__ = 'Air9'
-
-
 
 from threading import Thread
 from Queue import Queue
@@ -36,30 +33,36 @@ class MyThreadPool(object):
     def __init__(self, num_threads=20):
         self.tasks = Queue(num_threads)
         for _ in xrange(num_threads):
-            MyThread(self.tasks) # Init the pool with the number of num_threads
+            # Init the pool with the number of num_threads
+            MyThread(self.tasks)
 
     def add_task(self, func, *args, **kwargs):
         self.tasks.put((func, args, kwargs))
 
     def wait_completion(self):
-        self.tasks.join() # Blocks until all items in the queue have been gotten and processed.
+        # Blocks until all items in the queue have been gotten and processed.
+        self.tasks.join()
 
 
 class MyThread(Thread):
     def __init__(self, tasks):
         Thread.__init__(self)
         self.tasks = tasks
-        self.daemon = True # This must be set before start() is called. The entire Python program exits when no alive non-daemon threads are left.
+        # This must be set before start() is called. The entire Python program
+        # exits when no alive non-daemon threads are left.
+        self.daemon = True
         self.start()
 
     def run(self):
         while True:
-            func, args, kwargs = self.tasks.get() # Block until an item is available.
+            # Block until an item is available.
+            func, args, kwargs = self.tasks.get()
             try:
                 func(*args, **kwargs)
             except Exception as e:
                 print e
-            self.tasks.task_done() # Tells the queue that the processing on the task is complete.
+            # Tells the queue that the processing on the task is complete.
+            self.tasks.task_done()
 
 
 if __name__ == '__main__':
@@ -77,6 +80,7 @@ if __name__ == '__main__':
         tp.add_task(nap, t)
 
     tp.wait_completion()
+
 ```
 
 

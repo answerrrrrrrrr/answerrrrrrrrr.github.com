@@ -24,29 +24,63 @@ tags: [Spider]
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-__author__ = 'Air9'
-
-
 
 import argparse
 
+
 def parse():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-u', '--url', dest='url', required=True, help='specify the URL to start crawl')
-    parser.add_argument('-d', '--depth', dest='depth', default=1, type=int, help='specify the depth of the spider (default: 1)')
-    parser.add_argument('-f', '--file', dest='logfile', default='spider.log', help='specify the path of logfile (default: spider.log)')
-    parser.add_argument('-l', '--level', dest='loglevel', choices=range(1, 6), default=1, type=int, help='specify the verbose level of the log (default: 1)')
-    parser.add_argument('--dbfile', dest='dbfile', default='spider.db', help='specify the path of sqlite dbfile (default: spider.db)')
-    parser.add_argument('--thread', dest='num_threads', default=10, type=int, help='specify the size of thread pool (default: 10)')
-    parser.add_argument('--keyword', dest='keyword', help='specify the keyword')
-    parser.add_argument('--selftest', action='store_true', help='self-test')
+
+    parser.add_argument(
+        '-u', '--url', dest='url', required=True,
+        help='specify the URL to start crawl'
+        )
+    parser.add_argument(
+        '-d', '--depth', dest='depth',
+        default=1, type=int,
+        help='specify the depth of the spider (default: 1)'
+        )
+    parser.add_argument(
+        '-f', '--file', dest='logfile',
+        default='spider.log',
+        help='specify the path of logfile (default: spider.log)'
+        )
+    parser.add_argument(
+        '-l', '--level', dest='loglevel', choices=range(1, 6),
+        default=1, type=int,
+        help='specify the verbose level of the log (default: 1)'
+        )
+    parser.add_argument(
+        '--dbfile', dest='dbfile',
+        default='spider.db',
+        help='specify the path of sqlite dbfile (default: spider.db)'
+        )
+    parser.add_argument(
+        '--thread', dest='num_threads',
+        default=10, type=int,
+        help='specify the size of thread pool (default: 10)'
+        )
+    parser.add_argument(
+        '--keyword', dest='keyword',
+        help='specify the keyword'
+        )
+    parser.add_argument(
+        '--selftest', action='store_true',
+        help='self-test'
+        )
 
     args = parser.parse_args()
-    # > Namespace(dbfile='spider.db', depth=1, keyword=None, logfile='spider.log', loglevel=1, num_threads=10, selftest=False, url='www.baidu.com')
+    # > Namespace(
+    #     dbfile='spider.db', depth=1, keyword=None,
+    #     logfile='spider.log', loglevel=1, num_threads=10,
+    #     selftest=False, url='www.baidu.com'
+    #     )
     return args
+
 
 if __name__ == '__main__':
     parse()
+
 ```
 
 # 参考

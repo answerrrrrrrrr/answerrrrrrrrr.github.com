@@ -23,9 +23,6 @@ tags: [Spider]
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-__author__ = 'Air9'
-
-
 
 import sqlite3
 import logging
@@ -34,12 +31,12 @@ logging.config.fileConfig('logging.conf')
 
 
 levels = {
-            1:'CRITICAL',
-            2:'ERROR',
-            3:'WARNING',
-            4:'INFO',
-            5:'DEBUG',
-         }
+    1: 'CRITICAL',
+    2: 'ERROR',
+    3: 'WARNING',
+    4: 'INFO',
+    5: 'DEBUG',
+}
 loglevel = 4
 logger = logging.getLogger('spider')
 logger.setLevel(levels[loglevel])
@@ -61,16 +58,20 @@ class MySqlite(object):
     def create(self, table):
         try:
             logger.info("Create table %s" % table)
-            self.cursor.execute("CREATE TABLE IF NOT EXISTS %s(Id INTEGER PRIMARY KEY AUTOINCREMENT, Data VARCHAR(40))"% table)
+            self.cursor.execute(
+                "CREATE TABLE IF NOT EXISTS %s(Id INTEGER PRIMARY KEY \
+                AUTOINCREMENT, Data VARCHAR(40))" % table
+                )
             self.conn.commit()
         except sqlite3.Error as e:
-            logger.error("Fail to create %s: %s" % (dbfile, e))
+            logger.error("Fail to create %s: %s" % (table, e))
             self.conn.rollback()
 
     def insert(self, table, data):
         try:
             logger.info("Insert %s into table %s" % (data, table))
-            self.cursor.execute("INSERT INTO %s(Data) VALUES('%s')" % (table, data))
+            self.cursor.execute(
+                "INSERT INTO %s(Data) VALUES('%s')" % (table, data))
             self.conn.commit()
         except sqlite3.Error as e:
             logger.error("Fail to insert %s into %s: %s" % (data, table, e))
@@ -87,7 +88,6 @@ if __name__ == '__main__':
     ms.create('t1')
     ms.insert('t1', 'test')
     ms.close()
-
 ```
 
 ```shell logging.conf
