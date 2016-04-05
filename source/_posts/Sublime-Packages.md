@@ -5,7 +5,7 @@ category: [Sublime]
 tags: [SublimeREPL, ExpandRegion]
 ---
 
-# SublimeREPL
+# [SublimeREPL](https://github.com/wuub/SublimeREPL)
 
 无意中发现一个类似 Vim 下 quickrun 的插件`SublimeREPL`
 
@@ -26,13 +26,12 @@ tags: [SublimeREPL, ExpandRegion]
 ...
 ```
 
-这样一来，保存之后按`F2`即可快速运行 Python 脚本，不用来回切换终端了
-
+这样一来，保存之后按`F2`即可快速运行 Python 脚本，不用来回切换终端了   
 C'est bon!
 
-# ExpandRegion
+# [ExpandRegion](https://github.com/aronwoost/sublime-expand-region)
 
-在[知乎](https://www.zhihu.com/question/24896283)看到一个推荐的插件感觉挺不错，用于快速扩展选区，也是在`Perferences`-`Key Bindings - User`中加入
+在[知乎](https://www.zhihu.com/question/24896283)看到推荐感觉挺不错，用于快速扩展选区，也是在`Perferences`-`Key Bindings - User`中加入
 
 ```json Default (OSX).sublime-keymap
 ...
