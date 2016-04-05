@@ -7,9 +7,20 @@ tags: [SublimeREPL, ExpandRegion]
 
 # [Vintage](https://github.com/sublimehq/Vintage)
 
-这个是Sublime自带的vi模式，按照习惯把`esc`改成`j``j`
+这个是Sublime自带的vi模式  
+先注释掉`Preferences.sublime-settings`里的`Vintage`
 
-```json Default (OSX).sublime-keymap
+```js Preferences.sublime-settings
+...
+    "ignored_packages":[
+        // "Vintage"
+    ],
+...
+```
+
+再按照习惯把`esc`改成`j` `j`
+
+```js Default (OSX).sublime-keymap
 ...
 // Vintage
     {
@@ -37,9 +48,9 @@ tags: [SublimeREPL, ExpandRegion]
 
 在`Perferences`-`Key Bindings - User`中加入
 
-```json Default (OSX).sublime-keymap
+```js Default (OSX).sublime-keymap
 ...
-    // SublimeREPL - python
+    // SublimeREPL - Python
     {
         "keys": ["f2"],
         "caption": "SublimeREPL: Python - RUN current file",
@@ -59,7 +70,7 @@ C'est bon!
 
 在[知乎](https://www.zhihu.com/question/24896283)看到推荐感觉挺不错，用于快速扩展选区，也是在`Perferences`-`Key Bindings - User`中加入
 
-```json Default (OSX).sublime-keymap
+```js Default (OSX).sublime-keymap
 ...
     {
         "keys": ["super+e"],
