@@ -5,6 +5,32 @@ category: [Sublime]
 tags: [SublimeREPL, ExpandRegion]
 ---
 
+# [Vintage](https://github.com/sublimehq/Vintage)
+
+这个是Sublime自带的vi模式，按照习惯把`esc`改成`j``j`
+
+```json Default (OSX).sublime-keymap
+...
+// Vintage
+    {
+        "keys": ["j", "j"],
+        "command": "exit_insert_mode",
+        "context":[
+            {
+                "key": "setting.command_mode",
+                "operand": false
+            },
+            {
+                "key": "setting.is_widget",
+                "operand": false
+            }
+        ]
+    },
+...
+```
+另外还有一个[VintageEx](https://github.com/SublimeText/VintageEx)，不过我倒是没有太大需求
+
+
 # [SublimeREPL](https://github.com/wuub/SublimeREPL)
 
 无意中发现一个类似 Vim 下 quickrun 的插件`SublimeREPL`
@@ -35,13 +61,21 @@ C'est bon!
 
 ```json Default (OSX).sublime-keymap
 ...
-    // ExpandRegion
-    { "keys": ["super+e"], "command": "expand_region" },
     {
-      "keys": ["super+u"],
-      "command": "expand_region",
-      "args": {"undo": true},
-      "context": [{ "key": "expand_region_soft_undo" }]
+        "keys": ["super+e"],
+        "command": "expand_region"
+    },
+    {
+        "keys": ["super+u"],
+        "command": "expand_region",
+        "args": {
+            "undo": true
+        },
+        "context": [
+            {
+                "key": "expand_region_soft_undo"
+            }
+        ]
     },
 ...
 ```
