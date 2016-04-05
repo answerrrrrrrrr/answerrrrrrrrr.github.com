@@ -88,14 +88,14 @@ if __name__ == '__main__':
     ms.insert('t1', 'test')
     ms.close()
 
-
 ```
+
 ```shell logging.conf
 [loggers]
 keys = root, spider
 
 [handlers]
-keys = consoleHandler
+keys = consoleHandler, fileHandler
 
 [formatters]
 keys = simpleFormatter
@@ -106,7 +106,7 @@ handlers = consoleHandler
 
 [logger_spider]
 level = DEBUG
-handlers = consoleHandler
+handlers = consoleHandler, fileHandler
 qualname = spider
 propagate = 0
 
@@ -115,6 +115,12 @@ class = StreamHandler
 level = DEBUG
 formatter = simpleFormatter
 args = (sys.stdout,)
+
+[handler_fileHandler]
+class = FileHandler
+level = DEBUG
+formatter = simpleFormatter
+args = ('spider.log', 'w')
 
 [formatter_simpleFormatter]
 format = %(asctime)s - %(name)s - %(levelname)s - %(message)s
@@ -127,3 +133,4 @@ datefmt =
 - http://blog.sina.com.cn/s/blog_72603eac01013pbc.html
 - http://blog.csdn.net/jeepxiaozi/article/details/8808435
 - http://dongweiming.github.io/blog/archives/pa-chong-lian-xi/
+- http://devdocs.io/python~2.7/library/logging.config
