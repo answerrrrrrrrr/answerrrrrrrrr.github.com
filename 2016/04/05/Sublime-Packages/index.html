@@ -67,7 +67,7 @@ Default (OSX).sublime-keymap123456789101112...    // SublimeREPL - python    &am
 <meta property="og:description" content="SublimeREPL无意中发现一个类似 Vim 下 quickrun 的插件SublimeREPL
 在Perferences-Key Bindings - User中加入
 Default (OSX).sublime-keymap123456789101112...    // SublimeREPL - python    &amp;#123;        &quot;keys&quot;: [&quot;f2&quot;],">
-<meta property="og:updated_time" content="2016-04-05T09:45:46.000Z">
+<meta property="og:updated_time" content="2016-04-05T09:48:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Sublime Packages">
 <meta name="twitter:description" content="SublimeREPL无意中发现一个类似 Vim 下 quickrun 的插件SublimeREPL
@@ -283,12 +283,11 @@ Default (OSX).sublime-keymap123456789101112...    // SublimeREPL - python    &am
       
 
       
-        <h1 id="SublimeREPL"><a href="#SublimeREPL" class="headerlink" title="SublimeREPL"></a>SublimeREPL</h1><p>无意中发现一个类似 Vim 下 quickrun 的插件<code>SublimeREPL</code></p>
+        <h1 id="SublimeREPL"><a href="#SublimeREPL" class="headerlink" title="SublimeREPL"></a><a href="https://github.com/wuub/SublimeREPL" target="_blank" rel="external">SublimeREPL</a></h1><p>无意中发现一个类似 Vim 下 quickrun 的插件<code>SublimeREPL</code></p>
 <p>在<code>Perferences</code>-<code>Key Bindings - User</code>中加入</p>
 <figure class="highlight"><figcaption><span>Default (OSX).sublime-keymap</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">    // SublimeREPL - python</span><br><span class="line">    &#123;</span><br><span class="line">        "keys": ["f2"],</span><br><span class="line">        "caption": "SublimeREPL: Python - RUN current file",</span><br><span class="line">        "command": "run_existing_window_command",</span><br><span class="line">        "args": &#123;</span><br><span class="line">            "id": "repl_python_run",</span><br><span class="line">            "file": "config/Python/Main.sublime-menu",</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<p>这样一来，保存之后按<code>F2</code>即可快速运行 Python 脚本，不用来回切换终端了</p>
-<p>C’est bon!</p>
-<h1 id="ExpandRegion"><a href="#ExpandRegion" class="headerlink" title="ExpandRegion"></a>ExpandRegion</h1><p>在<a href="https://www.zhihu.com/question/24896283" target="_blank" rel="external">知乎</a>看到一个推荐的插件感觉挺不错，用于快速扩展选区，也是在<code>Perferences</code>-<code>Key Bindings - User</code>中加入</p>
+<p>这样一来，保存之后按<code>F2</code>即可快速运行 Python 脚本，不用来回切换终端了<br>C’est bon!</p>
+<h1 id="ExpandRegion"><a href="#ExpandRegion" class="headerlink" title="ExpandRegion"></a><a href="https://github.com/aronwoost/sublime-expand-region" target="_blank" rel="external">ExpandRegion</a></h1><p>在<a href="https://www.zhihu.com/question/24896283" target="_blank" rel="external">知乎</a>看到推荐感觉挺不错，用于快速扩展选区，也是在<code>Perferences</code>-<code>Key Bindings - User</code>中加入</p>
 <figure class="highlight"><figcaption><span>Default (OSX).sublime-keymap</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">    // ExpandRegion</span><br><span class="line">    &#123; "keys": ["super+e"], "command": "expand_region" &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      "keys": ["super+u"],</span><br><span class="line">      "command": "expand_region",</span><br><span class="line">      "args": &#123;"undo": true&#125;,</span><br><span class="line">      "context": [&#123; "key": "expand_region_soft_undo" &#125;]</span><br><span class="line">    &#125;,</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
       
     </div>
