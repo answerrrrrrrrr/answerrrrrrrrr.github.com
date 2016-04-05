@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="ropgadget,capstone," />
+  <meta name="keywords" content="SublimeREPL,ExpandRegion," />
 
 
 
@@ -57,22 +57,22 @@
 
 
 
-<meta name="description" content="import errorcapstone是一个著名的反汇编框架ropgadget会用到
-不知道是作者偷懒还是什么情况每次pip install ropgadget之后都会报错import error:ERROR: fail to load the dynamic library.
-原因在于所需的动态库文件libcapstone.dylib没有位于capstone主目录所以找到libcapstone">
+<meta name="description" content="SublimeREPL无意中发现一个类似 Vim 下 quickrun 的插件SublimeREPL
+在Perferences-Key Bindings - User中加入
+Default (OSX).sublime-keymap123456789101112...    // SublimeREPL - python    &amp;#123;        &quot;keys&quot;: [&quot;f2&quot;],">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ropgadget capstone">
-<meta property="og:url" content="http://answerrrrrrrrr.io/2016/03/10/capstone/index.html">
+<meta property="og:title" content="Sublime Packages">
+<meta property="og:url" content="http://answerrrrrrrrr.io/2016/04/05/Sublime-Packages/index.html">
 <meta property="og:site_name" content="Answerrrrrrrrr">
-<meta property="og:description" content="import errorcapstone是一个著名的反汇编框架ropgadget会用到
-不知道是作者偷懒还是什么情况每次pip install ropgadget之后都会报错import error:ERROR: fail to load the dynamic library.
-原因在于所需的动态库文件libcapstone.dylib没有位于capstone主目录所以找到libcapstone">
-<meta property="og:updated_time" content="2016-03-11T00:53:15.000Z">
+<meta property="og:description" content="SublimeREPL无意中发现一个类似 Vim 下 quickrun 的插件SublimeREPL
+在Perferences-Key Bindings - User中加入
+Default (OSX).sublime-keymap123456789101112...    // SublimeREPL - python    &amp;#123;        &quot;keys&quot;: [&quot;f2&quot;],">
+<meta property="og:updated_time" content="2016-04-05T09:45:46.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ropgadget capstone">
-<meta name="twitter:description" content="import errorcapstone是一个著名的反汇编框架ropgadget会用到
-不知道是作者偷懒还是什么情况每次pip install ropgadget之后都会报错import error:ERROR: fail to load the dynamic library.
-原因在于所需的动态库文件libcapstone.dylib没有位于capstone主目录所以找到libcapstone">
+<meta name="twitter:title" content="Sublime Packages">
+<meta name="twitter:description" content="SublimeREPL无意中发现一个类似 Vim 下 quickrun 的插件SublimeREPL
+在Perferences-Key Bindings - User中加入
+Default (OSX).sublime-keymap123456789101112...    // SublimeREPL - python    &amp;#123;        &quot;keys&quot;: [&quot;f2&quot;],">
 
 
 
@@ -90,7 +90,7 @@
   };
 </script>
 
-  <title> ropgadget capstone | Answerrrrrrrrr </title>
+  <title> Sublime Packages | Answerrrrrrrrr </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -218,7 +218,7 @@
             
             
               
-                ropgadget capstone
+                Sublime Packages
               
             
           </h1>
@@ -230,8 +230,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-03-10T15:41:52+08:00" content="2016-03-10">
-              2016-03-10
+            <time itemprop="dateCreated" datetime="2016-04-05T16:24:00+08:00" content="2016-04-05">
+              2016-04-05
             </time>
           </span>
 
@@ -244,8 +244,8 @@
               <span class="post-meta-item-text">In</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/rop/" itemprop="url" rel="index">
-                    <span itemprop="name">rop</span>
+                  <a href="/categories/Sublime/" itemprop="url" rel="index">
+                    <span itemprop="name">Sublime</span>
                   </a>
                 </span>
 
@@ -260,8 +260,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/03/10/capstone/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/10/capstone/" itemprop="commentsCount"></span>
+                <a href="/2016/04/05/Sublime-Packages/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/05/Sublime-Packages/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -283,16 +283,13 @@
       
 
       
-        <h1 id="import-error"><a href="#import-error" class="headerlink" title="import error"></a>import error</h1><p>capstone是一个著名的反汇编框架<br>ropgadget会用到</p>
-<p>不知道是作者偷懒还是什么情况<br>每次<code>pip install ropgadget</code>之后都会报错<br><code>import error:ERROR: fail to load the dynamic library.</code></p>
-<p>原因在于所需的动态库文件libcapstone.dylib没有位于capstone主目录<br>所以找到libcapstone.dylib并拷贝一个就可以了</p>
-<p>有两种方法</p>
-<h2 id="sudo-find-name-‘libcapstone-’"><a href="#sudo-find-name-‘libcapstone-’" class="headerlink" title="sudo find / -name ‘libcapstone.*’"></a>sudo find / -name ‘libcapstone.*’</h2><p>原来作者把动态库写在了这么一个奇葩的地址<br><code>/usr/local/lib/python2.7/site-packages/usr/local/Cellar/python/2.7.11/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/capstone/libcapstone.dylib</code><br>大概是写掉了一个<code>/</code>吧</p>
-<h2 id="pip-uninstall-capstone"><a href="#pip-uninstall-capstone" class="headerlink" title="pip uninstall capstone"></a>pip uninstall capstone</h2><p>这个方法略显鸡贼，但更快一点<br>可以发现列出了所有与capstone相关的文件<br>其中最后一个就是要找的libcapstone.dylib</p>
-<h1 id="then"><a href="#then" class="headerlink" title="then"></a>then</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cp /usr/local/lib/python2.7/site-packages/usr/local/Cellar/python/2.7.11/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/capstone/libcapstone.dylib /usr/local/lib/python2.7/site-packages/capstone/libcapstone.dylib</span><br><span class="line">$ ropgadget</span><br><span class="line">Need a binary filename (--binary/--console or --help)</span><br></pre></td></tr></table></figure>
-<p>已经可以正常使用了</p>
-<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><p>在kali rolling里试了一下<br>第二种方法行不通<br>只能用find<br>可以找到一个<code>/usr/lib/libcapstone.so.3</code><br>然后<br><code>cp /usr/lib/libcapstone.so.3 /usr/local/lib/python2.7/dist-packages/capstone/libcapstone.dylib</code><br>解决</p>
-
+        <h1 id="SublimeREPL"><a href="#SublimeREPL" class="headerlink" title="SublimeREPL"></a>SublimeREPL</h1><p>无意中发现一个类似 Vim 下 quickrun 的插件<code>SublimeREPL</code></p>
+<p>在<code>Perferences</code>-<code>Key Bindings - User</code>中加入</p>
+<figure class="highlight"><figcaption><span>Default (OSX).sublime-keymap</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">    // SublimeREPL - python</span><br><span class="line">    &#123;</span><br><span class="line">        "keys": ["f2"],</span><br><span class="line">        "caption": "SublimeREPL: Python - RUN current file",</span><br><span class="line">        "command": "run_existing_window_command",</span><br><span class="line">        "args": &#123;</span><br><span class="line">            "id": "repl_python_run",</span><br><span class="line">            "file": "config/Python/Main.sublime-menu",</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>这样一来，保存之后按<code>F2</code>即可快速运行 Python 脚本，不用来回切换终端了</p>
+<p>C’est bon!</p>
+<h1 id="ExpandRegion"><a href="#ExpandRegion" class="headerlink" title="ExpandRegion"></a>ExpandRegion</h1><p>在<a href="https://www.zhihu.com/question/24896283" target="_blank" rel="external">知乎</a>看到一个推荐的插件感觉挺不错，用于快速扩展选区，也是在<code>Perferences</code>-<code>Key Bindings - User</code>中加入</p>
+<figure class="highlight"><figcaption><span>Default (OSX).sublime-keymap</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">    // ExpandRegion</span><br><span class="line">    &#123; "keys": ["super+e"], "command": "expand_region" &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      "keys": ["super+u"],</span><br><span class="line">      "command": "expand_region",</span><br><span class="line">      "args": &#123;"undo": true&#125;,</span><br><span class="line">      "context": [&#123; "key": "expand_region_soft_undo" &#125;]</span><br><span class="line">    &#125;,</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -306,9 +303,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/ropgadget/" rel="tag">#ropgadget</a>
+            <a href="/tags/SublimeREPL/" rel="tag">#SublimeREPL</a>
           
-            <a href="/tags/capstone/" rel="tag">#capstone</a>
+            <a href="/tags/ExpandRegion/" rel="tag">#ExpandRegion</a>
           
         </div>
       
@@ -317,17 +314,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/03/09/hexo-scripts/" rel="next" title="hexo-scripts">
-                <i class="fa fa-chevron-left"></i> hexo-scripts
+              <a href="/2016/04/05/Spider-04-sqlite/" rel="next" title="Spider-04-sqlite3">
+                <i class="fa fa-chevron-left"></i> Spider-04-sqlite3
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/04/02/Spider-01-MyThreadPool/" rel="prev" title="Spider-01-MyThreadPool">
-                Spider-01-MyThreadPool <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -353,8 +346,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/03/10/capstone/"
-           data-title="ropgadget capstone" data-url="http://answerrrrrrrrr.io/2016/03/10/capstone/">
+      <div class="ds-thread" data-thread-key="2016/04/05/Sublime-Packages/"
+           data-title="Sublime Packages" data-url="http://answerrrrrrrrr.io/2016/04/05/Sublime-Packages/">
       </div>
     
   </div>
@@ -449,7 +442,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#import-error"><span class="nav-number">1.</span> <span class="nav-text">import error</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#sudo-find-name-‘libcapstone-’"><span class="nav-number">1.1.</span> <span class="nav-text">sudo find / -name ‘libcapstone.*’</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pip-uninstall-capstone"><span class="nav-number">1.2.</span> <span class="nav-text">pip uninstall capstone</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#then"><span class="nav-number">2.</span> <span class="nav-text">then</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#补充"><span class="nav-number">3.</span> <span class="nav-text">补充</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SublimeREPL"><span class="nav-number">1.</span> <span class="nav-text">SublimeREPL</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ExpandRegion"><span class="nav-number">2.</span> <span class="nav-text">ExpandRegion</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
