@@ -90,3 +90,50 @@ C'est bon!
     },
 ...
 ```
+
+# [Anaconda](https://github.com/DamnWidget/anaconda)
+
+这个插件确实强大，不过有点小问题
+
+## import 时不能自动补全
+在[Stackoverflow](https://github.com/DamnWidget/anaconda/issues/89)找到解决方案   
+新建`/Users/air9/Library/Application\ Support/Sublime\ Text\ 3/Packages/Python/Completion\ Rules.tmPreferences`并加入如下内容
+
+```xml Completion Rules.tmPreferences
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>scope</key>
+    <string>source.python</string>
+    <key>settings</key>
+    <dict>
+        <key>cancelCompletion</key>
+        <string>^(.*\b(and|or)$)|(\s*(pass|return|and|or|(class|def)\s*[a-zA-Z_0-9]+)$)</string>
+    </dict>
+</dict>
+</plist>
+```
+
+保存后重启 Sublime 即可
+
+**不过第一次弄的时候，不知道怎么回事出现了配置文件被初始化的 bug，所有插件和改键都失效了。。。还好我碰巧刚刚做了备份，所以下次也要记得先备份一下**
+
+## 过于频繁的补全弹窗
+随便按一个空格就以`a`开头弹窗提示我补全，有时甚至回车补全完成之后弹窗仍然消失不掉，一怒之下禁用掉了
+
+```js Anaconda.sublime-settings
+...
+    /*
+        Disable anaconda completion
+
+        WARNING: set this as true will totally disable anaconda completion
+    */
+    // "disable_anaconda_completion": false,
+    "disable_anaconda_completion": true,
+
+    /*
+...
+```
+
+Sublime 自带的轻量级补全其实已经满足我的日常需求了，装 Anaconda 主要还是为了 Tooltip 和 PEP8 提示
