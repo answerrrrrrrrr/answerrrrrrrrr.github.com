@@ -214,6 +214,122 @@
             
               
                 
+                <a class="post-title-link" href="/2016/03/09/hexo-scripts/" itemprop="url">
+                  hexo-scripts
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-03-09T21:00:31+08:00" content="2016-03-09">
+              2016-03-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/scripts/" itemprop="url" rel="index">
+                    <span itemprop="name">scripts</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/03/09/hexo-scripts/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/09/hexo-scripts/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>偷师自<a href="http://www.xuxu1988.com/2015/05/16/config-my-hexo/" target="_blank" rel="external">http://www.xuxu1988.com/2015/05/16/config-my-hexo/</a></p>
+<h1 id="commit-sh-COMMIT-LOG"><a href="#commit-sh-COMMIT-LOG" class="headerlink" title="./commit.sh COMMIT_LOG"></a>./commit.sh COMMIT_LOG</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span><br><span class="line"></span></span><br><span class="line">commit_<span class="built_in">log</span>=<span class="variable">$@</span></span><br><span class="line"></span><br><span class="line">hexo g</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span></span><br><span class="line">hexo d</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span></span><br><span class="line">git add .</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span></span><br><span class="line">git commit -m <span class="variable">$commit_log</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span></span><br><span class="line">git push origin hexo:hexo</span><br></pre></td></tr></table></figure>
+<h1 id="edit-sh-FILENAME"><a href="#edit-sh-FILENAME" class="headerlink" title="./edit.sh FILENAME"></a>./edit.sh FILENAME</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span><br><span class="line"></span></span><br><span class="line">filename=<span class="variable">$@</span></span><br><span class="line">file=./<span class="built_in">source</span>/_posts/<span class="variable">$filename</span>.md</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ ! <span class="_">-e</span> <span class="string">'$file'</span> ]</span><br><span class="line"><span class="keyword">then</span> </span><br><span class="line">    hexo new <span class="variable">$filename</span></span><br><span class="line"><span class="keyword">fi</span> </span><br><span class="line"></span><br><span class="line">open <span class="_">-a</span> /Applications/MacDown.app <span class="variable">$file</span></span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/03/09/hexo-github/" itemprop="url">
                   hexo github
                 </a>
@@ -1234,7 +1350,7 @@ set background=light
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">18</span>
+              <span class="site-state-item-count">19</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1242,7 +1358,7 @@ set background=light
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -1251,7 +1367,7 @@ set background=light
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-count">23</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
