@@ -57,40 +57,22 @@
 
 
 
-<meta name="description" content="知道创宇爬虫设计第四天：sqlite3这部分比较简单，需要注意的几点
-
-connect, cursor
-execute
-commit, rollback
-close
-
-既然之前已经学会了使用logging，就可以尝试下配合着使用
-代码MySqlite.py123456789101112131415161718192021222324252627282930313233343536373839404">
+<meta name="description" content="知道创宇爬虫设计第七天: doctestdoctest是 Python 内建的模块，用于文档测试，正好可以拿来用于爬虫的自测功能
+这个模块相对简单，直接贴代码
+代码123456789101112131415161718192021222324252627...def main():    &apos;&apos;&apos; Prepare and run the spider    Self-test:    &amp;gt;&amp;gt">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spider-04-sqlite3">
-<meta property="og:url" content="http://answerrrrrrrrr.io/2016/04/05/Spider-04-sqlite/index.html">
+<meta property="og:title" content="Spider-07-doctest">
+<meta property="og:url" content="http://answerrrrrrrrr.io/2016/04/08/Spider-07-doctest/index.html">
 <meta property="og:site_name" content="Answerrrrrrrrr">
-<meta property="og:description" content="知道创宇爬虫设计第四天：sqlite3这部分比较简单，需要注意的几点
-
-connect, cursor
-execute
-commit, rollback
-close
-
-既然之前已经学会了使用logging，就可以尝试下配合着使用
-代码MySqlite.py123456789101112131415161718192021222324252627282930313233343536373839404">
-<meta property="og:updated_time" content="2016-04-05T12:08:06.000Z">
+<meta property="og:description" content="知道创宇爬虫设计第七天: doctestdoctest是 Python 内建的模块，用于文档测试，正好可以拿来用于爬虫的自测功能
+这个模块相对简单，直接贴代码
+代码123456789101112131415161718192021222324252627...def main():    &apos;&apos;&apos; Prepare and run the spider    Self-test:    &amp;gt;&amp;gt">
+<meta property="og:updated_time" content="2016-04-08T05:37:19.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spider-04-sqlite3">
-<meta name="twitter:description" content="知道创宇爬虫设计第四天：sqlite3这部分比较简单，需要注意的几点
-
-connect, cursor
-execute
-commit, rollback
-close
-
-既然之前已经学会了使用logging，就可以尝试下配合着使用
-代码MySqlite.py123456789101112131415161718192021222324252627282930313233343536373839404">
+<meta name="twitter:title" content="Spider-07-doctest">
+<meta name="twitter:description" content="知道创宇爬虫设计第七天: doctestdoctest是 Python 内建的模块，用于文档测试，正好可以拿来用于爬虫的自测功能
+这个模块相对简单，直接贴代码
+代码123456789101112131415161718192021222324252627...def main():    &apos;&apos;&apos; Prepare and run the spider    Self-test:    &amp;gt;&amp;gt">
 
 
 
@@ -108,7 +90,7 @@ close
   };
 </script>
 
-  <title> Spider-04-sqlite3 | Answerrrrrrrrr </title>
+  <title> Spider-07-doctest | Answerrrrrrrrr </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -236,7 +218,7 @@ close
             
             
               
-                Spider-04-sqlite3
+                Spider-07-doctest
               
             
           </h1>
@@ -248,8 +230,8 @@ close
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-04-05T09:39:06+08:00" content="2016-04-05">
-              2016-04-05
+            <time itemprop="dateCreated" datetime="2016-04-08T11:43:23+08:00" content="2016-04-08">
+              2016-04-08
             </time>
           </span>
 
@@ -278,8 +260,8 @@ close
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/04/05/Spider-04-sqlite/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/05/Spider-04-sqlite/" itemprop="commentsCount"></span>
+                <a href="/2016/04/08/Spider-07-doctest/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/08/Spider-07-doctest/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -301,22 +283,14 @@ close
       
 
       
-        <h1 id="知道创宇爬虫设计第四天：sqlite3"><a href="#知道创宇爬虫设计第四天：sqlite3" class="headerlink" title="知道创宇爬虫设计第四天：sqlite3"></a>知道创宇爬虫设计第四天：sqlite3</h1><p>这部分比较简单，需要注意的几点</p>
-<ul>
-<li>connect, cursor</li>
-<li>execute</li>
-<li>commit, rollback</li>
-<li>close</li>
-</ul>
-<p>既然之前已经学会了使用logging，就可以尝试下配合着使用</p>
-<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight python"><figcaption><span>MySqlite.py</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> sqlite3</span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"><span class="keyword">import</span> logging.config</span><br><span class="line">logging.config.fileConfig(<span class="string">'logging.conf'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">levels = &#123;</span><br><span class="line">    <span class="number">1</span>: <span class="string">'CRITICAL'</span>,</span><br><span class="line">    <span class="number">2</span>: <span class="string">'ERROR'</span>,</span><br><span class="line">    <span class="number">3</span>: <span class="string">'WARNING'</span>,</span><br><span class="line">    <span class="number">4</span>: <span class="string">'INFO'</span>,</span><br><span class="line">    <span class="number">5</span>: <span class="string">'DEBUG'</span>,</span><br><span class="line">&#125;</span><br><span class="line">loglevel = <span class="number">4</span></span><br><span class="line">logger = logging.getLogger(<span class="string">'spider'</span>)</span><br><span class="line">logger.setLevel(levels[loglevel])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MySqlite</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, dbfile)</span>:</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            self.conn = sqlite3.connect(dbfile)</span><br><span class="line">            logger.info(<span class="string">"Open database %s"</span> % dbfile)</span><br><span class="line">            logger.debug(<span class="string">"Open database %s"</span> % dbfile)</span><br><span class="line">        <span class="keyword">except</span> sqlite3.Error <span class="keyword">as</span> e:</span><br><span class="line">            <span class="comment"># print "Fail to connect %s: %s" % (dbfile, e) # e.args[0]</span></span><br><span class="line">            logger.error(<span class="string">"Fail to connect %s: %s"</span> % (dbfile, e))</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">        self.cursor = self.conn.cursor()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">create</span><span class="params">(self, table)</span>:</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            logger.info(<span class="string">"Create table %s"</span> % table)</span><br><span class="line">            self.cursor.execute(</span><br><span class="line">                <span class="string">"CREATE TABLE IF NOT EXISTS %s(Id INTEGER PRIMARY KEY \</span><br><span class="line">                AUTOINCREMENT, Data VARCHAR(40))"</span> % table</span><br><span class="line">                )</span><br><span class="line">            self.conn.commit()</span><br><span class="line">        <span class="keyword">except</span> sqlite3.Error <span class="keyword">as</span> e:</span><br><span class="line">            logger.error(<span class="string">"Fail to create %s: %s"</span> % (table, e))</span><br><span class="line">            self.conn.rollback()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">insert</span><span class="params">(self, table, data)</span>:</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            logger.info(<span class="string">"Insert %s into table %s"</span> % (data, table))</span><br><span class="line">            self.cursor.execute(</span><br><span class="line">                <span class="string">"INSERT INTO %s(Data) VALUES('%s')"</span> % (table, data))</span><br><span class="line">            self.conn.commit()</span><br><span class="line">        <span class="keyword">except</span> sqlite3.Error <span class="keyword">as</span> e:</span><br><span class="line">            logger.error(<span class="string">"Fail to insert %s into %s: %s"</span> % (data, table, e))</span><br><span class="line">            self.conn.rollback()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">close</span><span class="params">(self)</span>:</span></span><br><span class="line">        logger.info(<span class="string">"Close database"</span>)</span><br><span class="line">        self.cursor.close()</span><br><span class="line">        self.conn.close()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    ms = MySqlite(<span class="string">'spider.db'</span>)</span><br><span class="line">    ms.create(<span class="string">'t1'</span>)</span><br><span class="line">    ms.insert(<span class="string">'t1'</span>, <span class="string">'test'</span>)</span><br><span class="line">    ms.close()</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><figcaption><span>logging.conf</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">[loggers]</span><br><span class="line">keys = root, spider</span><br><span class="line"></span><br><span class="line">[handlers]</span><br><span class="line">keys = consoleHandler, fileHandler</span><br><span class="line"></span><br><span class="line">[formatters]</span><br><span class="line">keys = simpleFormatter</span><br><span class="line"></span><br><span class="line">[logger_root]</span><br><span class="line">level = DEBUG</span><br><span class="line">handlers = consoleHandler</span><br><span class="line"></span><br><span class="line">[logger_spider]</span><br><span class="line">level = DEBUG</span><br><span class="line">handlers = consoleHandler, fileHandler</span><br><span class="line">qualname = spider</span><br><span class="line">propagate = 0</span><br><span class="line"></span><br><span class="line">[handler_consoleHandler]</span><br><span class="line">class = StreamHandler</span><br><span class="line">level = DEBUG</span><br><span class="line">formatter = simpleFormatter</span><br><span class="line">args = (sys.stdout,)</span><br><span class="line"></span><br><span class="line">[handler_fileHandler]</span><br><span class="line">class = FileHandler</span><br><span class="line">level = DEBUG</span><br><span class="line">formatter = simpleFormatter</span><br><span class="line">args = (&apos;spider.log&apos;, &apos;w&apos;)</span><br><span class="line"></span><br><span class="line">[formatter_simpleFormatter]</span><br><span class="line">format = %(asctime)s - %(name)s - %(levelname)s - %(message)s</span><br><span class="line">datefmt =</span><br></pre></td></tr></table></figure>
+        <h1 id="知道创宇爬虫设计第七天-doctest"><a href="#知道创宇爬虫设计第七天-doctest" class="headerlink" title="知道创宇爬虫设计第七天: doctest"></a>知道创宇爬虫设计第七天: doctest</h1><p><code>doctest</code>是 Python 内建的模块，用于文档测试，正好可以拿来用于爬虫的自测功能</p>
+<p>这个模块相对简单，直接贴代码</p>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">''' Prepare and run the spider</span><br><span class="line">    Self-test:</span><br><span class="line">    &gt;&gt;&gt; class Args(object):</span><br><span class="line">    ...     pass</span><br><span class="line">    ...</span><br><span class="line">    &gt;&gt;&gt; args = Args()</span><br><span class="line">    &gt;&gt;&gt; args.url = 'www.baidu.com'</span><br><span class="line">    &gt;&gt;&gt; args.depth = 1</span><br><span class="line">    &gt;&gt;&gt; args.logfile = 'testself.log'</span><br><span class="line">    &gt;&gt;&gt; args.loglevel = 4</span><br><span class="line">    &gt;&gt;&gt; args.dbfile = 'testself.db'</span><br><span class="line">    &gt;&gt;&gt; args.num_threads = 1</span><br><span class="line">    &gt;&gt;&gt; args.key = ''</span><br><span class="line">    &gt;&gt;&gt; set_logger(args.loglevel, args.logfile)</span><br><span class="line">    &gt;&gt;&gt; logger.info(vars(args))</span><br><span class="line">    &gt;&gt;&gt; spider = MySpider(args)</span><br><span class="line">    &gt;&gt;&gt; spider.run()</span><br><span class="line">    '''</span></span><br><span class="line">...</span><br><span class="line">    <span class="comment"># Self test</span></span><br><span class="line">    <span class="keyword">if</span> args.testself:</span><br><span class="line">        <span class="keyword">import</span> doctest</span><br><span class="line">        <span class="keyword">print</span> doctest.testmod()</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>另外其它部分也有少量修改，放在 <a href="https://github.com/answerrrrrrrrr/KnownsecSpider" target="_blank" rel="external">https://github.com/answerrrrrrrrr/KnownsecSpider</a></p>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><a href="https://docs.python.org/2/library/sqlite3.html" target="_blank" rel="external">https://docs.python.org/2/library/sqlite3.html</a></li>
-<li><a href="http://blog.sina.com.cn/s/blog_72603eac01013pbc.html" target="_blank" rel="external">http://blog.sina.com.cn/s/blog_72603eac01013pbc.html</a></li>
-<li><a href="http://blog.csdn.net/jeepxiaozi/article/details/8808435" target="_blank" rel="external">http://blog.csdn.net/jeepxiaozi/article/details/8808435</a></li>
-<li><a href="http://dongweiming.github.io/blog/archives/pa-chong-lian-xi/" target="_blank" rel="external">http://dongweiming.github.io/blog/archives/pa-chong-lian-xi/</a></li>
-<li><a href="http://devdocs.io/python~2.7/library/logging.config" target="_blank" rel="external">http://devdocs.io/python~2.7/library/logging.config</a></li>
+<li><a href="http://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/0014319170285543a4d04751f8846908770660de849f285000" target="_blank" rel="external">http://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/0014319170285543a4d04751f8846908770660de849f285000</a></li>
+<li><a href="http://devdocs.io/python~2.7/library/doctest#doctest.DocTest" target="_blank" rel="external">http://devdocs.io/python~2.7/library/doctest#doctest.DocTest</a></li>
+<li><a href="http://devdocs.io/python~2.7/library/argparse#argparse.Namespace" target="_blank" rel="external">http://devdocs.io/python~2.7/library/argparse#argparse.Namespace</a></li>
 </ul>
 
       
@@ -341,17 +315,13 @@ close
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/04/04/Spider-03-argparse/" rel="next" title="Spider-03-argparse">
-                <i class="fa fa-chevron-left"></i> Spider-03-argparse
+              <a href="/2016/04/07/mysql-utf-8/" rel="next" title="Mac 安装 MySQL 并设置 utf-8">
+                <i class="fa fa-chevron-left"></i> Mac 安装 MySQL 并设置 utf-8
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/04/05/Sublime-Packages/" rel="prev" title="Sublime Packages">
-                Sublime Packages <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -377,8 +347,8 @@ close
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/04/05/Spider-04-sqlite/"
-           data-title="Spider-04-sqlite3" data-url="http://answerrrrrrrrr.io/2016/04/05/Spider-04-sqlite/">
+      <div class="ds-thread" data-thread-key="2016/04/08/Spider-07-doctest/"
+           data-title="Spider-07-doctest" data-url="http://answerrrrrrrrr.io/2016/04/08/Spider-07-doctest/">
       </div>
     
   </div>
@@ -473,7 +443,7 @@ close
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#知道创宇爬虫设计第四天：sqlite3"><span class="nav-number">1.</span> <span class="nav-text">知道创宇爬虫设计第四天：sqlite3</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码"><span class="nav-number">2.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#知道创宇爬虫设计第七天-doctest"><span class="nav-number">1.</span> <span class="nav-text">知道创宇爬虫设计第七天: doctest</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码"><span class="nav-number">2.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
