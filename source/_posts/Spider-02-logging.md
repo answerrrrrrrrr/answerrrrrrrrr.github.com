@@ -216,3 +216,4 @@ def testsubmod():
 
 - http://my.oschina.net/leejun2005/blog/126713
 - http://blog.chinaunix.net/uid-26000296-id-4372063.html
+- http://www.tuicool.com/articles/bmMfUfE
