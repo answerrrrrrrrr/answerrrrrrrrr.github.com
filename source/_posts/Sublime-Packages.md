@@ -137,3 +137,22 @@ C'est bon!
 ```
 
 Sublime 自带的轻量级补全其实已经满足我的日常需求了，装 Anaconda 主要还是为了 Tooltip 和 PEP8 提示
+
+# [MarkdownEditing](https://github.com/SublimeText-Markdown/MarkdownEditing)
+
+这个其实用处不大，平常在 Mac 上写 Markdown 都用的 MacDown   
+不过默认会渲染 txt 还是挺蛋疼的，注释掉   
+顺便改个主题
+
+```js Markdown.sublime-settings
+{
+    "extensions":
+    [
+        "md",
+        "mdown",
+        // "txt"
+    ],
+
+    "color_scheme": "Packages/MarkdownEditing/MarkdownEditor-Dark.tmTheme",
+}
+```
