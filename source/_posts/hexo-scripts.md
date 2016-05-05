@@ -37,7 +37,7 @@ filename=$@
 file=./source/_posts/$filename.md
 
 
-if [ ! -e '$file' ]
+if [ ! -e "$file" ]   # NOT '$file'
 then 
     hexo new $filename
 fi 
