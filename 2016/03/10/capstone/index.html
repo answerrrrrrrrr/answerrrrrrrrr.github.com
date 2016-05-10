@@ -58,21 +58,24 @@
 
 
 <meta name="description" content="import errorcapstone是一个著名的反汇编框架ropgadget会用到
-不知道是作者偷懒还是什么情况每次pip install ropgadget之后都会报错import error:ERROR: fail to load the dynamic library.
-原因在于所需的动态库文件libcapstone.dylib没有位于capstone主目录所以找到libcapstone">
+但是每次pip install ropgadget之后都会报错import error:ERROR: fail to load the dynamic library.
+
+2016.5.10 补充：ropgadget 里的依赖的 capstone 版本为2.1，而目前最新版本为3.0.4，pip更新 ropga">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ropgadget capstone">
 <meta property="og:url" content="http://answerrrrrrrrr.io/2016/03/10/capstone/index.html">
 <meta property="og:site_name" content="Answerrrrrrrrr">
 <meta property="og:description" content="import errorcapstone是一个著名的反汇编框架ropgadget会用到
-不知道是作者偷懒还是什么情况每次pip install ropgadget之后都会报错import error:ERROR: fail to load the dynamic library.
-原因在于所需的动态库文件libcapstone.dylib没有位于capstone主目录所以找到libcapstone">
-<meta property="og:updated_time" content="2016-03-11T00:53:15.000Z">
+但是每次pip install ropgadget之后都会报错import error:ERROR: fail to load the dynamic library.
+
+2016.5.10 补充：ropgadget 里的依赖的 capstone 版本为2.1，而目前最新版本为3.0.4，pip更新 ropga">
+<meta property="og:updated_time" content="2016-05-10T07:35:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ropgadget capstone">
 <meta name="twitter:description" content="import errorcapstone是一个著名的反汇编框架ropgadget会用到
-不知道是作者偷懒还是什么情况每次pip install ropgadget之后都会报错import error:ERROR: fail to load the dynamic library.
-原因在于所需的动态库文件libcapstone.dylib没有位于capstone主目录所以找到libcapstone">
+但是每次pip install ropgadget之后都会报错import error:ERROR: fail to load the dynamic library.
+
+2016.5.10 补充：ropgadget 里的依赖的 capstone 版本为2.1，而目前最新版本为3.0.4，pip更新 ropga">
 
 
 
@@ -283,11 +286,14 @@
       
 
       
-        <h1 id="import-error"><a href="#import-error" class="headerlink" title="import error"></a>import error</h1><p>capstone是一个著名的反汇编框架<br>ropgadget会用到</p>
-<p>不知道是作者偷懒还是什么情况<br>每次<code>pip install ropgadget</code>之后都会报错<br><code>import error:ERROR: fail to load the dynamic library.</code></p>
+        <h1 id="import-error"><a href="#import-error" class="headerlink" title="import error"></a>import error</h1><p><a href="https://github.com/aquynh/capstone" target="_blank" rel="external">capstone</a>是一个著名的反汇编框架<br><a href="https://github.com/JonathanSalwan/ROPgadget" target="_blank" rel="external">ropgadget</a>会用到</p>
+<p>但是每次<code>pip install ropgadget</code>之后都会报错<br><code>import error:ERROR: fail to load the dynamic library.</code></p>
+<blockquote>
+<p>2016.5.10 补充：ropgadget 里的依赖的 capstone 版本为2.1，而目前最新版本为3.0.4，pip更新 ropgadget 后会降级。。。需<code>pip install -U capstone</code></p>
+</blockquote>
 <p>原因在于所需的动态库文件libcapstone.dylib没有位于capstone主目录<br>所以找到libcapstone.dylib并拷贝一个就可以了</p>
 <p>有两种方法</p>
-<h2 id="sudo-find-name-‘libcapstone-’"><a href="#sudo-find-name-‘libcapstone-’" class="headerlink" title="sudo find / -name ‘libcapstone.*’"></a>sudo find / -name ‘libcapstone.*’</h2><p>原来作者把动态库写在了这么一个奇葩的地址<br><code>/usr/local/lib/python2.7/site-packages/usr/local/Cellar/python/2.7.11/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/capstone/libcapstone.dylib</code><br>大概是写掉了一个<code>/</code>吧</p>
+<h2 id="sudo-find-name-‘libcapstone-’"><a href="#sudo-find-name-‘libcapstone-’" class="headerlink" title="sudo find / -name ‘libcapstone.*’"></a>sudo find / -name ‘libcapstone.*’</h2><p>原来作者把动态库写在了这么一个奇葩的地址<br><code>/usr/local/lib/python2.7/site-packages/usr/local/Cellar/python/2.7.11/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/capstone/libcapstone.dylib</code><br>大概是写掉了一个<code>/</code>吧，参考 <a href="https://github.com/aquynh/capstone/pull/406" target="_blank" rel="external">https://github.com/aquynh/capstone/pull/406</a></p>
 <h2 id="pip-uninstall-capstone"><a href="#pip-uninstall-capstone" class="headerlink" title="pip uninstall capstone"></a>pip uninstall capstone</h2><p>这个方法略显鸡贼，但更快一点<br>可以发现列出了所有与capstone相关的文件<br>其中最后一个就是要找的libcapstone.dylib</p>
 <h1 id="then"><a href="#then" class="headerlink" title="then"></a>then</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cp /usr/local/lib/python2.7/site-packages/usr/local/Cellar/python/2.7.11/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/capstone/libcapstone.dylib /usr/local/lib/python2.7/site-packages/capstone/libcapstone.dylib</span><br><span class="line">$ ropgadget</span><br><span class="line">Need a binary filename (--binary/--console or --help)</span><br></pre></td></tr></table></figure>
 <p>已经可以正常使用了</p>
