@@ -20,6 +20,7 @@ and the repository exists.
 
 ```
 git remote set-url origin git@github.com:lut/EvolutionApp.git
+git remote show origin
 ```
 
 简单记录一下...
