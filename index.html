@@ -1372,7 +1372,7 @@
               
                 
                 <a class="post-title-link" href="/2016/04/05/Sublime-Packages/" itemprop="url">
-                  Sublime Packages
+                  Sublime Preferences
                 </a>
               
             
@@ -1440,7 +1440,9 @@
       
         
           
-            <h1 id="Vintage"><a href="#Vintage" class="headerlink" title="Vintage"></a><a href="https://github.com/sublimehq/Vintage" target="_blank" rel="external">Vintage</a></h1><p>这个是Sublime自带的vi模式<br>先注释掉<code>Preferences.sublime-settings</code>里的<code>Vintage</code></p>
+            <h1 id="切换标签页"><a href="#切换标签页" class="headerlink" title="切换标签页"></a>切换标签页</h1><p>首先，Sublime 的所谓「标签页智能切换」很蛋疼，改成通用快捷键设定</p>
+<figure class="highlight js"><figcaption><span>Default (OSX).sublime-keymap</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"keys"</span>: [<span class="string">"ctrl+tab"</span>],</span><br><span class="line">    <span class="string">"command"</span>: <span class="string">"next_view"</span></span><br><span class="line">&#125;,</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"keys"</span>: [<span class="string">"ctrl+shift+tab"</span>],</span><br><span class="line">    <span class="string">"command"</span>: <span class="string">"prev_view"</span></span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<h1 id="Vintage"><a href="#Vintage" class="headerlink" title="Vintage"></a><a href="https://github.com/sublimehq/Vintage" target="_blank" rel="external">Vintage</a></h1><p>这个是Sublime自带的vi模式<br>先注释掉<code>Preferences.sublime-settings</code>里的<code>Vintage</code></p>
 <figure class="highlight js"><figcaption><span>Preferences.sublime-settings</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">    <span class="string">"ignored_packages"</span>:[</span><br><span class="line">        <span class="comment">// "Vintage"</span></span><br><span class="line">    ],</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 <p>再按照习惯把<code>esc</code>改成<code>j</code> <code>j</code></p>
 <figure class="highlight js"><figcaption><span>Default (OSX).sublime-keymap</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="comment">// Vintage</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">"keys"</span>: [<span class="string">"j"</span>, <span class="string">"j"</span>],</span><br><span class="line">        <span class="string">"command"</span>: <span class="string">"exit_insert_mode"</span>,</span><br><span class="line">        <span class="string">"context"</span>:[</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="string">"key"</span>: <span class="string">"setting.command_mode"</span>,</span><br><span class="line">                <span class="string">"operand"</span>: <span class="literal">false</span></span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="string">"key"</span>: <span class="string">"setting.is_widget"</span>,</span><br><span class="line">                <span class="string">"operand"</span>: <span class="literal">false</span></span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
@@ -1546,7 +1548,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-count">39</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
