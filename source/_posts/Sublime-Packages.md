@@ -1,9 +1,24 @@
 ---
-title: Sublime Packages
+title: Sublime Preferences
 date: 2016-04-05 16:24:00
 category: [Sublime]
-tags: [SublimeREPL, ExpandRegion]
+tags: [SublimeREPL, ExpandRegion, Anaconda, MarkdownEditing]
 ---
+
+# 切换标签页
+首先，Sublime 的所谓「标签页智能切换」很蛋疼，改成通用快捷键设定
+
+```js Default (OSX).sublime-keymap
+    {
+        "keys": ["ctrl+tab"],
+        "command": "next_view"
+    },
+    {
+        "keys": ["ctrl+shift+tab"],
+        "command": "prev_view"
+    },
+```
+
 
 # [Vintage](https://github.com/sublimehq/Vintage)
 
