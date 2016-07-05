@@ -2,7 +2,7 @@
 title: bootstrap-keyboard-tagIndex
 date: 2016-06-28 16:16:57
 category: JavaScript
-tags:	[bootstrap, keyboard, tagIndex]
+tags:	[Coursera, JavaScript, bootstrap, keyboard, tagIndex]
 ---
 
 这两天在 Coursera 上学习 Bootstrap   
