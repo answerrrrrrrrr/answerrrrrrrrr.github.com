@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Archlinux,gdb,pip," />
+  <meta name="keywords" content="Python,Unicode,UTF-8," />
 
 
 
@@ -57,25 +57,31 @@
 
 
 
-<meta name="description" content="gdb plugin: gdb-pedasudo pacman -S gdb
-git clone https://github.com/longld/peda.git ~/peda
-echo &amp;quot;source ~/peda/peda.py&amp;quot; &amp;gt;&amp;gt; ~/.gdbinit
-gdb plugin: libheapcurl https://raw.githubusercont">
+<meta name="description" content="以前对「字符集与编码」的认识完全来源于廖雪峰的这篇文章，但是总容易忘记而且依稀记得很早的时候在知乎看到梁海大神提到过字符集与编码是不一样的概念
+今天仔细查阅了一下，算是基本搞清楚了，记录如下
+字符集与编码顾名思义，「字符」的「集合」，每个「字符」有一个唯一的「数字」与之对应而如何将「数字」改写成内存中的「字节」，即所谓的「编码」或「编码方式」
+以下引自梁海：
+
+「字符集」和「编码」等几个层次的概念">
 <meta property="og:type" content="article">
-<meta property="og:title" content="arch gdb pip ropgadget">
-<meta property="og:url" content="http://answerrrrrrrrr.io/2016/03/09/arch-gdb-peda-pip-ropgadget/index.html">
+<meta property="og:title" content="字符集与编码方式">
+<meta property="og:url" content="http://answerrrrrrrrr.io/2016/07/06/字符集与编码方式/index.html">
 <meta property="og:site_name" content="Answerrrrrrrrr">
-<meta property="og:description" content="gdb plugin: gdb-pedasudo pacman -S gdb
-git clone https://github.com/longld/peda.git ~/peda
-echo &amp;quot;source ~/peda/peda.py&amp;quot; &amp;gt;&amp;gt; ~/.gdbinit
-gdb plugin: libheapcurl https://raw.githubusercont">
-<meta property="og:updated_time" content="2016-06-26T06:37:52.000Z">
+<meta property="og:description" content="以前对「字符集与编码」的认识完全来源于廖雪峰的这篇文章，但是总容易忘记而且依稀记得很早的时候在知乎看到梁海大神提到过字符集与编码是不一样的概念
+今天仔细查阅了一下，算是基本搞清楚了，记录如下
+字符集与编码顾名思义，「字符」的「集合」，每个「字符」有一个唯一的「数字」与之对应而如何将「数字」改写成内存中的「字节」，即所谓的「编码」或「编码方式」
+以下引自梁海：
+
+「字符集」和「编码」等几个层次的概念">
+<meta property="og:updated_time" content="2016-07-06T13:52:33.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="arch gdb pip ropgadget">
-<meta name="twitter:description" content="gdb plugin: gdb-pedasudo pacman -S gdb
-git clone https://github.com/longld/peda.git ~/peda
-echo &amp;quot;source ~/peda/peda.py&amp;quot; &amp;gt;&amp;gt; ~/.gdbinit
-gdb plugin: libheapcurl https://raw.githubusercont">
+<meta name="twitter:title" content="字符集与编码方式">
+<meta name="twitter:description" content="以前对「字符集与编码」的认识完全来源于廖雪峰的这篇文章，但是总容易忘记而且依稀记得很早的时候在知乎看到梁海大神提到过字符集与编码是不一样的概念
+今天仔细查阅了一下，算是基本搞清楚了，记录如下
+字符集与编码顾名思义，「字符」的「集合」，每个「字符」有一个唯一的「数字」与之对应而如何将「数字」改写成内存中的「字节」，即所谓的「编码」或「编码方式」
+以下引自梁海：
+
+「字符集」和「编码」等几个层次的概念">
 
 
 
@@ -93,7 +99,7 @@ gdb plugin: libheapcurl https://raw.githubusercont">
   };
 </script>
 
-  <title> arch gdb pip ropgadget | Answerrrrrrrrr </title>
+  <title> 字符集与编码方式 | Answerrrrrrrrr </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -221,7 +227,7 @@ gdb plugin: libheapcurl https://raw.githubusercont">
             
             
               
-                arch gdb pip ropgadget
+                字符集与编码方式
               
             
           </h1>
@@ -233,8 +239,8 @@ gdb plugin: libheapcurl https://raw.githubusercont">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-03-09T15:28:36+08:00" content="2016-03-09">
-              2016-03-09
+            <time itemprop="dateCreated" datetime="2016-07-06T19:04:36+08:00" content="2016-07-06">
+              2016-07-06
             </time>
           </span>
 
@@ -247,8 +253,8 @@ gdb plugin: libheapcurl https://raw.githubusercont">
               <span class="post-meta-item-text">In</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/rop/" itemprop="url" rel="index">
-                    <span itemprop="name">rop</span>
+                  <a href="/categories/Unicode/" itemprop="url" rel="index">
+                    <span itemprop="name">Unicode</span>
                   </a>
                 </span>
 
@@ -263,8 +269,8 @@ gdb plugin: libheapcurl https://raw.githubusercont">
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/03/09/arch-gdb-peda-pip-ropgadget/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/09/arch-gdb-peda-pip-ropgadget/" itemprop="commentsCount"></span>
+                <a href="/2016/07/06/字符集与编码方式/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/06/字符集与编码方式/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -286,20 +292,38 @@ gdb plugin: libheapcurl https://raw.githubusercont">
       
 
       
-        <h3 id="gdb-plugin-gdb-peda"><a href="#gdb-plugin-gdb-peda" class="headerlink" title="gdb plugin: gdb-peda"></a>gdb plugin: <a href="https://github.com/longld/peda" target="_blank" rel="external">gdb-peda</a></h3><p><code>sudo pacman -S gdb</code></p>
-<p><code>git clone https://github.com/longld/peda.git ~/peda</code></p>
-<p><code>echo &quot;source ~/peda/peda.py&quot; &gt;&gt; ~/.gdbinit</code></p>
-<h3 id="gdb-plugin-libheap"><a href="#gdb-plugin-libheap" class="headerlink" title="gdb plugin: libheap"></a>gdb plugin: <a href="https://github.com/cloudburst/libheap" target="_blank" rel="external">libheap</a></h3><p><code>curl https://raw.githubusercontent.com/answerrrrrrrrr/VRL/master/test/exploits/lib/libheap.py &gt; libheap.py</code></p>
-<p><code>sudo mv libheap.py /usr/lib/python2.7</code></p>
-<p><code>gdb</code></p>
-<p><code>(gdb) python from libheap import *</code></p>
-<p><code>(gdb) heap -h</code></p>
-<h3 id="pip"><a href="#pip" class="headerlink" title="pip"></a>pip</h3><p><code>curl https://bootstrap.pypa.io/get-pip.py &gt; getpip.py</code></p>
-<p><code>sudo python getpip.py</code></p>
-<h3 id="ROPgadget"><a href="#ROPgadget" class="headerlink" title="ROPgadget"></a>ROPgadget</h3><p><code>sudo pacman -S python-capstone</code></p>
-<p><code>sudo pip install ropgadget</code></p>
-<p>If gets errors about capstone:</p>
-<p><code>sudo pip install ropgadget --upgrade</code></p>
+        <p>以前对「字符集与编码」的认识完全来源于<a href="http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/001386819196283586a37629844456ca7e5a7faa9b94ee8000" target="_blank" rel="external">廖雪峰的这篇文章</a>，但是总容易忘记<br>而且依稀记得很早的时候在知乎看到梁海大神提到过字符集与编码是不一样的概念</p>
+<p>今天仔细查阅了一下，算是基本搞清楚了，记录如下</p>
+<h1 id="字符集与编码"><a href="#字符集与编码" class="headerlink" title="字符集与编码"></a>字符集与编码</h1><p>顾名思义，「字符」的「集合」，每个「字符」有一个唯一的「数字」与之对应<br>而如何将「数字」改写成内存中的「字节」，即所谓的「编码」或「编码方式」</p>
+<p>以下引自<a href="https://www.zhihu.com/question/21887246/answer/19631235" target="_blank" rel="external">梁海</a>：</p>
+<blockquote>
+<p>「字符集」和「编码」等几个层次的概念被彻底分离且模块化的这样一个模型，其实是 Unicode 时代才得到广泛认同的。</p>
+<p>而对于 ASCII、GB2312、Big5 之类的遗留（legacy）方案，其字符集及其编码的关系基本是锁定的，所以常常用「字符编码」（character encoding）、「代码页」（code page）等概念来统称它们那样从字符到编码字节流的整体方案。比如 ASCII 本身就既是字符集又是编码方案，而 GB2312 用的都是 EUC-CN 编码方案。你的理解是对的。</p>
+</blockquote>
+<h1 id="Unicode-字符集"><a href="#Unicode-字符集" class="headerlink" title="Unicode 字符集"></a>Unicode 字符集</h1><p>Unicode 原本只是个字符集，<a href="http://www.freebuf.com/articles/others-articles/25623.html" target="_blank" rel="external">freebuf 的一篇译文</a>讲得很生动：</p>
+<blockquote>
+<p>Unicode背后的想法非常简单，然而却被普遍的误解了。Unicode就像一个电话本，标记着字符和数字之间的映射关系。Joel称之为「神奇数字」，因为它们可能是随机指定的，而且不会给出任何解释。官方术语是码位(Code Point)，总是用U+开头。理论上每种语言中的每种字符都被Unicode协会指定了一个神奇数字。例如希伯来文中的第一个字母א，是U+2135，字母A是U+0061。</p>
+<p>Unicode并不涉及字符是怎么在字节中表示的，它仅仅指定了字符对应的数字，仅此而已。</p>
+<p>关于Unicode的其它误解包括：Unicode支持的字符上限是65536个，Unicode字符必须占两个字节。告诉你这些的人应该去换换脑子了。</p>
+<p>记住，Unicode只是一个用来映射字符和数字的标准。它对支持字符的数量没有限制，也不要求字符必须占两个、三个或者其它任意数量的字节。</p>
+</blockquote>
+<h1 id="Unicode-编码"><a href="#Unicode-编码" class="headerlink" title="Unicode 编码"></a>Unicode 编码</h1><p>Unicode的实现方式不同于编码方式。一个字符的Unicode编码是确定的。但是在实际传输过程中，由于不同系统平台的设计不一定一致，以及出于节省空间的目的，对Unicode编码的实现方式有所不同。Unicode的实现方式称为Unicode转换格式（Unicode Transformation Format，简称为UTF）。</p>
+<h2 id="UTF-8-编码"><a href="#UTF-8-编码" class="headerlink" title="UTF-8 编码"></a>UTF-8 编码</h2><p>如果一个仅包含基本7位ASCII字符的Unicode文件，如果每个字符都使用2字节的原Unicode编码传输，其第一字节的8位始终为0。这就造成了比较大的浪费。</p>
+<p>对于这种情况，可以使用UTF-8编码，这是一种变长编码，它将基本7位ASCII字符仍用7位编码表示，占用一个字节（首位补0）。</p>
+<p>而遇到与其他Unicode字符混合的情况，将按一定算法转换，每个字符使用1-3个字节编码，并利用首位为0或1进行识别。这样对以7位ASCII字符为主的西文文档就大大节省了编码长度（具体方案参见UTF-8）。</p>
+<h2 id="UTF-16-编码"><a href="#UTF-16-编码" class="headerlink" title="UTF-16 编码"></a>UTF-16 编码</h2><p>类似的，另一个流行的可变长度编码方案是UTF-16，它使用2个或者4个字节来存储字符。然而，人们逐渐意识到UTF-16可能会浪费存储空间，但那是另一个话题了。</p>
+<h2 id="狭义的-Unicode-编码"><a href="#狭义的-Unicode-编码" class="headerlink" title="狭义的 Unicode 编码"></a>狭义的 Unicode 编码</h2><p>需要注意的是，狭义的 Unicode 编码方式与 ISO 10646 的通用字符集（Universal Character Set，UCS）概念相对应，目前实际应用的 Unicode 版本对应于 UCS-2 ，使用16位的编码空间。也就是每个字符占用2个字节。</p>
+<p>这样理论上一共最多可以表示216即65536个字符。基本满足各种语言的使用。实际上当前版本的 Unicode 尚未填满这16位编码，保留了大量空间作为特殊使用或将来扩展。</p>
+<p>以 Python 为例，<code>unicode(s,&#39;utf8&#39;)</code> 所返回的结果就是这种狭义的 Unicode 编码。</p>
+<p>又是梁海在<a href="https://www.zhihu.com/question/19817672/answer/13055185" target="_blank" rel="external">廖雪峰答案</a>的评论里提到:</p>
+<blockquote>
+<p>廖雪峰说的「Unicode」指的是 UCS-2（所以不能改成「UTF-32」）。当年只有 BMP 的时候 UCS-2 和 UTF-16 是等价的，又被称作「Unicode」（所以这里不是「Unicode 是字符集，不是编码方式」这个问题，只是 UCS-2 也被称作「Unicode」而已）。但现在这种用「Unicode」指代 UCS-2/UTF-16 的做法已经过时了，很不合适。</p>
+</blockquote>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>简单总结一下，Unicode 是「字符集」而不是「编码」。但由于历史原因，某些时候提到的「Unicode 编码」指的是曾经定长的 UCS-2/UTF-16（现在 UTF-16 也是变长）。</p>
+<p>由于 UTF-8 可以兼容 ASCII，且其变长特性能相对高效地利用空间，在应用或传输过程中一般使用的是 UTF-8。例如 Python shell 中 str 使用的就是 ASCII(UTF-8)。</p>
+<p>而内存一般使用的是这种「Unicode 编码」，所以在进行编码转换时，通常将各类编码<code>decode</code>成「Unicode 编码」，在<code>encode</code>成最终编码形式。</p>
+<p>eg:</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a=<span class="string">'在'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a</span><br><span class="line"><span class="string">'\xe5\x9c\xa8'</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b=unicode(a,<span class="string">'utf8'</span>) // 或 b=a.decode(<span class="string">'utf8'</span>)，其中<span class="string">'utf-8'</span>等同于<span class="string">'utf8'</span> </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b</span><br><span class="line"><span class="string">u'\u5728'</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b.encode(<span class="string">'gbk'</span>)</span><br><span class="line"><span class="string">'\xd4\xda'</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -314,11 +338,11 @@ gdb plugin: libheapcurl https://raw.githubusercont">
       
         <div class="post-tags">
           
-            <a href="/tags/Archlinux/" rel="tag">#Archlinux</a>
+            <a href="/tags/Python/" rel="tag">#Python</a>
           
-            <a href="/tags/gdb/" rel="tag">#gdb</a>
+            <a href="/tags/Unicode/" rel="tag">#Unicode</a>
           
-            <a href="/tags/pip/" rel="tag">#pip</a>
+            <a href="/tags/UTF-8/" rel="tag">#UTF-8</a>
           
         </div>
       
@@ -327,17 +351,13 @@ gdb plugin: libheapcurl https://raw.githubusercont">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/03/09/tmux-copy2clipboard/" rel="next" title="tmux copy2clipboard">
-                <i class="fa fa-chevron-left"></i> tmux copy2clipboard
+              <a href="/2016/07/06/AngularJS-ngResource-save/" rel="next" title="AngularJS-ngResource-save">
+                <i class="fa fa-chevron-left"></i> AngularJS-ngResource-save
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/03/09/arch-vmtools/" rel="prev" title="arch vmtools">
-                arch vmtools <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -363,8 +383,8 @@ gdb plugin: libheapcurl https://raw.githubusercont">
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/03/09/arch-gdb-peda-pip-ropgadget/"
-           data-title="arch gdb pip ropgadget" data-url="http://answerrrrrrrrr.io/2016/03/09/arch-gdb-peda-pip-ropgadget/">
+      <div class="ds-thread" data-thread-key="2016/07/06/字符集与编码方式/"
+           data-title="字符集与编码方式" data-url="http://answerrrrrrrrr.io/2016/07/06/字符集与编码方式/">
       </div>
     
   </div>
@@ -459,7 +479,7 @@ gdb plugin: libheapcurl https://raw.githubusercont">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#gdb-plugin-gdb-peda"><span class="nav-number">1.</span> <span class="nav-text">gdb plugin: gdb-peda</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gdb-plugin-libheap"><span class="nav-number">2.</span> <span class="nav-text">gdb plugin: libheap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pip"><span class="nav-number">3.</span> <span class="nav-text">pip</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ROPgadget"><span class="nav-number">4.</span> <span class="nav-text">ROPgadget</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#字符集与编码"><span class="nav-number">1.</span> <span class="nav-text">字符集与编码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Unicode-字符集"><span class="nav-number">2.</span> <span class="nav-text">Unicode 字符集</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Unicode-编码"><span class="nav-number">3.</span> <span class="nav-text">Unicode 编码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#UTF-8-编码"><span class="nav-number">3.1.</span> <span class="nav-text">UTF-8 编码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UTF-16-编码"><span class="nav-number">3.2.</span> <span class="nav-text">UTF-16 编码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#狭义的-Unicode-编码"><span class="nav-number">3.3.</span> <span class="nav-text">狭义的 Unicode 编码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
