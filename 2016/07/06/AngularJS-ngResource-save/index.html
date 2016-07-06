@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Coursera,JavaScript,AngularJS,Brackets,gulp,browser-sync," />
+  <meta name="keywords" content="Coursera,JavaScript,AngularJS,ngResource," />
 
 
 
@@ -57,25 +57,25 @@
 
 
 
-<meta name="description" content="今天学习 Coursera 的 AngularJS 课程时尝试使用ng-include添加模板发觉 Brackets 的 Live Preview 在 Chrome 里总是无法正常显示   
-这篇博文提到：
+<meta name="description" content="Coursera AngularJS 课程的最后一个任务，添加提交 feedback 到 server 的功能之前已经实现了添加 feedback 并保存在 client 的功能现在只需要利用$resource的$save方法将 feedback 的 json 对象post到 server   
+本以为照葫芦画瓢很简单，结果总是会报错如下
 
-chrome提示很明显：不能跨域访问。通过上面的错误提示，可以看到:使用ng-include指令的时候，会用到AJAX请求XMLHttpRequest。但是我们是直接用浏览器打开的paren">
+TypeError: feedbackFactory.g">
 <meta property="og:type" content="article">
-<meta property="og:title" content="brackets-live-preview-gulp">
-<meta property="og:url" content="http://answerrrrrrrrr.io/2016/07/05/brackets-live-preview-gulp/index.html">
+<meta property="og:title" content="AngularJS-ngResource-save">
+<meta property="og:url" content="http://answerrrrrrrrr.io/2016/07/06/AngularJS-ngResource-save/index.html">
 <meta property="og:site_name" content="Answerrrrrrrrr">
-<meta property="og:description" content="今天学习 Coursera 的 AngularJS 课程时尝试使用ng-include添加模板发觉 Brackets 的 Live Preview 在 Chrome 里总是无法正常显示   
-这篇博文提到：
+<meta property="og:description" content="Coursera AngularJS 课程的最后一个任务，添加提交 feedback 到 server 的功能之前已经实现了添加 feedback 并保存在 client 的功能现在只需要利用$resource的$save方法将 feedback 的 json 对象post到 server   
+本以为照葫芦画瓢很简单，结果总是会报错如下
 
-chrome提示很明显：不能跨域访问。通过上面的错误提示，可以看到:使用ng-include指令的时候，会用到AJAX请求XMLHttpRequest。但是我们是直接用浏览器打开的paren">
-<meta property="og:updated_time" content="2016-07-05T10:56:05.000Z">
+TypeError: feedbackFactory.g">
+<meta property="og:updated_time" content="2016-07-06T07:14:05.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="brackets-live-preview-gulp">
-<meta name="twitter:description" content="今天学习 Coursera 的 AngularJS 课程时尝试使用ng-include添加模板发觉 Brackets 的 Live Preview 在 Chrome 里总是无法正常显示   
-这篇博文提到：
+<meta name="twitter:title" content="AngularJS-ngResource-save">
+<meta name="twitter:description" content="Coursera AngularJS 课程的最后一个任务，添加提交 feedback 到 server 的功能之前已经实现了添加 feedback 并保存在 client 的功能现在只需要利用$resource的$save方法将 feedback 的 json 对象post到 server   
+本以为照葫芦画瓢很简单，结果总是会报错如下
 
-chrome提示很明显：不能跨域访问。通过上面的错误提示，可以看到:使用ng-include指令的时候，会用到AJAX请求XMLHttpRequest。但是我们是直接用浏览器打开的paren">
+TypeError: feedbackFactory.g">
 
 
 
@@ -93,7 +93,7 @@ chrome提示很明显：不能跨域访问。通过上面的错误提示，可�
   };
 </script>
 
-  <title> brackets-live-preview-gulp | Answerrrrrrrrr </title>
+  <title> AngularJS-ngResource-save | Answerrrrrrrrr </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -221,7 +221,7 @@ chrome提示很明显：不能跨域访问。通过上面的错误提示，可�
             
             
               
-                brackets-live-preview-gulp
+                AngularJS-ngResource-save
               
             
           </h1>
@@ -233,8 +233,8 @@ chrome提示很明显：不能跨域访问。通过上面的错误提示，可�
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-07-05T18:23:57+08:00" content="2016-07-05">
-              2016-07-05
+            <time itemprop="dateCreated" datetime="2016-07-06T14:43:02+08:00" content="2016-07-06">
+              2016-07-06
             </time>
           </span>
 
@@ -263,8 +263,8 @@ chrome提示很明显：不能跨域访问。通过上面的错误提示，可�
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/05/brackets-live-preview-gulp/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/05/brackets-live-preview-gulp/" itemprop="commentsCount"></span>
+                <a href="/2016/07/06/AngularJS-ngResource-save/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/06/AngularJS-ngResource-save/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -286,17 +286,27 @@ chrome提示很明显：不能跨域访问。通过上面的错误提示，可�
       
 
       
-        <p>今天学习 Coursera 的 AngularJS 课程时尝试使用<code>ng-include</code>添加模板<br>发觉 Brackets 的 Live Preview 在 Chrome 里总是无法正常显示   </p>
-<p><a href="http://blog.csdn.net/aitangyong/article/details/43490117" target="_blank" rel="external">这篇博文</a>提到：</p>
+        <p>Coursera AngularJS 课程的最后一个任务，添加提交 feedback 到 server 的功能<br>之前已经实现了添加 feedback 并保存在 client 的功能<br>现在只需要利用<code>$resource</code>的<code>$save</code>方法将 feedback 的 json 对象<code>post</code>到 server   </p>
+<p>本以为照葫芦画瓢很简单，结果总是会报错如下</p>
 <blockquote>
-<p>chrome提示很明显：不能跨域访问。通过上面的错误提示，可以看到:使用ng-include指令的时候，会用到AJAX请求XMLHttpRequest。但是我们是直接用浏览器打开的parent.html，并没有通过web容器访问，所以存在跨域访问问题，加载child.html也就失败了。解决办法很简单：将代码部署到tomcat等web容器下，通过http访问即可。</p>
+<p>TypeError: feedbackFactory.getFeedbacks(…).$save is not a function</p>
 </blockquote>
-<p><a href="https://www.coursera.org/learn/angular-js/discussions/weeks/3/threads/rWCY3qGmEeWF6gpqp4BTmQ" target="_blank" rel="external">Coursera Discussions</a> 里也有人提到了这个问题，可以有 3 种解决方式</p>
-<h1 id="gulp"><a href="#gulp" class="headerlink" title="gulp"></a>gulp</h1><p>之前的课程刚好提到 gulp 可以使用 brower-sync 建立一个 Web 容器来访问项目<br>把<code>Gulpfile.js</code>略作修改之后<code>gulp watch</code>却仍然无法访问   </p>
-<p>在 stackoverflow (<a href="http://stackoverflow.com/questions/32171725/chrome-cant-open-localhost3000-with-gulp-browsersync?rq=1" target="_blank" rel="external">1</a>, <a href="http://stackoverflow.com/questions/30233218/browser-sync-is-blocked-by-chrome-csp" target="_blank" rel="external">2</a>) 找到答案，又是 Chrome 的锅，触发了其<code>Content-Security-Policy</code>   </p>
-<p>修改端口号即可解决</p>
-<h1 id="Brackets-Live-Preview"><a href="#Brackets-Live-Preview" class="headerlink" title="Brackets Live Preview"></a>Brackets Live Preview</h1><p>尝试之后发现，我在预览单个 html 时，使用的是<code>file</code>协议，在 Chrome 里无法跨域访问<br>而使用 Brackets 打开整个项目时，Live Preview 将项目放入了自建的 Web 容器里，使用的是<code>http</code>协议，即可在 Chrome 中正常跨域访问</p>
-<h1 id="http-server-or-json-server"><a href="#http-server-or-json-server" class="headerlink" title="http-server or json-server"></a>http-server or json-server</h1><p>使用 node 安装其它小型 Web 容器后放入运行也可解决</p>
+<p>仔细对照<a href="https://docs.angularjs.org/api/ngResource/service/$resource" target="_blank" rel="external">官方文档</a>找到原因：</p>
+<blockquote>
+<p>The action methods on the class object or instance object can be invoked with the following parameters:</p>
+<ul>
+<li>HTTP GET “class” actions: Resource.action([parameters], [success], [error])</li>
+<li>non-GET “class” actions: Resource.action([parameters], postData, [success], [error])</li>
+<li>non-GET instance actions: instance.$action([parameters], [success], [error])</li>
+</ul>
+</blockquote>
+<p>问题出在我试图使用<code>non-GET &quot;class&quot; actions</code>，却加了<code>$</code>符号且没有带上<code>postData</code>   </p>
+<p>所以解决方式有两种</p>
+<h1 id="non-GET-“class”-actions"><a href="#non-GET-“class”-actions" class="headerlink" title="non-GET “class” actions"></a>non-GET “class” actions</h1><figure class="highlight js"><figcaption><span>services.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">        .constant(<span class="string">"baseURL"</span>, <span class="string">"http://localhost:3000/"</span>)</span><br><span class="line">        .service(<span class="string">'feedbackFactory'</span>, [<span class="string">'$resource'</span>, <span class="string">'baseURL'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$resource,baseURL</span>) </span>&#123; </span><br><span class="line"></span><br><span class="line">            <span class="keyword">this</span>.getFeedbacks = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                <span class="keyword">return</span> $resource(baseURL+<span class="string">"feedback"</span>,<span class="literal">null</span>);</span><br><span class="line">            &#125;;</span><br><span class="line"></span><br><span class="line">        &#125;])</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><figcaption><span>controllers.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">        .controller(<span class="string">'FeedbackController'</span>, [<span class="string">'$scope'</span>, <span class="string">'feedbackFactory'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$scope, feedbackFactory</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">            $scope.feedbacks = feedbackFactory.getFeedbacks().query(</span><br><span class="line">                <span class="function"><span class="keyword">function</span>(<span class="params">response</span>)</span>&#123;</span><br><span class="line">                    $scope.feedbacks = response;</span><br><span class="line">                    <span class="built_in">console</span>.log($scope.feedbacks);</span><br><span class="line">                &#125;</span><br><span class="line">            );</span><br><span class="line"></span><br><span class="line">            $scope.sendFeedback = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">                <span class="built_in">console</span>.log($scope.feedbacks);</span><br><span class="line"></span><br><span class="line">                $scope.feedbacks.push($scope.feedback);</span><br><span class="line">                feedbackFactory.getFeedbacks().save($scope.feedback);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> ($scope.feedback.agree &amp;&amp; ($scope.feedback.mychannel == <span class="string">""</span>)) &#123;</span><br><span class="line">                    $scope.invalidChannelSelection = <span class="literal">true</span>;</span><br><span class="line">                    <span class="built_in">console</span>.log(<span class="string">'incorrect'</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> &#123;</span><br><span class="line">                    $scope.invalidChannelSelection = <span class="literal">false</span>;</span><br><span class="line">                    $scope.feedback = &#123;mychannel:<span class="string">""</span>, firstName:<span class="string">""</span>, lastName:<span class="string">""</span>, agree:<span class="literal">false</span>, email:<span class="string">""</span> &#125;;</span><br><span class="line">                    $scope.feedbackForm.$setPristine();</span><br><span class="line">                    <span class="built_in">console</span>.log($scope.feedback);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;])</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h1 id="non-GET-instance-actions"><a href="#non-GET-instance-actions" class="headerlink" title="non-GET instance actions"></a>non-GET instance actions</h1><figure class="highlight js"><figcaption><span>service.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">        .constant(<span class="string">"baseURL"</span>, <span class="string">"http://localhost:3000/"</span>)</span><br><span class="line">        .service(<span class="string">'feedbackFactory'</span>, [<span class="string">'$resource'</span>, <span class="string">'baseURL'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$resource,baseURL</span>) </span>&#123; </span><br><span class="line"></span><br><span class="line">                <span class="keyword">return</span> $resource(baseURL+<span class="string">"feedback/:id"</span>,<span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line">        &#125;])</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><figcaption><span>controllers.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">        .controller(<span class="string">'FeedbackController'</span>, [<span class="string">'$scope'</span>, <span class="string">'feedbackFactory'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$scope, feedbackFactory</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// $scope.feedbacks = feedbackFactory.getFeedbacks().query(</span></span><br><span class="line">            <span class="comment">//     function(response)&#123;</span></span><br><span class="line">            <span class="comment">//         $scope.feedbacks = response;</span></span><br><span class="line">            <span class="comment">//         console.log($scope.feedbacks);</span></span><br><span class="line">            <span class="comment">//     &#125;</span></span><br><span class="line">            <span class="comment">// );</span></span><br><span class="line"></span><br><span class="line">            $scope.sendFeedback = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">var</span> newFeedback = <span class="keyword">new</span> feedbackFactory($scope.feedback);</span><br><span class="line">                newFeedback.$save();</span><br><span class="line"></span><br><span class="line">                <span class="comment">// $scope.feedbacks.push($scope.feedback);</span></span><br><span class="line">                <span class="comment">// feedbackFactory.getFeedbacks().save($scope.feedback);</span></span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> ($scope.feedback.agree &amp;&amp; ($scope.feedback.mychannel == <span class="string">""</span>)) &#123;</span><br><span class="line">                    $scope.invalidChannelSelection = <span class="literal">true</span>;</span><br><span class="line">                    <span class="built_in">console</span>.log(<span class="string">'incorrect'</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> &#123;</span><br><span class="line">                    $scope.invalidChannelSelection = <span class="literal">false</span>;</span><br><span class="line">                    $scope.feedback = &#123;mychannel:<span class="string">""</span>, firstName:<span class="string">""</span>, lastName:<span class="string">""</span>, agree:<span class="literal">false</span>, email:<span class="string">""</span> &#125;;</span><br><span class="line">                    $scope.feedbackForm.$setPristine();</span><br><span class="line">                    <span class="built_in">console</span>.log($scope.feedback);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;])</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>由于第二种方式没有加上<code>[success], [error]</code>处理，看起来要简单许多<br><a href="http://stackoverflow.com/questions/36558499/angularjs-post-changes-to-the-server-using-resource/36564415#36564415" target="_blank" rel="external">Stackoverflow</a> 里一位疑似该课程的同学用的就是这种方式<br>不过相对来说第一种方式跟其他部分代码风格更统一   </p>
 <p>大致如此.</p>
 
       
@@ -318,11 +328,7 @@ chrome提示很明显：不能跨域访问。通过上面的错误提示，可�
           
             <a href="/tags/AngularJS/" rel="tag">#AngularJS</a>
           
-            <a href="/tags/Brackets/" rel="tag">#Brackets</a>
-          
-            <a href="/tags/gulp/" rel="tag">#gulp</a>
-          
-            <a href="/tags/browser-sync/" rel="tag">#browser-sync</a>
+            <a href="/tags/ngResource/" rel="tag">#ngResource</a>
           
         </div>
       
@@ -331,17 +337,13 @@ chrome提示很明显：不能跨域访问。通过上面的错误提示，可�
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/06/28/bootstrap-keyboard-tagIndex/" rel="next" title="bootstrap-keyboard-tagIndex">
-                <i class="fa fa-chevron-left"></i> bootstrap-keyboard-tagIndex
+              <a href="/2016/07/05/brackets-live-preview-gulp/" rel="next" title="brackets-live-preview-gulp">
+                <i class="fa fa-chevron-left"></i> brackets-live-preview-gulp
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/07/06/AngularJS-ngResource-save/" rel="prev" title="AngularJS-ngResource-save">
-                AngularJS-ngResource-save <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -367,8 +369,8 @@ chrome提示很明显：不能跨域访问。通过上面的错误提示，可�
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/07/05/brackets-live-preview-gulp/"
-           data-title="brackets-live-preview-gulp" data-url="http://answerrrrrrrrr.io/2016/07/05/brackets-live-preview-gulp/">
+      <div class="ds-thread" data-thread-key="2016/07/06/AngularJS-ngResource-save/"
+           data-title="AngularJS-ngResource-save" data-url="http://answerrrrrrrrr.io/2016/07/06/AngularJS-ngResource-save/">
       </div>
     
   </div>
@@ -463,7 +465,7 @@ chrome提示很明显：不能跨域访问。通过上面的错误提示，可�
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#gulp"><span class="nav-number">1.</span> <span class="nav-text">gulp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Brackets-Live-Preview"><span class="nav-number">2.</span> <span class="nav-text">Brackets Live Preview</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#http-server-or-json-server"><span class="nav-number">3.</span> <span class="nav-text">http-server or json-server</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#non-GET-“class”-actions"><span class="nav-number">1.</span> <span class="nav-text">non-GET “class” actions</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#non-GET-instance-actions"><span class="nav-number">2.</span> <span class="nav-text">non-GET instance actions</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
