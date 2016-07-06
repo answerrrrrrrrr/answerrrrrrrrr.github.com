@@ -214,6 +214,142 @@
             
               
                 
+                <a class="post-title-link" href="/2016/07/06/AngularJS-ngResource-save/" itemprop="url">
+                  AngularJS-ngResource-save
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-07-06T14:43:02+08:00" content="2016-07-06">
+              2016-07-06
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/AngularJS/" itemprop="url" rel="index">
+                    <span itemprop="name">AngularJS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/06/AngularJS-ngResource-save/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/06/AngularJS-ngResource-save/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Coursera AngularJS 课程的最后一个任务，添加提交 feedback 到 server 的功能<br>之前已经实现了添加 feedback 并保存在 client 的功能<br>现在只需要利用<code>$resource</code>的<code>$save</code>方法将 feedback 的 json 对象<code>post</code>到 server   </p>
+<p>本以为照葫芦画瓢很简单，结果总是会报错如下</p>
+<blockquote>
+<p>TypeError: feedbackFactory.getFeedbacks(…).$save is not a function</p>
+</blockquote>
+<p>仔细对照<a href="https://docs.angularjs.org/api/ngResource/service/$resource" target="_blank" rel="external">官方文档</a>找到原因：</p>
+<blockquote>
+<p>The action methods on the class object or instance object can be invoked with the following parameters:</p>
+<ul>
+<li>HTTP GET “class” actions: Resource.action([parameters], [success], [error])</li>
+<li>non-GET “class” actions: Resource.action([parameters], postData, [success], [error])</li>
+<li>non-GET instance actions: instance.$action([parameters], [success], [error])</li>
+</ul>
+</blockquote>
+<p>问题出在我试图使用<code>non-GET &quot;class&quot; actions</code>，却加了<code>$</code>符号且没有带上<code>postData</code>   </p>
+<p>所以解决方式有两种</p>
+<h1 id="non-GET-“class”-actions"><a href="#non-GET-“class”-actions" class="headerlink" title="non-GET “class” actions"></a>non-GET “class” actions</h1><figure class="highlight js"><figcaption><span>services.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">        .constant(<span class="string">"baseURL"</span>, <span class="string">"http://localhost:3000/"</span>)</span><br><span class="line">        .service(<span class="string">'feedbackFactory'</span>, [<span class="string">'$resource'</span>, <span class="string">'baseURL'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$resource,baseURL</span>) </span>&#123; </span><br><span class="line"></span><br><span class="line">            <span class="keyword">this</span>.getFeedbacks = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                <span class="keyword">return</span> $resource(baseURL+<span class="string">"feedback"</span>,<span class="literal">null</span>);</span><br><span class="line">            &#125;;</span><br><span class="line"></span><br><span class="line">        &#125;])</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><figcaption><span>controllers.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">        .controller(<span class="string">'FeedbackController'</span>, [<span class="string">'$scope'</span>, <span class="string">'feedbackFactory'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$scope, feedbackFactory</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">            $scope.feedbacks = feedbackFactory.getFeedbacks().query(</span><br><span class="line">                <span class="function"><span class="keyword">function</span>(<span class="params">response</span>)</span>&#123;</span><br><span class="line">                    $scope.feedbacks = response;</span><br><span class="line">                    <span class="built_in">console</span>.log($scope.feedbacks);</span><br><span class="line">                &#125;</span><br><span class="line">            );</span><br><span class="line"></span><br><span class="line">            $scope.sendFeedback = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">                <span class="built_in">console</span>.log($scope.feedbacks);</span><br><span class="line"></span><br><span class="line">                $scope.feedbacks.push($scope.feedback);</span><br><span class="line">                feedbackFactory.getFeedbacks().save($scope.feedback);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> ($scope.feedback.agree &amp;&amp; ($scope.feedback.mychannel == <span class="string">""</span>)) &#123;</span><br><span class="line">                    $scope.invalidChannelSelection = <span class="literal">true</span>;</span><br><span class="line">                    <span class="built_in">console</span>.log(<span class="string">'incorrect'</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> &#123;</span><br><span class="line">                    $scope.invalidChannelSelection = <span class="literal">false</span>;</span><br><span class="line">                    $scope.feedback = &#123;mychannel:<span class="string">""</span>, firstName:<span class="string">""</span>, lastName:<span class="string">""</span>, agree:<span class="literal">false</span>, email:<span class="string">""</span> &#125;;</span><br><span class="line">                    $scope.feedbackForm.$setPristine();</span><br><span class="line">                    <span class="built_in">console</span>.log($scope.feedback);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;])</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h1 id="non-GET-instance-actions"><a href="#non-GET-instance-actions" class="headerlink" title="non-GET instance actions"></a>non-GET instance actions</h1><figure class="highlight js"><figcaption><span>service.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">        .constant(<span class="string">"baseURL"</span>, <span class="string">"http://localhost:3000/"</span>)</span><br><span class="line">        .service(<span class="string">'feedbackFactory'</span>, [<span class="string">'$resource'</span>, <span class="string">'baseURL'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$resource,baseURL</span>) </span>&#123; </span><br><span class="line"></span><br><span class="line">                <span class="keyword">return</span> $resource(baseURL+<span class="string">"feedback/:id"</span>,<span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line">        &#125;])</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><figcaption><span>controllers.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">        .controller(<span class="string">'FeedbackController'</span>, [<span class="string">'$scope'</span>, <span class="string">'feedbackFactory'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$scope, feedbackFactory</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// $scope.feedbacks = feedbackFactory.getFeedbacks().query(</span></span><br><span class="line">            <span class="comment">//     function(response)&#123;</span></span><br><span class="line">            <span class="comment">//         $scope.feedbacks = response;</span></span><br><span class="line">            <span class="comment">//         console.log($scope.feedbacks);</span></span><br><span class="line">            <span class="comment">//     &#125;</span></span><br><span class="line">            <span class="comment">// );</span></span><br><span class="line"></span><br><span class="line">            $scope.sendFeedback = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">var</span> newFeedback = <span class="keyword">new</span> feedbackFactory($scope.feedback);</span><br><span class="line">                newFeedback.$save();</span><br><span class="line"></span><br><span class="line">                <span class="comment">// $scope.feedbacks.push($scope.feedback);</span></span><br><span class="line">                <span class="comment">// feedbackFactory.getFeedbacks().save($scope.feedback);</span></span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> ($scope.feedback.agree &amp;&amp; ($scope.feedback.mychannel == <span class="string">""</span>)) &#123;</span><br><span class="line">                    $scope.invalidChannelSelection = <span class="literal">true</span>;</span><br><span class="line">                    <span class="built_in">console</span>.log(<span class="string">'incorrect'</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> &#123;</span><br><span class="line">                    $scope.invalidChannelSelection = <span class="literal">false</span>;</span><br><span class="line">                    $scope.feedback = &#123;mychannel:<span class="string">""</span>, firstName:<span class="string">""</span>, lastName:<span class="string">""</span>, agree:<span class="literal">false</span>, email:<span class="string">""</span> &#125;;</span><br><span class="line">                    $scope.feedbackForm.$setPristine();</span><br><span class="line">                    <span class="built_in">console</span>.log($scope.feedback);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;])</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>由于第二种方式没有加上<code>[success], [error]</code>处理，看起来要简单许多<br><a href="http://stackoverflow.com/questions/36558499/angularjs-post-changes-to-the-server-using-resource/36564415#36564415" target="_blank" rel="external">Stackoverflow</a> 里一位疑似该课程的同学用的就是这种方式<br>不过相对来说第一种方式跟其他部分代码风格更统一   </p>
+<p>大致如此.</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/05/brackets-live-preview-gulp/" itemprop="url">
                   brackets-live-preview-gulp
                 </a>
@@ -411,7 +547,7 @@
           
             <p>这两天在 Coursera 上学习 Bootstrap<br>第四周的作业是把非 JavaScript 实现的 Modal 改成用 JavaScript 实现（<a href="https://www.coursera.org/learn/web-frameworks/peer/jAXUU/assignment-4-detailed-instructions-and-submission）" target="_blank" rel="external">https://www.coursera.org/learn/web-frameworks/peer/jAXUU/assignment-4-detailed-instructions-and-submission）</a>   </p>
 <p>按照 <a href="http://getbootstrap.com/javascript/#modals-methods" target="_blank" rel="external">http://getbootstrap.com/javascript/#modals-methods</a> 找到了解决方案：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    $(<span class="string">'#reserveButton'</span>).on(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        $(<span class="string">'#reserveModal'</span>).modal(<span class="string">'toggle'</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    $(<span class="string">'#reserveButton'</span>).on(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        $(<span class="string">'#reserveModal'</span>).modal(<span class="string">'toggle'</span>);</span><br><span class="line">    &#125;);</span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
 <p>作业是解决了，但是发现一个小问题：不管我怎么改<code>keyboard</code>属性，都不能用<code>esc</code>关闭<code>modal</code></p>
 <p>搜了一下得知：在<code>modal</code>所在<code>div</code>中加入<code>tabindex=&quot;-1&quot;</code>属性即可<br>那么问题又来了…这个<code>tabindex=&quot;-1&quot;</code>是什么鬼…   </p>
 <p>搜索加测试了一下之后终于搞清楚了<br><code>tabindex</code>用来帮助键盘党使用<code>tab</code>键定位网页元素，按其值由小到大跳转，默认是 0<br>如果值相等，则按先后顺序跳转</p>
@@ -1341,137 +1477,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/04/07/Spider-06-requests/" itemprop="url">
-                  Spider-06-requests
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-04-07T19:53:43+08:00" content="2016-04-07">
-              2016-04-07
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/04/07/Spider-06-requests/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/07/Spider-06-requests/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="知道创宇爬虫设计第六天：requests"><a href="#知道创宇爬虫设计第六天：requests" class="headerlink" title="知道创宇爬虫设计第六天：requests"></a>知道创宇爬虫设计第六天：requests</h1><p>从实验室回学校之后，仅仅是换了个网络，却突然出现了乱码问题</p>
-<p>折腾了半天编码无果，无意中发现把<code>urllib2</code>换成<code>requests</code>就好了<br>按照<code>requests</code><a href="http://www.python-requests.org/en/master/user/quickstart/" target="_blank" rel="external">官方文档</a>里的解释</p>
-<blockquote>
-<p>When you make a request, Requests makes educated guesses about the encoding of the response based on the HTTP headers. The text encoding guessed by Requests is used when you access r.text.</p>
-</blockquote>
-<p>难怪总在知乎看见人安利，确实是更好用一些啊。。。</p>
-<p>具体用法也很简单方便<br>不过使用<code>request.text</code>返回结果时，标题依然会乱码</p>
-<blockquote>
-<p>You can also access the response body as bytes, for non-text requests</p>
-</blockquote>
-<p>改成使用<code>request.content</code>，果然一切正常了</p>
-<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">            <span class="comment"># request = urllib2.Request(url, headers=headers)</span></span><br><span class="line">            <span class="comment"># result = urllib2.urlopen(request).read()</span></span><br><span class="line"></span><br><span class="line">            request = requests.get(url, headers=headers)</span><br><span class="line">            <span class="comment"># result = request.text</span></span><br><span class="line">            result = request.content</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><a href="http://www.python-requests.org/en/master/" target="_blank" rel="external">http://www.python-requests.org/en/master/</a></li>
-<li><a href="http://www.python-requests.org/en/master/user/quickstart/" target="_blank" rel="external">http://www.python-requests.org/en/master/user/quickstart/</a></li>
-<li><a href="http://blog.csdn.net/alpha5/article/details/24964009" target="_blank" rel="external">http://blog.csdn.net/alpha5/article/details/24964009</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1517,7 +1522,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-count">27</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1534,7 +1539,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-count">47</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

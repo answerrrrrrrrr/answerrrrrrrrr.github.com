@@ -214,6 +214,128 @@
             
               
                 
+                <a class="post-title-link" href="/2016/03/09/10-11-privoxy/" itemprop="url">
+                  10.11 privoxy [Errno 61] Connection refused
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-03-09T15:33:31+08:00" content="2016-03-09">
+              2016-03-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Mac/" itemprop="url" rel="index">
+                    <span itemprop="name">Mac</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/03/09/10-11-privoxy/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/09/10-11-privoxy/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>自从更新10.11以来<br>之前用scrapy写的一个小爬虫就用不成了<br>总是报错<code>[Errno 61] Connection refused</code><br>但是因为不经常用也就没怎么上心<br>搜了一下sof<br>以为是网站做了防爬虫处理<br>但是折腾未果就去忙正经事了   </p>
+<p>结果今天挂着代理<code>pip list --outdated</code>的时候<br>居然报了同样的<code>[Errno 61] Connection refused</code><br>才意识到可能是代理的问题</p>
+<p>然而Shadowsocks一直使用正常<br>那问题就只可能出在Privoxy上了   </p>
+<p>果然<code>lsof -i:8118</code>之后<br>发觉Privoxy居然没有绑在8118端口上<br>难怪会「Connection refused」。。。</p>
+<p>Google之后<br><a href="http://www.andrewwatters.com/privoxy/" target="_blank" rel="external">这里</a>提到更新10.11需要重装Privoxy<br>那就重装吧。。。<br>在<a href="https://sourceforge.net/projects/ijbswa/files/" target="_blank" rel="external">SourceForge</a>下载最新版<br>然后按以往一样<br><code>sudo vim /usr/local/etc/privoxy/config</code><br>修改如下两行<br><code>listen-address  127.0.0.1:8118</code><br><code>forward-socks5t   /               127.0.0.1:1080 .</code><br>再启动Privoxy<br><code>sudo /Applications/Privoxy/startPrivoxy.sh</code><br>按以往经验<br>这时候应该就可以了<br>然而<code>lsof -i:8118</code>依然什么也没有   </p>
+<p>在<a href="http://1992s.com/blog/share-shadowsocks-over-lan-on-mac-os-x.html" target="_blank" rel="external">这里</a>找到问题所在<br>启用修改后的配置<br><code>cd /usr/local/sbin/</code><br><code>./privoxy --no-daemon /usr/local/etc/privoxy/config</code>   </p>
+<p>这时候<code>lsof -i:8118</code><br>终于见到了久违的Privoxy<br>然后爬虫也终于重生啦</p>
+<p>另外<br>也是在<a href="http://1992s.com/blog/share-shadowsocks-over-lan-on-mac-os-x.html" target="_blank" rel="external">这里</a>发现可以用Privoxy来帮手机搭梯子<br>算是意外收获了~</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/03/09/arch-vmtools/" itemprop="url">
                   arch vmtools
                 </a>
@@ -988,7 +1110,7 @@ set background=light
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-count">27</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1005,7 +1127,7 @@ set background=light
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-count">47</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
