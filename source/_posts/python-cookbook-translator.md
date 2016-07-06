@@ -2,7 +2,7 @@
 title: Python-Cookbook-1.09 简化 translate 方法
 date: 2016-05-25 21:46:44
 category: Python
-tags: [cookbook, closure, factory, string]
+tags: [Python, cookbook, closure, factory, string]
 ---
 
 # string.maketrans

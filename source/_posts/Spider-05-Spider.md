@@ -2,7 +2,7 @@
 title: Spider-05-Spider
 date: 2016-04-06 09:00:36
 category: Python
-tags: [Spider]
+tags: [Python, Spider]
 ---
 
 # 知道创宇爬虫设计第五天：Spider

@@ -2,7 +2,7 @@
 title: Spider-04-sqlite3
 date: 2016-04-05 09:39:06
 category: [Python]
-tags: [Spider]
+tags: [Python, Spider, sqlite]
 ---
 
 # 知道创宇爬虫设计第四天：sqlite3

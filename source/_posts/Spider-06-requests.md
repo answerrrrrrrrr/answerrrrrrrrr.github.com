@@ -2,7 +2,7 @@
 title: Spider-06-requests
 date: 2016-04-07 19:53:43
 category: Python
-tags: [Spider]
+tags: [Python, Spider, requests]
 ---
 
 # 知道创宇爬虫设计第六天：requests

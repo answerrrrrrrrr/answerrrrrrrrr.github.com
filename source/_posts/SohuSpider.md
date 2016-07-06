@@ -2,7 +2,7 @@
 title: SohuSpider
 date: 2016-04-13 15:55:31
 category: Python
-tags: [sohu, Spider]
+tags: [Python, sohu, Spider]
 ---
 
 # 题目

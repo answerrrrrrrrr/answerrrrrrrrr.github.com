@@ -2,7 +2,7 @@
 title: Spider-02-logging
 date: 2016-04-03 21:42:37
 category: [Python]
-tags: [Spider]
+tags: [Python, Spider, logging]
 ---
 
 # 知道创宇爬虫设计第二天：logging

@@ -2,7 +2,7 @@
 title: Python-sorted函数中key的用法
 date: 2016-05-19 09:02:08
 category: Python
-tags: [sorted, key]
+tags: [Python, sorted, key]
 ---
 
 sorted函数的可用参数如下

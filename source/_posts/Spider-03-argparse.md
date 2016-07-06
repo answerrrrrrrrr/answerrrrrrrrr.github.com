@@ -2,7 +2,7 @@
 title: Spider-03-argparse
 date: 2016-04-04 15:39:12
 category: [Python]
-tags: [Spider]
+tags: [Python, Spider, argparse]
 ---
 
 # 知道创宇爬虫设计第三天：argparse

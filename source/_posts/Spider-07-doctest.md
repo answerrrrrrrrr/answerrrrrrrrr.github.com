@@ -2,7 +2,7 @@
 title: Spider-07-doctest
 date: 2016-04-08 11:43:23
 category: Python
-tags: [Spider]
+tags: [Python, Spider, doctest]
 ---
 
 # 知道创宇爬虫设计第七天: doctest

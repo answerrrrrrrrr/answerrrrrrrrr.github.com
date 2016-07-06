@@ -2,7 +2,7 @@
 title: Mac 安装 MySQL 并设置 utf-8
 date: 2016-04-07 22:23:29
 category: Mac
-tags: [mysql, utf-8]
+tags: [MySQL, UTF-8]
 ---
 
 # 下载安装

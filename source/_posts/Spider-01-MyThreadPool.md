@@ -2,7 +2,7 @@
 title: Spider-01-MyThreadPool
 date: 2016-04-02 16:08:14
 category: [Python]
-tags: [Spider, ThreadPool]
+tags: [Python, Spider, ThreadPool]
 ---
 
 # 知道创宇爬虫设计第一天：threadpool
