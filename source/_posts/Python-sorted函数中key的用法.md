@@ -73,3 +73,15 @@ lambda x: (x.isdigit(), x.isdigit() and int(x) % 2==0, x.isupper(), x.islower(),
 keys:  [(False, False, False, True, 'a'), (False, False, True, False, 'B'), (True, False, False, False, '3'), (True, True, False, False, '2')]
 
 ```
+
+
+# 2016.7.9 补充
+
+今天看了 cookbook 5.2，Python 2.4 之前是不支持`key`的，书中提供了一个类似的思路，感觉对理解`key`的实现很有帮助，摘录如下：
+
+```
+def case_insensitive_sorted(string_list):
+    auxiliary_list = [(x.lower(), x) for x in string_list] # decorate
+    auxiliary_list.sort()                                  # sort
+    return [x[1] for x in auxiliary_list]                  # undecorate
+```
