@@ -77,3 +77,20 @@ deploy:
 social:
   # Github: https://github.com/answerrrrrrrrr
   # Weibo: http://weibo.com/u/2695867114
+
+
+# RSS & sitemap
+# Extensions
+Plugins:
+- hexo-generator-feed
+- hexo-generator-sitemap
+
+# Feed Atom
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20
+
+# sitemap
+sitemap:
+  path: sitemap.xml
