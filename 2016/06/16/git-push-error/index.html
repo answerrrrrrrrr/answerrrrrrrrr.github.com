@@ -60,18 +60,18 @@
 
 
 <meta name="description" content="今天把学习 flask 的本地库上传到 github 时报错
-123456$ git push -u origin masterPermission denied (publickey).fatal: Could not read from remote repository.Please make sure you have the correct access rightsand the re">
+$ git push -u origin masterPermission denied (publickey).fatal: Could not read from remote repository.Please make sure you have the correct access rightsand the reposito">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Permission denied (publickey)">
 <meta property="og:url" content="http://answerrrrrrrrr.io/2016/06/16/git-push-error/index.html">
 <meta property="og:site_name" content="Answerrrrrrrrr">
 <meta property="og:description" content="今天把学习 flask 的本地库上传到 github 时报错
-123456$ git push -u origin masterPermission denied (publickey).fatal: Could not read from remote repository.Please make sure you have the correct access rightsand the re">
+$ git push -u origin masterPermission denied (publickey).fatal: Could not read from remote repository.Please make sure you have the correct access rightsand the reposito">
 <meta property="og:updated_time" content="2016-06-26T06:37:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Permission denied (publickey)">
 <meta name="twitter:description" content="今天把学习 flask 的本地库上传到 github 时报错
-123456$ git push -u origin masterPermission denied (publickey).fatal: Could not read from remote repository.Please make sure you have the correct access rightsand the re">
+$ git push -u origin masterPermission denied (publickey).fatal: Could not read from remote repository.Please make sure you have the correct access rightsand the reposito">
 
 
 
@@ -283,9 +283,9 @@
 
       
         <p>今天把学习 flask 的本地库上传到 github 时报错</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ git push -u origin master</span><br><span class="line">Permission denied (publickey).</span><br><span class="line">fatal: Could not read from remote repository.</span><br><span class="line"></span><br><span class="line">Please make sure you have the correct access rights</span><br><span class="line">and the repository exists.</span><br></pre></td></tr></table></figure>
+<figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">$ git push -u origin master</span><br><span class="line">Permission denied (publickey).</span><br><span class="line">fatal: Could <span class="keyword">not</span> <span class="built_in">read</span> <span class="built_in">from</span> remote repository.</span><br><span class="line"></span><br><span class="line">Please make sure you have <span class="keyword">the</span> correct access rights</span><br><span class="line"><span class="keyword">and</span> <span class="keyword">the</span> repository exists.</span><br></pre></td></tr></table></figure>
 <p>在 <a href="http://stackoverflow.com/questions/26953071/github-authentication-failed-github-does-not-provide-shell-access" target="_blank" rel="external">stackoverflow</a> 找到解决方案</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote set-url origin git@github.com:lut/EvolutionApp.git</span><br><span class="line">git remote show origin</span><br></pre></td></tr></table></figure>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">git remote set-url origin git@github<span class="selector-class">.com</span>:lut/EvolutionApp<span class="selector-class">.git</span></span><br><span class="line">git remote show origin</span><br></pre></td></tr></table></figure>
 <p>简单记录一下…</p>
 
       
