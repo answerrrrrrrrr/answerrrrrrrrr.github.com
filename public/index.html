@@ -216,6 +216,130 @@
             
               
                 
+                <a class="post-title-link" href="/2016/08/16/Flask-relationship-backref/" itemprop="url">
+                  Flask-SQLAlchemy 中的 relationship & backref
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-08-16T14:29:07+08:00" content="2016-08-16">
+              2016-08-16
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Flask/" itemprop="url" rel="index">
+                    <span itemprop="name">Flask</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/16/Flask-relationship-backref/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/16/Flask-relationship-backref/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>今天重看 Flask 时，发现对<code>backref</code>仍然没有理解透彻。查阅<a href="http://flask-sqlalchemy.pocoo.org/2.1/models/" target="_blank" rel="external">文档</a>后发现，以前试图孤立地理解<code>backref</code>是问题之源，<code>backref</code>是与<code>relationship</code>配合使用的。</p>
+<h1 id="一对多关系"><a href="#一对多关系" class="headerlink" title="一对多关系"></a>一对多关系</h1><p><code>db.relationship()</code>用于在两个表之间建立<code>一对多关系</code>。例如书中 roles 表中一个 User 角色，可以对应 users 表中多个实际的普通用户。实现这种关系时，要在“多”这一侧加入一个外键，指向“一”这一侧联接的记录。</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Role</span><span class="params">(db.Model)</span>:</span></span><br><span class="line">	<span class="comment"># ...</span></span><br><span class="line">	users = db.relationship(<span class="string">'User'</span>, backref=<span class="string">'role'</span>)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span><span class="params">(db.Model)</span>:</span></span><br><span class="line">	<span class="comment"># ...</span></span><br><span class="line">	role_id = db.Column(db.Integer, db.ForeignKey(<span class="string">'roles.id'</span>))</span><br></pre></td></tr></table></figure>
+<h2 id="relationship-amp-ForeighKey"><a href="#relationship-amp-ForeighKey" class="headerlink" title="relationship &amp; ForeighKey"></a>relationship &amp; ForeighKey</h2><p>大多数情况下, db.relationship() 都能自行找到关系中的外键, 但有时却无法决定把 哪一列作为外键。 例如, 如果 User 模型中有两个或以上的列定义为 Role 模型的外键, SQLAlchemy 就不知道该使用哪列。如果无法决定外键,你就要为 db.relationship() 提供额外参数,从而确定所用外键。（见书 P49）</p>
+<h2 id="relationship-amp-backref"><a href="#relationship-amp-backref" class="headerlink" title="relationship &amp; backref"></a>relationship &amp; backref</h2><p>通过<code>db.relationship()</code>，Role 模型有了一个可以获得对应角色所有用户的属性<code>users</code>。默认是列表形式，<code>lazy=&#39;dynamic&#39;</code>时返回的是一个 query 对象。即<code>relationship</code>提供了 Role 对 User 的访问。</p>
+<p>而<code>backref</code>正好相反，提供了 User 对 Role 的访问。</p>
+<p>不妨设一个 Role 实例为 <code>user_role</code>，一个 User 实例为 <code>u</code>。relationship 使 <code>user_role.users</code> 可以访问所有符合角色的用户，而 backref 使 <code>u.role</code> 可以获得用户对应的角色。</p>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$ p manage.py shell</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>user_role = Role.query.filter_by(name=<span class="string">'User'</span>).all()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>user_role</span><br><span class="line">[&lt;Role <span class="string">u'User'</span>&gt;]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>user_role = Role.query.filter_by(name=<span class="string">'User'</span>).first()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>user_role</span><br><span class="line">&lt;Role <span class="string">u'User'</span>&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>user_role.users</span><br><span class="line">&lt;sqlalchemy.orm.dynamic.AppenderBaseQuery object at <span class="number">0x1087c1050</span>&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>user_role.users.order_by(User.username).all()</span><br><span class="line">[&lt;User <span class="string">u'alice78'</span>&gt;, &lt;User <span class="string">u'andrea86'</span>&gt;, &lt;User <span class="string">u'hmr'</span>&gt;]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Role.query.all()</span><br><span class="line">[&lt;Role <span class="string">u'Moderator'</span>&gt;, &lt;Role <span class="string">u'Administrator'</span>&gt;, &lt;Role <span class="string">u'User'</span>&gt;]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>user_role.users.count()</span><br><span class="line"><span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>u = User.query.filter_by(username=<span class="string">'hmr'</span>).first()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>u</span><br><span class="line">&lt;User <span class="string">u'hmr'</span>&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>u.role</span><br><span class="line">&lt;Role <span class="string">u'User'</span>&gt;</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="一对一关系"><a href="#一对一关系" class="headerlink" title="一对一关系"></a>一对一关系</h1><p>除了一对多之外, 还有几种其他的关系类型。一对一关系可以用前面介绍的一对多关系表示, 但调用 db.relationship() 时要把 uselist 设为 False , 把“多”变成“一”。 </p>
+<h1 id="多对多关系"><a href="#多对多关系" class="headerlink" title="多对多关系"></a>多对多关系</h1><p><code>多对多关系</code>书 P131 讲得很清楚。需要注意的就是<code>关联表</code>是<code>db.Table</code>而非<code>db.Model</code>。关联表就是一个简单的表，不是模型，SQLAlchemy 会自动接管这个表。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/28/hexo-rss-sitemap/" itemprop="url">
                   hexo-rss-sitemap
                 </a>
@@ -1363,151 +1487,11 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/05/16/Flask-数据库更新问题/" itemprop="url">
-                  Flask 数据库更新问题
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-05-16T21:52:45+08:00" content="2016-05-16">
-              2016-05-16
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Flask/" itemprop="url" rel="index">
-                    <span itemprop="name">Flask</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/05/16/Flask-数据库更新问题/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/16/Flask-数据库更新问题/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="更新列"><a href="#更新列" class="headerlink" title="更新列"></a>更新列</h1><h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><p>学习到 8.4.6 测试登录时</p>
-<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">(venv) $ python manage<span class="selector-class">.py</span> shell </span><br><span class="line">&gt;&gt;&gt; u = User(email=<span class="string">'john@example.com'</span>, username=<span class="string">'john'</span>, password=<span class="string">'cat'</span>) </span><br><span class="line">&gt;&gt;&gt; db<span class="selector-class">.session</span><span class="selector-class">.add</span>(u) </span><br><span class="line">&gt;&gt;&gt; db<span class="selector-class">.session</span><span class="selector-class">.commit</span>()</span><br></pre></td></tr></table></figure>
-<p>报错说表中无 email 列</p>
-<p>确认代码无误后，判断应该是没有成功更新 models.py 中新建的 email 列，简单尝试无果，决定重新看一遍相关内容加深理解，再着手解决</p>
-<h2 id="粗暴的更新方法"><a href="#粗暴的更新方法" class="headerlink" title="粗暴的更新方法"></a>粗暴的更新方法</h2><p>如果数据库表已经存在于数据库中， 那么 db.create_all() 不会重新创建或者更新这个表。如果修改模型后要把改动应用到现有的数据库中，这一特 性会带来不便。更新现有数据库表的粗暴方式是先删除旧表再重新创建：</p>
-<figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;</span>&gt; db.drop_all() </span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; db.create_all()</span><br></pre></td></tr></table></figure>
-<h2 id="使用-Flask-Migrate-实现数据库迁移"><a href="#使用-Flask-Migrate-实现数据库迁移" class="headerlink" title="使用 Flask-Migrate 实现数据库迁移"></a>使用 Flask-Migrate 实现数据库迁移</h2><blockquote>
-<p>更新表的更好方法是使用数据库迁移框架。源码版本控制工具可以跟踪源码文件的变化， 类似地，数据库迁移框架能跟踪数据库模式的变化，然后增量式的把变化应用到数据库中。</p>
-<p>SQLAlchemy 的主力开发人员编写了一个迁移框架，称为 Alembic（<a href="https://alembic.readthedocs" target="_blank" rel="external">https://alembic.readthedocs</a>. org/en/latest/index.html） 。 除 了 直 接 使 用 Alembic 之 外， Flask 程 序 还 可 使 用 Flask-Migrate （<a href="http://flask-migrate.readthedocs.org/en/latest/）扩展。这个扩展对" target="_blank" rel="external">http://flask-migrate.readthedocs.org/en/latest/）扩展。这个扩展对</a> Alembic 做了轻量级包装，并 集成到 Flask-Script 中，所有操作都通过 Flask-Script 命令完成。</p>
-</blockquote>
-<p>安装与配置略过不提<br>几次尝试后，方才对几个主要命令的实际作用有了正确的理解</p>
-<h3 id="init"><a href="#init" class="headerlink" title="init"></a>init</h3><p>创建迁移仓库和脚本，并不会生成或更新数据库文件，<code>migrations/versions/</code>中为空，如果此时<code>upgrade</code>会生成一个只包含<code>alembic_version</code>表的数据库</p>
-<figure class="highlight hsp"><table><tr><td class="code"><pre><span class="line">$ sqlite3 data-dev.sqlite</span><br><span class="line">SQLite version <span class="number">3.8</span><span class="number">.10</span><span class="number">.2</span> <span class="number">2015</span><span class="number">-05</span><span class="number">-20</span> <span class="number">18</span>:<span class="number">17</span>:<span class="number">19</span></span><br><span class="line">Enter <span class="string">".help"</span> <span class="keyword">for</span> usage hints.</span><br><span class="line">sqlite&gt; .dump</span><br><span class="line">PRAGMA foreign_keys=OFF<span class="comment">;</span></span><br><span class="line">BEGIN TRANSACTION<span class="comment">;</span></span><br><span class="line">CREATE TABLE alembic_version (</span><br><span class="line">	version_num VARCHAR(<span class="number">32</span>) <span class="keyword">NOT</span> NULL</span><br><span class="line">)<span class="comment">;</span></span><br><span class="line">COMMIT<span class="comment">;</span></span><br><span class="line">sqlite&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="migrate"><a href="#migrate" class="headerlink" title="migrate"></a>migrate</h3><p>检测对数据库的操作，生成迁移脚本保存到<code>migrations/versions/</code>中，用于数据库迁移</p>
-<p>不过按<a href="http://flask-migrate.readthedocs.io/en/latest/" target="_blank" rel="external">官方文档</a>所说，不一定能检测到所有对数据库的修改，所有需要自己对生成的迁移脚本进行检查，加上可能有遗漏的地方</p>
-<h3 id="upgrade"><a href="#upgrade" class="headerlink" title="upgrade"></a>upgrade</h3><p>用于把上述迁移运用到数据库中，即至此才会真正对数据库进行更新</p>
-<figure class="highlight gauss"><table><tr><td class="code"><pre><span class="line">$ sqlite3 data-dev.sqlite</span><br><span class="line">SQLite version <span class="number">3.8</span><span class="number">.10</span><span class="number">.2</span> <span class="number">2015</span><span class="number">-05</span><span class="number">-20</span> <span class="number">18</span>:<span class="number">17</span>:<span class="number">19</span></span><br><span class="line">Enter <span class="string">".help"</span> <span class="keyword">for</span> usage hints.</span><br><span class="line">sqlite&gt; .dump</span><br><span class="line">PRAGMA foreign_keys=OFF;</span><br><span class="line">BEGIN TRANSACTION;</span><br><span class="line"><span class="keyword">CREATE</span> TABLE alembic_version (</span><br><span class="line">	version_num VARCHAR(<span class="number">32</span>) <span class="keyword">NOT</span> <span class="built_in">NULL</span></span><br><span class="line">);</span><br><span class="line">INSERT INTO <span class="string">"alembic_version"</span> VALUES('bb488872a057');</span><br><span class="line"><span class="keyword">CREATE</span> TABLE roles (</span><br><span class="line">	id INTEGER <span class="keyword">NOT</span> <span class="built_in">NULL</span>,</span><br><span class="line">	name VARCHAR(<span class="number">64</span>),</span><br><span class="line">	PRIMARY <span class="built_in">KEY</span> (id),</span><br><span class="line">	<span class="built_in">UNIQUE</span> (name)</span><br><span class="line">);</span><br><span class="line"><span class="keyword">CREATE</span> TABLE users (</span><br><span class="line">	id INTEGER <span class="keyword">NOT</span> <span class="built_in">NULL</span>,</span><br><span class="line">	email VARCHAR(<span class="number">64</span>),</span><br><span class="line">	username VARCHAR(<span class="number">64</span>),</span><br><span class="line">	role_id INTEGER,</span><br><span class="line">	password_hash VARCHAR(<span class="number">128</span>),</span><br><span class="line">	PRIMARY <span class="built_in">KEY</span> (id),</span><br><span class="line">	FOREIGN <span class="built_in">KEY</span>(role_id) REFERENCES roles (id)</span><br><span class="line">);</span><br><span class="line"><span class="keyword">CREATE</span> <span class="built_in">UNIQUE</span> INDEX ix_users_email ON users (email);</span><br><span class="line"><span class="keyword">CREATE</span> <span class="built_in">UNIQUE</span> INDEX ix_users_username ON users (username);</span><br><span class="line">COMMIT;</span><br><span class="line">sqlite&gt;</span><br></pre></td></tr></table></figure>
-<h1 id="管理员角色"><a href="#管理员角色" class="headerlink" title="管理员角色"></a>管理员角色</h1><h2 id="遇到的问题-1"><a href="#遇到的问题-1" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><p>学习到 10.3.2后，发现以管理员邮箱注册的帐号并不能打开<code>管理员级别的资料编辑器</code><br>手动查看数据库：<br><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">"users"</span> <span class="keyword">VALUES</span>(<span class="number">1</span>,<span class="string">'huamingrui@163.com'</span>,<span class="string">'huamingrui'</span>,<span class="literal">NULL</span>,<span class="string">'pbkdf2:sha1:1000$wpqGMEz8$a3bf86fcb0be120a7510a8f702077eb2fdfa1980'</span>,<span class="number">1</span>,<span class="literal">NULL</span>,<span class="literal">NULL</span>,<span class="literal">NULL</span>,<span class="string">'2016-05-17 14:17:48.930851'</span>,<span class="string">'2016-05-17 14:19:00.735339'</span>);</span><br></pre></td></tr></table></figure></p>
-<p>发现<code>role_id</code>项为空，即角色没有被成功赋予</p>
-<h2 id="Role-insert-roles"><a href="#Role-insert-roles" class="headerlink" title="Role.insert_roles()"></a>Role.insert_roles()</h2><p>回去翻书，找到 9.3 最后的部分说到</p>
-<blockquote>
-<p>在你阅读下一章之前，最好重新创建或者更新开发数据库，如此一来，那些在实现角色和 权限之前创建的用户账户就被赋予了角色。</p>
-</blockquote>
-<p>然而实测发现，对于管理员用户，必须在注册之前就完成 9.1 最后的<code>Role.insert_roles()</code>步骤，才能成功为管理员邮箱用户赋予<code>管理员角色</code></p>
-<figure class="highlight vbnet"><table><tr><td class="code"><pre><span class="line">$ rm data-dev.sqlite</span><br><span class="line">$ python manage.py db upgrade</span><br><span class="line">INFO  [alembic.runtime.migration] Context impl SQLiteImpl.</span><br><span class="line">INFO  [alembic.runtime.migration] Will assume non-transactional DDL.</span><br><span class="line">INFO  [alembic.runtime.migration] Running upgrade  -&gt; <span class="number">02</span>ccb3e6a553, empty message</span><br><span class="line">$ sqlite3 data-dev.sqlite</span><br><span class="line">SQLite version <span class="number">3.8</span><span class="number">.10</span><span class="number">.2</span> <span class="number">2015</span><span class="number">-05</span><span class="number">-20</span> <span class="number">18</span>:<span class="number">17</span>:<span class="number">19</span></span><br><span class="line">Enter <span class="string">".help"</span> <span class="keyword">for</span> usage hints.</span><br><span class="line">sqlite&gt; .dump</span><br><span class="line">PRAGMA foreign_keys=<span class="keyword">OFF</span>;</span><br><span class="line">BEGIN TRANSACTION;</span><br><span class="line">CREATE TABLE alembic_version (</span><br><span class="line">	version_num VARCHAR(<span class="number">32</span>) <span class="keyword">NOT</span> NULL</span><br><span class="line">);</span><br><span class="line">INSERT <span class="keyword">INTO</span> <span class="string">"alembic_version"</span> VALUES(<span class="comment">'02ccb3e6a553');</span></span><br><span class="line">CREATE TABLE roles (</span><br><span class="line">	id <span class="built_in">INTEGER</span> <span class="keyword">NOT</span> NULL,</span><br><span class="line">	name VARCHAR(<span class="number">64</span>),</span><br><span class="line">	<span class="string">"default"</span> <span class="built_in">BOOLEAN</span>,</span><br><span class="line">	permissions <span class="built_in">INTEGER</span>,</span><br><span class="line">	PRIMARY <span class="keyword">KEY</span> (id),</span><br><span class="line">	UNIQUE (name),</span><br><span class="line">	CHECK (<span class="string">"default"</span> <span class="keyword">IN</span> (<span class="number">0</span>, <span class="number">1</span>))</span><br><span class="line">);</span><br><span class="line">CREATE TABLE users (</span><br><span class="line">	id <span class="built_in">INTEGER</span> <span class="keyword">NOT</span> NULL,</span><br><span class="line">	email VARCHAR(<span class="number">64</span>),</span><br><span class="line">	username VARCHAR(<span class="number">64</span>),</span><br><span class="line">	role_id <span class="built_in">INTEGER</span>,</span><br><span class="line">	password_hash VARCHAR(<span class="number">128</span>),</span><br><span class="line">	confirmed <span class="built_in">BOOLEAN</span>,</span><br><span class="line">	name VARCHAR(<span class="number">64</span>),</span><br><span class="line">	location VARCHAR(<span class="number">64</span>),</span><br><span class="line">	about_me <span class="keyword">TEXT</span>,</span><br><span class="line">	member_since DATETIME,</span><br><span class="line">	last_seen DATETIME,</span><br><span class="line">	PRIMARY <span class="keyword">KEY</span> (id),</span><br><span class="line">	FOREIGN <span class="keyword">KEY</span>(role_id) REFERENCES roles (id),</span><br><span class="line">	CHECK (confirmed <span class="keyword">IN</span> (<span class="number">0</span>, <span class="number">1</span>))</span><br><span class="line">);</span><br><span class="line">CREATE INDEX ix_roles_default <span class="keyword">ON</span> roles (<span class="string">"default"</span>);</span><br><span class="line">CREATE UNIQUE INDEX ix_users_email <span class="keyword">ON</span> users (email);</span><br><span class="line">CREATE UNIQUE INDEX ix_users_username <span class="keyword">ON</span> users (username);</span><br><span class="line">COMMIT;</span><br><span class="line">sqlite&gt; ^D</span><br><span class="line">$ python manage.py shell</span><br><span class="line">&gt;&gt;&gt; Role.insert_roles()</span><br><span class="line">&gt;&gt;&gt; Role.query.all()</span><br><span class="line">[&lt;Role u<span class="comment">'Moderator'&gt;, <span class="doctag">&lt;Role u'Administrator'&gt;</span>, <span class="doctag">&lt;Role u'User'&gt;</span>]</span></span><br><span class="line">&gt;&gt;&gt; ^D</span><br><span class="line">$ sqlite3 data-dev.sqlite</span><br><span class="line">SQLite version <span class="number">3.8</span><span class="number">.10</span><span class="number">.2</span> <span class="number">2015</span><span class="number">-05</span><span class="number">-20</span> <span class="number">18</span>:<span class="number">17</span>:<span class="number">19</span></span><br><span class="line">Enter <span class="string">".help"</span> <span class="keyword">for</span> usage hints.</span><br><span class="line">sqlite&gt; .dump</span><br><span class="line">PRAGMA foreign_keys=<span class="keyword">OFF</span>;</span><br><span class="line">BEGIN TRANSACTION;</span><br><span class="line">CREATE TABLE alembic_version (</span><br><span class="line">	version_num VARCHAR(<span class="number">32</span>) <span class="keyword">NOT</span> NULL</span><br><span class="line">);</span><br><span class="line">INSERT <span class="keyword">INTO</span> <span class="string">"alembic_version"</span> VALUES(<span class="comment">'02ccb3e6a553');</span></span><br><span class="line">CREATE TABLE roles (</span><br><span class="line">	id <span class="built_in">INTEGER</span> <span class="keyword">NOT</span> NULL,</span><br><span class="line">	name VARCHAR(<span class="number">64</span>),</span><br><span class="line">	<span class="string">"default"</span> <span class="built_in">BOOLEAN</span>,</span><br><span class="line">	permissions <span class="built_in">INTEGER</span>,</span><br><span class="line">	PRIMARY <span class="keyword">KEY</span> (id),</span><br><span class="line">	UNIQUE (name),</span><br><span class="line">	CHECK (<span class="string">"default"</span> <span class="keyword">IN</span> (<span class="number">0</span>, <span class="number">1</span>))</span><br><span class="line">);</span><br><span class="line">INSERT <span class="keyword">INTO</span> <span class="string">"roles"</span> VALUES(<span class="number">1</span>,<span class="comment">'Moderator',0,15);</span></span><br><span class="line">INSERT <span class="keyword">INTO</span> <span class="string">"roles"</span> VALUES(<span class="number">2</span>,<span class="comment">'Administrator',0,255);</span></span><br><span class="line">INSERT <span class="keyword">INTO</span> <span class="string">"roles"</span> VALUES(<span class="number">3</span>,<span class="comment">'User',1,7);</span></span><br><span class="line">CREATE TABLE users (</span><br><span class="line">	id <span class="built_in">INTEGER</span> <span class="keyword">NOT</span> NULL,</span><br><span class="line">	email VARCHAR(<span class="number">64</span>),</span><br><span class="line">	username VARCHAR(<span class="number">64</span>),</span><br><span class="line">	role_id <span class="built_in">INTEGER</span>,</span><br><span class="line">	password_hash VARCHAR(<span class="number">128</span>),</span><br><span class="line">	confirmed <span class="built_in">BOOLEAN</span>,</span><br><span class="line">	name VARCHAR(<span class="number">64</span>),</span><br><span class="line">	location VARCHAR(<span class="number">64</span>),</span><br><span class="line">	about_me <span class="keyword">TEXT</span>,</span><br><span class="line">	member_since DATETIME,</span><br><span class="line">	last_seen DATETIME,</span><br><span class="line">	PRIMARY <span class="keyword">KEY</span> (id),</span><br><span class="line">	FOREIGN <span class="keyword">KEY</span>(role_id) REFERENCES roles (id),</span><br><span class="line">	CHECK (confirmed <span class="keyword">IN</span> (<span class="number">0</span>, <span class="number">1</span>))</span><br><span class="line">);</span><br><span class="line">CREATE INDEX ix_roles_default <span class="keyword">ON</span> roles (<span class="string">"default"</span>);</span><br><span class="line">CREATE UNIQUE INDEX ix_users_email <span class="keyword">ON</span> users (email);</span><br><span class="line">CREATE UNIQUE INDEX ix_users_username <span class="keyword">ON</span> users (username);</span><br><span class="line">COMMIT;</span><br><span class="line">sqlite&gt; ^D</span><br><span class="line">$ python manage.py runserver</span><br></pre></td></tr></table></figure>
-<p>注册管理员邮箱<br><figure class="highlight lasso"><table><tr><td class="code"><pre><span class="line">$ sqlite3 <span class="built_in">data</span><span class="attr">-dev</span>.sqlite</span><br><span class="line">SQLite version <span class="number">3.8</span><span class="number">.10</span><span class="number">.2</span> <span class="number">2015</span><span class="number">-05</span><span class="number">-20</span> <span class="number">18</span>:<span class="number">17</span>:<span class="number">19</span></span><br><span class="line">Enter <span class="string">".help"</span> for usage hints.</span><br><span class="line">sqlite&gt; .dump</span><br><span class="line">PRAGMA foreign_keys=OFF;</span><br><span class="line">BEGIN TRANSACTION;</span><br><span class="line">CREATE TABLE alembic_version (</span><br><span class="line">	version_num VARCHAR(<span class="number">32</span>) <span class="keyword">NOT</span> <span class="built_in">NULL</span></span><br><span class="line">);</span><br><span class="line">INSERT <span class="keyword">INTO</span> <span class="string">"alembic_version"</span> VALUES(<span class="string">'02ccb3e6a553'</span>);</span><br><span class="line">CREATE TABLE roles (</span><br><span class="line">	id <span class="built_in">INTEGER</span> <span class="keyword">NOT</span> <span class="built_in">NULL</span>,</span><br><span class="line">	name VARCHAR(<span class="number">64</span>),</span><br><span class="line">	<span class="string">"default"</span> <span class="built_in">BOOLEAN</span>,</span><br><span class="line">	permissions <span class="built_in">INTEGER</span>,</span><br><span class="line">	PRIMARY KEY (id),</span><br><span class="line">	UNIQUE (name),</span><br><span class="line">	CHECK (<span class="string">"default"</span> <span class="keyword">IN</span> (<span class="number">0</span>, <span class="number">1</span>))</span><br><span class="line">);</span><br><span class="line">INSERT <span class="keyword">INTO</span> <span class="string">"roles"</span> VALUES(<span class="number">1</span>,<span class="string">'Moderator'</span>,<span class="number">0</span>,<span class="number">15</span>);</span><br><span class="line">INSERT <span class="keyword">INTO</span> <span class="string">"roles"</span> VALUES(<span class="number">2</span>,<span class="string">'Administrator'</span>,<span class="number">0</span>,<span class="number">255</span>);</span><br><span class="line">INSERT <span class="keyword">INTO</span> <span class="string">"roles"</span> VALUES(<span class="number">3</span>,<span class="string">'User'</span>,<span class="number">1</span>,<span class="number">7</span>);</span><br><span class="line">CREATE TABLE users (</span><br><span class="line">	id <span class="built_in">INTEGER</span> <span class="keyword">NOT</span> <span class="built_in">NULL</span>,</span><br><span class="line">	email VARCHAR(<span class="number">64</span>),</span><br><span class="line">	username VARCHAR(<span class="number">64</span>),</span><br><span class="line">	role_id <span class="built_in">INTEGER</span>,</span><br><span class="line">	password_hash VARCHAR(<span class="number">128</span>),</span><br><span class="line">	confirmed <span class="built_in">BOOLEAN</span>,</span><br><span class="line">	name VARCHAR(<span class="number">64</span>),</span><br><span class="line">	location VARCHAR(<span class="number">64</span>),</span><br><span class="line">	about_me TEXT,</span><br><span class="line">	member_since DATETIME,</span><br><span class="line">	last_seen DATETIME,</span><br><span class="line">	PRIMARY KEY (id),</span><br><span class="line">	FOREIGN KEY(role_id) REFERENCES roles (id),</span><br><span class="line">	CHECK (confirmed <span class="keyword">IN</span> (<span class="number">0</span>, <span class="number">1</span>))</span><br><span class="line">);</span><br><span class="line">INSERT <span class="keyword">INTO</span> <span class="string">"users"</span> VALUES(<span class="number">1</span>,<span class="string">'huamingrui@163.com'</span>,<span class="string">'MrHua'</span>,<span class="number">2</span>,<span class="string">'pbkdf2:sha1:1000$tSmBVC7j$6f3d994eb5b6b455347b56d3112a4cac26fc97e1'</span>,<span class="number">1</span>,<span class="built_in">NULL</span>,<span class="built_in">NULL</span>,<span class="built_in">NULL</span>,<span class="string">'2016-05-17 14:34:36.781740'</span>,<span class="string">'2016-05-17 14:52:08.764862'</span>);</span><br><span class="line">CREATE INDEX ix_roles_default <span class="keyword">ON</span> roles (<span class="string">"default"</span>);</span><br><span class="line">CREATE UNIQUE INDEX ix_users_email <span class="keyword">ON</span> users (email);</span><br><span class="line">CREATE UNIQUE INDEX ix_users_username <span class="keyword">ON</span> users (username);</span><br><span class="line">COMMIT;</span><br><span class="line">sqlite&gt;</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1548,7 +1532,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">30</span>
+              <span class="site-state-item-count">31</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1565,7 +1549,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">58</span>
+                <span class="site-state-item-count">61</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
