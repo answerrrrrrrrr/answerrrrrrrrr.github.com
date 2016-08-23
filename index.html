@@ -216,6 +216,135 @@
             
               
                 
+                <a class="post-title-link" href="/2016/08/23/Q判断Gadget时遇到align伪指令的问题/" itemprop="url">
+                  Q判断Gadget时遇到align伪指令的问题
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-08-23T13:13:57+08:00" content="2016-08-23">
+              2016-08-23
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Q/" itemprop="url" rel="index">
+                    <span itemprop="name">Q</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/23/Q判断Gadget时遇到align伪指令的问题/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/23/Q判断Gadget时遇到align伪指令的问题/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>今天在利用 Q 判断 Gadget 时发现，在 IDA 中静态分析时显示如下的指令片段：</p>
+<figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line"><span class="meta">align</span> <span class="number">10h</span></span><br><span class="line"><span class="keyword">ret</span></span><br></pre></td></tr></table></figure>
+<p>会被判断为 Gadget，并且还莫名其妙扯上了 esi</p>
+<figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line">8d7600c3</span><br><span class="line">MoveReg(Address: <span class="number">0x40000</span>, Complexity <span class="number">0.67</span>, Stack <span class="number">0x4</span>, <span class="built_in">Ip</span> <span class="number">0x0</span>, Output: <span class="built_in">esi</span>, Inputs [<span class="built_in">esi</span>])</span><br><span class="line">AndGadget(Address: <span class="number">0x40000</span>, Complexity <span class="number">0.67</span>, Stack <span class="number">0x4</span>, <span class="built_in">Ip</span> <span class="number">0x0</span>, Output: <span class="built_in">esi</span>, Inputs [<span class="built_in">esi</span>, <span class="built_in">esi</span>])</span><br><span class="line">OrGadget(Address: <span class="number">0x40000</span>, Complexity <span class="number">0.67</span>, Stack <span class="number">0x4</span>, <span class="built_in">Ip</span> <span class="number">0x0</span>, Output: <span class="built_in">esi</span>, Inputs [<span class="built_in">esi</span>, <span class="built_in">esi</span>])</span><br></pre></td></tr></table></figure>
+<p>实在百思不得其解   </p>
+<p>按理说<code>伪指令</code>并没有实际的机器码与之对应，但是<code>ret</code>对应<code>c3</code>，那么只能解释为<code>align 10h</code>对应<code>8d7600</code>了</p>
+<p>好在 Google 到了<a href="http://www.codingnow.com/2000/frame.htm?http://www.codingnow.com/2000/essay/align.htm" target="_blank" rel="external">一篇文章</a>，提到了汇编器处理<code>align</code>伪指令的原理</p>
+<blockquote>
+<p>我原来以为, VC 将插入 NOP 来对齐代码, 结果发现, 为了提高效率, VC 按情况填入了单字节,双字节, 三字节指令做空操作, 使空操作的时间最短. 当需要插入 1 字节时, 理所当然的插入一个 0x90 (NOP); 需要插入 2 字节时则是 0x8b 0xff (MOV DI,DI) 这也无可厚非, 此指令不破坏任何寄存器, 也不影响标志位; 可需要填入 3 个字节的时候, 我用的 VC6 却令人费解的填入了 0x8d 0x49 0x00 (LEA CX,[BX+DI+00]), 很明显它影响了 CX, 而风魂的代码就是受到了它的影响.</p>
+</blockquote>
+<p>我这才恍然大悟，拿 capstone 反汇编了一下<code>8d7600c3</code></p>
+<figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line"><span class="keyword">lea</span>	<span class="built_in">esi</span>, <span class="built_in">dword</span> <span class="built_in">ptr</span> [<span class="built_in">rsi</span>]</span><br><span class="line"><span class="keyword">ret</span></span><br></pre></td></tr></table></figure>
+<p>果然，汇编器在处理<code>align</code>时，采用了插入不破坏任何寄存器也不影响标志位的指令<code>lea    esi, dword ptr [rsi]</code>来实现对齐效果</p>
+<p>而 Q （使用 capstone 反汇编）接受到传入的指令时，自然会按照实际的机器指令而不是<code>align 10h</code>来进行 Gadget 判断</p>
+<p>大致如此…</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/08/16/Flask-relationship-backref/" itemprop="url">
                   Flask-SQLAlchemy 中的 relationship & backref
                 </a>
@@ -1358,136 +1487,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/05/19/Python-sorted函数中key的用法/" itemprop="url">
-                  Python-sorted函数中key的用法
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-05-19T09:02:08+08:00" content="2016-05-19">
-              2016-05-19
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/05/19/Python-sorted函数中key的用法/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/19/Python-sorted函数中key的用法/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>sorted函数的可用参数如下</p>
-<blockquote>
-<p>sorted(iterable[, cmp[, key[, reverse]]])</p>
-</blockquote>
-<p>其它几个还好理解，就是<code>key</code>的用法经常会忘记，所以记录一下备用</p>
-<p><a href="http://devdocs.io/python~2.7/library/functions#sorted" target="_blank" rel="external">文档</a>中说：</p>
-<blockquote>
-<p>key specifies a function of one argument that is used to extract a comparison key from each list element: key=str.lower. The default value is None (compare the elements directly).</p>
-</blockquote>
-<p>我的理解是<br><code>key</code>提供了一个函数，以<code>iterable</code>对象中的元素为唯一参数，返回一个与原元素一一对应的 key 值<br>然后再对以这些 key 值为元素的<code>iterable</code>进行排序<br>最后将这些 key 值替换回对应的原元素<br>排序完成</p>
-<p>需要注意的就是<code>False &lt; True</code></p>
-<p>然后是实例（参考<a href="https://segmentfault.com/q/1010000005111826/a-1020000005112829）" target="_blank" rel="external">https://segmentfault.com/q/1010000005111826/a-1020000005112829）</a></p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line">s = <span class="string">'aB23'</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sorted_with_key</span><span class="params">(s, key)</span>:</span></span><br><span class="line">    s = sorted(s, key=key)</span><br><span class="line">    <span class="keyword">print</span> s</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'keys: '</span>,</span><br><span class="line">    <span class="keyword">print</span> [key(x) <span class="keyword">for</span> x <span class="keyword">in</span> s]</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> <span class="string">'\nstr.lower'</span></span><br><span class="line">sorted_with_key(s, str.lower)</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> <span class="string">'\nstr.islower'</span></span><br><span class="line">sorted_with_key(s, str.islower)</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> <span class="string">'\nlambda x: x.isdigit() and int(x) % 2 == 0'</span></span><br><span class="line">sorted_with_key(s, <span class="keyword">lambda</span> x: x.isdigit() <span class="keyword">and</span> int(x) % <span class="number">2</span> == <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> <span class="string">'\nlambda x: x.isdigit(), x.isdigit() and int(x) % 2==0, x.isupper(), x.islower(), x'</span></span><br><span class="line"><span class="comment"># 排序:小写-大写-奇数-偶数</span></span><br><span class="line">sorted_with_key(s, <span class="keyword">lambda</span> x: (x.isdigit(), x.isdigit() <span class="keyword">and</span> int(x) %</span><br><span class="line">                              <span class="number">2</span> == <span class="number">0</span>, x.isupper(), x.islower(), x))</span><br></pre></td></tr></table></figure>
-<p>output</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">str.lower</span><br><span class="line">[<span class="string">'2'</span>, <span class="string">'3'</span>, <span class="string">'a'</span>, <span class="string">'B'</span>]</span><br><span class="line">keys:  [<span class="string">'2'</span>, <span class="string">'3'</span>, <span class="string">'a'</span>, <span class="string">'b'</span>]</span><br><span class="line"></span><br><span class="line">str.islower</span><br><span class="line">[<span class="string">'B'</span>, <span class="string">'2'</span>, <span class="string">'3'</span>, <span class="string">'a'</span>]</span><br><span class="line">keys:  [<span class="keyword">False</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, <span class="keyword">True</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">lambda</span> x: x.isdigit() <span class="keyword">and</span> int(x) % <span class="number">2</span> == <span class="number">0</span></span><br><span class="line">[<span class="string">'a'</span>, <span class="string">'B'</span>, <span class="string">'3'</span>, <span class="string">'2'</span>]</span><br><span class="line">keys:  [<span class="keyword">False</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, <span class="keyword">True</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">lambda</span> x: (x.isdigit(), x.isdigit() <span class="keyword">and</span> int(x) % <span class="number">2</span>==<span class="number">0</span>, x.isupper(), x.islower(), x)</span><br><span class="line">[<span class="string">'a'</span>, <span class="string">'B'</span>, <span class="string">'3'</span>, <span class="string">'2'</span>]</span><br><span class="line">keys:  [(<span class="keyword">False</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, <span class="keyword">True</span>, <span class="string">'a'</span>), (<span class="keyword">False</span>, <span class="keyword">False</span>, <span class="keyword">True</span>, <span class="keyword">False</span>, <span class="string">'B'</span>), (<span class="keyword">True</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, <span class="string">'3'</span>), (<span class="keyword">True</span>, <span class="keyword">True</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, <span class="string">'2'</span>)]</span><br></pre></td></tr></table></figure>
-<h1 id="2016-7-9-补充"><a href="#2016-7-9-补充" class="headerlink" title="2016.7.9 补充"></a>2016.7.9 补充</h1><p>今天看了 cookbook 5.2，Python 2.4 之前是不支持<code>key</code>的，书中提供了一个类似的思路，感觉对理解<code>key</code>的实现很有帮助，摘录如下：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">case_insensitive_sorted</span><span class="params">(string_list)</span>:</span></span><br><span class="line">    auxiliary_list = [(x.lower(), x) <span class="keyword">for</span> x <span class="keyword">in</span> string_list] <span class="comment"># decorate</span></span><br><span class="line">    auxiliary_list.sort()                                  <span class="comment"># sort</span></span><br><span class="line">    <span class="keyword">return</span> [x[<span class="number">1</span>] <span class="keyword">for</span> x <span class="keyword">in</span> auxiliary_list]                  <span class="comment"># undecorate</span></span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1533,7 +1532,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">31</span>
+              <span class="site-state-item-count">32</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1541,7 +1540,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -1550,7 +1549,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-count">65</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
