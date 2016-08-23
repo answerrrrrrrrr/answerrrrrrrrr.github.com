@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://answerrrrrrrrr.io/"/>
-  <updated>2016-08-16T08:15:49.000Z</updated>
+  <updated>2016-08-23T05:38:37.000Z</updated>
   <id>http://answerrrrrrrrr.io/</id>
   
   <author>
@@ -14,6 +14,52 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Q判断Gadget时遇到align伪指令的问题</title>
+    <link href="http://answerrrrrrrrr.io/2016/08/23/Q%E5%88%A4%E6%96%ADGadget%E6%97%B6%E9%81%87%E5%88%B0align%E4%BC%AA%E6%8C%87%E4%BB%A4%E7%9A%84%E9%97%AE%E9%A2%98/"/>
+    <id>http://answerrrrrrrrr.io/2016/08/23/Q判断Gadget时遇到align伪指令的问题/</id>
+    <published>2016-08-23T05:13:57.000Z</published>
+    <updated>2016-08-23T05:38:37.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>今天在利用 Q 判断 Gadget 时发现，在 IDA 中静态分析时显示如下的指令片段：</p>
+<figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line"><span class="meta">align</span> <span class="number">10h</span></span><br><span class="line"><span class="keyword">ret</span></span><br></pre></td></tr></table></figure>
+<p>会被判断为 Gadget，并且还莫名其妙扯上了 esi</p>
+<figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line">8d7600c3</span><br><span class="line">MoveReg(Address: <span class="number">0x40000</span>, Complexity <span class="number">0.67</span>, Stack <span class="number">0x4</span>, <span class="built_in">Ip</span> <span class="number">0x0</span>, Output: <span class="built_in">esi</span>, Inputs [<span class="built_in">esi</span>])</span><br><span class="line">AndGadget(Address: <span class="number">0x40000</span>, Complexity <span class="number">0.67</span>, Stack <span class="number">0x4</span>, <span class="built_in">Ip</span> <span class="number">0x0</span>, Output: <span class="built_in">esi</span>, Inputs [<span class="built_in">esi</span>, <span class="built_in">esi</span>])</span><br><span class="line">OrGadget(Address: <span class="number">0x40000</span>, Complexity <span class="number">0.67</span>, Stack <span class="number">0x4</span>, <span class="built_in">Ip</span> <span class="number">0x0</span>, Output: <span class="built_in">esi</span>, Inputs [<span class="built_in">esi</span>, <span class="built_in">esi</span>])</span><br></pre></td></tr></table></figure>
+<p>实在百思不得其解   </p>
+<p>按理说<code>伪指令</code>并没有实际的机器码与之对应，但是<code>ret</code>对应<code>c3</code>，那么只能解释为<code>align 10h</code>对应<code>8d7600</code>了</p>
+<p>好在 Google 到了<a href="http://www.codingnow.com/2000/frame.htm?http://www.codingnow.com/2000/essay/align.htm" target="_blank" rel="external">一篇文章</a>，提到了汇编器处理<code>align</code>伪指令的原理</p>
+<blockquote>
+<p>我原来以为, VC 将插入 NOP 来对齐代码, 结果发现, 为了提高效率, VC 按情况填入了单字节,双字节, 三字节指令做空操作, 使空操作的时间最短. 当需要插入 1 字节时, 理所当然的插入一个 0x90 (NOP); 需要插入 2 字节时则是 0x8b 0xff (MOV DI,DI) 这也无可厚非, 此指令不破坏任何寄存器, 也不影响标志位; 可需要填入 3 个字节的时候, 我用的 VC6 却令人费解的填入了 0x8d 0x49 0x00 (LEA CX,[BX+DI+00]), 很明显它影响了 CX, 而风魂的代码就是受到了它的影响.</p>
+</blockquote>
+<p>我这才恍然大悟，拿 capstone 反汇编了一下<code>8d7600c3</code></p>
+<figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line"><span class="keyword">lea</span>	<span class="built_in">esi</span>, <span class="built_in">dword</span> <span class="built_in">ptr</span> [<span class="built_in">rsi</span>]</span><br><span class="line"><span class="keyword">ret</span></span><br></pre></td></tr></table></figure>
+<p>果然，汇编器在处理<code>align</code>时，采用了插入不破坏任何寄存器也不影响标志位的指令<code>lea    esi, dword ptr [rsi]</code>来实现对齐效果</p>
+<p>而 Q （使用 capstone 反汇编）接受到传入的指令时，自然会按照实际的机器指令而不是<code>align 10h</code>来进行 Gadget 判断</p>
+<p>大致如此…</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;今天在利用 Q 判断 Gadget 时发现，在 IDA 中静态分析时显示如下的指令片段：&lt;/p&gt;
+&lt;figure class=&quot;highlight x86asm&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;sp
+    
+    </summary>
+    
+      <category term="Q" scheme="http://answerrrrrrrrr.io/categories/Q/"/>
+    
+    
+      <category term="Q" scheme="http://answerrrrrrrrr.io/tags/Q/"/>
+    
+      <category term="asm" scheme="http://answerrrrrrrrr.io/tags/asm/"/>
+    
+      <category term="align" scheme="http://answerrrrrrrrr.io/tags/align/"/>
+    
+      <category term="capstone" scheme="http://answerrrrrrrrr.io/tags/capstone/"/>
+    
+      <category term="ida" scheme="http://answerrrrrrrrr.io/tags/ida/"/>
+    
+  </entry>
   
   <entry>
     <title>Flask-SQLAlchemy 中的 relationship &amp; backref</title>
@@ -44,9 +90,9 @@
       <category term="Flask" scheme="http://answerrrrrrrrr.io/categories/Flask/"/>
     
     
-      <category term="Flask" scheme="http://answerrrrrrrrr.io/tags/Flask/"/>
-    
       <category term="Flask-SQLAlchemy" scheme="http://answerrrrrrrrr.io/tags/Flask-SQLAlchemy/"/>
+    
+      <category term="Flask" scheme="http://answerrrrrrrrr.io/tags/Flask/"/>
     
       <category term="relationship" scheme="http://answerrrrrrrrr.io/tags/relationship/"/>
     
@@ -431,7 +477,7 @@
 <p>然后是实例（参考<a href="https://segmentfault.com/q/1010000005111826/a-1020000005112829）" target="_blank" rel="external">https://segmentfault.com/q/1010000005111826/a-1020000005112829）</a></p>
 <figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line">s = <span class="string">'aB23'</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sorted_with_key</span><span class="params">(s, key)</span>:</span></span><br><span class="line">    s = sorted(s, key=key)</span><br><span class="line">    <span class="keyword">print</span> s</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'keys: '</span>,</span><br><span class="line">    <span class="keyword">print</span> [key(x) <span class="keyword">for</span> x <span class="keyword">in</span> s]</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> <span class="string">'\nstr.lower'</span></span><br><span class="line">sorted_with_key(s, str.lower)</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> <span class="string">'\nstr.islower'</span></span><br><span class="line">sorted_with_key(s, str.islower)</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> <span class="string">'\nlambda x: x.isdigit() and int(x) % 2 == 0'</span></span><br><span class="line">sorted_with_key(s, <span class="keyword">lambda</span> x: x.isdigit() <span class="keyword">and</span> int(x) % <span class="number">2</span> == <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> <span class="string">'\nlambda x: x.isdigit(), x.isdigit() and int(x) % 2==0, x.isupper(), x.islower(), x'</span></span><br><span class="line"><span class="comment"># 排序:小写-大写-奇数-偶数</span></span><br><span class="line">sorted_with_key(s, <span class="keyword">lambda</span> x: (x.isdigit(), x.isdigit() <span class="keyword">and</span> int(x) %</span><br><span class="line">                              <span class="number">2</span> == <span class="number">0</span>, x.isupper(), x.islower(), x))</span><br></pre></td></tr></table></figure>
 <p>output</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">str.lower</span><br><span class="line">[<span class="string">'2'</span>, <span class="string">'3'</span>, <span class="string">'a'</span>, <span class="string">'B'</span>]</span><br><span class="line">keys:  [<span class="string">'2'</span>, <span class="string">'3'</span>, <span class="string">'a'</span>, <span class="string">'b'</span>]</span><br><span class="line"></span><br><span class="line">str.islower</span><br><span class="line">[<span class="string">'B'</span>, <span class="string">'2'</span>, <span class="string">'3'</span>, <span class="string">'a'</span>]</span><br><span class="line">keys:  [<span class="keyword">False</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, <span class="keyword">True</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">lambda</span> x: x.isdigit() <span class="keyword">and</span> int(x) % <span class="number">2</span> == <span class="number">0</span></span><br><span class="line">[<span class="string">'a'</span>, <span class="string">'B'</span>, <span class="string">'3'</span>, <span class="string">'2'</span>]</span><br><span class="line">keys:  [<span class="keyword">False</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, <span class="keyword">True</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">lambda</span> x: (x.isdigit(), x.isdigit() <span class="keyword">and</span> int(x) % <span class="number">2</span>==<span class="number">0</span>, x.isupper(), x.islower(), x)</span><br><span class="line">[<span class="string">'a'</span>, <span class="string">'B'</span>, <span class="string">'3'</span>, <span class="string">'2'</span>]</span><br><span class="line">keys:  [(<span class="keyword">False</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, <span class="keyword">True</span>, <span class="string">'a'</span>), (<span class="keyword">False</span>, <span class="keyword">False</span>, <span class="keyword">True</span>, <span class="keyword">False</span>, <span class="string">'B'</span>), (<span class="keyword">True</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, <span class="string">'3'</span>), (<span class="keyword">True</span>, <span class="keyword">True</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, <span class="string">'2'</span>)]</span><br></pre></td></tr></table></figure>
+<figure class="highlight autoit"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">str.lower</span><br><span class="line">[<span class="string">'2'</span>, <span class="string">'3'</span>, <span class="string">'a'</span>, <span class="string">'B'</span>]</span><br><span class="line">keys:  [<span class="string">'2'</span>, <span class="string">'3'</span>, <span class="string">'a'</span>, <span class="string">'b'</span>]</span><br><span class="line"></span><br><span class="line">str.islower</span><br><span class="line">[<span class="string">'B'</span>, <span class="string">'2'</span>, <span class="string">'3'</span>, <span class="string">'a'</span>]</span><br><span class="line">keys:  [<span class="literal">False</span>, <span class="literal">False</span>, <span class="literal">False</span>, <span class="literal">True</span>]</span><br><span class="line"></span><br><span class="line">lambda x: x.isdigit() <span class="literal">and</span> <span class="built_in">int</span>(x) % <span class="number">2</span> == <span class="number">0</span></span><br><span class="line">[<span class="string">'a'</span>, <span class="string">'B'</span>, <span class="string">'3'</span>, <span class="string">'2'</span>]</span><br><span class="line">keys:  [<span class="literal">False</span>, <span class="literal">False</span>, <span class="literal">False</span>, <span class="literal">True</span>]</span><br><span class="line"></span><br><span class="line">lambda x: (x.isdigit(), x.isdigit() <span class="literal">and</span> <span class="built_in">int</span>(x) % <span class="number">2</span>==<span class="number">0</span>, x.isupper(), x.islower(), x)</span><br><span class="line">[<span class="string">'a'</span>, <span class="string">'B'</span>, <span class="string">'3'</span>, <span class="string">'2'</span>]</span><br><span class="line">keys:  [(<span class="literal">False</span>, <span class="literal">False</span>, <span class="literal">False</span>, <span class="literal">True</span>, <span class="string">'a'</span>), (<span class="literal">False</span>, <span class="literal">False</span>, <span class="literal">True</span>, <span class="literal">False</span>, <span class="string">'B'</span>), (<span class="literal">True</span>, <span class="literal">False</span>, <span class="literal">False</span>, <span class="literal">False</span>, <span class="string">'3'</span>), (<span class="literal">True</span>, <span class="literal">True</span>, <span class="literal">False</span>, <span class="literal">False</span>, <span class="string">'2'</span>)]</span><br></pre></td></tr></table></figure>
 <h1 id="2016-7-9-补充"><a href="#2016-7-9-补充" class="headerlink" title="2016.7.9 补充"></a>2016.7.9 补充</h1><p>今天看了 cookbook 5.2，Python 2.4 之前是不支持<code>key</code>的，书中提供了一个类似的思路，感觉对理解<code>key</code>的实现很有帮助，摘录如下：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">case_insensitive_sorted</span><span class="params">(string_list)</span>:</span></span><br><span class="line">    auxiliary_list = [(x.lower(), x) <span class="keyword">for</span> x <span class="keyword">in</span> string_list] <span class="comment"># decorate</span></span><br><span class="line">    auxiliary_list.sort()                                  <span class="comment"># sort</span></span><br><span class="line">    <span class="keyword">return</span> [x[<span class="number">1</span>] <span class="keyword">for</span> x <span class="keyword">in</span> auxiliary_list]                  <span class="comment"># undecorate</span></span><br></pre></td></tr></table></figure>]]></content>
     
@@ -500,9 +546,9 @@
       <category term="Flask" scheme="http://answerrrrrrrrr.io/categories/Flask/"/>
     
     
-      <category term="Flask-SQLAlchemy" scheme="http://answerrrrrrrrr.io/tags/Flask-SQLAlchemy/"/>
-    
       <category term="Python" scheme="http://answerrrrrrrrr.io/tags/Python/"/>
+    
+      <category term="Flask-SQLAlchemy" scheme="http://answerrrrrrrrr.io/tags/Flask-SQLAlchemy/"/>
     
       <category term="Alembic" scheme="http://answerrrrrrrrr.io/tags/Alembic/"/>
     
@@ -846,51 +892,6 @@
       <category term="Spider" scheme="http://answerrrrrrrrr.io/tags/Spider/"/>
     
       <category term="argparse" scheme="http://answerrrrrrrrr.io/tags/argparse/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Spider-02-logging</title>
-    <link href="http://answerrrrrrrrr.io/2016/04/03/Spider-02-logging/"/>
-    <id>http://answerrrrrrrrr.io/2016/04/03/Spider-02-logging/</id>
-    <published>2016-04-03T13:42:37.000Z</published>
-    <updated>2016-07-06T14:07:47.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="知道创宇爬虫设计第二天：logging"><a href="#知道创宇爬虫设计第二天：logging" class="headerlink" title="知道创宇爬虫设计第二天：logging"></a>知道创宇爬虫设计第二天：logging</h1><p><a href="http://blog.chinaunix.net/uid-26000296-id-4372063.html" target="_blank" rel="external">此文章</a>的测试用例详细实用，对logging模块的解析也很不错，现把自己理解的要点摘录如下</p>
-<ul>
-<li>只要logging.getLogger(name)中名称参数name相同则返回的Logger实例就是同一个，且仅有一个，也即name与Logger实例一一对应</li>
-<li>子孙既会将消息分发给他的handler进行处理，也会传递给所有的祖先Logger处理</li>
-<li>若为Handler加Filter则所有使用了该Handler的Logger都会受到影响。而为Logger添加Filter只会影响到自身</li>
-<li>典型的多模块场景下使用logging的方式，是在main模块中配置logging，这个配置会作用于其所有子模块</li>
-<li>使用配置文件<code>logging.config.fileConfig(&quot;logging.conf&quot;)</code>(<a href="http://my.oschina.net/leejun2005/blog/126713" target="_blank" rel="external">来源</a>)</li>
-</ul>
-<figure class="highlight"><figcaption><span>logging.conf</span></figcaption><table><tr><td class="code"><pre><span class="line"># 定义logger模块，root是父类，必需存在的，其它的是自定义。</span><br><span class="line"># logging.getLogger(NAME)便相当于向logging模块注册了一种日志打印</span><br><span class="line"># name 中用 . 表示 log 的继承关系</span><br><span class="line">[loggers]</span><br><span class="line">keys=root,infoLogger,errorLogger</span><br><span class="line"> </span><br><span class="line"># 定义handler</span><br><span class="line">[handlers]</span><br><span class="line">keys=infoHandler,errorHandler</span><br><span class="line"> </span><br><span class="line"># 定义格式化输出</span><br><span class="line">[formatters]</span><br><span class="line">keys=infoFmt,errorFmt</span><br><span class="line"> </span><br><span class="line">#--------------------------------------------------</span><br><span class="line"># 实现上面定义的logger模块，必需是[logger_xxxx]这样的形式</span><br><span class="line">#--------------------------------------------------</span><br><span class="line"># [logger_xxxx] logger_模块名称</span><br><span class="line"># level     级别，级别有DEBUG、INFO、WARNING、ERROR、CRITICAL</span><br><span class="line"># handlers  处理类，可以有多个，用逗号分开</span><br><span class="line"># qualname  logger名称，应用程序通过 logging.getLogger获取。对于不能获取的名称，则记录到root模块。</span><br><span class="line"># propagate 是否继承父类的log信息，0:否 1:是</span><br><span class="line">[logger_root]</span><br><span class="line">level=INFO</span><br><span class="line">handlers=errorHandler</span><br><span class="line"> </span><br><span class="line">[logger_errorLogger]</span><br><span class="line">level=ERROR</span><br><span class="line">handlers=errorHandler</span><br><span class="line">propagate=0</span><br><span class="line">qualname=errorLogger</span><br><span class="line"> </span><br><span class="line">[logger_infoLogger]</span><br><span class="line">level=INFO</span><br><span class="line">handlers=infoHandler</span><br><span class="line">propagate=0</span><br><span class="line">qualname=infoLogger</span><br><span class="line"> </span><br><span class="line">#--------------------------------------------------</span><br><span class="line"># handler</span><br><span class="line">#--------------------------------------------------</span><br><span class="line"># [handler_xxxx]</span><br><span class="line"># class handler类名</span><br><span class="line"># level 日志级别</span><br><span class="line"># formatter，上面定义的formatter</span><br><span class="line"># args handler初始化函数参数</span><br><span class="line"> </span><br><span class="line">[handler_infoHandler]</span><br><span class="line">class=StreamHandler</span><br><span class="line">level=INFO</span><br><span class="line">formatter=infoFmt</span><br><span class="line">args=(sys.stdout,)</span><br><span class="line"> </span><br><span class="line">[handler_errorHandler]</span><br><span class="line">class=logging.handlers.TimedRotatingFileHandler</span><br><span class="line">level=ERROR</span><br><span class="line">formatter=errorFmt</span><br><span class="line"># When computing the next rollover time for the first time (when the handler is created),</span><br><span class="line"># the last modification time of an existing log file, or else the current time,</span><br><span class="line"># is used to compute when the next rotation will occur.</span><br><span class="line"># 这个功能太鸡肋了，是从handler被创建的时间算起，不能按自然时间 rotation 切分，除非程序一直运行，否则这个功能会有问题</span><br><span class="line"># 临时解决方案参考下面的链接：Python 多进程日志记录</span><br><span class="line"># http://blogread.cn/it/article/4175?f=wb2</span><br><span class="line">args=('C:\\Users\\june\\Desktop\\error.log', 'M', 1, 5)</span><br><span class="line"> </span><br><span class="line">#--------------------------------------------------</span><br><span class="line"># 日志格式</span><br><span class="line">#--------------------------------------------------</span><br><span class="line"># %(asctime)s       年-月-日 时-分-秒,毫秒 2013-04-26 20:10:43,745</span><br><span class="line"># %(filename)s      文件名，不含目录</span><br><span class="line"># %(pathname)s      目录名，完整路径</span><br><span class="line"># %(funcName)s      函数名</span><br><span class="line"># %(levelname)s     级别名</span><br><span class="line"># %(lineno)d        行号</span><br><span class="line"># %(module)s        模块名</span><br><span class="line"># %(message)s       消息体</span><br><span class="line"># %(name)s          日志模块名</span><br><span class="line"># %(process)d       进程id</span><br><span class="line"># %(processName)s   进程名</span><br><span class="line"># %(thread)d        线程id</span><br><span class="line"># %(threadName)s    线程名</span><br><span class="line"> </span><br><span class="line">[formatter_infoFmt]</span><br><span class="line">format=%(asctime)s %(levelname)s %(message)s</span><br><span class="line">datefmt=</span><br><span class="line">class=logging.Formatter</span><br><span class="line"> </span><br><span class="line">[formatter_errorFmt]</span><br><span class="line">format=%(asctime)s %(levelname)s %(message)s</span><br><span class="line">datefmt=</span><br><span class="line">class=logging.Formatter</span><br></pre></td></tr></table></figure>
-<h1 id="测试用例"><a href="#测试用例" class="headerlink" title="测试用例"></a>测试用例</h1><figure class="highlight python"><figcaption><span>main.py</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line">__author__ = <span class="string">'Air9'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"><span class="keyword">import</span> logging.config</span><br><span class="line"></span><br><span class="line">logging.config.fileConfig(<span class="string">'main.conf'</span>)</span><br><span class="line">root_logger = logging.getLogger(<span class="string">'root'</span>)</span><br><span class="line">root_logger.debug(<span class="string">'test root logger'</span>)</span><br><span class="line"></span><br><span class="line">logger = logging.getLogger(<span class="string">'main'</span>)</span><br><span class="line">logger.info(<span class="string">'test main logger'</span>)</span><br><span class="line">logger.info(<span class="string">'start import mod'</span>)</span><br><span class="line"><span class="keyword">import</span> mod</span><br><span class="line"></span><br><span class="line">logger.debug(<span class="string">'test mod.testmod()'</span>)</span><br><span class="line">mod.testmod()</span><br><span class="line"></span><br><span class="line">root_logger.info(<span class="string">'finish test'</span>)</span><br></pre></td></tr></table></figure>
-<figure class="highlight"><figcaption><span>main.conf</span></figcaption><table><tr><td class="code"><pre><span class="line">[loggers]</span><br><span class="line">keys = root, main</span><br><span class="line"></span><br><span class="line">[handlers]</span><br><span class="line">keys = consoleHandler</span><br><span class="line"></span><br><span class="line">[formatters]</span><br><span class="line">keys = simpleFormatter</span><br><span class="line"></span><br><span class="line">[logger_root]</span><br><span class="line">level = DEBUG</span><br><span class="line">handlers = consoleHandler</span><br><span class="line"></span><br><span class="line">[logger_main]</span><br><span class="line">level = DEBUG</span><br><span class="line">handlers = consoleHandler</span><br><span class="line">qualname = main</span><br><span class="line">propagate = 0</span><br><span class="line"></span><br><span class="line">[handler_consoleHandler]</span><br><span class="line">class = StreamHandler</span><br><span class="line">level = DEBUG</span><br><span class="line">formatter = simpleFormatter</span><br><span class="line">args = (sys.stdout,)</span><br><span class="line"></span><br><span class="line">[formatter_simpleFormatter]</span><br><span class="line">format = %(asctime)s - %(name)s - [line:%(lineno)d] - %(levelname)s - %(message)s</span><br><span class="line">datefmt =</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><figcaption><span>mod.py</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line">__author__ = <span class="string">'Air9'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"><span class="keyword">import</span> submod</span><br><span class="line"></span><br><span class="line">logger = logging.getLogger(<span class="string">'main.mod'</span>)</span><br><span class="line">logger.info(<span class="string">'logger main.mod'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">testmod</span><span class="params">()</span>:</span></span><br><span class="line">    logger.debug(<span class="string">'test mod.testmod()'</span>)</span><br><span class="line">    submod.testsubmod()</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><figcaption><span>submod.py</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line">__author__ = <span class="string">'Air9'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"></span><br><span class="line">logger = logging.getLogger(<span class="string">'main.mod.submod'</span>)</span><br><span class="line">logger.info(<span class="string">'submod.logger'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">testsubmod</span><span class="params">()</span>:</span></span><br><span class="line">    logger.debug(<span class="string">'test submod.testsubmod()'</span>)</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><figcaption><span>output</span></figcaption><table><tr><td class="code"><pre><span class="line">2016-04-04 14:46:24,148 - root - [line:13] - DEBUG - test root logger</span><br><span class="line">2016-04-04 14:46:24,148 - main - [line:16] - INFO - test main logger</span><br><span class="line">2016-04-04 14:46:24,148 - main - [line:17] - INFO - start import mod</span><br><span class="line">2016-04-04 14:46:24,148 - main.mod.submod - [line:11] - INFO - submod.logger</span><br><span class="line">2016-04-04 14:46:24,148 - main.mod - [line:12] - INFO - logger main.mod</span><br><span class="line">2016-04-04 14:46:24,149 - main - [line:20] - DEBUG - test mod.testmod()</span><br><span class="line">2016-04-04 14:46:24,149 - main.mod - [line:15] - DEBUG - test mod.testmod()</span><br><span class="line">2016-04-04 14:46:24,149 - main.mod.submod - [line:14] - DEBUG - test submod.looger</span><br><span class="line">2016-04-04 14:46:24,149 - root - [line:23] - INFO - finish test</span><br></pre></td></tr></table></figure>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><a href="http://my.oschina.net/leejun2005/blog/126713" target="_blank" rel="external">http://my.oschina.net/leejun2005/blog/126713</a></li>
-<li><a href="http://blog.chinaunix.net/uid-26000296-id-4372063.html" target="_blank" rel="external">http://blog.chinaunix.net/uid-26000296-id-4372063.html</a></li>
-<li><a href="http://www.tuicool.com/articles/bmMfUfE" target="_blank" rel="external">http://www.tuicool.com/articles/bmMfUfE</a></li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;知道创宇爬虫设计第二天：logging&quot;&gt;&lt;a href=&quot;#知道创宇爬虫设计第二天：logging&quot; class=&quot;headerlink&quot; title=&quot;知道创宇爬虫设计第二天：logging&quot;&gt;&lt;/a&gt;知道创宇爬虫设计第二天：logging&lt;/h1&gt;&lt;p&gt;&lt;a
-    
-    </summary>
-    
-      <category term="Python" scheme="http://answerrrrrrrrr.io/categories/Python/"/>
-    
-    
-      <category term="Python" scheme="http://answerrrrrrrrr.io/tags/Python/"/>
-    
-      <category term="Spider" scheme="http://answerrrrrrrrr.io/tags/Spider/"/>
-    
-      <category term="logging" scheme="http://answerrrrrrrrr.io/tags/logging/"/>
     
   </entry>
   
