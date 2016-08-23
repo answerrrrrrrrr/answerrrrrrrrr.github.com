@@ -32,11 +32,11 @@ OrGadget(Address: 0x40000, Complexity 0.67, Stack 0x4, Ip 0x0, Output: esi, Inpu
 我这才恍然大悟，拿 capstone 反汇编了一下`8d7600`得到
 
 ```
-lea 	esi, dword ptr [rsi]
+lea	esi, dword ptr [esi]
 ```
 
 果然，汇编器在处理`align`时，插入了这样一个`不破坏任何寄存器也不影响标志位`的指令来实现对齐效果
 
-而 Q（使用 capstone 反汇编）接收到传入的指令时，自然会按照实际的机器指令`lea	esi, dword ptr [rsi]`而不是`align 10h`来进行 Gadget 判断，所以出现了上面的结果
+而 Q（使用 capstone 反汇编）接收到传入的指令时，自然会按照实际的机器指令而不是`align 10h`来进行 Gadget 判断，所以出现了上面的结果
 
 大致如此...
