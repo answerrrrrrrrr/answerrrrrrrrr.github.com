@@ -64,16 +64,16 @@ align 10hret
 会被判断为 Gadget，并且还莫名其妙扯上了 esi
 8d7600c3MoveReg(Address: 0x40000, Complexity 0.67, Stack 0x4, Ip 0x0, Output: esi, Inputs [esi])AndGadget(Address:">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Q判断Gadget时遇到align伪指令的问题">
+<meta property="og:title" content="Q 判断 Gadget 时遇到 align 伪指令的问题">
 <meta property="og:url" content="http://answerrrrrrrrr.io/2016/08/23/Q判断Gadget时遇到align伪指令的问题/index.html">
 <meta property="og:site_name" content="Answerrrrrrrrr">
 <meta property="og:description" content="今天在利用 Q 判断 Gadget 时发现，在 IDA 中静态分析时显示如下的指令片段：
 align 10hret
 会被判断为 Gadget，并且还莫名其妙扯上了 esi
 8d7600c3MoveReg(Address: 0x40000, Complexity 0.67, Stack 0x4, Ip 0x0, Output: esi, Inputs [esi])AndGadget(Address:">
-<meta property="og:updated_time" content="2016-08-23T05:38:37.000Z">
+<meta property="og:updated_time" content="2016-08-23T05:47:04.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Q判断Gadget时遇到align伪指令的问题">
+<meta name="twitter:title" content="Q 判断 Gadget 时遇到 align 伪指令的问题">
 <meta name="twitter:description" content="今天在利用 Q 判断 Gadget 时发现，在 IDA 中静态分析时显示如下的指令片段：
 align 10hret
 会被判断为 Gadget，并且还莫名其妙扯上了 esi
@@ -95,7 +95,7 @@ align 10hret
   };
 </script>
 
-  <title> Q判断Gadget时遇到align伪指令的问题 | Answerrrrrrrrr </title>
+  <title> Q 判断 Gadget 时遇到 align 伪指令的问题 | Answerrrrrrrrr </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -223,7 +223,7 @@ align 10hret
             
             
               
-                Q判断Gadget时遇到align伪指令的问题
+                Q 判断 Gadget 时遇到 align 伪指令的问题
               
             
           </h1>
@@ -298,10 +298,10 @@ align 10hret
 <blockquote>
 <p>我原来以为, VC 将插入 NOP 来对齐代码, 结果发现, 为了提高效率, VC 按情况填入了单字节,双字节, 三字节指令做空操作, 使空操作的时间最短. 当需要插入 1 字节时, 理所当然的插入一个 0x90 (NOP); 需要插入 2 字节时则是 0x8b 0xff (MOV DI,DI) 这也无可厚非, 此指令不破坏任何寄存器, 也不影响标志位; 可需要填入 3 个字节的时候, 我用的 VC6 却令人费解的填入了 0x8d 0x49 0x00 (LEA CX,[BX+DI+00]), 很明显它影响了 CX, 而风魂的代码就是受到了它的影响.</p>
 </blockquote>
-<p>我这才恍然大悟，拿 capstone 反汇编了一下<code>8d7600c3</code></p>
-<figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line"><span class="keyword">lea</span>	<span class="built_in">esi</span>, <span class="built_in">dword</span> <span class="built_in">ptr</span> [<span class="built_in">rsi</span>]</span><br><span class="line"><span class="keyword">ret</span></span><br></pre></td></tr></table></figure>
-<p>果然，汇编器在处理<code>align</code>时，采用了插入不破坏任何寄存器也不影响标志位的指令<code>lea    esi, dword ptr [rsi]</code>来实现对齐效果</p>
-<p>而 Q （使用 capstone 反汇编）接受到传入的指令时，自然会按照实际的机器指令而不是<code>align 10h</code>来进行 Gadget 判断</p>
+<p>我这才恍然大悟，拿 capstone 反汇编了一下<code>8d7600</code>得到</p>
+<figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line"><span class="keyword">lea</span> 	<span class="built_in">esi</span>, <span class="built_in">dword</span> <span class="built_in">ptr</span> [<span class="built_in">rsi</span>]</span><br></pre></td></tr></table></figure>
+<p>果然，汇编器在处理<code>align</code>时，插入了这样一个<code>不破坏任何寄存器也不影响标志位</code>的指令来实现对齐效果</p>
+<p>而 Q（使用 capstone 反汇编）接收到传入的指令时，自然会按照实际的机器指令<code>lea    esi, dword ptr [rsi]</code>而不是<code>align 10h</code>来进行 Gadget 判断，所以出现了上面的结果</p>
 <p>大致如此…</p>
 
       
@@ -367,7 +367,7 @@ align 10hret
   <div class="comments" id="comments">
     
       <div class="ds-thread" data-thread-key="2016/08/23/Q判断Gadget时遇到align伪指令的问题/"
-           data-title="Q判断Gadget时遇到align伪指令的问题" data-url="http://answerrrrrrrrr.io/2016/08/23/Q判断Gadget时遇到align伪指令的问题/">
+           data-title="Q 判断 Gadget 时遇到 align 伪指令的问题" data-url="http://answerrrrrrrrr.io/2016/08/23/Q判断Gadget时遇到align伪指令的问题/">
       </div>
     
   </div>
