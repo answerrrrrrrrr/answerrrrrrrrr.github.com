@@ -216,6 +216,126 @@
             
               
                 
+                <a class="post-title-link" href="/2016/09/12/redis-brew/" itemprop="url">
+                  Mac 下使用 homebrew 安装 redis
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-09-12T11:44:37+08:00" content="2016-09-12">
+              2016-09-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/redis/" itemprop="url" rel="index">
+                    <span itemprop="name">redis</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/12/redis-brew/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/12/redis-brew/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight coffeescript"><table><tr><td class="code"><pre><span class="line">$ brew install redis</span><br><span class="line">=<span class="function">=&gt;</span> Downloading https:<span class="regexp">//</span>homebrew.bintray.com/bottles/redis<span class="number">-3.2</span><span class="number">.3</span>.el_capitan.bottle.tar.gz</span><br><span class="line"><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span> <span class="number">100.0</span>%</span><br><span class="line">=<span class="function">=&gt;</span> Pouring redis<span class="number">-3.2</span><span class="number">.3</span>.el_capitan.bottle.tar.gz</span><br><span class="line">=<span class="function">=&gt;</span> Caveats</span><br><span class="line">To have launchd start redis now <span class="keyword">and</span> restart at login:</span><br><span class="line">  brew services start redis</span><br><span class="line">Or, <span class="keyword">if</span> you don<span class="string">'t want/need a background service you can just run:</span><br><span class="line">  redis-server /usr/local/etc/redis.conf</span><br><span class="line">==&gt; Summary</span><br><span class="line">🍺  /usr/local/Cellar/redis/3.2.3: 10 files, 1.7M</span></span><br></pre></td></tr></table></figure>
+<p>这样就安装好了，很是方便<br>不过暂时有一个问题：每次都要手动打开<code>redis-server</code>后才能<code>redis-cli</code>，否则提示<code>not connected</code>   </p>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">$ redis-cli</span><br><span class="line">Could <span class="keyword">not</span> connect <span class="keyword">to</span> Redis <span class="keyword">at</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">6379</span>: Connection refused</span><br><span class="line">Could <span class="keyword">not</span> connect <span class="keyword">to</span> Redis <span class="keyword">at</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">6379</span>: Connection refused</span><br><span class="line"><span class="keyword">not</span> connected&gt;</span><br></pre></td></tr></table></figure>
+<p>其实<code>brew</code>很贴心，之前安装完已经提醒过可以<code>brew services start redis</code>来自动启动，另外还可以使用<code>brew info</code>来看看提示信息</p>
+<figure class="highlight haml"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line">$ brew info redis</span><br><span class="line">redis: stable 3.2.3 (bottled), HEAD</span><br><span class="line">Persistent key-value database, with built-in net interface</span><br><span class="line">http://redis.io/</span><br><span class="line"><span class="comment">/usr/local/Cellar/redis/3.2.3 (10 files, 1.7M) *</span></span><br><span class="line">  Poured from bottle on 2016-09-18 at 09:51:13</span><br><span class="line">From: https://github.com/Homebrew/homebrew-core/blob/master/Formula/redis.rb</span><br><span class="line">=<span class="ruby">=&gt; Options</span><br><span class="line"></span>-<span class="ruby">-with-jemalloc</span><br><span class="line"></span>	Select jemalloc as memory allocator when building Redis</span><br><span class="line">-<span class="ruby">-HEAD</span><br><span class="line"></span>	Install HEAD version</span><br><span class="line">=<span class="ruby">=&gt; Caveats</span><br><span class="line"></span>To have launchd start redis now and restart at login:</span><br><span class="line">  brew services start redis</span><br><span class="line">Or, if you don't want/need a background service you can just run:</span><br><span class="line">  redis-server /usr/local/etc/redis.conf</span><br><span class="line">$ brew services start redis</span><br><span class="line">=<span class="ruby">=&gt; Tapping homebrew/services</span><br><span class="line"></span>Cloning into '/usr/local/Library/Taps/homebrew/homebrew-services'...</span><br><span class="line">remote: Counting objects: 7, done.</span><br><span class="line">remote: Compressing objects: 100% (6/6), done.</span><br><span class="line">remote: Total 7 (delta 0), reused 3 (delta 0), pack-reused 0</span><br><span class="line">Unpacking objects: 100% (7/7), done.</span><br><span class="line">Checking connectivity... done.</span><br><span class="line">Tapped 0 formulae (32 files, 46.3K)</span><br><span class="line">=<span class="ruby">=&gt; Successfully started <span class="string">`redis`</span> (<span class="symbol">label:</span> homebrew.mxcl.redis)</span><br><span class="line"></span>$ redis-cli</span><br><span class="line">127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure>
+<p>这样就可以了</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/08/23/Q判断Gadget时遇到align伪指令的问题/" itemprop="url">
                   Q 判断 Gadget 时遇到 align 伪指令的问题
                 </a>
@@ -1366,127 +1486,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/05/25/python-cookbook-translator/" itemprop="url">
-                  Python-Cookbook-1.09 简化 translate 方法
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-05-25T21:46:44+08:00" content="2016-05-25">
-              2016-05-25
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/05/25/python-cookbook-translator/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/25/python-cookbook-translator/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="string-maketrans"><a href="#string-maketrans" class="headerlink" title="string.maketrans"></a>string.maketrans</h1><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Help</span> <span class="keyword">on</span> built-<span class="keyword">in</span> <span class="keyword">function</span> maketrans <span class="keyword">in</span> <span class="keyword">module</span> strop:</span><br><span class="line"></span><br><span class="line">maketrans(...)</span><br><span class="line">    maketrans(frm, <span class="keyword">to</span>) -&gt; <span class="keyword">string</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">Return</span> a <span class="keyword">translation</span> <span class="keyword">table</span> (a <span class="keyword">string</span> <span class="keyword">of</span> <span class="number">256</span> <span class="keyword">bytes</span> <span class="keyword">long</span>)</span><br><span class="line">    suitable <span class="keyword">for</span> <span class="keyword">use</span> <span class="keyword">in</span> <span class="keyword">string</span>.<span class="keyword">translate</span>.  The strings frm <span class="keyword">and</span> <span class="keyword">to</span></span><br><span class="line">    must be <span class="keyword">of</span> the same <span class="keyword">length</span>.</span><br><span class="line">(<span class="keyword">END</span>)</span><br></pre></td></tr></table></figure>
-<p>生成一个供<code>string.translate</code>使用的 ASCII 表，其中<code>frm</code>中的所有字符都依序被替换成<code>to</code>中字符：</p>
-<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; maketrans('abc', 'fed')</span><br><span class="line">'<span class="tag">\<span class="name">x</span></span>00<span class="tag">\<span class="name">x</span></span>01<span class="tag">\<span class="name">x</span></span>02<span class="tag">\<span class="name">x</span></span>03<span class="tag">\<span class="name">x</span></span>04<span class="tag">\<span class="name">x</span></span>05<span class="tag">\<span class="name">x</span></span>06<span class="tag">\<span class="name">x</span></span>07<span class="tag">\<span class="name">x</span></span>08<span class="tag">\<span class="name">t</span></span><span class="tag">\<span class="name">n</span></span><span class="tag">\<span class="name">x</span></span>0b<span class="tag">\<span class="name">x</span></span>0c<span class="tag">\<span class="name">r</span></span><span class="tag">\<span class="name">x</span></span>0e<span class="tag">\<span class="name">x</span></span>0f<span class="tag">\<span class="name">x</span></span>10<span class="tag">\<span class="name">x</span></span>11<span class="tag">\<span class="name">x</span></span>12<span class="tag">\<span class="name">x</span></span>13<span class="tag">\<span class="name">x</span></span>14<span class="tag">\<span class="name">x</span></span>15<span class="tag">\<span class="name">x</span></span>16<span class="tag">\<span class="name">x</span></span>17<span class="tag">\<span class="name">x</span></span>18<span class="tag">\<span class="name">x</span></span>19<span class="tag">\<span class="name">x</span></span>1a<span class="tag">\<span class="name">x</span></span>1b<span class="tag">\<span class="name">x</span></span>1c<span class="tag">\<span class="name">x</span></span>1d<span class="tag">\<span class="name">x</span></span>1e<span class="tag">\<span class="name">x</span></span>1f !"#<span class="formula">$%&amp;<span class="tag">\<span class="name">'</span></span>()*+,-./0123456789:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[<span class="tag">\<span class="name">\</span></span>]^_`feddefghijklmnopqrstuvwxyz&#123;|&#125;~<span class="tag">\<span class="name">x</span></span>7f<span class="tag">\<span class="name">x</span></span>80<span class="tag">\<span class="name">x</span></span>81<span class="tag">\<span class="name">x</span></span>82<span class="tag">\<span class="name">x</span></span>83<span class="tag">\<span class="name">x</span></span>84<span class="tag">\<span class="name">x</span></span>85<span class="tag">\<span class="name">x</span></span>86<span class="tag">\<span class="name">x</span></span>87<span class="tag">\<span class="name">x</span></span>88<span class="tag">\<span class="name">x</span></span>89<span class="tag">\<span class="name">x</span></span>8a<span class="tag">\<span class="name">x</span></span>8b<span class="tag">\<span class="name">x</span></span>8c<span class="tag">\<span class="name">x</span></span>8d<span class="tag">\<span class="name">x</span></span>8e<span class="tag">\<span class="name">x</span></span>8f<span class="tag">\<span class="name">x</span></span>90<span class="tag">\<span class="name">x</span></span>91<span class="tag">\<span class="name">x</span></span>92<span class="tag">\<span class="name">x</span></span>93<span class="tag">\<span class="name">x</span></span>94<span class="tag">\<span class="name">x</span></span>95<span class="tag">\<span class="name">x</span></span>96<span class="tag">\<span class="name">x</span></span>97<span class="tag">\<span class="name">x</span></span>98<span class="tag">\<span class="name">x</span></span>99<span class="tag">\<span class="name">x</span></span>9a<span class="tag">\<span class="name">x</span></span>9b<span class="tag">\<span class="name">x</span></span>9c<span class="tag">\<span class="name">x</span></span>9d<span class="tag">\<span class="name">x</span></span>9e<span class="tag">\<span class="name">x</span></span>9f<span class="tag">\<span class="name">xa</span></span>0<span class="tag">\<span class="name">xa</span></span>1<span class="tag">\<span class="name">xa</span></span>2<span class="tag">\<span class="name">xa</span></span>3<span class="tag">\<span class="name">xa</span></span>4<span class="tag">\<span class="name">xa</span></span>5<span class="tag">\<span class="name">xa</span></span>6<span class="tag">\<span class="name">xa</span></span>7<span class="tag">\<span class="name">xa</span></span>8<span class="tag">\<span class="name">xa</span></span>9<span class="tag">\<span class="name">xaa</span></span><span class="tag">\<span class="name">xab</span></span><span class="tag">\<span class="name">xac</span></span><span class="tag">\<span class="name">xad</span></span><span class="tag">\<span class="name">xae</span></span><span class="tag">\<span class="name">xaf</span></span><span class="tag">\<span class="name">xb</span></span>0<span class="tag">\<span class="name">xb</span></span>1<span class="tag">\<span class="name">xb</span></span>2<span class="tag">\<span class="name">xb</span></span>3<span class="tag">\<span class="name">xb</span></span>4<span class="tag">\<span class="name">xb</span></span>5<span class="tag">\<span class="name">xb</span></span>6<span class="tag">\<span class="name">xb</span></span>7<span class="tag">\<span class="name">xb</span></span>8<span class="tag">\<span class="name">xb</span></span>9<span class="tag">\<span class="name">xba</span></span><span class="tag">\<span class="name">xbb</span></span><span class="tag">\<span class="name">xbc</span></span><span class="tag">\<span class="name">xbd</span></span><span class="tag">\<span class="name">xbe</span></span><span class="tag">\<span class="name">xbf</span></span><span class="tag">\<span class="name">xc</span></span>0<span class="tag">\<span class="name">xc</span></span>1<span class="tag">\<span class="name">xc</span></span>2<span class="tag">\<span class="name">xc</span></span>3<span class="tag">\<span class="name">xc</span></span>4<span class="tag">\<span class="name">xc</span></span>5<span class="tag">\<span class="name">xc</span></span>6<span class="tag">\<span class="name">xc</span></span>7<span class="tag">\<span class="name">xc</span></span>8<span class="tag">\<span class="name">xc</span></span>9<span class="tag">\<span class="name">xca</span></span><span class="tag">\<span class="name">xcb</span></span><span class="tag">\<span class="name">xcc</span></span><span class="tag">\<span class="name">xcd</span></span><span class="tag">\<span class="name">xce</span></span><span class="tag">\<span class="name">xcf</span></span><span class="tag">\<span class="name">xd</span></span>0<span class="tag">\<span class="name">xd</span></span>1<span class="tag">\<span class="name">xd</span></span>2<span class="tag">\<span class="name">xd</span></span>3<span class="tag">\<span class="name">xd</span></span>4<span class="tag">\<span class="name">xd</span></span>5<span class="tag">\<span class="name">xd</span></span>6<span class="tag">\<span class="name">xd</span></span>7<span class="tag">\<span class="name">xd</span></span>8<span class="tag">\<span class="name">xd</span></span>9<span class="tag">\<span class="name">xda</span></span><span class="tag">\<span class="name">xdb</span></span><span class="tag">\<span class="name">xdc</span></span><span class="tag">\<span class="name">xdd</span></span><span class="tag">\<span class="name">xde</span></span><span class="tag">\<span class="name">xdf</span></span><span class="tag">\<span class="name">xe</span></span>0<span class="tag">\<span class="name">xe</span></span>1<span class="tag">\<span class="name">xe</span></span>2<span class="tag">\<span class="name">xe</span></span>3<span class="tag">\<span class="name">xe</span></span>4<span class="tag">\<span class="name">xe</span></span>5<span class="tag">\<span class="name">xe</span></span>6<span class="tag">\<span class="name">xe</span></span>7<span class="tag">\<span class="name">xe</span></span>8<span class="tag">\<span class="name">xe</span></span>9<span class="tag">\<span class="name">xea</span></span><span class="tag">\<span class="name">xeb</span></span><span class="tag">\<span class="name">xec</span></span><span class="tag">\<span class="name">xed</span></span><span class="tag">\<span class="name">xee</span></span><span class="tag">\<span class="name">xef</span></span><span class="tag">\<span class="name">xf</span></span>0<span class="tag">\<span class="name">xf</span></span>1<span class="tag">\<span class="name">xf</span></span>2<span class="tag">\<span class="name">xf</span></span>3<span class="tag">\<span class="name">xf</span></span>4<span class="tag">\<span class="name">xf</span></span>5<span class="tag">\<span class="name">xf</span></span>6<span class="tag">\<span class="name">xf</span></span>7<span class="tag">\<span class="name">xf</span></span>8<span class="tag">\<span class="name">xf</span></span>9<span class="tag">\<span class="name">xfa</span></span><span class="tag">\<span class="name">xfb</span></span><span class="tag">\<span class="name">xfc</span></span><span class="tag">\<span class="name">xfd</span></span><span class="tag">\<span class="name">xfe</span></span><span class="tag">\<span class="name">xff</span></span>'</span><br><span class="line">&gt;&gt;&gt;</span></span><br></pre></td></tr></table></figure>
-<h1 id="string-translate"><a href="#string-translate" class="headerlink" title="string.translate"></a>string.translate</h1><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Help</span> <span class="keyword">on</span> <span class="keyword">function</span> <span class="keyword">translate</span> <span class="keyword">in</span> <span class="keyword">module</span> <span class="keyword">string</span>:</span><br><span class="line"></span><br><span class="line"><span class="keyword">translate</span>(s, <span class="keyword">table</span>, deletions=<span class="string">''</span>)</span><br><span class="line">    <span class="keyword">translate</span>(s,<span class="keyword">table</span> [,deletions]) -&gt; <span class="keyword">string</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">Return</span> a copy <span class="keyword">of</span> the <span class="keyword">string</span> s, <span class="keyword">where</span> all <span class="keyword">characters</span> occurring</span><br><span class="line">    <span class="keyword">in</span> the optional argument deletions <span class="keyword">are</span> removed, <span class="keyword">and</span> the</span><br><span class="line">    remaining <span class="keyword">characters</span> have been mapped <span class="keyword">through</span> the given</span><br><span class="line">    <span class="keyword">translation</span> <span class="keyword">table</span>, which must be a <span class="keyword">string</span> <span class="keyword">of</span> <span class="keyword">length</span> <span class="number">256.</span>  The</span><br><span class="line">    deletions argument <span class="keyword">is</span> <span class="keyword">not</span> allowed <span class="keyword">for</span> <span class="keyword">Unicode</span> strings.</span><br><span class="line">(<span class="keyword">END</span>)</span><br></pre></td></tr></table></figure>
-<p>(也可以<code>s.translate(table, deletions=&#39;&#39;)</code>为格式）</p>
-<p>以<code>maketrans</code>生成的映射表为基准进行字符转换：</p>
-<figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;</span>&gt; translate(<span class="string">'abcdef'</span>, a)</span><br><span class="line"><span class="string">'feddef'</span></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; translate(<span class="string">'abcdef'</span>, a, <span class="string">'d'</span>)</span><br><span class="line"><span class="string">'fedef'</span></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; translate(<span class="string">'abcdef'</span>, a, <span class="string">'dd'</span>)</span><br><span class="line"><span class="string">'fedef'</span></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; translate(<span class="string">'abcdef'</span>, a, <span class="string">'de'</span>)</span><br><span class="line"><span class="string">'fedf'</span></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; translate(<span class="string">'abcdef'</span>, a, <span class="string">'ade'</span>)</span><br><span class="line"><span class="string">'edf'</span></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt;</span><br></pre></td></tr></table></figure>
-<h1 id="自建一个返回闭包的工厂函数-translator"><a href="#自建一个返回闭包的工厂函数-translator" class="headerlink" title="自建一个返回闭包的工厂函数 translator"></a>自建一个返回闭包的工厂函数 translator</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> string</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">translator</span><span class="params">(frm=<span class="string">''</span>, to=<span class="string">''</span>, delete=<span class="string">''</span>, keep=None)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> len(to) == <span class="number">1</span>:</span><br><span class="line">        to = to * len(frm)</span><br><span class="line">    trans = string.maketrans(frm, to)</span><br><span class="line">    <span class="keyword">if</span> keep <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">        allchars = string.maketrans(<span class="string">''</span>, <span class="string">''</span>)</span><br><span class="line">        delete = allchars.translate(allchars, keep.translate(allchars, delete))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">translate</span><span class="params">(s)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> s.translate(trans, delete)</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">return</span> translate</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    digits_only = translator(keep=string.digits)</span><br><span class="line">    <span class="keyword">print</span> digits_only(<span class="string">'qwedwefaf24215'</span>)</span><br><span class="line"></span><br><span class="line">    no_digits = translator(delete=string.digits)</span><br><span class="line">    <span class="keyword">print</span> no_digits(<span class="string">'qwedwefaf24215'</span>)</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1532,7 +1531,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">32</span>
+              <span class="site-state-item-count">33</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1540,7 +1539,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -1549,7 +1548,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">65</span>
+                <span class="site-state-item-count">68</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

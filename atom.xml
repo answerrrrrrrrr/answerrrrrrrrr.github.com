@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://answerrrrrrrrr.io/"/>
-  <updated>2016-08-23T07:51:25.000Z</updated>
+  <updated>2016-09-18T02:10:42.000Z</updated>
   <id>http://answerrrrrrrrr.io/</id>
   
   <author>
@@ -14,6 +14,38 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Mac 下使用 homebrew 安装 redis</title>
+    <link href="http://answerrrrrrrrr.io/2016/09/12/redis-brew/"/>
+    <id>http://answerrrrrrrrr.io/2016/09/12/redis-brew/</id>
+    <published>2016-09-12T03:44:37.000Z</published>
+    <updated>2016-09-18T02:10:42.000Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight coffeescript"><table><tr><td class="code"><pre><span class="line">$ brew install redis</span><br><span class="line">=<span class="function">=&gt;</span> Downloading https:<span class="regexp">//</span>homebrew.bintray.com/bottles/redis<span class="number">-3.2</span><span class="number">.3</span>.el_capitan.bottle.tar.gz</span><br><span class="line"><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span> <span class="number">100.0</span>%</span><br><span class="line">=<span class="function">=&gt;</span> Pouring redis<span class="number">-3.2</span><span class="number">.3</span>.el_capitan.bottle.tar.gz</span><br><span class="line">=<span class="function">=&gt;</span> Caveats</span><br><span class="line">To have launchd start redis now <span class="keyword">and</span> restart at login:</span><br><span class="line">  brew services start redis</span><br><span class="line">Or, <span class="keyword">if</span> you don<span class="string">'t want/need a background service you can just run:</span><br><span class="line">  redis-server /usr/local/etc/redis.conf</span><br><span class="line">==&gt; Summary</span><br><span class="line">🍺  /usr/local/Cellar/redis/3.2.3: 10 files, 1.7M</span></span><br></pre></td></tr></table></figure>
+<p>这样就安装好了，很是方便<br>不过暂时有一个问题：每次都要手动打开<code>redis-server</code>后才能<code>redis-cli</code>，否则提示<code>not connected</code>   </p>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">$ redis-cli</span><br><span class="line">Could <span class="keyword">not</span> connect <span class="keyword">to</span> Redis <span class="keyword">at</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">6379</span>: Connection refused</span><br><span class="line">Could <span class="keyword">not</span> connect <span class="keyword">to</span> Redis <span class="keyword">at</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">6379</span>: Connection refused</span><br><span class="line"><span class="keyword">not</span> connected&gt;</span><br></pre></td></tr></table></figure>
+<p>其实<code>brew</code>很贴心，之前安装完已经提醒过可以<code>brew services start redis</code>来自动启动，另外还可以使用<code>brew info</code>来看看提示信息</p>
+<figure class="highlight haml"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line">$ brew info redis</span><br><span class="line">redis: stable 3.2.3 (bottled), HEAD</span><br><span class="line">Persistent key-value database, with built-in net interface</span><br><span class="line">http://redis.io/</span><br><span class="line"><span class="comment">/usr/local/Cellar/redis/3.2.3 (10 files, 1.7M) *</span></span><br><span class="line">  Poured from bottle on 2016-09-18 at 09:51:13</span><br><span class="line">From: https://github.com/Homebrew/homebrew-core/blob/master/Formula/redis.rb</span><br><span class="line">=<span class="ruby">=&gt; Options</span><br><span class="line"></span>-<span class="ruby">-with-jemalloc</span><br><span class="line"></span>	Select jemalloc as memory allocator when building Redis</span><br><span class="line">-<span class="ruby">-HEAD</span><br><span class="line"></span>	Install HEAD version</span><br><span class="line">=<span class="ruby">=&gt; Caveats</span><br><span class="line"></span>To have launchd start redis now and restart at login:</span><br><span class="line">  brew services start redis</span><br><span class="line">Or, if you don't want/need a background service you can just run:</span><br><span class="line">  redis-server /usr/local/etc/redis.conf</span><br><span class="line">$ brew services start redis</span><br><span class="line">=<span class="ruby">=&gt; Tapping homebrew/services</span><br><span class="line"></span>Cloning into '/usr/local/Library/Taps/homebrew/homebrew-services'...</span><br><span class="line">remote: Counting objects: 7, done.</span><br><span class="line">remote: Compressing objects: 100% (6/6), done.</span><br><span class="line">remote: Total 7 (delta 0), reused 3 (delta 0), pack-reused 0</span><br><span class="line">Unpacking objects: 100% (7/7), done.</span><br><span class="line">Checking connectivity... done.</span><br><span class="line">Tapped 0 formulae (32 files, 46.3K)</span><br><span class="line">=<span class="ruby">=&gt; Successfully started <span class="string">`redis`</span> (<span class="symbol">label:</span> homebrew.mxcl.redis)</span><br><span class="line"></span>$ redis-cli</span><br><span class="line">127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure>
+<p>这样就可以了</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;figure class=&quot;highlight coffeescript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ brew install redis&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;
+    
+    </summary>
+    
+      <category term="redis" scheme="http://answerrrrrrrrr.io/categories/redis/"/>
+    
+    
+      <category term="redis" scheme="http://answerrrrrrrrr.io/tags/redis/"/>
+    
+      <category term="brew" scheme="http://answerrrrrrrrr.io/tags/brew/"/>
+    
+      <category term="mac" scheme="http://answerrrrrrrrr.io/tags/mac/"/>
+    
+  </entry>
   
   <entry>
     <title>Q 判断 Gadget 时遇到 align 伪指令的问题</title>
@@ -90,9 +122,9 @@
       <category term="Flask" scheme="http://answerrrrrrrrr.io/categories/Flask/"/>
     
     
-      <category term="Flask-SQLAlchemy" scheme="http://answerrrrrrrrr.io/tags/Flask-SQLAlchemy/"/>
-    
       <category term="Flask" scheme="http://answerrrrrrrrr.io/tags/Flask/"/>
+    
+      <category term="Flask-SQLAlchemy" scheme="http://answerrrrrrrrr.io/tags/Flask-SQLAlchemy/"/>
     
       <category term="relationship" scheme="http://answerrrrrrrrr.io/tags/relationship/"/>
     
@@ -546,9 +578,9 @@
       <category term="Flask" scheme="http://answerrrrrrrrr.io/categories/Flask/"/>
     
     
-      <category term="Python" scheme="http://answerrrrrrrrr.io/tags/Python/"/>
-    
       <category term="Flask-SQLAlchemy" scheme="http://answerrrrrrrrr.io/tags/Flask-SQLAlchemy/"/>
+    
+      <category term="Python" scheme="http://answerrrrrrrrr.io/tags/Python/"/>
     
       <category term="Alembic" scheme="http://answerrrrrrrrr.io/tags/Alembic/"/>
     
@@ -600,9 +632,9 @@
     
       <category term="Python" scheme="http://answerrrrrrrrr.io/tags/Python/"/>
     
-      <category term="Spider" scheme="http://answerrrrrrrrr.io/tags/Spider/"/>
-    
       <category term="sohu" scheme="http://answerrrrrrrrr.io/tags/sohu/"/>
+    
+      <category term="Spider" scheme="http://answerrrrrrrrr.io/tags/Spider/"/>
     
   </entry>
   
@@ -852,46 +884,6 @@
       <category term="Spider" scheme="http://answerrrrrrrrr.io/tags/Spider/"/>
     
       <category term="sqlite" scheme="http://answerrrrrrrrr.io/tags/sqlite/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Spider-03-argparse</title>
-    <link href="http://answerrrrrrrrr.io/2016/04/04/Spider-03-argparse/"/>
-    <id>http://answerrrrrrrrr.io/2016/04/04/Spider-03-argparse/</id>
-    <published>2016-04-04T07:39:12.000Z</published>
-    <updated>2016-07-06T14:07:54.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="知道创宇爬虫设计第三天：argparse"><a href="#知道创宇爬虫设计第三天：argparse" class="headerlink" title="知道创宇爬虫设计第三天：argparse"></a>知道创宇爬虫设计第三天：argparse</h1><p>题目原本是2012年的，要求的optparse模块已经过时，因此按照argparse来学习</p>
-<p>提取要点如下：</p>
-<ul>
-<li><code>class argparse.ArgumentParser(prog=None, usage=None, description=None, epilog=None, parents=[], formatter_class=argparse.HelpFormatter, prefix_chars=&#39;-&#39;, fromfile_prefix_chars=None, argument_default=None, conflict_handler=&#39;error&#39;, add_help=True)</code></li>
-<li><code>ArgumentParser.add_argument(name or flags...[, action][, nargs][, const][, default][, type][, choices][, required][, help][, metavar][, dest])</code></li>
-<li>ArgumentParser通过parse_args()方法解析参数。它将检查命令行，把每个参数转换成恰当的类型并采取恰当的动作。在大部分情况下，这意味着将从命令行中解析出来的属性建立一个简单的 Namespace对象</li>
-</ul>
-<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">()</span>:</span></span><br><span class="line">    parser = argparse.ArgumentParser()</span><br><span class="line"></span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">'-u'</span>, <span class="string">'--url'</span>, dest=<span class="string">'url'</span>, required=<span class="keyword">True</span>,</span><br><span class="line">        help=<span class="string">'specify the URL to start crawl'</span></span><br><span class="line">        )</span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">'-d'</span>, <span class="string">'--depth'</span>, dest=<span class="string">'depth'</span>,</span><br><span class="line">        default=<span class="number">1</span>, type=int,</span><br><span class="line">        help=<span class="string">'specify the depth of the spider (default: 1)'</span></span><br><span class="line">        )</span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">'-f'</span>, <span class="string">'--file'</span>, dest=<span class="string">'logfile'</span>,</span><br><span class="line">        default=<span class="string">'spider.log'</span>,</span><br><span class="line">        help=<span class="string">'specify the path of logfile (default: spider.log)'</span></span><br><span class="line">        )</span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">'-l'</span>, <span class="string">'--level'</span>, dest=<span class="string">'loglevel'</span>, choices=range(<span class="number">1</span>, <span class="number">6</span>),</span><br><span class="line">        default=<span class="number">1</span>, type=int,</span><br><span class="line">        help=<span class="string">'specify the verbose level of the log (default: 1)'</span></span><br><span class="line">        )</span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">'--dbfile'</span>, dest=<span class="string">'dbfile'</span>,</span><br><span class="line">        default=<span class="string">'spider.db'</span>,</span><br><span class="line">        help=<span class="string">'specify the path of sqlite dbfile (default: spider.db)'</span></span><br><span class="line">        )</span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">'--thread'</span>, dest=<span class="string">'num_threads'</span>,</span><br><span class="line">        default=<span class="number">10</span>, type=int,</span><br><span class="line">        help=<span class="string">'specify the size of thread pool (default: 10)'</span></span><br><span class="line">        )</span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">'--keyword'</span>, dest=<span class="string">'keyword'</span>,</span><br><span class="line">        help=<span class="string">'specify the keyword'</span></span><br><span class="line">        )</span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">'--selftest'</span>, action=<span class="string">'store_true'</span>,</span><br><span class="line">        help=<span class="string">'self-test'</span></span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    args = parser.parse_args()</span><br><span class="line">    <span class="comment"># &gt; Namespace(</span></span><br><span class="line">    <span class="comment">#     dbfile='spider.db', depth=1, keyword=None,</span></span><br><span class="line">    <span class="comment">#     logfile='spider.log', loglevel=1, num_threads=10,</span></span><br><span class="line">    <span class="comment">#     selftest=False, url='www.baidu.com'</span></span><br><span class="line">    <span class="comment">#     )</span></span><br><span class="line">    <span class="keyword">return</span> args</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    parse()</span><br></pre></td></tr></table></figure>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><a href="https://docs.python.org/2/howto/argparse.html" target="_blank" rel="external">https://docs.python.org/2/howto/argparse.html</a></li>
-<li><a href="https://docs.python.org/2/library/argparse.html#choices" target="_blank" rel="external">https://docs.python.org/2/library/argparse.html#choices</a></li>
-<li><a href="http://python.usyiyi.cn/python_278/library/argparse.html" target="_blank" rel="external">http://python.usyiyi.cn/python_278/library/argparse.html</a></li>
-<li><a href="http://blog.xiayf.cn/2013/03/30/argparse/" target="_blank" rel="external">http://blog.xiayf.cn/2013/03/30/argparse/</a></li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;知道创宇爬虫设计第三天：argparse&quot;&gt;&lt;a href=&quot;#知道创宇爬虫设计第三天：argparse&quot; class=&quot;headerlink&quot; title=&quot;知道创宇爬虫设计第三天：argparse&quot;&gt;&lt;/a&gt;知道创宇爬虫设计第三天：argparse&lt;/h1&gt;&lt;
-    
-    </summary>
-    
-      <category term="Python" scheme="http://answerrrrrrrrr.io/categories/Python/"/>
-    
-    
-      <category term="Python" scheme="http://answerrrrrrrrr.io/tags/Python/"/>
-    
-      <category term="Spider" scheme="http://answerrrrrrrrr.io/tags/Spider/"/>
-    
-      <category term="argparse" scheme="http://answerrrrrrrrr.io/tags/argparse/"/>
     
   </entry>
   
