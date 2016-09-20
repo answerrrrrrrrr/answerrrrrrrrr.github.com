@@ -216,6 +216,159 @@
             
               
                 
+                <a class="post-title-link" href="/2016/09/20/idapython-commandline/" itemprop="url">
+                  命令行调用 idapython 脚本
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-09-20T10:40:41+08:00" content="2016-09-20">
+              2016-09-20
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ida/" itemprop="url" rel="index">
+                    <span itemprop="name">ida</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/20/idapython-commandline/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/20/idapython-commandline/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><ol>
+<li><p>安装 Python 2.7</p>
+</li>
+<li><p>下载 <a href="https://github.com/idapython/bin/raw/master/idapython-6.9.0-python2.7-mac.zip" target="_blank" rel="external">https://github.com/idapython/bin/raw/master/idapython-6.9.0-python2.7-mac.zip</a> 并解压</p>
+</li>
+<li><p>将 Python 内的所有内容复制到 IDA 根目录的 Python 内（没有就新建）</p>
+</li>
+<li><p>将 Plugins 内的所有内容复制到 IDA 根目录的 Plugins 内</p>
+</li>
+<li><p>将 python.cfg 复制到 IDA 根目录的 cfg 内</p>
+</li>
+<li><p>重启 IDA，File 菜单下面会有 Python Command 选项，而且 Script files 选项中可以选择 py 文件</p>
+</li>
+</ol>
+<p>python 目录中的四个文件：</p>
+<ul>
+<li>init.py 是初始的基础文件</li>
+<li>idaapi.py 中导入了 _idaapi 模块，这个以下划线开始的 idaapi 模块就是对 IDA API 的低层封装，idaapi.py 则是作为调用 IDA API 的用户层</li>
+<li>idautils.py 提供了一些高级功能的函数</li>
+<li>idc.py 则是对 IDA 内置的 IDC 脚本语言的兼容</li>
+</ul>
+<h1 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h1><p>调用 idapython 脚本时总是要鼠标点来点去很不方便，在官网找了找 </p>
+<p><a href="https://www.hex-rays.com/products/ida/support/idadoc/417.shtml" target="_blank" rel="external">https://www.hex-rays.com/products/ida/support/idadoc/417.shtml</a></p>
+<p>该页面提供了命令行使用 ida 时的可用参数，比较常用的有：</p>
+<p>-A 让 ida 自动运行，不需要人工干预。也就是在处理的过程中不会弹出交互窗口，但是如果从来没有使用过 ida 那么许可协议的窗口无论你是否使用这个参数都将会显示。</p>
+<p>-c 参数会删除所有与参数中指定的文件相关的数据库，并且生成一个新的数据库。</p>
+<p>-S 参数用于指定 ida 在分析完数据之后执行的 idc 脚本，<strong>注意：该选项和参数之间没有空格</strong>，并且搜索目录为 ida 目录下的 idc 目录。</p>
+<p>-B 参数指定批量模式，等效于-A –c  –Sanylysis.idc.在分析完成后会自动生成相关的数据库和 asm 代码。并且在最后关闭 ida，以保存新的数据库。</p>
+<p><em><a href="http://www.h4ck.org.cn/2012/03/ida-batch-mode/" target="_blank" rel="external">这篇文章</a><sup>2</sup>比较详细地讲解了批量模式的用法</em> </p>
+<h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1><figure class="highlight py"><figcaption><span>test.py</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> idautils <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> idaapi <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> idc</span><br><span class="line"></span><br><span class="line">idc.Wait()	<span class="comment"># idaapi.autoWait()</span></span><br><span class="line"></span><br><span class="line">ea = BeginEA()</span><br><span class="line">dll_functions = []</span><br><span class="line"></span><br><span class="line">fp = open(<span class="string">"fun_output.txt"</span>, <span class="string">"w"</span>)</span><br><span class="line">fp.write(<span class="string">"check"</span>)</span><br><span class="line"><span class="keyword">for</span> funcea <span class="keyword">in</span> Functions(SegStart(ea), SegEnd(ea)):</span><br><span class="line">    functionName = GetFunctionName(funcea)</span><br><span class="line">    dll_functions.append(functionName)</span><br><span class="line">    fp.write(functionName)</span><br><span class="line">    print(functionName)</span><br><span class="line">fp.close()</span><br><span class="line"></span><br><span class="line">idc.Exit(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p><em>其中<code>idc.Wait()</code>表示带有<code>-A</code>参数时，等待 ida 自动分析过程完成后再运行后续脚本，<code>idc.Exit(0)</code>表示脚本运行结束后自动关闭 ida</em></p>
+<p>不过在实际测试时，<code>idaq -c -A -Stest.py heap_test</code>失败且没有任何错误提示，参阅了<a href="http://researchcenter.paloaltonetworks.com/2016/06/unit42-using-idapython-to-make-your-life-easier-part-6/" target="_blank" rel="external">Using IDAPython to Make Your Life Easier: Part 6
+</a><sup>3</sup>，脚本和命令都没什么问题，不知是不是因为 Demo 版的缘故。。。</p>
+<p><code>idaq -c -Stest.py heap_test</code>倒是一切正常，只好暂且如此了。。。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol>
+<li><a href="http://blog.csdn.net/zhangmiaoping23/article/details/14521995" target="_blank" rel="external">http://blog.csdn.net/zhangmiaoping23/article/details/14521995</a></li>
+<li><a href="http://www.h4ck.org.cn/2012/03/ida-batch-mode/" target="_blank" rel="external">http://www.h4ck.org.cn/2012/03/ida-batch-mode/</a></li>
+<li><a href="http://researchcenter.paloaltonetworks.com/2016/06/unit42-using-idapython-to-make-your-life-easier-part-6/" target="_blank" rel="external">http://researchcenter.paloaltonetworks.com/2016/06/unit42-using-idapython-to-make-your-life-easier-part-6/</a></li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/09/12/redis-brew/" itemprop="url">
                   Mac 下使用 homebrew 安装 redis
                 </a>
@@ -1367,125 +1520,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/16/git-push-error/" itemprop="url">
-                  Permission denied (publickey)
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-06-16T08:21:06+08:00" content="2016-06-16">
-              2016-06-16
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/git/" itemprop="url" rel="index">
-                    <span itemprop="name">git</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/06/16/git-push-error/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/16/git-push-error/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>今天把学习 flask 的本地库上传到 github 时报错</p>
-<figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">$ git push -u origin master</span><br><span class="line">Permission denied (publickey).</span><br><span class="line">fatal: Could <span class="keyword">not</span> <span class="built_in">read</span> <span class="built_in">from</span> remote repository.</span><br><span class="line"></span><br><span class="line">Please make sure you have <span class="keyword">the</span> correct access rights</span><br><span class="line"><span class="keyword">and</span> <span class="keyword">the</span> repository exists.</span><br></pre></td></tr></table></figure>
-<p>在 <a href="http://stackoverflow.com/questions/26953071/github-authentication-failed-github-does-not-provide-shell-access" target="_blank" rel="external">stackoverflow</a> 找到解决方案</p>
-<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">git remote set-url origin git@github<span class="selector-class">.com</span>:lut/EvolutionApp<span class="selector-class">.git</span></span><br><span class="line">git remote show origin</span><br></pre></td></tr></table></figure>
-<p>简单记录一下…</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1531,7 +1565,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">33</span>
+              <span class="site-state-item-count">34</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1539,7 +1573,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -1548,7 +1582,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">68</span>
+                <span class="site-state-item-count">70</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
