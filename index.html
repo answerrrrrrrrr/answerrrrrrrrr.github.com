@@ -216,6 +216,135 @@
             
               
                 
+                <a class="post-title-link" href="/2016/09/22/mac-mongod/" itemprop="url">
+                  Mac 安装 mongodb
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-09-22T20:35:03+08:00" content="2016-09-22">
+              2016-09-22
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Mac/" itemprop="url" rel="index">
+                    <span itemprop="name">Mac</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/22/mac-mongod/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/22/mac-mongod/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Mac 下按照<a href="https://docs.mongodb.com/manual/mongo/" target="_blank" rel="external">官网说明</a> 安装 mongodb 并配置好<code>PATH</code>后直接<code>mongo</code>会报错：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">$ brew <span class="keyword">install</span> mongodb</span><br><span class="line">...</span><br><span class="line">$ <span class="keyword">export</span> <span class="keyword">PATH</span>=$<span class="keyword">PATH</span>:/usr/<span class="keyword">local</span>/Cellar/mongodb/<span class="number">3.2</span><span class="number">.9</span>/<span class="keyword">bin</span></span><br><span class="line">$ mongo</span><br><span class="line">MongoDB shell <span class="keyword">version</span>: <span class="number">3.2</span><span class="number">.9</span></span><br><span class="line">connecting <span class="keyword">to</span>: <span class="keyword">test</span></span><br><span class="line"><span class="number">2016</span><span class="number">-09</span><span class="number">-22</span>T20:<span class="number">15</span>:<span class="number">48.787</span>+<span class="number">0800</span> W NETWORK  [thread1] <span class="keyword">Failed</span> <span class="keyword">to</span> <span class="keyword">connect</span> <span class="keyword">to</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">27017</span>, reason: errno:<span class="number">61</span> <span class="keyword">Connection</span> refused</span><br><span class="line"><span class="number">2016</span><span class="number">-09</span><span class="number">-22</span>T20:<span class="number">15</span>:<span class="number">48.789</span>+<span class="number">0800</span> E <span class="keyword">QUERY</span>    [thread1] <span class="keyword">Error</span>: couldn<span class="string">'t connect to server 127.0.0.1:27017, connection attempt failed :</span><br><span class="line">connect@src/mongo/shell/mongo.js:229:14</span><br><span class="line">@(connect):1:6</span><br><span class="line"></span><br><span class="line">exception: connect failed</span></span><br></pre></td></tr></table></figure>
+<p>好在 <a href="http://stackoverflow.com/questions/12831939/couldnt-connect-to-server-127-0-0-127017/17220732#17220732" target="_blank" rel="external">Stackoverflow</a> 一个答案提到，是因为没有启动 mongodb service:</p>
+<blockquote>
+<p>Did you run mongod before running mongo?</p>
+<p>I followed installation instructions for mongodb from <a href="http://docs.mongodb.org/manual/tutorial/install-mongodb-on-os-x/" target="_blank" rel="external">http://docs.mongodb.org/manual/tutorial/install-mongodb-on-os-x/</a> and I had the same error as you only when I ran mongo before actually running the mongo process with mongod. I thought installing mongodb would also launch it but you need to launch it manually with mongod before you do anything else that needs mongodb.</p>
+</blockquote>
+<p>不过还是报错：</p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">$ mongod</span><br><span class="line"><span class="number">2016</span><span class="number">-09</span><span class="number">-22</span><span class="string">T20:</span><span class="number">28</span>:<span class="number">37.094</span>+<span class="number">0800</span> I CONTROL  [initandlisten] MongoDB <span class="string">starting :</span> pid=<span class="number">75109</span> port=<span class="number">27017</span> dbpath=<span class="regexp">/data/</span>db <span class="number">64</span>-bit host=localhost</span><br><span class="line"><span class="number">2016</span><span class="number">-09</span><span class="number">-22</span><span class="string">T20:</span><span class="number">28</span>:<span class="number">37.095</span>+<span class="number">0800</span> I CONTROL  [initandlisten] db version v3<span class="number">.2</span><span class="number">.9</span></span><br><span class="line"><span class="number">2016</span><span class="number">-09</span><span class="number">-22</span><span class="string">T20:</span><span class="number">28</span>:<span class="number">37.095</span>+<span class="number">0800</span> I CONTROL  [initandlisten] git <span class="string">version:</span> <span class="number">22</span>ec9e93b40c85fc7cae7d56e7d6a02fd811088c</span><br><span class="line"><span class="number">2016</span><span class="number">-09</span><span class="number">-22</span><span class="string">T20:</span><span class="number">28</span>:<span class="number">37.095</span>+<span class="number">0800</span> I CONTROL  [initandlisten] OpenSSL <span class="string">version:</span> OpenSSL <span class="number">1.0</span><span class="number">.2</span>h  <span class="number">3</span> May <span class="number">2016</span></span><br><span class="line"><span class="number">2016</span><span class="number">-09</span><span class="number">-22</span><span class="string">T20:</span><span class="number">28</span>:<span class="number">37.095</span>+<span class="number">0800</span> I CONTROL  [initandlisten] <span class="string">allocator:</span> system</span><br><span class="line"><span class="number">2016</span><span class="number">-09</span><span class="number">-22</span><span class="string">T20:</span><span class="number">28</span>:<span class="number">37.095</span>+<span class="number">0800</span> I CONTROL  [initandlisten] <span class="string">modules:</span> none</span><br><span class="line"><span class="number">2016</span><span class="number">-09</span><span class="number">-22</span><span class="string">T20:</span><span class="number">28</span>:<span class="number">37.095</span>+<span class="number">0800</span> I CONTROL  [initandlisten] build <span class="string">environment:</span></span><br><span class="line"><span class="number">2016</span><span class="number">-09</span><span class="number">-22</span><span class="string">T20:</span><span class="number">28</span>:<span class="number">37.095</span>+<span class="number">0800</span> I CONTROL  [initandlisten]     <span class="string">distarch:</span> x86_64</span><br><span class="line"><span class="number">2016</span><span class="number">-09</span><span class="number">-22</span><span class="string">T20:</span><span class="number">28</span>:<span class="number">37.095</span>+<span class="number">0800</span> I CONTROL  [initandlisten]     <span class="string">target_arch:</span> x86_64</span><br><span class="line"><span class="number">2016</span><span class="number">-09</span><span class="number">-22</span><span class="string">T20:</span><span class="number">28</span>:<span class="number">37.095</span>+<span class="number">0800</span> I CONTROL  [initandlisten] <span class="string">options:</span> &#123;&#125;</span><br><span class="line"><span class="number">2016</span><span class="number">-09</span><span class="number">-22</span><span class="string">T20:</span><span class="number">28</span>:<span class="number">37.097</span>+<span class="number">0800</span> I -        [initandlisten] Detected data files <span class="keyword">in</span> <span class="regexp">/data/</span>db created by the <span class="string">'mmapv1'</span> storage engine, so setting the active storage engine to <span class="string">'mmapv1'</span>.</span><br><span class="line"><span class="number">2016</span><span class="number">-09</span><span class="number">-22</span><span class="string">T20:</span><span class="number">28</span>:<span class="number">37.100</span>+<span class="number">0800</span> I STORAGE  [initandlisten] exception <span class="keyword">in</span> <span class="string">initAndListen:</span> <span class="number">98</span> Unable to create<span class="regexp">/open lock file: /</span>data<span class="regexp">/db/</span>mongod.lock <span class="string">errno:</span><span class="number">13</span> Permission denied Is a mongod instance already running?, terminating</span><br><span class="line">2016-09-22T20:<span class="number">28</span>:<span class="number">37.100</span>+<span class="number">0800</span> I CONTROL  [initandlisten] <span class="string">dbexit:</span>  <span class="string">rc:</span> <span class="number">100</span></span><br></pre></td></tr></table></figure>
+<p>看见<code>lock file</code>习惯性想去删掉，结果依然不行</p>
+<p>最后还是在 <a href="http://stackoverflow.com/questions/15229412/unable-to-create-open-lock-file-data-mongod-lock-errno13-permission-denied/22623543#22623543" target="_blank" rel="external">Stackoverflow</a> 找到解决方法：</p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">$ sudo chown -R $USER <span class="regexp">/data/</span>db</span><br><span class="line">$ mongod</span><br><span class="line"><span class="number">2016</span><span class="number">-09</span><span class="number">-22</span><span class="string">T21:</span><span class="number">08</span>:<span class="number">07.066</span>+<span class="number">0800</span> I CONTROL  [initandlisten] MongoDB <span class="string">starting :</span> pid=<span class="number">75729</span> port=<span class="number">27017</span> dbpath=<span class="regexp">/data/</span>db <span class="number">64</span>-bit host=localhost</span><br><span class="line"><span class="number">2016</span><span class="number">-09</span><span class="number">-22</span><span class="string">T21:</span><span class="number">08</span>:<span class="number">07.066</span>+<span class="number">0800</span> I CONTROL  [initandlisten] db version v3<span class="number">.2</span><span class="number">.9</span></span><br><span class="line"><span class="number">2016</span><span class="number">-09</span><span class="number">-22</span><span class="string">T21:</span><span class="number">08</span>:<span class="number">07.066</span>+<span class="number">0800</span> I CONTROL  [initandlisten] git <span class="string">version:</span> <span class="number">22</span>ec9e93b40c85fc7cae7d56e7d6a02fd811088c</span><br><span class="line"><span class="number">2016</span><span class="number">-09</span><span class="number">-22</span><span class="string">T21:</span><span class="number">08</span>:<span class="number">07.066</span>+<span class="number">0800</span> I CONTROL  [initandlisten] OpenSSL <span class="string">version:</span> OpenSSL <span class="number">1.0</span><span class="number">.2</span>h  <span class="number">3</span> May <span class="number">2016</span></span><br><span class="line"><span class="number">2016</span><span class="number">-09</span><span class="number">-22</span><span class="string">T21:</span><span class="number">08</span>:<span class="number">07.066</span>+<span class="number">0800</span> I CONTROL  [initandlisten] <span class="string">allocator:</span> system</span><br><span class="line"><span class="number">2016</span><span class="number">-09</span><span class="number">-22</span><span class="string">T21:</span><span class="number">08</span>:<span class="number">07.066</span>+<span class="number">0800</span> I CONTROL  [initandlisten] <span class="string">modules:</span> none</span><br><span class="line"><span class="number">2016</span><span class="number">-09</span><span class="number">-22</span><span class="string">T21:</span><span class="number">08</span>:<span class="number">07.066</span>+<span class="number">0800</span> I CONTROL  [initandlisten] build <span class="string">environment:</span></span><br><span class="line"><span class="number">2016</span><span class="number">-09</span><span class="number">-22</span><span class="string">T21:</span><span class="number">08</span>:<span class="number">07.066</span>+<span class="number">0800</span> I CONTROL  [initandlisten]     <span class="string">distarch:</span> x86_64</span><br><span class="line"><span class="number">2016</span><span class="number">-09</span><span class="number">-22</span><span class="string">T21:</span><span class="number">08</span>:<span class="number">07.066</span>+<span class="number">0800</span> I CONTROL  [initandlisten]     <span class="string">target_arch:</span> x86_64</span><br><span class="line"><span class="number">2016</span><span class="number">-09</span><span class="number">-22</span><span class="string">T21:</span><span class="number">08</span>:<span class="number">07.067</span>+<span class="number">0800</span> I CONTROL  [initandlisten] <span class="string">options:</span> &#123;&#125;</span><br><span class="line"><span class="number">2016</span><span class="number">-09</span><span class="number">-22</span><span class="string">T21:</span><span class="number">08</span>:<span class="number">07.069</span>+<span class="number">0800</span> I -        [initandlisten] Detected data files <span class="keyword">in</span> <span class="regexp">/data/</span>db created by the <span class="string">'mmapv1'</span> storage engine, so setting the active storage engine to <span class="string">'mmapv1'</span>.</span><br><span class="line"><span class="number">2016</span><span class="number">-09</span><span class="number">-22</span><span class="string">T21:</span><span class="number">08</span>:<span class="number">07.096</span>+<span class="number">0800</span> I JOURNAL  [initandlisten] journal dir=<span class="regexp">/data/</span>db/journal</span><br><span class="line"><span class="number">2016</span><span class="number">-09</span><span class="number">-22</span><span class="string">T21:</span><span class="number">08</span>:<span class="number">07.096</span>+<span class="number">0800</span> I JOURNAL  [initandlisten] <span class="string">recover :</span> no journal files present, no recovery needed</span><br><span class="line"><span class="number">2016</span><span class="number">-09</span><span class="number">-22</span><span class="string">T21:</span><span class="number">08</span>:<span class="number">07.112</span>+<span class="number">0800</span> I JOURNAL  [durability] Durability thread started</span><br><span class="line"><span class="number">2016</span><span class="number">-09</span><span class="number">-22</span><span class="string">T21:</span><span class="number">08</span>:<span class="number">07.112</span>+<span class="number">0800</span> I JOURNAL  [journal writer] Journal writer thread started</span><br><span class="line"><span class="number">2016</span><span class="number">-09</span><span class="number">-22</span><span class="string">T21:</span><span class="number">08</span>:<span class="number">07.438</span>+<span class="number">0800</span> I FTDC     [initandlisten] Initializing full-time diagnostic data capture with directory <span class="string">'/data/db/diagnostic.data'</span></span><br><span class="line"><span class="number">2016</span><span class="number">-09</span><span class="number">-22</span><span class="string">T21:</span><span class="number">08</span>:<span class="number">07.438</span>+<span class="number">0800</span> I NETWORK  [HostnameCanonicalizationWorker] Starting hostname canonicalization worker</span><br><span class="line"><span class="number">2016</span><span class="number">-09</span><span class="number">-22</span><span class="string">T21:</span><span class="number">08</span>:<span class="number">07.439</span>+<span class="number">0800</span> I NETWORK  [initandlisten] waiting <span class="keyword">for</span> connections on port <span class="number">27017</span></span><br></pre></td></tr></table></figure>
+<p>开启<code>mongod</code>后再<code>mongo</code>就可以了</p>
+<figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">$ mongo</span><br><span class="line">MongoDB <span class="built_in">shell</span> <span class="built_in">version</span>: <span class="number">3.2</span><span class="number">.9</span></span><br><span class="line">connecting <span class="built_in">to</span>: test</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+<p>感觉 mongodb 的官方文档有点掉链子啊…</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/09/20/idapython-commandline/" itemprop="url">
                   命令行调用 idapython 脚本
                 </a>
@@ -1393,133 +1522,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/28/bootstrap-keyboard-tagIndex/" itemprop="url">
-                  bootstrap-keyboard-tagIndex
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-06-28T16:16:57+08:00" content="2016-06-28">
-              2016-06-28
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/06/28/bootstrap-keyboard-tagIndex/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/28/bootstrap-keyboard-tagIndex/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>这两天在 Coursera 上学习 Bootstrap<br>第四周的作业是把非 JavaScript 实现的 Modal 改成用 JavaScript 实现（<a href="https://www.coursera.org/learn/web-frameworks/peer/jAXUU/assignment-4-detailed-instructions-and-submission）" target="_blank" rel="external">https://www.coursera.org/learn/web-frameworks/peer/jAXUU/assignment-4-detailed-instructions-and-submission）</a>   </p>
-<p>按照 <a href="http://getbootstrap.com/javascript/#modals-methods" target="_blank" rel="external">http://getbootstrap.com/javascript/#modals-methods</a> 找到了解决方案：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    $(<span class="string">'#reserveButton'</span>).on(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        $(<span class="string">'#reserveModal'</span>).modal(<span class="string">'toggle'</span>);</span><br><span class="line">    &#125;);</span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
-<p>作业是解决了，但是发现一个小问题：不管我怎么改<code>keyboard</code>属性，都不能用<code>esc</code>关闭<code>modal</code></p>
-<p>搜了一下得知：在<code>modal</code>所在<code>div</code>中加入<code>tabindex=&quot;-1&quot;</code>属性即可<br>那么问题又来了…这个<code>tabindex=&quot;-1&quot;</code>是什么鬼…   </p>
-<p>搜索加测试了一下之后终于搞清楚了<br><code>tabindex</code>用来帮助键盘党使用<code>tab</code>键定位网页元素，按其值由小到大跳转，默认是 0<br>如果值相等，则按先后顺序跳转</p>
-<p>在未加入<code>tabindex=&quot;-1&quot;</code>时，<code>modal</code>和主页中所有元素值都是 0<br>当前键盘的焦点仍然在主页而非<code>modal</code>上，相当于在主页按<code>esc</code>，<code>modal</code>监听不到所以无任何反应<br>加入<code>tabindex=&quot;-1&quot;</code>后，<code>modal</code>的优先级最高，键盘焦点到了<code>modal</code>上，这时再按<code>esc</code>就能正确触发关闭<code>modal</code>事件了</p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><a href="http://blog.163.com/huan12_8/blog/static/1305190902011274739628/" target="_blank" rel="external">http://blog.163.com/huan12_8/blog/static/1305190902011274739628/</a></li>
-<li><a href="https://segmentfault.com/q/1010000004954562" target="_blank" rel="external">https://segmentfault.com/q/1010000004954562</a></li>
-<li><a href="http://www.w3school.com.cn/tags/att_standard_tabindex.asp" target="_blank" rel="external">http://www.w3school.com.cn/tags/att_standard_tabindex.asp</a></li>
-<li><a href="http://www.mamicode.com/info-detail-494399.html" target="_blank" rel="external">http://www.mamicode.com/info-detail-494399.html</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1565,7 +1567,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">34</span>
+              <span class="site-state-item-count">35</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1582,7 +1584,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">70</span>
+                <span class="site-state-item-count">72</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

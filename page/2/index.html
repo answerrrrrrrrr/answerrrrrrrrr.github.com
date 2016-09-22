@@ -216,6 +216,133 @@
             
               
                 
+                <a class="post-title-link" href="/2016/06/28/bootstrap-keyboard-tagIndex/" itemprop="url">
+                  bootstrap-keyboard-tagIndex
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-06-28T16:16:57+08:00" content="2016-06-28">
+              2016-06-28
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/28/bootstrap-keyboard-tagIndex/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/28/bootstrap-keyboard-tagIndex/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>这两天在 Coursera 上学习 Bootstrap<br>第四周的作业是把非 JavaScript 实现的 Modal 改成用 JavaScript 实现（<a href="https://www.coursera.org/learn/web-frameworks/peer/jAXUU/assignment-4-detailed-instructions-and-submission）" target="_blank" rel="external">https://www.coursera.org/learn/web-frameworks/peer/jAXUU/assignment-4-detailed-instructions-and-submission）</a>   </p>
+<p>按照 <a href="http://getbootstrap.com/javascript/#modals-methods" target="_blank" rel="external">http://getbootstrap.com/javascript/#modals-methods</a> 找到了解决方案：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    $(<span class="string">'#reserveButton'</span>).on(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        $(<span class="string">'#reserveModal'</span>).modal(<span class="string">'toggle'</span>);</span><br><span class="line">    &#125;);</span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>作业是解决了，但是发现一个小问题：不管我怎么改<code>keyboard</code>属性，都不能用<code>esc</code>关闭<code>modal</code></p>
+<p>搜了一下得知：在<code>modal</code>所在<code>div</code>中加入<code>tabindex=&quot;-1&quot;</code>属性即可<br>那么问题又来了…这个<code>tabindex=&quot;-1&quot;</code>是什么鬼…   </p>
+<p>搜索加测试了一下之后终于搞清楚了<br><code>tabindex</code>用来帮助键盘党使用<code>tab</code>键定位网页元素，按其值由小到大跳转，默认是 0<br>如果值相等，则按先后顺序跳转</p>
+<p>在未加入<code>tabindex=&quot;-1&quot;</code>时，<code>modal</code>和主页中所有元素值都是 0<br>当前键盘的焦点仍然在主页而非<code>modal</code>上，相当于在主页按<code>esc</code>，<code>modal</code>监听不到所以无任何反应<br>加入<code>tabindex=&quot;-1&quot;</code>后，<code>modal</code>的优先级最高，键盘焦点到了<code>modal</code>上，这时再按<code>esc</code>就能正确触发关闭<code>modal</code>事件了</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="http://blog.163.com/huan12_8/blog/static/1305190902011274739628/" target="_blank" rel="external">http://blog.163.com/huan12_8/blog/static/1305190902011274739628/</a></li>
+<li><a href="https://segmentfault.com/q/1010000004954562" target="_blank" rel="external">https://segmentfault.com/q/1010000004954562</a></li>
+<li><a href="http://www.w3school.com.cn/tags/att_standard_tabindex.asp" target="_blank" rel="external">http://www.w3school.com.cn/tags/att_standard_tabindex.asp</a></li>
+<li><a href="http://www.mamicode.com/info-detail-494399.html" target="_blank" rel="external">http://www.mamicode.com/info-detail-494399.html</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/06/16/git-push-error/" itemprop="url">
                   Permission denied (publickey)
                 </a>
@@ -539,7 +666,7 @@
 <p>然后是实例（参考<a href="https://segmentfault.com/q/1010000005111826/a-1020000005112829）" target="_blank" rel="external">https://segmentfault.com/q/1010000005111826/a-1020000005112829）</a></p>
 <figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line">s = <span class="string">'aB23'</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sorted_with_key</span><span class="params">(s, key)</span>:</span></span><br><span class="line">    s = sorted(s, key=key)</span><br><span class="line">    <span class="keyword">print</span> s</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'keys: '</span>,</span><br><span class="line">    <span class="keyword">print</span> [key(x) <span class="keyword">for</span> x <span class="keyword">in</span> s]</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> <span class="string">'\nstr.lower'</span></span><br><span class="line">sorted_with_key(s, str.lower)</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> <span class="string">'\nstr.islower'</span></span><br><span class="line">sorted_with_key(s, str.islower)</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> <span class="string">'\nlambda x: x.isdigit() and int(x) % 2 == 0'</span></span><br><span class="line">sorted_with_key(s, <span class="keyword">lambda</span> x: x.isdigit() <span class="keyword">and</span> int(x) % <span class="number">2</span> == <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> <span class="string">'\nlambda x: x.isdigit(), x.isdigit() and int(x) % 2==0, x.isupper(), x.islower(), x'</span></span><br><span class="line"><span class="comment"># 排序:小写-大写-奇数-偶数</span></span><br><span class="line">sorted_with_key(s, <span class="keyword">lambda</span> x: (x.isdigit(), x.isdigit() <span class="keyword">and</span> int(x) %</span><br><span class="line">                              <span class="number">2</span> == <span class="number">0</span>, x.isupper(), x.islower(), x))</span><br></pre></td></tr></table></figure>
 <p>output</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">str.lower</span><br><span class="line">[<span class="string">'2'</span>, <span class="string">'3'</span>, <span class="string">'a'</span>, <span class="string">'B'</span>]</span><br><span class="line">keys:  [<span class="string">'2'</span>, <span class="string">'3'</span>, <span class="string">'a'</span>, <span class="string">'b'</span>]</span><br><span class="line"></span><br><span class="line">str.islower</span><br><span class="line">[<span class="string">'B'</span>, <span class="string">'2'</span>, <span class="string">'3'</span>, <span class="string">'a'</span>]</span><br><span class="line">keys:  [<span class="keyword">False</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, <span class="keyword">True</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">lambda</span> x: x.isdigit() <span class="keyword">and</span> int(x) % <span class="number">2</span> == <span class="number">0</span></span><br><span class="line">[<span class="string">'a'</span>, <span class="string">'B'</span>, <span class="string">'3'</span>, <span class="string">'2'</span>]</span><br><span class="line">keys:  [<span class="keyword">False</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, <span class="keyword">True</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">lambda</span> x: (x.isdigit(), x.isdigit() <span class="keyword">and</span> int(x) % <span class="number">2</span>==<span class="number">0</span>, x.isupper(), x.islower(), x)</span><br><span class="line">[<span class="string">'a'</span>, <span class="string">'B'</span>, <span class="string">'3'</span>, <span class="string">'2'</span>]</span><br><span class="line">keys:  [(<span class="keyword">False</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, <span class="keyword">True</span>, <span class="string">'a'</span>), (<span class="keyword">False</span>, <span class="keyword">False</span>, <span class="keyword">True</span>, <span class="keyword">False</span>, <span class="string">'B'</span>), (<span class="keyword">True</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, <span class="string">'3'</span>), (<span class="keyword">True</span>, <span class="keyword">True</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, <span class="string">'2'</span>)]</span><br></pre></td></tr></table></figure>
+<figure class="highlight autoit"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">str.lower</span><br><span class="line">[<span class="string">'2'</span>, <span class="string">'3'</span>, <span class="string">'a'</span>, <span class="string">'B'</span>]</span><br><span class="line">keys:  [<span class="string">'2'</span>, <span class="string">'3'</span>, <span class="string">'a'</span>, <span class="string">'b'</span>]</span><br><span class="line"></span><br><span class="line">str.islower</span><br><span class="line">[<span class="string">'B'</span>, <span class="string">'2'</span>, <span class="string">'3'</span>, <span class="string">'a'</span>]</span><br><span class="line">keys:  [<span class="literal">False</span>, <span class="literal">False</span>, <span class="literal">False</span>, <span class="literal">True</span>]</span><br><span class="line"></span><br><span class="line">lambda x: x.isdigit() <span class="literal">and</span> <span class="built_in">int</span>(x) % <span class="number">2</span> == <span class="number">0</span></span><br><span class="line">[<span class="string">'a'</span>, <span class="string">'B'</span>, <span class="string">'3'</span>, <span class="string">'2'</span>]</span><br><span class="line">keys:  [<span class="literal">False</span>, <span class="literal">False</span>, <span class="literal">False</span>, <span class="literal">True</span>]</span><br><span class="line"></span><br><span class="line">lambda x: (x.isdigit(), x.isdigit() <span class="literal">and</span> <span class="built_in">int</span>(x) % <span class="number">2</span>==<span class="number">0</span>, x.isupper(), x.islower(), x)</span><br><span class="line">[<span class="string">'a'</span>, <span class="string">'B'</span>, <span class="string">'3'</span>, <span class="string">'2'</span>]</span><br><span class="line">keys:  [(<span class="literal">False</span>, <span class="literal">False</span>, <span class="literal">False</span>, <span class="literal">True</span>, <span class="string">'a'</span>), (<span class="literal">False</span>, <span class="literal">False</span>, <span class="literal">True</span>, <span class="literal">False</span>, <span class="string">'B'</span>), (<span class="literal">True</span>, <span class="literal">False</span>, <span class="literal">False</span>, <span class="literal">False</span>, <span class="string">'3'</span>), (<span class="literal">True</span>, <span class="literal">True</span>, <span class="literal">False</span>, <span class="literal">False</span>, <span class="string">'2'</span>)]</span><br></pre></td></tr></table></figure>
 <h1 id="2016-7-9-补充"><a href="#2016-7-9-补充" class="headerlink" title="2016.7.9 补充"></a>2016.7.9 补充</h1><p>今天看了 cookbook 5.2，Python 2.4 之前是不支持<code>key</code>的，书中提供了一个类似的思路，感觉对理解<code>key</code>的实现很有帮助，摘录如下：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">case_insensitive_sorted</span><span class="params">(string_list)</span>:</span></span><br><span class="line">    auxiliary_list = [(x.lower(), x) <span class="keyword">for</span> x <span class="keyword">in</span> string_list] <span class="comment"># decorate</span></span><br><span class="line">    auxiliary_list.sort()                                  <span class="comment"># sort</span></span><br><span class="line">    <span class="keyword">return</span> [x[<span class="number">1</span>] <span class="keyword">for</span> x <span class="keyword">in</span> auxiliary_list]                  <span class="comment"># undecorate</span></span><br></pre></td></tr></table></figure>
           
@@ -1353,142 +1480,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/04/05/Sublime-Packages/" itemprop="url">
-                  Sublime Preferences
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-04-05T16:24:00+08:00" content="2016-04-05">
-              2016-04-05
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Sublime/" itemprop="url" rel="index">
-                    <span itemprop="name">Sublime</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/04/05/Sublime-Packages/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/05/Sublime-Packages/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="切换标签页"><a href="#切换标签页" class="headerlink" title="切换标签页"></a>切换标签页</h1><p>首先，Sublime 的所谓「标签页智能切换」很蛋疼，改成通用快捷键设定</p>
-<figure class="highlight js"><figcaption><span>Default (OSX).sublime-keymap</span></figcaption><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"keys"</span>: [<span class="string">"ctrl+tab"</span>],</span><br><span class="line">    <span class="string">"command"</span>: <span class="string">"next_view"</span></span><br><span class="line">&#125;,</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"keys"</span>: [<span class="string">"ctrl+shift+tab"</span>],</span><br><span class="line">    <span class="string">"command"</span>: <span class="string">"prev_view"</span></span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
-<h1 id="Vintage"><a href="#Vintage" class="headerlink" title="Vintage"></a><a href="https://github.com/sublimehq/Vintage" target="_blank" rel="external">Vintage</a></h1><p>这个是Sublime自带的vi模式<br>先注释掉<code>Preferences.sublime-settings</code>里的<code>Vintage</code></p>
-<figure class="highlight js"><figcaption><span>Preferences.sublime-settings</span></figcaption><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line">    <span class="string">"ignored_packages"</span>:[</span><br><span class="line">        <span class="comment">// "Vintage"</span></span><br><span class="line">    ],</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<p>再按照习惯把<code>esc</code>改成<code>j</code> <code>j</code></p>
-<figure class="highlight js"><figcaption><span>Default (OSX).sublime-keymap</span></figcaption><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="comment">// Vintage</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">"keys"</span>: [<span class="string">"j"</span>, <span class="string">"j"</span>],</span><br><span class="line">        <span class="string">"command"</span>: <span class="string">"exit_insert_mode"</span>,</span><br><span class="line">        <span class="string">"context"</span>:[</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="string">"key"</span>: <span class="string">"setting.command_mode"</span>,</span><br><span class="line">                <span class="string">"operand"</span>: <span class="literal">false</span></span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="string">"key"</span>: <span class="string">"setting.is_widget"</span>,</span><br><span class="line">                <span class="string">"operand"</span>: <span class="literal">false</span></span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<p>另外还有一个<a href="https://github.com/SublimeText/VintageEx" target="_blank" rel="external">VintageEx</a>，不过我倒是没有太大需求</p>
-<h1 id="SublimeREPL"><a href="#SublimeREPL" class="headerlink" title="SublimeREPL"></a><a href="https://github.com/wuub/SublimeREPL" target="_blank" rel="external">SublimeREPL</a></h1><p>无意中发现一个类似 Vim 下 quickrun 的插件<code>SublimeREPL</code></p>
-<p>在<code>Perferences</code>-<code>Key Bindings - User</code>中加入</p>
-<figure class="highlight js"><figcaption><span>Default (OSX).sublime-keymap</span></figcaption><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line">    <span class="comment">// SublimeREPL - Python</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">"keys"</span>: [<span class="string">"f2"</span>],</span><br><span class="line">        <span class="string">"caption"</span>: <span class="string">"SublimeREPL: Python - RUN current file"</span>,</span><br><span class="line">        <span class="string">"command"</span>: <span class="string">"run_existing_window_command"</span>,</span><br><span class="line">        <span class="string">"args"</span>: &#123;</span><br><span class="line">            <span class="string">"id"</span>: <span class="string">"repl_python_run"</span>,</span><br><span class="line">            <span class="string">"file"</span>: <span class="string">"config/Python/Main.sublime-menu"</span>,</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<p>这样一来，保存之后按<code>F2</code>即可快速运行 Python 脚本，不用来回切换终端了<br>C’est bon!</p>
-<h1 id="ExpandRegion"><a href="#ExpandRegion" class="headerlink" title="ExpandRegion"></a><a href="https://github.com/aronwoost/sublime-expand-region" target="_blank" rel="external">ExpandRegion</a></h1><p>在<a href="https://www.zhihu.com/question/24896283" target="_blank" rel="external">知乎</a>看到推荐感觉挺不错，用于快速扩展选区，也是在<code>Perferences</code>-<code>Key Bindings - User</code>中加入</p>
-<figure class="highlight js"><figcaption><span>Default (OSX).sublime-keymap</span></figcaption><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">"keys"</span>: [<span class="string">"super+e"</span>],</span><br><span class="line">        <span class="string">"command"</span>: <span class="string">"expand_region"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">"keys"</span>: [<span class="string">"super+u"</span>],</span><br><span class="line">        <span class="string">"command"</span>: <span class="string">"expand_region"</span>,</span><br><span class="line">        <span class="string">"args"</span>: &#123;</span><br><span class="line">            <span class="string">"undo"</span>: <span class="literal">true</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">"context"</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="string">"key"</span>: <span class="string">"expand_region_soft_undo"</span></span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<h1 id="Anaconda"><a href="#Anaconda" class="headerlink" title="Anaconda"></a><a href="https://github.com/DamnWidget/anaconda" target="_blank" rel="external">Anaconda</a></h1><p>这个插件确实强大，不过有点小问题</p>
-<h2 id="import-时不能自动补全"><a href="#import-时不能自动补全" class="headerlink" title="import 时不能自动补全"></a>import 时不能自动补全</h2><p>在<a href="https://github.com/DamnWidget/anaconda/issues/89" target="_blank" rel="external">Stackoverflow</a>找到解决方案<br>新建<code>/Users/air9/Library/Application\ Support/Sublime\ Text\ 3/Packages/Python/Completion\ Rules.tmPreferences</code>并加入如下内容</p>
-<figure class="highlight xml"><figcaption><span>Completion Rules.tmPreferences</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span><span class="meta">?&gt;</span></span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">plist</span> <span class="attr">version</span>=<span class="string">"1.0"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dict</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>scope<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>source.python<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>settings<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dict</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">key</span>&gt;</span>cancelCompletion<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>^(.*\b(and|or)$)|(\s*(pass|return|and|or|(class|def)\s*[a-zA-Z_0-9]+)$)<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dict</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dict</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plist</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>保存后重启 Sublime 即可</p>
-<p><strong>不过第一次弄的时候，不知道怎么回事出现了配置文件被初始化的 bug，所有插件和改键都失效了。。。还好我碰巧刚刚做了备份，所以下次也要记得先备份一下</strong></p>
-<h2 id="过于频繁的补全弹窗"><a href="#过于频繁的补全弹窗" class="headerlink" title="过于频繁的补全弹窗"></a>过于频繁的补全弹窗</h2><p>随便按一个空格就以<code>a</code>开头弹窗提示我补全，有时甚至回车补全完成之后弹窗仍然消失不掉，一怒之下禁用掉了</p>
-<figure class="highlight js"><figcaption><span>Anaconda.sublime-settings</span></figcaption><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line">    <span class="comment">/*</span><br><span class="line">        Disable anaconda completion</span><br><span class="line"></span><br><span class="line">        WARNING: set this as true will totally disable anaconda completion</span><br><span class="line">    */</span></span><br><span class="line">    <span class="comment">// "disable_anaconda_completion": false,</span></span><br><span class="line">    <span class="string">"disable_anaconda_completion"</span>: <span class="literal">true</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span><br><span class="line">...</span></span><br></pre></td></tr></table></figure>
-<p>Sublime 自带的轻量级补全其实已经满足我的日常需求了，装 Anaconda 主要还是为了 Tooltip 和 PEP8 提示</p>
-<h1 id="MarkdownEditing"><a href="#MarkdownEditing" class="headerlink" title="MarkdownEditing"></a><a href="https://github.com/SublimeText-Markdown/MarkdownEditing" target="_blank" rel="external">MarkdownEditing</a></h1><p>这个其实用处不大，平常在 Mac 上写 Markdown 都用的 MacDown<br>不过默认会渲染 txt 还是挺蛋疼的，注释掉<br>顺便改个主题</p>
-<figure class="highlight js"><figcaption><span>Markdown.sublime-settings</span></figcaption><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"extensions"</span>:</span><br><span class="line">    [</span><br><span class="line">        <span class="string">"md"</span>,</span><br><span class="line">        <span class="string">"mdown"</span>,</span><br><span class="line">        <span class="comment">// "txt"</span></span><br><span class="line">    ],</span><br><span class="line"></span><br><span class="line">    <span class="string">"color_scheme"</span>: <span class="string">"Packages/MarkdownEditing/MarkdownEditor-Dark.tmTheme"</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1534,7 +1525,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">34</span>
+              <span class="site-state-item-count">35</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1551,7 +1542,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">70</span>
+                <span class="site-state-item-count">72</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
