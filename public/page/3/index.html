@@ -216,6 +216,142 @@
             
               
                 
+                <a class="post-title-link" href="/2016/04/05/Sublime-Packages/" itemprop="url">
+                  Sublime Preferences
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-04-05T16:24:00+08:00" content="2016-04-05">
+              2016-04-05
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Sublime/" itemprop="url" rel="index">
+                    <span itemprop="name">Sublime</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/05/Sublime-Packages/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/05/Sublime-Packages/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="切换标签页"><a href="#切换标签页" class="headerlink" title="切换标签页"></a>切换标签页</h1><p>首先，Sublime 的所谓「标签页智能切换」很蛋疼，改成通用快捷键设定</p>
+<figure class="highlight js"><figcaption><span>Default (OSX).sublime-keymap</span></figcaption><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"keys"</span>: [<span class="string">"ctrl+tab"</span>],</span><br><span class="line">    <span class="string">"command"</span>: <span class="string">"next_view"</span></span><br><span class="line">&#125;,</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"keys"</span>: [<span class="string">"ctrl+shift+tab"</span>],</span><br><span class="line">    <span class="string">"command"</span>: <span class="string">"prev_view"</span></span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<h1 id="Vintage"><a href="#Vintage" class="headerlink" title="Vintage"></a><a href="https://github.com/sublimehq/Vintage" target="_blank" rel="external">Vintage</a></h1><p>这个是Sublime自带的vi模式<br>先注释掉<code>Preferences.sublime-settings</code>里的<code>Vintage</code></p>
+<figure class="highlight js"><figcaption><span>Preferences.sublime-settings</span></figcaption><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line">    <span class="string">"ignored_packages"</span>:[</span><br><span class="line">        <span class="comment">// "Vintage"</span></span><br><span class="line">    ],</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>再按照习惯把<code>esc</code>改成<code>j</code> <code>j</code></p>
+<figure class="highlight js"><figcaption><span>Default (OSX).sublime-keymap</span></figcaption><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="comment">// Vintage</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">"keys"</span>: [<span class="string">"j"</span>, <span class="string">"j"</span>],</span><br><span class="line">        <span class="string">"command"</span>: <span class="string">"exit_insert_mode"</span>,</span><br><span class="line">        <span class="string">"context"</span>:[</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="string">"key"</span>: <span class="string">"setting.command_mode"</span>,</span><br><span class="line">                <span class="string">"operand"</span>: <span class="literal">false</span></span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="string">"key"</span>: <span class="string">"setting.is_widget"</span>,</span><br><span class="line">                <span class="string">"operand"</span>: <span class="literal">false</span></span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>另外还有一个<a href="https://github.com/SublimeText/VintageEx" target="_blank" rel="external">VintageEx</a>，不过我倒是没有太大需求</p>
+<h1 id="SublimeREPL"><a href="#SublimeREPL" class="headerlink" title="SublimeREPL"></a><a href="https://github.com/wuub/SublimeREPL" target="_blank" rel="external">SublimeREPL</a></h1><p>无意中发现一个类似 Vim 下 quickrun 的插件<code>SublimeREPL</code></p>
+<p>在<code>Perferences</code>-<code>Key Bindings - User</code>中加入</p>
+<figure class="highlight js"><figcaption><span>Default (OSX).sublime-keymap</span></figcaption><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line">    <span class="comment">// SublimeREPL - Python</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">"keys"</span>: [<span class="string">"f2"</span>],</span><br><span class="line">        <span class="string">"caption"</span>: <span class="string">"SublimeREPL: Python - RUN current file"</span>,</span><br><span class="line">        <span class="string">"command"</span>: <span class="string">"run_existing_window_command"</span>,</span><br><span class="line">        <span class="string">"args"</span>: &#123;</span><br><span class="line">            <span class="string">"id"</span>: <span class="string">"repl_python_run"</span>,</span><br><span class="line">            <span class="string">"file"</span>: <span class="string">"config/Python/Main.sublime-menu"</span>,</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>这样一来，保存之后按<code>F2</code>即可快速运行 Python 脚本，不用来回切换终端了<br>C’est bon!</p>
+<h1 id="ExpandRegion"><a href="#ExpandRegion" class="headerlink" title="ExpandRegion"></a><a href="https://github.com/aronwoost/sublime-expand-region" target="_blank" rel="external">ExpandRegion</a></h1><p>在<a href="https://www.zhihu.com/question/24896283" target="_blank" rel="external">知乎</a>看到推荐感觉挺不错，用于快速扩展选区，也是在<code>Perferences</code>-<code>Key Bindings - User</code>中加入</p>
+<figure class="highlight js"><figcaption><span>Default (OSX).sublime-keymap</span></figcaption><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">"keys"</span>: [<span class="string">"super+e"</span>],</span><br><span class="line">        <span class="string">"command"</span>: <span class="string">"expand_region"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">"keys"</span>: [<span class="string">"super+u"</span>],</span><br><span class="line">        <span class="string">"command"</span>: <span class="string">"expand_region"</span>,</span><br><span class="line">        <span class="string">"args"</span>: &#123;</span><br><span class="line">            <span class="string">"undo"</span>: <span class="literal">true</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">"context"</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="string">"key"</span>: <span class="string">"expand_region_soft_undo"</span></span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h1 id="Anaconda"><a href="#Anaconda" class="headerlink" title="Anaconda"></a><a href="https://github.com/DamnWidget/anaconda" target="_blank" rel="external">Anaconda</a></h1><p>这个插件确实强大，不过有点小问题</p>
+<h2 id="import-时不能自动补全"><a href="#import-时不能自动补全" class="headerlink" title="import 时不能自动补全"></a>import 时不能自动补全</h2><p>在<a href="https://github.com/DamnWidget/anaconda/issues/89" target="_blank" rel="external">Stackoverflow</a>找到解决方案<br>新建<code>/Users/air9/Library/Application\ Support/Sublime\ Text\ 3/Packages/Python/Completion\ Rules.tmPreferences</code>并加入如下内容</p>
+<figure class="highlight xml"><figcaption><span>Completion Rules.tmPreferences</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span><span class="meta">?&gt;</span></span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">plist</span> <span class="attr">version</span>=<span class="string">"1.0"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dict</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>scope<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>source.python<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>settings<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dict</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">key</span>&gt;</span>cancelCompletion<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>^(.*\b(and|or)$)|(\s*(pass|return|and|or|(class|def)\s*[a-zA-Z_0-9]+)$)<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dict</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dict</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plist</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>保存后重启 Sublime 即可</p>
+<p><strong>不过第一次弄的时候，不知道怎么回事出现了配置文件被初始化的 bug，所有插件和改键都失效了。。。还好我碰巧刚刚做了备份，所以下次也要记得先备份一下</strong></p>
+<h2 id="过于频繁的补全弹窗"><a href="#过于频繁的补全弹窗" class="headerlink" title="过于频繁的补全弹窗"></a>过于频繁的补全弹窗</h2><p>随便按一个空格就以<code>a</code>开头弹窗提示我补全，有时甚至回车补全完成之后弹窗仍然消失不掉，一怒之下禁用掉了</p>
+<figure class="highlight js"><figcaption><span>Anaconda.sublime-settings</span></figcaption><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line">    <span class="comment">/*</span><br><span class="line">        Disable anaconda completion</span><br><span class="line"></span><br><span class="line">        WARNING: set this as true will totally disable anaconda completion</span><br><span class="line">    */</span></span><br><span class="line">    <span class="comment">// "disable_anaconda_completion": false,</span></span><br><span class="line">    <span class="string">"disable_anaconda_completion"</span>: <span class="literal">true</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span><br><span class="line">...</span></span><br></pre></td></tr></table></figure>
+<p>Sublime 自带的轻量级补全其实已经满足我的日常需求了，装 Anaconda 主要还是为了 Tooltip 和 PEP8 提示</p>
+<h1 id="MarkdownEditing"><a href="#MarkdownEditing" class="headerlink" title="MarkdownEditing"></a><a href="https://github.com/SublimeText-Markdown/MarkdownEditing" target="_blank" rel="external">MarkdownEditing</a></h1><p>这个其实用处不大，平常在 Mac 上写 Markdown 都用的 MacDown<br>不过默认会渲染 txt 还是挺蛋疼的，注释掉<br>顺便改个主题</p>
+<figure class="highlight js"><figcaption><span>Markdown.sublime-settings</span></figcaption><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"extensions"</span>:</span><br><span class="line">    [</span><br><span class="line">        <span class="string">"md"</span>,</span><br><span class="line">        <span class="string">"mdown"</span>,</span><br><span class="line">        <span class="comment">// "txt"</span></span><br><span class="line">    ],</span><br><span class="line"></span><br><span class="line">    <span class="string">"color_scheme"</span>: <span class="string">"Packages/MarkdownEditing/MarkdownEditor-Dark.tmTheme"</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/04/05/Spider-04-sqlite/" itemprop="url">
                   Spider-04-sqlite3
                 </a>
@@ -1325,134 +1461,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/03/09/arch-gdb-peda-pip-ropgadget/" itemprop="url">
-                  arch gdb pip ropgadget
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-03-09T15:28:36+08:00" content="2016-03-09">
-              2016-03-09
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/rop/" itemprop="url" rel="index">
-                    <span itemprop="name">rop</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/03/09/arch-gdb-peda-pip-ropgadget/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/09/arch-gdb-peda-pip-ropgadget/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="gdb-plugin-gdb-peda"><a href="#gdb-plugin-gdb-peda" class="headerlink" title="gdb plugin: gdb-peda"></a>gdb plugin: <a href="https://github.com/longld/peda" target="_blank" rel="external">gdb-peda</a></h3><p><code>sudo pacman -S gdb</code></p>
-<p><code>git clone https://github.com/longld/peda.git ~/peda</code></p>
-<p><code>echo &quot;source ~/peda/peda.py&quot; &gt;&gt; ~/.gdbinit</code></p>
-<h3 id="gdb-plugin-libheap"><a href="#gdb-plugin-libheap" class="headerlink" title="gdb plugin: libheap"></a>gdb plugin: <a href="https://github.com/cloudburst/libheap" target="_blank" rel="external">libheap</a></h3><p><code>curl https://raw.githubusercontent.com/answerrrrrrrrr/VRL/master/test/exploits/lib/libheap.py &gt; libheap.py</code></p>
-<p><code>sudo mv libheap.py /usr/lib/python2.7</code></p>
-<p><code>gdb</code></p>
-<p><code>(gdb) python from libheap import *</code></p>
-<p><code>(gdb) heap -h</code></p>
-<h3 id="pip"><a href="#pip" class="headerlink" title="pip"></a>pip</h3><p><code>curl https://bootstrap.pypa.io/get-pip.py &gt; getpip.py</code></p>
-<p><code>sudo python getpip.py</code></p>
-<h3 id="ROPgadget"><a href="#ROPgadget" class="headerlink" title="ROPgadget"></a>ROPgadget</h3><p><code>sudo pacman -S python-capstone</code></p>
-<p><code>sudo pip install ropgadget</code></p>
-<p>If gets errors about capstone:</p>
-<p><code>sudo pip install ropgadget --upgrade</code></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1498,7 +1506,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">34</span>
+              <span class="site-state-item-count">35</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1515,7 +1523,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">70</span>
+                <span class="site-state-item-count">72</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

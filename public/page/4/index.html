@@ -216,6 +216,134 @@
             
               
                 
+                <a class="post-title-link" href="/2016/03/09/arch-gdb-peda-pip-ropgadget/" itemprop="url">
+                  arch gdb pip ropgadget
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-03-09T15:28:36+08:00" content="2016-03-09">
+              2016-03-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/rop/" itemprop="url" rel="index">
+                    <span itemprop="name">rop</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/03/09/arch-gdb-peda-pip-ropgadget/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/09/arch-gdb-peda-pip-ropgadget/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="gdb-plugin-gdb-peda"><a href="#gdb-plugin-gdb-peda" class="headerlink" title="gdb plugin: gdb-peda"></a>gdb plugin: <a href="https://github.com/longld/peda" target="_blank" rel="external">gdb-peda</a></h3><p><code>sudo pacman -S gdb</code></p>
+<p><code>git clone https://github.com/longld/peda.git ~/peda</code></p>
+<p><code>echo &quot;source ~/peda/peda.py&quot; &gt;&gt; ~/.gdbinit</code></p>
+<h3 id="gdb-plugin-libheap"><a href="#gdb-plugin-libheap" class="headerlink" title="gdb plugin: libheap"></a>gdb plugin: <a href="https://github.com/cloudburst/libheap" target="_blank" rel="external">libheap</a></h3><p><code>curl https://raw.githubusercontent.com/answerrrrrrrrr/VRL/master/test/exploits/lib/libheap.py &gt; libheap.py</code></p>
+<p><code>sudo mv libheap.py /usr/lib/python2.7</code></p>
+<p><code>gdb</code></p>
+<p><code>(gdb) python from libheap import *</code></p>
+<p><code>(gdb) heap -h</code></p>
+<h3 id="pip"><a href="#pip" class="headerlink" title="pip"></a>pip</h3><p><code>curl https://bootstrap.pypa.io/get-pip.py &gt; getpip.py</code></p>
+<p><code>sudo python getpip.py</code></p>
+<h3 id="ROPgadget"><a href="#ROPgadget" class="headerlink" title="ROPgadget"></a>ROPgadget</h3><p><code>sudo pacman -S python-capstone</code></p>
+<p><code>sudo pip install ropgadget</code></p>
+<p>If gets errors about capstone:</p>
+<p><code>sudo pip install ropgadget --upgrade</code></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/03/09/tmux-copy2clipboard/" itemprop="url">
                   tmux copy2clipboard
                 </a>
@@ -742,7 +870,7 @@ set background=light
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">34</span>
+              <span class="site-state-item-count">35</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -759,7 +887,7 @@ set background=light
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">70</span>
+                <span class="site-state-item-count">72</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
