@@ -216,6 +216,137 @@
             
               
                 
+                <a class="post-title-link" href="/2016/04/06/Spider-05-Spider/" itemprop="url">
+                  Spider-05-Spider
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-04-06T09:00:36+08:00" content="2016-04-06">
+              2016-04-06
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/06/Spider-05-Spider/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/06/Spider-05-Spider/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="知道创宇爬虫设计第五天：Spider"><a href="#知道创宇爬虫设计第五天：Spider" class="headerlink" title="知道创宇爬虫设计第五天：Spider"></a>知道创宇爬虫设计第五天：Spider</h1><p> 准备工作完成的差不多了，今天尝试下把之前的模块都整合起来做一个初期版本</p>
+<p> 首先 <a href="http://stackoverflow.com/questions/4327392/what-is-the-difference-between-web-crawling-and-web-scraping" target="_blank" rel="external">What is the difference between web-crawling and web-scraping?</a><br>感觉其实这个答案比最佳答案更简洁明了  </p>
+<blockquote>
+<p>Web Crawling is what Google does - it goes around a website looking at links and building a database of the layout of that site and sites it links to</p>
+<p>Web Scraping would be the progamatic analysis of a web page to load some data off of it, EG loading up BBC weather and ripping (scraping) the weather forcast off of it and placing it elsewhere or using it in another program.</p>
+</blockquote>
+<p>我的理解就是<code>web-crawling</code>在于广度，<code>web-scraping</code>在于精度</p>
+<h1 id="BeautifulSoup"><a href="#BeautifulSoup" class="headerlink" title="BeautifulSoup"></a>BeautifulSoup</h1><p>为了<code>crawl</code>，需要从页面提取出用于进一步爬取的 URL ，BeautifulSoup 正好能方便快捷地完成这个任务，上手也很简单，基本上看看<a href="http://beautifulsoup.readthedocs.org/zh_CN/latest/" target="_blank" rel="external">官方文档</a>就万事大吉了</p>
+<h1 id="FileHandler"><a href="#FileHandler" class="headerlink" title="FileHandler"></a>FileHandler</h1><p>在整合 logger 的时候发现一个问题，使用<code>logging.config.fileConfig(&#39;logging.conf&#39;)</code>的话，需要提前在配置文件里写定日志保存路径，为了配合参数设定其他路径，似乎（看了一下 <a href="http://devdocs.io/python~2.7/library/logging.handlers#logging.FileHandler" target="_blank" rel="external">FileHandler</a> 的用法）只能额外添加一个了</p>
+<figure class="highlight oxygene"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line">    # <span class="keyword">If</span> logfile <span class="keyword">is</span> <span class="keyword">not</span> <span class="string">'spider.log'</span></span><br><span class="line">    formatter = logging.Formatter(</span><br><span class="line">        <span class="string">'%(asctime)s - %(levelname)s - %(message)s'</span>)</span><br><span class="line">    file_handler.setFormatter(formatter)</span><br><span class="line">    logger.addHandler(file_handler)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p>目前爬虫已经基本能用，但偶尔还是会出现<code>502</code>，然后该往数据库里放些什么东西还有待考虑，另外也没有加上自测功能</p>
+<figure class="highlight python"><figcaption><span>myspider.py</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> threading <span class="keyword">import</span> Thread</span><br><span class="line"><span class="keyword">from</span> Queue <span class="keyword">import</span> Queue</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="keyword">import</span> urllib2</span><br><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line"><span class="keyword">import</span> sqlite3</span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"><span class="keyword">import</span> logging.config</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">logging.config.fileConfig(<span class="string">'logging.conf'</span>)</span><br><span class="line">logger = logging.getLogger(<span class="string">'spider'</span>)</span><br><span class="line"></span><br><span class="line">levels = &#123;</span><br><span class="line">    <span class="number">1</span>: <span class="string">'CRITICAL'</span>,</span><br><span class="line">    <span class="number">2</span>: <span class="string">'ERROR'</span>,</span><br><span class="line">    <span class="number">3</span>: <span class="string">'WARNING'</span>,</span><br><span class="line">    <span class="number">4</span>: <span class="string">'INFO'</span>,</span><br><span class="line">    <span class="number">5</span>: <span class="string">'DEBUG'</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MySqlite</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, dbfile)</span>:</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            logger.warning(<span class="string">"Open database %s"</span> % dbfile)</span><br><span class="line">            self.conn = sqlite3.connect(dbfile)</span><br><span class="line">        <span class="keyword">except</span> sqlite3.Error <span class="keyword">as</span> e:</span><br><span class="line">            <span class="comment"># print "Fail to connect %s: %s" % (dbfile, e) # e.args[0]</span></span><br><span class="line">            logger.error(<span class="string">"Fail to connect %s: %s"</span> % (dbfile, e))</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">        self.cursor = self.conn.cursor()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">create</span><span class="params">(self, table)</span>:</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            logger.warning(<span class="string">"Create table %s if not exists"</span> % table)</span><br><span class="line">            self.cursor.execute(</span><br><span class="line">                <span class="string">"CREATE TABLE IF NOT EXISTS %s (id INTEGER PRIMARY KEY \</span><br><span class="line">                AUTOINCREMENT, url VARCHAR(100), data VARCHAR(40))"</span> % table)</span><br><span class="line">            self.conn.commit()</span><br><span class="line">        <span class="keyword">except</span> sqlite3.Error <span class="keyword">as</span> e:</span><br><span class="line">            logger.error(<span class="string">"Fail to create %s: %s"</span> % (table, e))</span><br><span class="line">            self.conn.rollback()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">insert</span><span class="params">(self, table, url, data)</span>:</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            logger.warning(</span><br><span class="line">                <span class="string">"Insert (%s, %s) into table %s"</span> % (url, data, table))</span><br><span class="line">            self.cursor.execute(</span><br><span class="line">                <span class="string">"INSERT INTO %s (url, data) VALUES ('%s', '%s')"</span> %</span><br><span class="line">                (table, url, data))</span><br><span class="line">            self.conn.commit()</span><br><span class="line">        <span class="keyword">except</span> sqlite3.Error <span class="keyword">as</span> e:</span><br><span class="line">            logger.error(</span><br><span class="line">                <span class="string">"Fail to insert (%s, %s) into %s: %s"</span> %</span><br><span class="line">                (url, data, table, e))</span><br><span class="line">            self.conn.rollback()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">close</span><span class="params">(self)</span>:</span></span><br><span class="line">        logger.info(<span class="string">"Close database"</span>)</span><br><span class="line">        self.cursor.close()</span><br><span class="line">        self.conn.close()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyThreadPool</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, num_threads=<span class="number">10</span>)</span>:</span></span><br><span class="line">        self.tasks = Queue(num_threads)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> xrange(<span class="number">1</span>, num_threads+<span class="number">1</span>):</span><br><span class="line">            <span class="comment"># Initialize the pool with the number of num_threads</span></span><br><span class="line">            logger.info(<span class="string">'Initialize thread %d'</span> % i)</span><br><span class="line">            MyThread(self.tasks)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add_task</span><span class="params">(self, func, *args, **kwargs)</span>:</span></span><br><span class="line">        self.tasks.put((func, args, kwargs))</span><br><span class="line">        logger.debug(<span class="string">'Add task'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wait_completion</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># Blocks until all items in the queue have been gotten and processed.</span></span><br><span class="line">        self.tasks.join()</span><br><span class="line">        logger.info(<span class="string">'All tasks are done'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyThread</span><span class="params">(Thread)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, tasks)</span>:</span></span><br><span class="line">        Thread.__init__(self)</span><br><span class="line">        self.tasks = tasks</span><br><span class="line">        <span class="comment"># This must be set before start() is called. The entire Python program</span></span><br><span class="line">        <span class="comment"># exits when no alive non-daemon threads are left.</span></span><br><span class="line">        self.daemon = <span class="keyword">True</span></span><br><span class="line">        self.start()</span><br><span class="line">        logger.debug(<span class="string">'Thread started...'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">            <span class="comment"># Block until an item is available.</span></span><br><span class="line">            func, args, kwargs = self.tasks.get()</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                logger.warning(<span class="string">'Thread is working...'</span>)</span><br><span class="line">                func(*args, **kwargs)</span><br><span class="line">            <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">                logger.error(e)</span><br><span class="line">            <span class="comment"># Tells the queue that the processing on the task is complete.</span></span><br><span class="line">            self.tasks.task_done()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MySpider</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, args)</span>:</span></span><br><span class="line">        <span class="string">''' Initialize the spider</span><br><span class="line">        '''</span></span><br><span class="line">        <span class="comment"># Initialize args</span></span><br><span class="line">        self.url = args.url</span><br><span class="line">        self.depth = args.depth</span><br><span class="line">        self.logfile = args.logfile</span><br><span class="line">        self.dbfile = args.dbfile</span><br><span class="line">        self.num_threads = args.num_threads</span><br><span class="line">        self.key = args.key.lower()</span><br><span class="line">        self.selftest = args.selftest</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Store visited url</span></span><br><span class="line">        self.visited_urls = set()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Initialize threadpool</span></span><br><span class="line">        self.threadpool = MyThreadPool(self.num_threads)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">''' Run the spider</span><br><span class="line">        '''</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> self.url.startswith(<span class="string">'http://'</span>):</span><br><span class="line">            self.url = <span class="string">'http://'</span> + self.url</span><br><span class="line">        logger.critical(<span class="string">'Start crawl on %s'</span> % self.url)</span><br><span class="line">        self.threadpool.add_task(self.scrape, self.url, self.depth)</span><br><span class="line">        self.threadpool.wait_completion()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">scrape</span><span class="params">(self, url, depth)</span>:</span></span><br><span class="line">        <span class="string">''' Scrape the content of page</span><br><span class="line">        '''</span></span><br><span class="line">        <span class="comment"># Open database with dbfile</span></span><br><span class="line">        db = MySqlite(self.dbfile)</span><br><span class="line">        <span class="comment"># Create table with keyword</span></span><br><span class="line">        table = <span class="string">'none'</span> <span class="keyword">if</span> <span class="keyword">not</span> self.key <span class="keyword">else</span> self.key</span><br><span class="line">        db.create(table)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Avoid being recognized as robot</span></span><br><span class="line">        headers = &#123;</span><br><span class="line">            <span class="string">'User-Agent'</span>: <span class="string">'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) \</span><br><span class="line">            AppleWebKit/537.36 (KHTML, like Gecko) \</span><br><span class="line">            Chrome/49.0.2623.110 Safari/537.36'</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Avoid repeat</span></span><br><span class="line">        <span class="keyword">if</span> url <span class="keyword">in</span> self.visited_urls:</span><br><span class="line">            logger.debug(<span class="string">'%s had been crawled'</span> % url)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            self.visited_urls.add(url)</span><br><span class="line">            logger.info(<span class="string">'Crawling on %s'</span> % url)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Request with headers</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            logger.warning(<span class="string">'Open %s'</span> % url)</span><br><span class="line">            request = urllib2.Request(url, headers=headers)</span><br><span class="line">            result = urllib2.urlopen(request).read()</span><br><span class="line">        <span class="keyword">except</span> ValueError <span class="keyword">as</span> e:</span><br><span class="line">            logger.error(e)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># Extract the title by BeautifulSoup</span></span><br><span class="line">        soup = BeautifulSoup(result, <span class="string">"lxml"</span>)</span><br><span class="line">        title = soup.title.string</span><br><span class="line">        logger.debug(<span class="string">'title = %s'</span> % title)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Store url and title of the page with keyword into database</span></span><br><span class="line">        <span class="keyword">if</span> self.key <span class="keyword">in</span> result.lower():</span><br><span class="line">            table = <span class="string">'none'</span> <span class="keyword">if</span> <span class="keyword">not</span> self.key <span class="keyword">else</span> self.key</span><br><span class="line">            db.insert(table, url, title)</span><br><span class="line">            logger.critical(</span><br><span class="line">                <span class="string">'KEYWORD:\'%s\' - URL:\'%s\' - TITLE:\'%s\' (DEPTH:%d)'</span> %</span><br><span class="line">                (self.key, url, title, depth))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Close database after modification</span></span><br><span class="line">        db.close()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Go deeper into urls in result</span></span><br><span class="line">        self.crawl(soup, depth<span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">crawl</span><span class="params">(self, soup, depth)</span>:</span></span><br><span class="line">        <span class="string">''' Crawl to new pages</span><br><span class="line">        '''</span></span><br><span class="line">        <span class="keyword">if</span> depth &gt; <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">for</span> link <span class="keyword">in</span> soup.find_all(<span class="string">'a'</span>):</span><br><span class="line">                url = link.get(<span class="string">'href'</span>)</span><br><span class="line">                <span class="comment"># scrape new url</span></span><br><span class="line">                self.threadpool.add_task(self.scrape, url, depth)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># def stop(self):</span></span><br><span class="line">    <span class="comment">#     ''' Stop the spider</span></span><br><span class="line">    <span class="comment">#     '''</span></span><br><span class="line">    <span class="comment">#     logger.critical('OVER')</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">args_parser</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">''' Parse the args</span><br><span class="line">    '''</span></span><br><span class="line">    parser = argparse.ArgumentParser()</span><br><span class="line"></span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">'-u'</span>, <span class="string">'--url'</span>, dest=<span class="string">'url'</span>, required=<span class="keyword">True</span>,</span><br><span class="line">        help=<span class="string">'specify the URL to start crawl'</span></span><br><span class="line">    )</span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">'-d'</span>, <span class="string">'--depth'</span>, dest=<span class="string">'depth'</span>, default=<span class="number">1</span>, type=int,</span><br><span class="line">        help=<span class="string">'specify the depth of the spider (default: 1)'</span></span><br><span class="line">    )</span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">'-f'</span>, <span class="string">'--file'</span>, dest=<span class="string">'logfile'</span>, default=<span class="string">'spider.log'</span>,</span><br><span class="line">        help=<span class="string">'specify the path of logfile (default: spider.log)'</span></span><br><span class="line">    )</span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">'-l'</span>, <span class="string">'--level'</span>, dest=<span class="string">'loglevel'</span>, default=<span class="number">5</span>, type=int,</span><br><span class="line">        choices=range(<span class="number">1</span>, <span class="number">6</span>),</span><br><span class="line">        help=<span class="string">'specify the verbose level of the log (default: 5)'</span></span><br><span class="line">    )</span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">'--dbfile'</span>, dest=<span class="string">'dbfile'</span>, default=<span class="string">'spider.db'</span>,</span><br><span class="line">        help=<span class="string">'specify the path of sqlite dbfile (default: spider.db)'</span></span><br><span class="line">    )</span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">'--thread'</span>, dest=<span class="string">'num_threads'</span>, default=<span class="number">10</span>, type=int,</span><br><span class="line">        help=<span class="string">'specify the size of thread pool (default: 10)'</span></span><br><span class="line">    )</span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">'--key'</span>, dest=<span class="string">'key'</span>, default=<span class="string">''</span>,</span><br><span class="line">        help=<span class="string">'specify the keyword (default: '</span><span class="string">')'</span></span><br><span class="line">    )</span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">'--selftest'</span>, action=<span class="string">'store_true'</span>,</span><br><span class="line">        help=<span class="string">'self-test'</span></span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    args = parser.parse_args()</span><br><span class="line">    <span class="keyword">return</span> args</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">set_logger</span><span class="params">(loglevel, logfile)</span>:</span></span><br><span class="line">    <span class="string">''' Set the logger with loglevel and logfile</span><br><span class="line">    '''</span></span><br><span class="line">    logger.setLevel(levels[loglevel])</span><br><span class="line">    file_handler = logging.FileHandler(logfile)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># If logfile is not 'spider.log'</span></span><br><span class="line">    formatter = logging.Formatter(</span><br><span class="line">        <span class="string">'%(asctime)s - %(levelname)s - %(message)s'</span>)</span><br><span class="line">    file_handler.setFormatter(formatter)</span><br><span class="line">    logger.addHandler(file_handler)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    args = args_parser()</span><br><span class="line">    set_logger(args.loglevel, args.logfile)</span><br><span class="line">    logger.debug(args)</span><br><span class="line"></span><br><span class="line">    spider = MySpider(args)</span><br><span class="line">    spider.run()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="http://beautifulsoup.readthedocs.org/zh_CN/latest/" target="_blank" rel="external">http://beautifulsoup.readthedocs.org/zh_CN/latest/</a></li>
+<li><a href="http://devdocs.io/python~2.7/library/logging.handlers#logging.FileHandler" target="_blank" rel="external">http://devdocs.io/python~2.7/library/logging.handlers#logging.FileHandler</a></li>
+<li><a href="http://dongweiming.github.io/blog/archives/pa-chong-lian-xi/" target="_blank" rel="external">http://dongweiming.github.io/blog/archives/pa-chong-lian-xi/</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/04/05/Sublime-Packages/" itemprop="url">
                   Sublime Preferences
                 </a>
@@ -1341,126 +1472,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/03/09/arch-vmtools/" itemprop="url">
-                  arch vmtools
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-03-09T15:31:22+08:00" content="2016-03-09">
-              2016-03-09
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Archlinux/" itemprop="url" rel="index">
-                    <span itemprop="name">Archlinux</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/03/09/arch-vmtools/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/09/arch-vmtools/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="http://blog.csdn.net/zhxlianxin/article/details/17636933" target="_blank" rel="external">http://blog.csdn.net/zhxlianxin/article/details/17636933</a></p>
-<p><code>pacman -S open-vm-tools open-vm-tools-modules</code></p>
-<p><code>pacman -S gtkmm</code></p>
-<p><code>cat /proc/version &gt; /etc/arch-release</code></p>
-<p><code>systemctl start vmtoolsd</code></p>
-<p><code>systemctl enable vmtoolsd</code></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1506,7 +1517,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">35</span>
+              <span class="site-state-item-count">36</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1514,7 +1525,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -1523,7 +1534,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">72</span>
+                <span class="site-state-item-count">73</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
