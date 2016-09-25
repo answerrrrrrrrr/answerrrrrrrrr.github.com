@@ -216,6 +216,171 @@
             
               
                 
+                <a class="post-title-link" href="/2016/09/25/code-smell/" itemprop="url">
+                  Code Smell
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-09-25T16:44:03+08:00" content="2016-09-25">
+              2016-09-25
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Code/" itemprop="url" rel="index">
+                    <span itemprop="name">Code</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/25/code-smell/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/25/code-smell/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>转自：<a href="http://www.nowamagic.net/librarys/veda/detail/2053" target="_blank" rel="external">http://www.nowamagic.net/librarys/veda/detail/2053</a></p>
+<p>Code Smell中文译名一般为“代码异味”，或“代码味道”，它是提示代码中某个地方存在错误的一个暗示，开发人员可以通过这种smell（异味）在代码中追捕到问题。</p>
+<p>在计算机编程社区中，code smell代表了任何标志着事物变坏的征兆。它常常标志代码应该被refactored或者全部的设计都应该被reviewed。这个短语出现在 WardsWiki上，它是被Kent Beck杜撰出来的。在refactoring兴起之后，这个短语的使用率骤增。</p>
+<p>判断是否存在code smell经常是主观判断，并且随着语言、开发者、开发理论的不同而存在差异。</p>
+<p>经验丰富和知识渊博的开发人员通过对优秀设计有一种“感觉”，他们已经达到一种称之为“无意识能力 （UnconsciousCompetence）”的状态。也就是说，他们无需思考，只要通过查看代码或一段设计就可以立马对这个项目的代码质量有一种 “感觉”，能够对代码设计的优劣有一个大致的判断。</p>
+<p>但大家需要注意，code smell只是一种“暗示”，而非一种“确定”。将某些事物称之为“code smell”并未是一种攻击，它只是一种提示：开发人员需要对项目设计进行更进一步的查看。因此，code smell更多是“直觉的，本能的”。</p>
+<p>code smell一般包括：</p>
+<ol>
+<li><p>Duplicated Code。代码重复几乎是最常见的异味了。他也是Refactoring 的主要目标之一。代码重复往往来自于copy-and-paste 的编程风格。与他相对应OAOO 是一个好系统的重要标志。</p>
+</li>
+<li><p>Long method。它是传统结构化的“遗毒”。一个方法应当具有自我独立的意图，不要把几个意图放在一起，特别注意大类和长方法。</p>
+</li>
+<li><p>Large Class。大类就是你把太多的责任交给了一个类。这里的规则是One Class One。</p>
+</li>
+<li><p>Divergent Change。一个类里面的内容变化率不同。某些状态一个小时变一次，某些则几个月一年才变一次；某些状态因为这方面的原因发生变化，而另一些则因为其他方面的原因变一 次。面向对象的抽象就是把相对不变的和相对变化相隔离。把问题变化的一方面和另一方面相隔离。这使得这些相对不变的可以重用。问题变化的每个方面都可以单 独重用。这种相异变化的共存使得重用非常困难。</p>
+</li>
+<li><p>Shotgun Surgery。这正好和上面相反。对系统一个地方的改变涉及到其他许多地方的相关改变。这些变化率和变化内容相似的状态和行为通常应当放在同一个类中。</p>
+</li>
+<li><p>Feature Envy。对象的目的就是封装状态以及与这些状态紧密相关的行为。如果一个类的方法频繁用get 方法存取其他类的状态进行计算，那么你要考虑把行为移到涉及状态数目最多的那个类。</p>
+</li>
+<li><p>Data Clumps。某些数据通常像孩子一样成群玩耍：一起出现在很多类的成员变量中，一起出现在许多方法的参数中……，这些数据或许应该自己独立形成对象。</p>
+</li>
+<li><p>Primitive Obsession。面向对象的新手通常习惯使用几个原始类型的数据来表示一个概念。譬如对于范围，他们会使用两个数字。对于Money，他们会用一个浮点数来表示。因为你没 有使用对象来表达问题中存在的概念，这使得代码变的难以理解，解决问题的难度大大增加。好的习惯是扩充语言所能提供原始类型，用小对象来表示范围、金额、 转化率、邮政编码等等。</p>
+</li>
+<li><p>Switch Statement。基于常量的开关语句是OO 的大敌，你应当把他变为子类、state 或strategy。</p>
+</li>
+<li><p>Parallel Inheritance Hierarchies。并行的继承层次是shotgun surgery 的特殊情况。因为当你改变一个层次中的某一个类时，你必须同时改变另外一个层次的并行子类。</p>
+</li>
+<li><p>Lazy Class。一个干活不多的类。类的维护需要额外的开销，如果一个类承担了太少的责任，应当消除它。</p>
+</li>
+<li><p>Speculative Generality。一个类实现了从未用到的功能和通用性。通常这样的类或方法唯一的用户是test case。不要犹豫，删除它。</p>
+</li>
+<li><p>Temporary Field。一个对象的属性可能只在某些情况下才有意义。这样的代码将难以理解。专门建立一个对象来持有这样的孤儿属性，把只和他相关的行为移到该类。最常见的是一个特定的算法需要某些只有该算法才有用的变量。</p>
+</li>
+<li><p>Message Chain。消息链发生于当一个客户向一个对象要求另一个对象，然后客户又向这另一对象要求另一个对象，再向这另一个对象要求另一个对象，如此如此。这时，你需要隐藏分派。</p>
+</li>
+<li><p>Middle Man。对象的基本特性之一就是封装，而你经常会通过分派去实现封装。但是这一步不能走得太远，如果你发现一个类接口的一大半方法都在做分派，你可能需要移去这个中间人。</p>
+</li>
+<li><p>Inappropriate Intimacy。某些类相互之间太亲密，它们花费了太多的时间去砖研别人的私有部分。对人类而言，我们也许不应该太假正经，但我们应当让自己的类严格遵守禁欲主义。</p>
+</li>
+<li><p>Alternative Classes with Different Interfaces。做相同事情的方法有不同的函数signature，一致把它们往类层次上移，直至协议一致。</p>
+</li>
+<li><p>Incomplete Library Class。要建立一个好的类库非常困难。我们大量的程序工作都基于类库实现。然而，如此广泛而又相异的目标对库构建者提出了苛刻的要求。库构建者也不是万能的。有时 候我们会发现库类无法实现我们需要的功能。而直接对库类的修改有非常困难。这时候就需要用各种手段进行Refactoring。</p>
+</li>
+<li><p>Data Class。对象包括状态和行为。如果一个类只有状态没有行为，那么肯定有什么地方出问题了。</p>
+</li>
+<li><p>Refused Bequest。超类传下来很多行为和状态，而子类只是用了其中的很小一部分。这通常意味着你的类层次有问题。</p>
+</li>
+<li><p>Comments。经常觉得要写很多注释表示你的代码难以理解。如果这种感觉太多，表示你需要Refactoring。</p>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/09/22/mac-mongod/" itemprop="url">
                   Mac 安装 mongodb
                 </a>
@@ -1396,132 +1561,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/05/brackets-live-preview-gulp/" itemprop="url">
-                  brackets-live-preview-gulp
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-07-05T18:23:57+08:00" content="2016-07-05">
-              2016-07-05
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/AngularJS/" itemprop="url" rel="index">
-                    <span itemprop="name">AngularJS</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/05/brackets-live-preview-gulp/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/05/brackets-live-preview-gulp/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>今天学习 Coursera 的 AngularJS 课程时尝试使用<code>ng-include</code>添加模板<br>发觉 Brackets 的 Live Preview 在 Chrome 里总是无法正常显示   </p>
-<p><a href="http://blog.csdn.net/aitangyong/article/details/43490117" target="_blank" rel="external">这篇博文</a>提到：</p>
-<blockquote>
-<p>chrome提示很明显：不能跨域访问。通过上面的错误提示，可以看到:使用ng-include指令的时候，会用到AJAX请求XMLHttpRequest。但是我们是直接用浏览器打开的parent.html，并没有通过web容器访问，所以存在跨域访问问题，加载child.html也就失败了。解决办法很简单：将代码部署到tomcat等web容器下，通过http访问即可。</p>
-</blockquote>
-<p><a href="https://www.coursera.org/learn/angular-js/discussions/weeks/3/threads/rWCY3qGmEeWF6gpqp4BTmQ" target="_blank" rel="external">Coursera Discussions</a> 里也有人提到了这个问题，可以有 3 种解决方式</p>
-<h1 id="gulp"><a href="#gulp" class="headerlink" title="gulp"></a>gulp</h1><p>之前的课程刚好提到 gulp 可以使用 brower-sync 建立一个 Web 容器来访问项目<br>把<code>Gulpfile.js</code>略作修改之后<code>gulp watch</code>却仍然无法访问   </p>
-<p>在 stackoverflow (<a href="http://stackoverflow.com/questions/32171725/chrome-cant-open-localhost3000-with-gulp-browsersync?rq=1" target="_blank" rel="external">1</a>, <a href="http://stackoverflow.com/questions/30233218/browser-sync-is-blocked-by-chrome-csp" target="_blank" rel="external">2</a>) 找到答案，又是 Chrome 的锅，触发了其<code>Content-Security-Policy</code>   </p>
-<p>修改端口号即可解决</p>
-<h1 id="Brackets-Live-Preview"><a href="#Brackets-Live-Preview" class="headerlink" title="Brackets Live Preview"></a>Brackets Live Preview</h1><p>尝试之后发现，我在预览单个 html 时，使用的是<code>file</code>协议，在 Chrome 里无法跨域访问<br>而使用 Brackets 打开整个项目时，Live Preview 将项目放入了自建的 Web 容器里，使用的是<code>http</code>协议，即可在 Chrome 中正常跨域访问</p>
-<h1 id="http-server-or-json-server"><a href="#http-server-or-json-server" class="headerlink" title="http-server or json-server"></a>http-server or json-server</h1><p>使用 node 安装其它小型 Web 容器后放入运行也可解决</p>
-<p>大致如此.</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1567,7 +1606,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">35</span>
+              <span class="site-state-item-count">36</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1575,7 +1614,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -1584,7 +1623,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">72</span>
+                <span class="site-state-item-count">73</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
