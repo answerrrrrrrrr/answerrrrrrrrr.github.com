@@ -216,6 +216,128 @@
             
               
                 
+                <a class="post-title-link" href="/2016/09/27/ionic-popover/" itemprop="url">
+                  ionic 使用 popover 时的一点小问题
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-09-27T16:52:04+08:00" content="2016-09-27">
+              2016-09-27
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ionic/" itemprop="url" rel="index">
+                    <span itemprop="name">ionic</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/27/ionic-popover/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/27/ionic-popover/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>使用 ionic 附带的 ngResource 时需要在 index.html 中加上</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"lib/ionic/js/angular/angular-resource.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>否则会报错</p>
+<p>另外，<a href="http://ionicframework.com/docs/api/service/$ionicPopover/" target="_blank" rel="external">官方文档</a>中关于使用<code>popover</code>独立 html 模板的格式有点小问题：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">id</span>=<span class="string">"my-popover.html"</span> <span class="attr">type</span>=<span class="string">"text/ng-template"</span>&gt;</span><span class="handlebars"><span class="xml"></span><br><span class="line">  <span class="tag">&lt;<span class="name">ion-popover-view</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ion-header-bar</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">h1</span> <span class="attr">class</span>=<span class="string">"title"</span>&gt;</span>My Popover Title<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ion-header-bar</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ion-content</span>&gt;</span></span><br><span class="line">      Hello!</span><br><span class="line">    <span class="tag">&lt;/<span class="name">ion-content</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">ion-popover-view</span>&gt;</span></span><br><span class="line"></span></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>需改为</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ion-popover-view</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">ion-header-bar</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span> <span class="attr">class</span>=<span class="string">"title"</span>&gt;</span>My Popover Title<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">ion-header-bar</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">ion-content</span>&gt;</span></span><br><span class="line">    Hello!qwew</span><br><span class="line">  <span class="tag">&lt;/<span class="name">ion-content</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ion-popover-view</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>否则会无法找到对应 template 而产生<code>Error: popoverEle[0] is undefined</code></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/09/25/code-smell/" itemprop="url">
                   Code Smell
                 </a>
@@ -1425,142 +1547,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/06/AngularJS-ngResource-save/" itemprop="url">
-                  AngularJS-ngResource-save
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-07-06T14:43:02+08:00" content="2016-07-06">
-              2016-07-06
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/AngularJS/" itemprop="url" rel="index">
-                    <span itemprop="name">AngularJS</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/06/AngularJS-ngResource-save/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/06/AngularJS-ngResource-save/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Coursera AngularJS 课程的最后一个任务，添加提交 feedback 到 server 的功能<br>之前已经实现了添加 feedback 并保存在 client 的功能<br>现在只需要利用<code>$resource</code>的<code>$save</code>方法将 feedback 的 json 对象<code>post</code>到 server   </p>
-<p>本以为照葫芦画瓢很简单，结果总是会报错如下</p>
-<blockquote>
-<p>TypeError: feedbackFactory.getFeedbacks(…).$save is not a function</p>
-</blockquote>
-<p>仔细对照<a href="https://docs.angularjs.org/api/ngResource/service/$resource" target="_blank" rel="external">官方文档</a>找到原因：</p>
-<blockquote>
-<p>The action methods on the class object or instance object can be invoked with the following parameters:</p>
-<ul>
-<li>HTTP GET “class” actions: Resource.action([parameters], [success], [error])</li>
-<li>non-GET “class” actions: Resource.action([parameters], postData, [success], [error])</li>
-<li>non-GET instance actions: instance.$action([parameters], [success], [error])</li>
-</ul>
-</blockquote>
-<p>问题出在我试图使用<code>non-GET &quot;class&quot; actions</code>，却加了<code>$</code>符号且没有带上<code>postData</code>   </p>
-<p>所以解决方式有两种</p>
-<h1 id="non-GET-“class”-actions"><a href="#non-GET-“class”-actions" class="headerlink" title="non-GET “class” actions"></a>non-GET “class” actions</h1><figure class="highlight js"><figcaption><span>services.js</span></figcaption><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line">        .constant(<span class="string">"baseURL"</span>, <span class="string">"http://localhost:3000/"</span>)</span><br><span class="line">        .service(<span class="string">'feedbackFactory'</span>, [<span class="string">'$resource'</span>, <span class="string">'baseURL'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$resource,baseURL</span>) </span>&#123; </span><br><span class="line"></span><br><span class="line">            <span class="keyword">this</span>.getFeedbacks = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                <span class="keyword">return</span> $resource(baseURL+<span class="string">"feedback"</span>,<span class="literal">null</span>);</span><br><span class="line">            &#125;;</span><br><span class="line"></span><br><span class="line">        &#125;])</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><figcaption><span>controllers.js</span></figcaption><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line">        .controller(<span class="string">'FeedbackController'</span>, [<span class="string">'$scope'</span>, <span class="string">'feedbackFactory'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$scope, feedbackFactory</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">            $scope.feedbacks = feedbackFactory.getFeedbacks().query(</span><br><span class="line">                <span class="function"><span class="keyword">function</span>(<span class="params">response</span>)</span>&#123;</span><br><span class="line">                    $scope.feedbacks = response;</span><br><span class="line">                    <span class="built_in">console</span>.log($scope.feedbacks);</span><br><span class="line">                &#125;</span><br><span class="line">            );</span><br><span class="line"></span><br><span class="line">            $scope.sendFeedback = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">                <span class="built_in">console</span>.log($scope.feedbacks);</span><br><span class="line"></span><br><span class="line">                $scope.feedbacks.push($scope.feedback);</span><br><span class="line">                feedbackFactory.getFeedbacks().save($scope.feedback);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> ($scope.feedback.agree &amp;&amp; ($scope.feedback.mychannel == <span class="string">""</span>)) &#123;</span><br><span class="line">                    $scope.invalidChannelSelection = <span class="literal">true</span>;</span><br><span class="line">                    <span class="built_in">console</span>.log(<span class="string">'incorrect'</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> &#123;</span><br><span class="line">                    $scope.invalidChannelSelection = <span class="literal">false</span>;</span><br><span class="line">                    $scope.feedback = &#123;mychannel:<span class="string">""</span>, firstName:<span class="string">""</span>, lastName:<span class="string">""</span>, agree:<span class="literal">false</span>, email:<span class="string">""</span> &#125;;</span><br><span class="line">                    $scope.feedbackForm.$setPristine();</span><br><span class="line">                    <span class="built_in">console</span>.log($scope.feedback);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;])</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<h1 id="non-GET-instance-actions"><a href="#non-GET-instance-actions" class="headerlink" title="non-GET instance actions"></a>non-GET instance actions</h1><figure class="highlight js"><figcaption><span>service.js</span></figcaption><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line">        .constant(<span class="string">"baseURL"</span>, <span class="string">"http://localhost:3000/"</span>)</span><br><span class="line">        .service(<span class="string">'feedbackFactory'</span>, [<span class="string">'$resource'</span>, <span class="string">'baseURL'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$resource,baseURL</span>) </span>&#123; </span><br><span class="line"></span><br><span class="line">                <span class="keyword">return</span> $resource(baseURL+<span class="string">"feedback/:id"</span>,<span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line">        &#125;])</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><figcaption><span>controllers.js</span></figcaption><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line">        .controller(<span class="string">'FeedbackController'</span>, [<span class="string">'$scope'</span>, <span class="string">'feedbackFactory'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$scope, feedbackFactory</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// $scope.feedbacks = feedbackFactory.getFeedbacks().query(</span></span><br><span class="line">            <span class="comment">//     function(response)&#123;</span></span><br><span class="line">            <span class="comment">//         $scope.feedbacks = response;</span></span><br><span class="line">            <span class="comment">//         console.log($scope.feedbacks);</span></span><br><span class="line">            <span class="comment">//     &#125;</span></span><br><span class="line">            <span class="comment">// );</span></span><br><span class="line"></span><br><span class="line">            $scope.sendFeedback = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">var</span> newFeedback = <span class="keyword">new</span> feedbackFactory($scope.feedback);</span><br><span class="line">                newFeedback.$save();</span><br><span class="line"></span><br><span class="line">                <span class="comment">// $scope.feedbacks.push($scope.feedback);</span></span><br><span class="line">                <span class="comment">// feedbackFactory.getFeedbacks().save($scope.feedback);</span></span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> ($scope.feedback.agree &amp;&amp; ($scope.feedback.mychannel == <span class="string">""</span>)) &#123;</span><br><span class="line">                    $scope.invalidChannelSelection = <span class="literal">true</span>;</span><br><span class="line">                    <span class="built_in">console</span>.log(<span class="string">'incorrect'</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> &#123;</span><br><span class="line">                    $scope.invalidChannelSelection = <span class="literal">false</span>;</span><br><span class="line">                    $scope.feedback = &#123;mychannel:<span class="string">""</span>, firstName:<span class="string">""</span>, lastName:<span class="string">""</span>, agree:<span class="literal">false</span>, email:<span class="string">""</span> &#125;;</span><br><span class="line">                    $scope.feedbackForm.$setPristine();</span><br><span class="line">                    <span class="built_in">console</span>.log($scope.feedback);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;])</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<p>由于第二种方式没有加上<code>[success], [error]</code>处理，看起来要简单许多<br><a href="http://stackoverflow.com/questions/36558499/angularjs-post-changes-to-the-server-using-resource/36564415#36564415" target="_blank" rel="external">Stackoverflow</a> 里一位疑似该课程的同学用的就是这种方式<br>不过相对来说第一种方式跟其他部分代码风格更统一   </p>
-<p>大致如此.</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1606,7 +1592,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">36</span>
+              <span class="site-state-item-count">37</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1614,7 +1600,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -1623,7 +1609,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">73</span>
+                <span class="site-state-item-count">74</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

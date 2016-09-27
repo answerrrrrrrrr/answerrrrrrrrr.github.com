@@ -5,7 +5,7 @@ category: Mac
 tags: [Mac, mongodb]
 ---
 
-Mac 下按照[官网说明](https://docs.mongodb.com/manual/mongo/) 安装 mongodb 并配置好`PATH`后直接`mongo`会报错：
+Mac 下按照[官网说明][1] 安装 mongodb 并配置好`PATH`后直接`mongo`会报错：
 
 ```
 $ brew install mongodb
@@ -22,7 +22,7 @@ connect@src/mongo/shell/mongo.js:229:14
 exception: connect failed
 ```
 
-好在 [Stackoverflow](http://stackoverflow.com/questions/12831939/couldnt-connect-to-server-127-0-0-127017/17220732#17220732) 一个答案提到，是因为没有启动 mongodb service:
+好在 [Stackoverflow][2] 一个答案提到，是因为没有启动 mongodb service:
 
 > Did you run mongod before running mongo?
 
@@ -49,7 +49,7 @@ $ mongod
 
 看见`lock file`习惯性想去删掉，结果依然不行
 
-最后还是在 [Stackoverflow](http://stackoverflow.com/questions/15229412/unable-to-create-open-lock-file-data-mongod-lock-errno13-permission-denied/22623543#22623543) 找到解决方法：
+最后还是在 [Stackoverflow][3] 找到解决方法：
 
 ```
 $ sudo chown -R $USER /data/db
@@ -85,3 +85,7 @@ connecting to: test
 ```
 
 感觉 mongodb 的官方文档有点掉链子啊...
+
+[1]:	https://docs.mongodb.com/manual/mongo/
+[2]:	http://stackoverflow.com/questions/12831939/couldnt-connect-to-server-127-0-0-127017/17220732#17220732
+[3]:	http://stackoverflow.com/questions/15229412/unable-to-create-open-lock-file-data-mongod-lock-errno13-permission-denied/22623543#22623543
