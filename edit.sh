@@ -9,4 +9,4 @@ then
     hexo new $filename
 fi
 
-open -a /Applications/MacDown.app $file
+open -a /Applications/MWeb.app $file

@@ -1,7 +1,7 @@
 ---
 title: ionic 使用 popover 时的一点小问题
 date: 2016-09-27 16:52:04
-category: [ionic]
+category: ionic
 tags: [JavaScript, ionic, AngularJS, ngResource]
 ---
 
@@ -42,3 +42,4 @@ tags: [JavaScript, ionic, AngularJS, ngResource]
 ```
 
 否则会无法找到对应 template 而产生`Error: popoverEle[0] is undefined`
+
