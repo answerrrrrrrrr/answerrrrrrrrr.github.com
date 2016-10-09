@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://answerrrrrrrrr.io/"/>
-  <updated>2016-10-09T02:55:49.000Z</updated>
+  <updated>2016-10-09T02:59:58.000Z</updated>
   <id>http://answerrrrrrrrr.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://answerrrrrrrrr.io/2016/10/08/idapython-elf-gadget/"/>
     <id>http://answerrrrrrrrr.io/2016/10/08/idapython-elf-gadget/</id>
     <published>2016-10-08T03:38:29.000Z</published>
-    <updated>2016-10-09T02:55:49.000Z</updated>
+    <updated>2016-10-09T02:59:58.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h1><figure class="highlight md"><table><tr><td class="code"><pre><span class="line">.</span><br><span class="line">├── batch.py</span><br><span class="line">├── detail</span><br><span class="line">│   ├── heap_test.txt</span><br><span class="line">│   ├── heap<span class="emphasis">_test_</span>static.txt</span><br><span class="line">│   ├── libc2.21.txt</span><br><span class="line">│   ├── ls.txt</span><br><span class="line">│   ├── mv.txt</span><br><span class="line">│   ├── stack_test.txt</span><br><span class="line">│   └── stack<span class="emphasis">_test_</span>static.txt</span><br><span class="line">├── elf</span><br><span class="line">│   ├── heap_test</span><br><span class="line">│   ├── heap<span class="emphasis">_test_</span>static</span><br><span class="line">│   ├── libc2.21</span><br><span class="line">│   ├── ls</span><br><span class="line">│   ├── mv</span><br><span class="line">│   ├── stack_test</span><br><span class="line">│   └── stack<span class="emphasis">_test_</span>static</span><br><span class="line">├── fragment</span><br><span class="line">│   ├── heap_test.txt</span><br><span class="line">│   ├── heap<span class="emphasis">_test_</span>static.txt</span><br><span class="line">│   ├── libc2.21.txt</span><br><span class="line">│   ├── ls.txt</span><br><span class="line">│   ├── mv.txt</span><br><span class="line">│   ├── stack_test.txt</span><br><span class="line">│   └── stack<span class="emphasis">_test_</span>static.txt</span><br><span class="line">├── ganalyzer.py</span><br><span class="line">├── gcollector.py</span><br><span class="line">├── gvalidator.py</span><br><span class="line">├── lib</span><br><span class="line">│   ├── <span class="strong">__init__</span>.py</span><br><span class="line">│   ├── <span class="strong">__init__</span>.pyc</span><br><span class="line">│   ├── classifier.py</span><br><span class="line">│   ├── classifier.pyc</span><br><span class="line">│   ├── extra_archinfo.py</span><br><span class="line">│   ├── extra_archinfo.pyc</span><br><span class="line">│   ├── gadget.py</span><br><span class="line">│   ├── gadget.pyc</span><br><span class="line">│   ├── utils.py</span><br><span class="line">│   ├── utils.pyc</span><br><span class="line">│   ├── validator.py</span><br><span class="line">│   └── validator.pyc</span><br><span class="line">├── pin</span><br><span class="line">│   ├── heap_test.txt</span><br><span class="line">│   ├── heap<span class="emphasis">_test_</span>static.txt</span><br><span class="line">│   ├── libc2.21.txt</span><br><span class="line">│   ├── ls.txt</span><br><span class="line">│   ├── mv.txt</span><br><span class="line">│   ├── stack_test.txt</span><br><span class="line">│   └── stack<span class="emphasis">_test_</span>static.txt</span><br><span class="line">└── result.txt</span><br><span class="line"></span><br><span class="line">5 directories, 46 files</span><br></pre></td></tr></table></figure>
 <h1 id="执行流程"><a href="#执行流程" class="headerlink" title="执行流程"></a>执行流程</h1><p><img src="/images/idapython-elf-gadget.png" alt="img"></p>
@@ -64,7 +64,7 @@
     
     </summary>
     
-      <category term="idapython" scheme="http://answerrrrrrrrr.io/categories/idapython/"/>
+      <category term="ida" scheme="http://answerrrrrrrrr.io/categories/ida/"/>
     
     
       <category term="ida" scheme="http://answerrrrrrrrr.io/tags/ida/"/>
