@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://answerrrrrrrrr.io/"/>
-  <updated>2016-09-29T08:58:37.000Z</updated>
+  <updated>2016-10-09T02:55:49.000Z</updated>
   <id>http://answerrrrrrrrr.io/</id>
   
   <author>
@@ -14,6 +14,66 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>idapython-elf-gadget</title>
+    <link href="http://answerrrrrrrrr.io/2016/10/08/idapython-elf-gadget/"/>
+    <id>http://answerrrrrrrrr.io/2016/10/08/idapython-elf-gadget/</id>
+    <published>2016-10-08T03:38:29.000Z</published>
+    <updated>2016-10-09T02:55:49.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h1><figure class="highlight md"><table><tr><td class="code"><pre><span class="line">.</span><br><span class="line">├── batch.py</span><br><span class="line">├── detail</span><br><span class="line">│   ├── heap_test.txt</span><br><span class="line">│   ├── heap<span class="emphasis">_test_</span>static.txt</span><br><span class="line">│   ├── libc2.21.txt</span><br><span class="line">│   ├── ls.txt</span><br><span class="line">│   ├── mv.txt</span><br><span class="line">│   ├── stack_test.txt</span><br><span class="line">│   └── stack<span class="emphasis">_test_</span>static.txt</span><br><span class="line">├── elf</span><br><span class="line">│   ├── heap_test</span><br><span class="line">│   ├── heap<span class="emphasis">_test_</span>static</span><br><span class="line">│   ├── libc2.21</span><br><span class="line">│   ├── ls</span><br><span class="line">│   ├── mv</span><br><span class="line">│   ├── stack_test</span><br><span class="line">│   └── stack<span class="emphasis">_test_</span>static</span><br><span class="line">├── fragment</span><br><span class="line">│   ├── heap_test.txt</span><br><span class="line">│   ├── heap<span class="emphasis">_test_</span>static.txt</span><br><span class="line">│   ├── libc2.21.txt</span><br><span class="line">│   ├── ls.txt</span><br><span class="line">│   ├── mv.txt</span><br><span class="line">│   ├── stack_test.txt</span><br><span class="line">│   └── stack<span class="emphasis">_test_</span>static.txt</span><br><span class="line">├── ganalyzer.py</span><br><span class="line">├── gcollector.py</span><br><span class="line">├── gvalidator.py</span><br><span class="line">├── lib</span><br><span class="line">│   ├── <span class="strong">__init__</span>.py</span><br><span class="line">│   ├── <span class="strong">__init__</span>.pyc</span><br><span class="line">│   ├── classifier.py</span><br><span class="line">│   ├── classifier.pyc</span><br><span class="line">│   ├── extra_archinfo.py</span><br><span class="line">│   ├── extra_archinfo.pyc</span><br><span class="line">│   ├── gadget.py</span><br><span class="line">│   ├── gadget.pyc</span><br><span class="line">│   ├── utils.py</span><br><span class="line">│   ├── utils.pyc</span><br><span class="line">│   ├── validator.py</span><br><span class="line">│   └── validator.pyc</span><br><span class="line">├── pin</span><br><span class="line">│   ├── heap_test.txt</span><br><span class="line">│   ├── heap<span class="emphasis">_test_</span>static.txt</span><br><span class="line">│   ├── libc2.21.txt</span><br><span class="line">│   ├── ls.txt</span><br><span class="line">│   ├── mv.txt</span><br><span class="line">│   ├── stack_test.txt</span><br><span class="line">│   └── stack<span class="emphasis">_test_</span>static.txt</span><br><span class="line">└── result.txt</span><br><span class="line"></span><br><span class="line">5 directories, 46 files</span><br></pre></td></tr></table></figure>
+<h1 id="执行流程"><a href="#执行流程" class="headerlink" title="执行流程"></a>执行流程</h1><p><img src="/images/idapython-elf-gadget.png" alt="img"></p>
+<h1 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h1><ol>
+<li>将要分析的 elf 文件放入 elf 目录</li>
+<li>在主目录运行<code>python batch.py</code></li>
+<li>脚本会批量使用 ida 静态分析 elf 目录内的所有 elf 文件并在完成后自动关闭 ida</li>
+<li>由于版本功能限制，无法完全自动化，每个 elf 需要在弹窗时手动回车确认 2 次</li>
+<li>中间结果分别保存于 fragment, detail 和 pin 目录，最终结果保存于主目录下的 result.txt</li>
+</ol>
+<h1 id="主要模块"><a href="#主要模块" class="headerlink" title="主要模块"></a>主要模块</h1><h2 id="gcollector-py"><a href="#gcollector-py" class="headerlink" title="gcollector.py"></a>gcollector.py</h2><h3 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h3><p>找到所有间接跳转（IBR)，再按 IBR 所在地址回溯，直到上一条跳转指令为止，输出其间所有可能构成 gadget 的指令片段，按不同文件名保存到 fragment 目录 </p>
+<h3 id="例如"><a href="#例如" class="headerlink" title="例如"></a>例如</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">&gt; length: 1</span><br><span class="line">|-- .fini:80485B7	retn</span><br><span class="line">c3</span><br><span class="line">----------------------------------------</span><br><span class="line">&gt; length: 2</span><br><span class="line">|-- .fini:80485B6	pop     ebx</span><br><span class="line">|-- .fini:80485B7	retn</span><br><span class="line">5bc3</span><br><span class="line">----------------------------------------</span><br><span class="line">&gt; length: 3</span><br><span class="line">|-- .fini:80485B3	add     esp, 8</span><br><span class="line">|-- .fini:80485B6	pop     ebx</span><br><span class="line">|-- .fini:80485B7	retn</span><br><span class="line">83c4085bc3</span><br><span class="line">----------------------------------------</span><br><span class="line">&gt; length: 4</span><br><span class="line">|-- .fini:80485AD	add     ebx, 1217h</span><br><span class="line">|-- .fini:80485B3	add     esp, 8</span><br><span class="line">|-- .fini:80485B6	pop     ebx</span><br><span class="line">|-- .fini:80485B7	retn</span><br><span class="line">81c31712000083c4085bc3</span><br></pre></td></tr></table></figure>
+<p>回溯到第 5 条指令时为另一条跳转指令，所以以 <code>80485B7    retn</code>为结尾所有可能为 gadget 的指令片段一共只有 4 种</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ol>
+<li>利用 ida-python 提供的 api <code>Segments()</code>获得所有段起始地址，<code>SegEnd()</code>获取段结束地址</li>
+<li>根据对应段的起止地址，利用<code>Heads(start, end)</code>得到段内所有指令的起始地址</li>
+<li>利用<code>disasm(head)</code>函数获得指令的机器码和汇编代码</li>
+<li>通过正则表达式和机器码判断指令是否为<code>间接跳转指令</code>并按如上目标格式保存，同时加上<code>call-preceded</code>和<code>syscall</code>等标记</li>
+<li>对总指令数等数据进行统计，同时利用<code>Functions()</code>收集所有函数入口</li>
+</ol>
+<h2 id="gvalidator-py"><a href="#gvalidator-py" class="headerlink" title="gvalidator.py"></a>gvalidator.py</h2><h3 id="目标-1"><a href="#目标-1" class="headerlink" title="目标"></a>目标</h3><p>以每个间接跳转为单位，对所有以该间接跳转为结尾的指令片段进行判断：</p>
+<ol>
+<li>是否存在 functional gadget， 最大长度多少</li>
+<li>是否存在 nop gadget， 最大长度多少</li>
+<li>是否为 call-preceded gadget</li>
+</ol>
+<h3 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h3><ol>
+<li>遍历 fragment 目录中所有 txt 文件并依次进行逐行读取，根据<code>+&gt;|-*</code>等预设标记判断该行内容类型，然后收集对应长度的指令片段、片段内部遭到修改的寄存器</li>
+<li>读取到整个指令片段的机器码时，利用 Q 的 api <code>classifier.GadgetClassifier()</code>判断片段是否为 functional gadget，并统计相关数据</li>
+<li>若非 functional gadget，根据可容忍的最大寄存器修改数量判断可否归为 nop gadget，并统计相关数据</li>
+<li>按文件名保存所有统计数据到 detail 目录</li>
+<li>另外按照 pin 动态分析所需的输入数据格式将对应部分数据保存到 pin 目录</li>
+</ol>
+<h2 id="ganalyzer-py"><a href="#ganalyzer-py" class="headerlink" title="ganalyzer.py"></a>ganalyzer.py</h2><h3 id="目标-2"><a href="#目标-2" class="headerlink" title="目标"></a>目标</h3><p>将 detail 目录中所有统计数据汇总到 result.txt 中</p>
+<h3 id="输出样例"><a href="#输出样例" class="headerlink" title="输出样例"></a>输出样例</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line">heap_test, heap_test_static, libc2, ls, mv, stack_test, stack_test_static</span><br><span class="line">+ Files: <span class="number">7</span></span><br><span class="line"></span><br><span class="line">+ [AVG]</span><br><span class="line">|-- Functions: <span class="number">794.00</span></span><br><span class="line">|-- Instructions: <span class="number">86870.29</span></span><br><span class="line">|-- Branch instructions: <span class="number">17118.00</span></span><br><span class="line">|-- Indirect branch instructions: <span class="number">1609.29</span></span><br><span class="line">    |-- ret: <span class="number">1211.43</span> (<span class="number">9</span> ~ <span class="number">5587</span>)</span><br><span class="line">    |-- jmp: <span class="number">88.00</span> (<span class="number">1</span> ~ <span class="number">408</span>)</span><br><span class="line">    |-- call: <span class="number">284.43</span> (<span class="number">4</span> ~ <span class="number">1300</span>)</span><br><span class="line">    |-- system call: <span class="number">90.57</span> (<span class="number">0</span> ~ <span class="number">462</span>)</span><br><span class="line">    |-- call preceded: <span class="number">284.43</span> (<span class="number">4</span> ~ <span class="number">1300</span>)</span><br><span class="line">|-- Functional gadgets: <span class="number">6145.29</span></span><br><span class="line">    |-- length: <span class="number">4.15</span> (<span class="number">0</span> ~ <span class="number">48</span>)</span><br><span class="line">|-- Nop gadgets: <span class="number">3634.14</span></span><br><span class="line">    |-- length: <span class="number">2.07</span> (<span class="number">0</span> ~ <span class="number">71</span>)</span><br><span class="line">|-- Normal code fragments: <span class="number">924.57</span></span><br><span class="line">    |-- length: <span class="number">9.01</span> (<span class="number">0</span> ~ <span class="number">80</span>)</span><br></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;目录结构&quot;&gt;&lt;a href=&quot;#目录结构&quot; class=&quot;headerlink&quot; title=&quot;目录结构&quot;&gt;&lt;/a&gt;目录结构&lt;/h1&gt;&lt;figure class=&quot;highlight md&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;sp
+    
+    </summary>
+    
+      <category term="idapython" scheme="http://answerrrrrrrrr.io/categories/idapython/"/>
+    
+    
+      <category term="ida" scheme="http://answerrrrrrrrr.io/tags/ida/"/>
+    
+      <category term="idapython" scheme="http://answerrrrrrrrr.io/tags/idapython/"/>
+    
+      <category term="python" scheme="http://answerrrrrrrrr.io/tags/python/"/>
+    
+  </entry>
   
   <entry>
     <title>ionic 使用 popover 时的一点小问题</title>
@@ -887,42 +947,6 @@
       <category term="Spider" scheme="http://answerrrrrrrrr.io/tags/Spider/"/>
     
       <category term="doctest" scheme="http://answerrrrrrrrr.io/tags/doctest/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Mac 安装 MySQL 并设置 utf-8</title>
-    <link href="http://answerrrrrrrrr.io/2016/04/07/mysql-utf-8/"/>
-    <id>http://answerrrrrrrrr.io/2016/04/07/mysql-utf-8/</id>
-    <published>2016-04-07T14:23:29.000Z</published>
-    <updated>2016-07-06T14:09:00.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h1><p><a href="http://dev.mysql.com/downloads/mysql/5.6.html" target="_blank" rel="external">http://dev.mysql.com/downloads/mysql/5.6.html</a></p>
-<h1 id="关闭服务"><a href="#关闭服务" class="headerlink" title="关闭服务"></a>关闭服务</h1><p><code>系统偏好设置 - MySQL - Stop MySQL Server</code></p>
-<h1 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ vim ~/.zshrc</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"># Add mysql</span><br><span class="line">export PATH=&quot;$PATH&quot;:/usr/local/mysql/bin</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">$ source ~/.zshrc</span><br></pre></td></tr></table></figure>
-<h1 id="设置-utf-8"><a href="#设置-utf-8" class="headerlink" title="设置 utf-8"></a>设置 utf-8</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ sudo cp /usr/local/mysql/support-files/my-default.cnf /etc/my.cnf</span><br><span class="line">$ sudo vim /etc/my.cnf</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">[client]</span><br><span class="line">default-character-set = utf8</span><br><span class="line"></span><br><span class="line">[mysqld]</span><br><span class="line">default-storage-engine = INNODB</span><br><span class="line">character-set-server = utf8</span><br><span class="line">collation-server = utf8_general_ci</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<h1 id="开启服务"><a href="#开启服务" class="headerlink" title="开启服务"></a>开启服务</h1><p><code>系统偏好设置 - MySQL - Start MySQL Server</code></p>
-<h1 id="验证-utf-8"><a href="#验证-utf-8" class="headerlink" title="验证 utf-8"></a>验证 utf-8</h1><figure class="highlight asciidoc"><table><tr><td class="code"><pre><span class="line">$ mysql -u root -p</span><br><span class="line">Enter password:</span><br><span class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</span><br><span class="line">Your MySQL connection id is 5</span><br><span class="line">Server version: 5.6.29 MySQL Community Server (GPL)</span><br><span class="line"></span><br><span class="line">Copyright (c) 2000, 2016, Oracle and/or its affiliates. All rights reserved.</span><br><span class="line"></span><br><span class="line">Oracle is a registered trademark of Oracle Corporation and/or its</span><br><span class="line">affiliates. Other names may be trademarks of their respective</span><br><span class="line">owners.</span><br><span class="line"></span><br><span class="line">Type <span class="emphasis">'help;'</span> or <span class="emphasis">'\h'</span> for help. Type <span class="emphasis">'\c'</span> to clear the current input statement.</span><br><span class="line"></span><br><span class="line"><span class="section">mysql&gt; show variables like '%char%';</span><br><span class="line">+--------------------------+--------------------------------------------------------+</span></span><br><span class="line"><span class="section">| Variable_name            | Value                                                  |</span><br><span class="line">+--------------------------+--------------------------------------------------------+</span></span><br><span class="line">| character<span class="emphasis">_set_</span>client     | utf8                                                   |</span><br><span class="line">| character<span class="emphasis">_set_</span>connection | utf8                                                   |</span><br><span class="line">| character<span class="emphasis">_set_</span>database   | utf8                                                   |</span><br><span class="line">| character<span class="emphasis">_set_</span>filesystem | binary                                                 |</span><br><span class="line">| character<span class="emphasis">_set_</span>results    | utf8                                                   |</span><br><span class="line">| character<span class="emphasis">_set_</span>server     | utf8                                                   |</span><br><span class="line">| character<span class="emphasis">_set_</span>system     | utf8                                                   |</span><br><span class="line"><span class="section">| character_sets_dir       | /usr/local/mysql-5.6.29-osx10.8-x86_64/share/charsets/ |</span><br><span class="line">+--------------------------+--------------------------------------------------------+</span></span><br><span class="line">8 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt;</span><br></pre></td></tr></table></figure>
-<h1 id="mysql-connector"><a href="#mysql-connector" class="headerlink" title="mysql.connector"></a>mysql.connector</h1><figure class="highlight smali"><table><tr><td class="code"><pre><span class="line">(venv3.5)$ pip3 install mysql-connector-python-rf</span><br></pre></td></tr></table></figure>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><a href="http://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/0014320107391860b39da6901ed41a296e574ed37104752000" target="_blank" rel="external">http://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/0014320107391860b39da6901ed41a296e574ed37104752000</a></li>
-<li><a href="http://blog.csdn.net/waleking/article/details/7620983" target="_blank" rel="external">http://blog.csdn.net/waleking/article/details/7620983</a></li>
-<li><a href="http://jingyan.baidu.com/article/48a42057e2b2b9a9242504a2.html" target="_blank" rel="external">http://jingyan.baidu.com/article/48a42057e2b2b9a9242504a2.html</a></li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;下载安装&quot;&gt;&lt;a href=&quot;#下载安装&quot; class=&quot;headerlink&quot; title=&quot;下载安装&quot;&gt;&lt;/a&gt;下载安装&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;http://dev.mysql.com/downloads/mysql/5.6.html&quot; target
-    
-    </summary>
-    
-      <category term="Mac" scheme="http://answerrrrrrrrr.io/categories/Mac/"/>
-    
-    
-      <category term="MySQL" scheme="http://answerrrrrrrrr.io/tags/MySQL/"/>
-    
-      <category term="UTF-8" scheme="http://answerrrrrrrrr.io/tags/UTF-8/"/>
     
   </entry>
   

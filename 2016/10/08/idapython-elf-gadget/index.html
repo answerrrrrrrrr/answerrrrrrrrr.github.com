@@ -1,0 +1,775 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="ida,idapython,python," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Answerrrrrrrrr" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="目录结构.├── batch.py├── detail│   ├── heap_test.txt│   ├── heap_test_static.txt│   ├── libc2.21.txt│   ├── ls.txt│   ├── mv.txt│   ├── stack_test.txt│   └── stack_test_static.txt├── elf│   ├── heap_test│">
+<meta property="og:type" content="article">
+<meta property="og:title" content="idapython-elf-gadget">
+<meta property="og:url" content="http://answerrrrrrrrr.io/2016/10/08/idapython-elf-gadget/index.html">
+<meta property="og:site_name" content="Answerrrrrrrrr">
+<meta property="og:description" content="目录结构.├── batch.py├── detail│   ├── heap_test.txt│   ├── heap_test_static.txt│   ├── libc2.21.txt│   ├── ls.txt│   ├── mv.txt│   ├── stack_test.txt│   └── stack_test_static.txt├── elf│   ├── heap_test│">
+<meta property="og:image" content="http://answerrrrrrrrr.io/images/idapython-elf-gadget.png">
+<meta property="og:updated_time" content="2016-10-09T02:55:49.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="idapython-elf-gadget">
+<meta name="twitter:description" content="目录结构.├── batch.py├── detail│   ├── heap_test.txt│   ├── heap_test_static.txt│   ├── libc2.21.txt│   ├── ls.txt│   ├── mv.txt│   ├── stack_test.txt│   └── stack_test_static.txt├── elf│   ├── heap_test│">
+<meta name="twitter:image" content="http://answerrrrrrrrr.io/images/idapython-elf-gadget.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: 'Author'
+    }
+  };
+</script>
+
+  <title> idapython-elf-gadget | Answerrrrrrrrr </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Answerrrrrrrrr</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                idapython-elf-gadget
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-10-08T11:38:29+08:00" content="2016-10-08">
+              2016-10-08
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/idapython/" itemprop="url" rel="index">
+                    <span itemprop="name">idapython</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/08/idapython-elf-gadget/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/08/idapython-elf-gadget/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h1><figure class="highlight md"><table><tr><td class="code"><pre><span class="line">.</span><br><span class="line">├── batch.py</span><br><span class="line">├── detail</span><br><span class="line">│   ├── heap_test.txt</span><br><span class="line">│   ├── heap<span class="emphasis">_test_</span>static.txt</span><br><span class="line">│   ├── libc2.21.txt</span><br><span class="line">│   ├── ls.txt</span><br><span class="line">│   ├── mv.txt</span><br><span class="line">│   ├── stack_test.txt</span><br><span class="line">│   └── stack<span class="emphasis">_test_</span>static.txt</span><br><span class="line">├── elf</span><br><span class="line">│   ├── heap_test</span><br><span class="line">│   ├── heap<span class="emphasis">_test_</span>static</span><br><span class="line">│   ├── libc2.21</span><br><span class="line">│   ├── ls</span><br><span class="line">│   ├── mv</span><br><span class="line">│   ├── stack_test</span><br><span class="line">│   └── stack<span class="emphasis">_test_</span>static</span><br><span class="line">├── fragment</span><br><span class="line">│   ├── heap_test.txt</span><br><span class="line">│   ├── heap<span class="emphasis">_test_</span>static.txt</span><br><span class="line">│   ├── libc2.21.txt</span><br><span class="line">│   ├── ls.txt</span><br><span class="line">│   ├── mv.txt</span><br><span class="line">│   ├── stack_test.txt</span><br><span class="line">│   └── stack<span class="emphasis">_test_</span>static.txt</span><br><span class="line">├── ganalyzer.py</span><br><span class="line">├── gcollector.py</span><br><span class="line">├── gvalidator.py</span><br><span class="line">├── lib</span><br><span class="line">│   ├── <span class="strong">__init__</span>.py</span><br><span class="line">│   ├── <span class="strong">__init__</span>.pyc</span><br><span class="line">│   ├── classifier.py</span><br><span class="line">│   ├── classifier.pyc</span><br><span class="line">│   ├── extra_archinfo.py</span><br><span class="line">│   ├── extra_archinfo.pyc</span><br><span class="line">│   ├── gadget.py</span><br><span class="line">│   ├── gadget.pyc</span><br><span class="line">│   ├── utils.py</span><br><span class="line">│   ├── utils.pyc</span><br><span class="line">│   ├── validator.py</span><br><span class="line">│   └── validator.pyc</span><br><span class="line">├── pin</span><br><span class="line">│   ├── heap_test.txt</span><br><span class="line">│   ├── heap<span class="emphasis">_test_</span>static.txt</span><br><span class="line">│   ├── libc2.21.txt</span><br><span class="line">│   ├── ls.txt</span><br><span class="line">│   ├── mv.txt</span><br><span class="line">│   ├── stack_test.txt</span><br><span class="line">│   └── stack<span class="emphasis">_test_</span>static.txt</span><br><span class="line">└── result.txt</span><br><span class="line"></span><br><span class="line">5 directories, 46 files</span><br></pre></td></tr></table></figure>
+<h1 id="执行流程"><a href="#执行流程" class="headerlink" title="执行流程"></a>执行流程</h1><p><img src="/images/idapython-elf-gadget.png" alt="img"></p>
+<h1 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h1><ol>
+<li>将要分析的 elf 文件放入 elf 目录</li>
+<li>在主目录运行<code>python batch.py</code></li>
+<li>脚本会批量使用 ida 静态分析 elf 目录内的所有 elf 文件并在完成后自动关闭 ida</li>
+<li>由于版本功能限制，无法完全自动化，每个 elf 需要在弹窗时手动回车确认 2 次</li>
+<li>中间结果分别保存于 fragment, detail 和 pin 目录，最终结果保存于主目录下的 result.txt</li>
+</ol>
+<h1 id="主要模块"><a href="#主要模块" class="headerlink" title="主要模块"></a>主要模块</h1><h2 id="gcollector-py"><a href="#gcollector-py" class="headerlink" title="gcollector.py"></a>gcollector.py</h2><h3 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h3><p>找到所有间接跳转（IBR)，再按 IBR 所在地址回溯，直到上一条跳转指令为止，输出其间所有可能构成 gadget 的指令片段，按不同文件名保存到 fragment 目录 </p>
+<h3 id="例如"><a href="#例如" class="headerlink" title="例如"></a>例如</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">&gt; length: 1</span><br><span class="line">|-- .fini:80485B7	retn</span><br><span class="line">c3</span><br><span class="line">----------------------------------------</span><br><span class="line">&gt; length: 2</span><br><span class="line">|-- .fini:80485B6	pop     ebx</span><br><span class="line">|-- .fini:80485B7	retn</span><br><span class="line">5bc3</span><br><span class="line">----------------------------------------</span><br><span class="line">&gt; length: 3</span><br><span class="line">|-- .fini:80485B3	add     esp, 8</span><br><span class="line">|-- .fini:80485B6	pop     ebx</span><br><span class="line">|-- .fini:80485B7	retn</span><br><span class="line">83c4085bc3</span><br><span class="line">----------------------------------------</span><br><span class="line">&gt; length: 4</span><br><span class="line">|-- .fini:80485AD	add     ebx, 1217h</span><br><span class="line">|-- .fini:80485B3	add     esp, 8</span><br><span class="line">|-- .fini:80485B6	pop     ebx</span><br><span class="line">|-- .fini:80485B7	retn</span><br><span class="line">81c31712000083c4085bc3</span><br></pre></td></tr></table></figure>
+<p>回溯到第 5 条指令时为另一条跳转指令，所以以 <code>80485B7    retn</code>为结尾所有可能为 gadget 的指令片段一共只有 4 种</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ol>
+<li>利用 ida-python 提供的 api <code>Segments()</code>获得所有段起始地址，<code>SegEnd()</code>获取段结束地址</li>
+<li>根据对应段的起止地址，利用<code>Heads(start, end)</code>得到段内所有指令的起始地址</li>
+<li>利用<code>disasm(head)</code>函数获得指令的机器码和汇编代码</li>
+<li>通过正则表达式和机器码判断指令是否为<code>间接跳转指令</code>并按如上目标格式保存，同时加上<code>call-preceded</code>和<code>syscall</code>等标记</li>
+<li>对总指令数等数据进行统计，同时利用<code>Functions()</code>收集所有函数入口</li>
+</ol>
+<h2 id="gvalidator-py"><a href="#gvalidator-py" class="headerlink" title="gvalidator.py"></a>gvalidator.py</h2><h3 id="目标-1"><a href="#目标-1" class="headerlink" title="目标"></a>目标</h3><p>以每个间接跳转为单位，对所有以该间接跳转为结尾的指令片段进行判断：</p>
+<ol>
+<li>是否存在 functional gadget， 最大长度多少</li>
+<li>是否存在 nop gadget， 最大长度多少</li>
+<li>是否为 call-preceded gadget</li>
+</ol>
+<h3 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h3><ol>
+<li>遍历 fragment 目录中所有 txt 文件并依次进行逐行读取，根据<code>+&gt;|-*</code>等预设标记判断该行内容类型，然后收集对应长度的指令片段、片段内部遭到修改的寄存器</li>
+<li>读取到整个指令片段的机器码时，利用 Q 的 api <code>classifier.GadgetClassifier()</code>判断片段是否为 functional gadget，并统计相关数据</li>
+<li>若非 functional gadget，根据可容忍的最大寄存器修改数量判断可否归为 nop gadget，并统计相关数据</li>
+<li>按文件名保存所有统计数据到 detail 目录</li>
+<li>另外按照 pin 动态分析所需的输入数据格式将对应部分数据保存到 pin 目录</li>
+</ol>
+<h2 id="ganalyzer-py"><a href="#ganalyzer-py" class="headerlink" title="ganalyzer.py"></a>ganalyzer.py</h2><h3 id="目标-2"><a href="#目标-2" class="headerlink" title="目标"></a>目标</h3><p>将 detail 目录中所有统计数据汇总到 result.txt 中</p>
+<h3 id="输出样例"><a href="#输出样例" class="headerlink" title="输出样例"></a>输出样例</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line">heap_test, heap_test_static, libc2, ls, mv, stack_test, stack_test_static</span><br><span class="line">+ Files: <span class="number">7</span></span><br><span class="line"></span><br><span class="line">+ [AVG]</span><br><span class="line">|-- Functions: <span class="number">794.00</span></span><br><span class="line">|-- Instructions: <span class="number">86870.29</span></span><br><span class="line">|-- Branch instructions: <span class="number">17118.00</span></span><br><span class="line">|-- Indirect branch instructions: <span class="number">1609.29</span></span><br><span class="line">    |-- ret: <span class="number">1211.43</span> (<span class="number">9</span> ~ <span class="number">5587</span>)</span><br><span class="line">    |-- jmp: <span class="number">88.00</span> (<span class="number">1</span> ~ <span class="number">408</span>)</span><br><span class="line">    |-- call: <span class="number">284.43</span> (<span class="number">4</span> ~ <span class="number">1300</span>)</span><br><span class="line">    |-- system call: <span class="number">90.57</span> (<span class="number">0</span> ~ <span class="number">462</span>)</span><br><span class="line">    |-- call preceded: <span class="number">284.43</span> (<span class="number">4</span> ~ <span class="number">1300</span>)</span><br><span class="line">|-- Functional gadgets: <span class="number">6145.29</span></span><br><span class="line">    |-- length: <span class="number">4.15</span> (<span class="number">0</span> ~ <span class="number">48</span>)</span><br><span class="line">|-- Nop gadgets: <span class="number">3634.14</span></span><br><span class="line">    |-- length: <span class="number">2.07</span> (<span class="number">0</span> ~ <span class="number">71</span>)</span><br><span class="line">|-- Normal code fragments: <span class="number">924.57</span></span><br><span class="line">    |-- length: <span class="number">9.01</span> (<span class="number">0</span> ~ <span class="number">80</span>)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ida/" rel="tag">#ida</a>
+          
+            <a href="/tags/idapython/" rel="tag">#idapython</a>
+          
+            <a href="/tags/python/" rel="tag">#python</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/27/ionic-popover/" rel="next" title="ionic 使用 popover 时的一点小问题">
+                <i class="fa fa-chevron-left"></i> ionic 使用 popover 时的一点小问题
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/10/08/idapython-elf-gadget/"
+           data-title="idapython-elf-gadget" data-url="http://answerrrrrrrrr.io/2016/10/08/idapython-elf-gadget/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Air9" />
+          <p class="site-author-name" itemprop="name">Air9</p>
+          <p class="site-description motion-element" itemprop="description">なぜベストを尽くしたのか</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">38</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+          
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">75</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目录结构"><span class="nav-number">1.</span> <span class="nav-text">目录结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#执行流程"><span class="nav-number">2.</span> <span class="nav-text">执行流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#具体步骤"><span class="nav-number">3.</span> <span class="nav-text">具体步骤</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#主要模块"><span class="nav-number">4.</span> <span class="nav-text">主要模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#gcollector-py"><span class="nav-number">4.1.</span> <span class="nav-text">gcollector.py</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#目标"><span class="nav-number">4.1.1.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例如"><span class="nav-number">4.1.2.</span> <span class="nav-text">例如</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思路"><span class="nav-number">4.2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gvalidator-py"><span class="nav-number">4.3.</span> <span class="nav-text">gvalidator.py</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#目标-1"><span class="nav-number">4.3.1.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思路-1"><span class="nav-number">4.3.2.</span> <span class="nav-text">思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ganalyzer-py"><span class="nav-number">4.4.</span> <span class="nav-text">ganalyzer.py</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#目标-2"><span class="nav-number">4.4.1.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#输出样例"><span class="nav-number">4.4.2.</span> <span class="nav-text">输出样例</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Air9</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.scheme !== 'Pisces' && (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always')) {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"answerrrrrrrrr"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+
+</body>
+</html>
