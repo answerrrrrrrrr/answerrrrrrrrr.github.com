@@ -1,7 +1,7 @@
 ---
 title: idapython-elf-gadget
 date: 2016-10-08 11:38:29
-category: idapython
+category: ida
 tags: [idapython, python, ida]
 ---
 
