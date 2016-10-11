@@ -216,6 +216,129 @@
             
               
                 
+                <a class="post-title-link" href="/2016/04/08/Spider-07-doctest/" itemprop="url">
+                  Spider-07-doctest
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-04-08T11:43:23+08:00" content="2016-04-08">
+              2016-04-08
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/08/Spider-07-doctest/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/08/Spider-07-doctest/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="知道创宇爬虫设计第七天-doctest"><a href="#知道创宇爬虫设计第七天-doctest" class="headerlink" title="知道创宇爬虫设计第七天: doctest"></a>知道创宇爬虫设计第七天: doctest</h1><p><code>doctest</code>是 Python 内建的模块，用于文档测试，正好可以拿来用于爬虫的自测功能</p>
+<p>这个模块相对简单，直接贴代码</p>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">''' Prepare and run the spider</span><br><span class="line">    Self-test:</span><br><span class="line">    &gt;&gt;&gt; class Args(object):</span><br><span class="line">    ...     pass</span><br><span class="line">    ...</span><br><span class="line">    &gt;&gt;&gt; args = Args()</span><br><span class="line">    &gt;&gt;&gt; args.url = 'www.baidu.com'</span><br><span class="line">    &gt;&gt;&gt; args.depth = 1</span><br><span class="line">    &gt;&gt;&gt; args.logfile = 'testself.log'</span><br><span class="line">    &gt;&gt;&gt; args.loglevel = 4</span><br><span class="line">    &gt;&gt;&gt; args.dbfile = 'testself.db'</span><br><span class="line">    &gt;&gt;&gt; args.num_threads = 1</span><br><span class="line">    &gt;&gt;&gt; args.key = ''</span><br><span class="line">    &gt;&gt;&gt; set_logger(args.loglevel, args.logfile)</span><br><span class="line">    &gt;&gt;&gt; logger.info(vars(args))</span><br><span class="line">    &gt;&gt;&gt; spider = MySpider(args)</span><br><span class="line">    &gt;&gt;&gt; spider.run()</span><br><span class="line">    '''</span></span><br><span class="line">...</span><br><span class="line">    <span class="comment"># Self test</span></span><br><span class="line">    <span class="keyword">if</span> args.testself:</span><br><span class="line">        <span class="keyword">import</span> doctest</span><br><span class="line">        <span class="keyword">print</span> doctest.testmod()</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>另外其它部分也有少量修改，放在 <a href="https://github.com/answerrrrrrrrr/KnownsecSpider" target="_blank" rel="external">https://github.com/answerrrrrrrrr/KnownsecSpider</a></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="http://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/0014319170285543a4d04751f8846908770660de849f285000" target="_blank" rel="external">http://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/0014319170285543a4d04751f8846908770660de849f285000</a></li>
+<li><a href="http://devdocs.io/python~2.7/library/doctest#doctest.DocTest" target="_blank" rel="external">http://devdocs.io/python~2.7/library/doctest#doctest.DocTest</a></li>
+<li><a href="http://devdocs.io/python~2.7/library/argparse#argparse.Namespace" target="_blank" rel="external">http://devdocs.io/python~2.7/library/argparse#argparse.Namespace</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/04/07/mysql-utf-8/" itemprop="url">
                   Mac 安装 MySQL 并设置 utf-8
                 </a>
@@ -1367,122 +1490,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/03/09/hexo-scripts/" itemprop="url">
-                  hexo-scripts
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-03-09T21:00:31+08:00" content="2016-03-09">
-              2016-03-09
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/scripts/" itemprop="url" rel="index">
-                    <span itemprop="name">scripts</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/03/09/hexo-scripts/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/09/hexo-scripts/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>偷师自<a href="http://www.xuxu1988.com/2015/05/16/config-my-hexo/" target="_blank" rel="external">http://www.xuxu1988.com/2015/05/16/config-my-hexo/</a></p>
-<h1 id="commit-sh-COMMIT-LOG"><a href="#commit-sh-COMMIT-LOG" class="headerlink" title="./commit.sh COMMIT_LOG"></a>./commit.sh COMMIT_LOG</h1><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span><br><span class="line"></span></span><br><span class="line">commit_<span class="built_in">log</span>=<span class="variable">$@</span></span><br><span class="line"></span><br><span class="line">hexo g</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span></span><br><span class="line">hexo d</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span></span><br><span class="line">git add .</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span></span><br><span class="line">git commit -m <span class="variable">$commit_log</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span></span><br><span class="line">git push origin hexo:hexo</span><br></pre></td></tr></table></figure>
-<h1 id="edit-sh-FILENAME"><a href="#edit-sh-FILENAME" class="headerlink" title="./edit.sh FILENAME"></a>./edit.sh FILENAME</h1><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span><br><span class="line"></span></span><br><span class="line">filename=<span class="variable">$@</span></span><br><span class="line">file=./<span class="built_in">source</span>/_posts/<span class="variable">$filename</span>.md</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ ! <span class="_">-e</span> <span class="string">"<span class="variable">$file</span>"</span> ]   <span class="comment"># NOT '$file'</span></span><br><span class="line"><span class="keyword">then</span> </span><br><span class="line">    hexo new <span class="variable">$filename</span></span><br><span class="line"><span class="keyword">fi</span> </span><br><span class="line"></span><br><span class="line">open <span class="_">-a</span> /Applications/MacDown.app <span class="variable">$file</span></span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1528,7 +1535,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">38</span>
+              <span class="site-state-item-count">39</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1536,7 +1543,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -1545,7 +1552,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">75</span>
+                <span class="site-state-item-count">79</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
