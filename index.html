@@ -216,6 +216,130 @@
             
               
                 
+                <a class="post-title-link" href="/2016/10/11/python-magic/" itemprop="url">
+                  python-magic has no attribute 'from_file'
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-10-11T09:32:53+08:00" content="2016-10-11">
+              2016-10-11
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/11/python-magic/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/11/python-magic/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://github.com/ahupp/python-magic" target="_blank" rel="external">python-magic</a> 是一个用来判断文件类型的第三方库，效果与 linux 命令<code>file</code>类似</p>
+<p>使用<code>pip install python-magic</code>安装后，在 mac 上还需要<code>brew install libmagic</code>，之后即可正常使用</p>
+<figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;</span>&gt; import magic</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; magic.from_file(<span class="string">'readme.md'</span>)</span><br><span class="line"><span class="string">'ASCII text'</span></span><br></pre></td></tr></table></figure>
+<p>不过在 kali rolling 上则会报错</p>
+<figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;</span>&gt; import magic</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; magic.from_file(<span class="string">"testdata/test.pdf"</span>)</span><br><span class="line">Traceback (most recent call last)<span class="symbol">:</span></span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;<span class="class"><span class="keyword">module</span>&gt;</span></span><br><span class="line"><span class="symbol">AttributeError:</span> <span class="string">'module'</span> object has no attribute <span class="string">'from_file'</span></span><br></pre></td></tr></table></figure>
+<p>在 <a href="http://stackoverflow.com/questions/25286176/how-to-use-python-magic-5-19-1" target="_blank" rel="external">stackoverflow</a> 中有人提到原因：</p>
+<p>python-magic 有多种实现，apt-get 中预装了 5.19.1 版，<code>import</code>时优先于刚刚用 pip 安装的版本，使用起来相对复杂一些</p>
+<figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;</span>&gt; import magic</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; m=magic.open(magic.MAGIC_NONE)</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; m.load()</span><br><span class="line"><span class="number">0</span></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; m.file(<span class="string">'/etc/passwd'</span>)</span><br><span class="line"><span class="string">'ASCII text'</span></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; m.file(<span class="string">'/usr/share/cups/data/default.pdf'</span>)</span><br><span class="line"><span class="string">'PDF document, version 1.5'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; m=magic.open(magic.MAGIC_MIME)</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; m.load()</span><br><span class="line"><span class="number">0</span></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; m.file(<span class="string">'/etc/passwd'</span>)</span><br><span class="line"><span class="string">'text/plain; charset=us-ascii'</span></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; m.file(<span class="string">'/usr/share/cups/data/default.pdf'</span>)</span><br><span class="line"><span class="string">'application/pdf; charset=binary'</span></span><br></pre></td></tr></table></figure>
+<p>如果想使用带有<code>from_file</code>方法的版本将其替换为 pip 版即可</p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">apt-<span class="built_in">get</span> <span class="built_in">remove</span> <span class="keyword">python</span>-magic</span><br><span class="line">pip install <span class="keyword">python</span>-magic</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/10/08/idapython-elf-gadget/" itemprop="url">
                   idapython-elf-gadget
                 </a>
@@ -1410,143 +1534,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/25/Python闭包/" itemprop="url">
-                  Python 中的闭包与装饰器
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-07-25T10:18:09+08:00" content="2016-07-25">
-              2016-07-25
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/25/Python闭包/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/25/Python闭包/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Closure-闭包"><a href="#Closure-闭包" class="headerlink" title="Closure(闭包)"></a>Closure(闭包)</h1><p>什么是闭包?简单说,闭包就是根据不同的配置信息得到不同的结果。</p>
-<p>专业的解释:闭包（Closure）是词法闭包（Lexical Closure）的简称，是引用了自由变量的函数。这个被引用的自由变量将和这个函数一同存在，即使已经离开了创造它的环境也不例外。所以，有另一种说法认为闭包是由函数和与其相关的引用环境组合而成的实体。</p>
-<p>概念总是有点抽象，下面结合示例说下我自己的理解。</p>
-<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ul>
-<li>外部函数包裹内部函数</li>
-<li>外部函数最终返回一个函数对象，即一个内部函数实例</li>
-<li>外部函数传入的参数不同时，会返回不同的内部函数实例</li>
-<li>外部函数用于<code>绑定</code>，内部函数用于<code>处理</code></li>
-<li>外部函数绑定的参数为<code>函数</code>时，即为<code>装饰器</code></li>
-</ul>
-<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">plus</span><span class="params">(augend)</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'augend:'</span>, augend</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">plus_inside</span><span class="params">(addend)</span>:</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">'addend:'</span>, addend</span><br><span class="line">        result = augend + addend</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'result:'</span>, result</span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> plus_inside</span><br><span class="line"></span><br><span class="line">p20 = plus(<span class="number">20</span>)</span><br><span class="line"><span class="comment"># -&gt; augend: 20</span></span><br><span class="line"><span class="comment"># 只打印 augend 说明内部处理函数尚未执行</span></span><br><span class="line"><span class="comment"># 只是完成了将 augend 与处理函数绑定的操作</span></span><br><span class="line"></span><br><span class="line">p20(<span class="number">1</span>)</span><br><span class="line"><span class="comment"># -&gt; addend: 1</span></span><br><span class="line"><span class="comment"># -&gt; result: 21</span></span><br></pre></td></tr></table></figure>
-<h1 id="Decorator-装饰器"><a href="#Decorator-装饰器" class="headerlink" title="Decorator(装饰器)"></a>Decorator(装饰器)</h1><p>前面已经提到，装饰器本质就是外部函数绑定参数为函数的闭包。</p>
-<p>另外 Python 给它添加了一个更优雅的调用方式，用在被绑定函数<code>f</code>之前添加<code>@wrapper</code>的方式，代替在被绑定函数<code>f</code>定义后使用<code>f = wrapper(f)</code>手动赋值的方式，来进行绑定。</p>
-<h2 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h2><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">makebold</span><span class="params">(fn)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapped</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">"&lt;b&gt;"</span> + fn() + <span class="string">"&lt;/b&gt;"</span></span><br><span class="line">    <span class="keyword">return</span> wrapped</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">makeitalic</span><span class="params">(fn)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapped</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">"&lt;i&gt;"</span> + fn() + <span class="string">"&lt;/i&gt;"</span></span><br><span class="line">    <span class="keyword">return</span> wrapped</span><br><span class="line"></span><br><span class="line"><span class="meta">@makebold</span></span><br><span class="line"><span class="meta">@makeitalic</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello world"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> hello() </span><br><span class="line"><span class="comment"># -&gt; &lt;b&gt;&lt;i&gt;hello world&lt;/i&gt;&lt;/b&gt;</span></span><br><span class="line"><span class="comment"># 注意&lt;b&gt;和&lt;i&gt;的顺序</span></span><br></pre></td></tr></table></figure>
-<h2 id="保持函数默认参数常新的装饰器"><a href="#保持函数默认参数常新的装饰器" class="headerlink" title="保持函数默认参数常新的装饰器"></a>保持函数默认参数常新的装饰器</h2><p>Cookbook 20.1 里有个特别的例子。</p>
-<p>Python 里函数的默认参数只在函数定义时求值一次，然后存入函数内建的 func_defaults 元组内。如果是不可变参数（如 1、’qwe’、None 等），完全没有问题；但如果是类似列表这样的可变参数，重新调用函数时默认的列表可能已经面目全非。</p>
-<p>书中提供了两种解决该问题的方法：</p>
-<h3 id="标准方法"><a href="#标准方法" class="headerlink" title="标准方法"></a>标准方法</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">packitem</span><span class="params">(item, pkg=None)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> pkg <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">        pkg = []</span><br><span class="line">    pkg.append(item)</span><br><span class="line">    <span class="keyword">return</span> pkg</span><br></pre></td></tr></table></figure>
-<h3 id="装饰器方法"><a href="#装饰器方法" class="headerlink" title="装饰器方法"></a>装饰器方法</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> copy</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">freshdefaults</span><span class="params">(f)</span>:</span></span><br><span class="line">    <span class="string">"a decorator to wrap f and keep its default values fresh between calls"</span></span><br><span class="line">    fdefaults = f.func_defaults</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">refresher</span><span class="params">(*args, **kwds)</span>:</span></span><br><span class="line">        f.func_defaults = deepcopy(fdefaults)</span><br><span class="line">        <span class="keyword">return</span> f(*args, **kwds)</span><br><span class="line">        </span><br><span class="line">    <span class="comment"># 用于在 print 时区别不同的被绑定函数，2.4 后有效，见 Cookbook 20.1 </span></span><br><span class="line">    refresher.__name__ = f.__name__</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> refresher</span><br><span class="line"></span><br><span class="line"><span class="comment"># usage as a decorator, in python 2.4:</span></span><br><span class="line"><span class="meta">@freshdefaults</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">packitem</span><span class="params">(item, pkg=[])</span>:</span></span><br><span class="line">    pkg.append(item)</span><br><span class="line">    <span class="keyword">return</span> pkg</span><br><span class="line"><span class="comment"># usage in python 2.3: after the function definition, explicitly assign:</span></span><br><span class="line"><span class="comment"># f = freshdefaults(f)</span></span><br></pre></td></tr></table></figure>
-<h3 id="Ref"><a href="#Ref" class="headerlink" title="Ref."></a>Ref.</h3><ul>
-<li><a href="http://www.cnblogs.com/ma6174/archive/2013/04/15/3022548.html" target="_blank" rel="external">http://www.cnblogs.com/ma6174/archive/2013/04/15/3022548.html</a></li>
-<li>Cookbook 20.1</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1592,7 +1579,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">38</span>
+              <span class="site-state-item-count">39</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1600,7 +1587,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -1609,7 +1596,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">75</span>
+                <span class="site-state-item-count">79</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
