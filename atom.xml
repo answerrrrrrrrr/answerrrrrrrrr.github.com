@@ -539,20 +539,23 @@
   </entry>
   
   <entry>
-    <title>字符集与编码方式</title>
+    <title>字符集与编码</title>
     <link href="http://answerrrrrrrrr.io/2016/07/06/%E5%AD%97%E7%AC%A6%E9%9B%86%E4%B8%8E%E7%BC%96%E7%A0%81%E6%96%B9%E5%BC%8F/"/>
     <id>http://answerrrrrrrrr.io/2016/07/06/字符集与编码方式/</id>
     <published>2016-07-06T11:04:36.000Z</published>
-    <updated>2016-08-02T08:56:45.000Z</updated>
+    <updated>2016-10-12T07:51:11.000Z</updated>
     
     <content type="html"><![CDATA[<p>以前对「字符集与编码」的认识完全来源于<a href="http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/001386819196283586a37629844456ca7e5a7faa9b94ee8000" target="_blank" rel="external">廖雪峰的这篇文章</a>，但是总容易忘记<br>而且依稀记得很早的时候在知乎看到梁海大神提到过字符集与编码是不一样的概念</p>
-<p>今天仔细查阅了一下，算是基本搞清楚了，记录如下</p>
+<p>今天仔细查阅了一下，记录如下</p>
 <h1 id="字符集与编码"><a href="#字符集与编码" class="headerlink" title="字符集与编码"></a>字符集与编码</h1><p>顾名思义，「字符」的「集合」，每个「字符」有一个唯一的「数字」与之对应<br>而如何将「数字」改写成内存中的「字节」，即所谓的「编码」或「编码方式」</p>
-<p>以下引自<a href="https://www.zhihu.com/question/21887246/answer/19631235" target="_blank" rel="external">梁海</a>：</p>
+<p>引自<a href="https://www.zhihu.com/question/21887246/answer/19631235" target="_blank" rel="external">字符集和编码方式的区别？ - 梁海的回答</a>：</p>
 <blockquote>
 <p>「字符集」和「编码」等几个层次的概念被彻底分离且模块化的这样一个模型，其实是 Unicode 时代才得到广泛认同的。</p>
-<p>而对于 ASCII、GB2312、Big5 之类的遗留（legacy）方案，其字符集及其编码的关系基本是锁定的，所以常常用「字符编码」（character encoding）、「代码页」（code page）等概念来统称它们那样从字符到编码字节流的整体方案。比如 ASCII 本身就既是字符集又是编码方案，而 GB2312 用的都是 EUC-CN 编码方案。你的理解是对的。</p>
+<p>而对于 ASCII、GB2312、Big5 之类的遗留（legacy）方案，其字符集及其编码的关系基本是锁定的，所以常常用「字符编码」（character encoding）、「代码页」（code page）等概念来统称它们那样从字符到编码字节流的整体方案。比如 ASCII 本身就既是字符集又是编码方案，而 GB2312 用的都是 EUC-CN 编码方案。</p>
 </blockquote>
+<h1 id="ASCII"><a href="#ASCII" class="headerlink" title="ASCII"></a>ASCII</h1><p>ASCII 既是字符集又是编码方案，其字符集为「它所能表示的 128 种字符（包括控制字符和显示字符）」，编码方案为「128 个字节码与字符集间的映射」</p>
+<h1 id="ANSI"><a href="#ANSI" class="headerlink" title="ANSI"></a>ANSI</h1><p>ASCII 本身就是 ANSI(American National Standard Institute) 制定的标准。虽然 ASCII 使用一个字节即 8 位的长度，但由于在英文世界中 7 位已经完全够用，所以最高位始终为 0。其他国家便将最高位利用起来，用于扩展表示其他语言的字符。</p>
+<p>ANSI 指的是这样一种编码方式：表示通用英文字符时，最高位为 0，使用 ASCII 编码，长度为一个字节；表示其他语言的专有字符时，最高位为 1，使用其他编码。其中「其他编码」可以是 ANSI 标准中的任意一页，比如「GB2312」，用两个最高位为 1 的字节来表示一个简体中文字符。</p>
 <h1 id="Unicode-字符集"><a href="#Unicode-字符集" class="headerlink" title="Unicode 字符集"></a>Unicode 字符集</h1><p>Unicode 原本只是个字符集，<a href="http://www.freebuf.com/articles/others-articles/25623.html" target="_blank" rel="external">freebuf 的一篇译文</a>讲得很生动：</p>
 <blockquote>
 <p>Unicode 背后的想法非常简单，然而却被普遍的误解了。Unicode 就像一个电话本，标记着字符和数字之间的映射关系。Joel 称之为「神奇数字」，因为它们可能是随机指定的，而且不会给出任何解释。官方术语是码位（Code Point），总是用 U+ 开头。理论上每种语言中的每种字符都被 Unicode 协会指定了一个神奇数字。例如希伯来文中的第一个字母 א，是 U+2135，字母 A 是 U+0061。</p>
@@ -587,7 +590,7 @@
     
     </summary>
     
-      <category term="Unicode" scheme="http://answerrrrrrrrr.io/categories/Unicode/"/>
+      <category term="编码" scheme="http://answerrrrrrrrr.io/categories/%E7%BC%96%E7%A0%81/"/>
     
     
       <category term="Python" scheme="http://answerrrrrrrrr.io/tags/Python/"/>
@@ -595,6 +598,14 @@
       <category term="UTF-8" scheme="http://answerrrrrrrrr.io/tags/UTF-8/"/>
     
       <category term="Unicode" scheme="http://answerrrrrrrrr.io/tags/Unicode/"/>
+    
+      <category term="字符集" scheme="http://answerrrrrrrrr.io/tags/%E5%AD%97%E7%AC%A6%E9%9B%86/"/>
+    
+      <category term="编码" scheme="http://answerrrrrrrrr.io/tags/%E7%BC%96%E7%A0%81/"/>
+    
+      <category term="ASCII" scheme="http://answerrrrrrrrr.io/tags/ASCII/"/>
+    
+      <category term="ANSI" scheme="http://answerrrrrrrrr.io/tags/ANSI/"/>
     
   </entry>
   
