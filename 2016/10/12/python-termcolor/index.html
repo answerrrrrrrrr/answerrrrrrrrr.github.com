@@ -1,0 +1,765 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Python,ANSI,termcolor,colorama," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Answerrrrrrrrr" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="今天知道了一个控制终端输出颜色的第三方库 termcolor，代码很简单：
+# coding: utf-8# Copyright (c) 2008-2011 Volvox Development Team## Permission is hereby granted, free of charge, to any person obtaining a copy# of this software">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python 控制终端输出颜色 & ANSI 控制码">
+<meta property="og:url" content="http://answerrrrrrrrr.io/2016/10/12/python-termcolor/index.html">
+<meta property="og:site_name" content="Answerrrrrrrrr">
+<meta property="og:description" content="今天知道了一个控制终端输出颜色的第三方库 termcolor，代码很简单：
+# coding: utf-8# Copyright (c) 2008-2011 Volvox Development Team## Permission is hereby granted, free of charge, to any person obtaining a copy# of this software">
+<meta property="og:updated_time" content="2016-10-12T12:22:09.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python 控制终端输出颜色 & ANSI 控制码">
+<meta name="twitter:description" content="今天知道了一个控制终端输出颜色的第三方库 termcolor，代码很简单：
+# coding: utf-8# Copyright (c) 2008-2011 Volvox Development Team## Permission is hereby granted, free of charge, to any person obtaining a copy# of this software">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: 'Author'
+    }
+  };
+</script>
+
+  <title> Python 控制终端输出颜色 & ANSI 控制码 | Answerrrrrrrrr </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Answerrrrrrrrr</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Python 控制终端输出颜色 & ANSI 控制码
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-10-12T19:12:40+08:00" content="2016-10-12">
+              2016-10-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/12/python-termcolor/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/12/python-termcolor/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>今天知道了一个控制终端输出颜色的第三方库 termcolor，代码很简单：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"># coding: utf-8</span><br><span class="line"># Copyright (c) 2008-2011 Volvox Development Team</span><br><span class="line">#</span><br><span class="line"># Permission is hereby granted, free of charge, to any person obtaining a copy</span><br><span class="line"># of this software and associated documentation files (the "Software"), to deal</span><br><span class="line"># in the Software without restriction, including without limitation the rights</span><br><span class="line"># to <span class="keyword">use</span>, copy, <span class="keyword">modify</span>, <span class="keyword">merge</span>, publish, <span class="keyword">distribute</span>, sublicense, <span class="keyword">and</span>/<span class="keyword">or</span> sell</span><br><span class="line"># copies <span class="keyword">of</span> the Software, <span class="keyword">and</span> <span class="keyword">to</span> permit persons <span class="keyword">to</span> whom the Software <span class="keyword">is</span></span><br><span class="line"># furnished <span class="keyword">to</span> <span class="keyword">do</span> so, subject <span class="keyword">to</span> the <span class="keyword">following</span> conditions:</span><br><span class="line">#</span><br><span class="line"># The above copyright <span class="keyword">notice</span> <span class="keyword">and</span> this permission <span class="keyword">notice</span> shall be included <span class="keyword">in</span></span><br><span class="line"># all copies <span class="keyword">or</span> substantial portions <span class="keyword">of</span> the Software.</span><br><span class="line">#</span><br><span class="line"># THE SOFTWARE <span class="keyword">IS</span> PROVIDED <span class="string">"AS IS"</span>, <span class="keyword">WITHOUT</span> WARRANTY <span class="keyword">OF</span> <span class="keyword">ANY</span> KIND, EXPRESS <span class="keyword">OR</span></span><br><span class="line"># IMPLIED, <span class="keyword">INCLUDING</span> BUT <span class="keyword">NOT</span> LIMITED <span class="keyword">TO</span> THE WARRANTIES <span class="keyword">OF</span> MERCHANTABILITY,</span><br><span class="line"># FITNESS <span class="keyword">FOR</span> A PARTICULAR PURPOSE <span class="keyword">AND</span> NONINFRINGEMENT. <span class="keyword">IN</span> <span class="keyword">NO</span> <span class="keyword">EVENT</span> SHALL THE</span><br><span class="line"># <span class="keyword">AUTHORS</span> <span class="keyword">OR</span> COPYRIGHT HOLDERS BE LIABLE <span class="keyword">FOR</span> <span class="keyword">ANY</span> CLAIM, DAMAGES <span class="keyword">OR</span> OTHER</span><br><span class="line"># LIABILITY, WHETHER <span class="keyword">IN</span> AN <span class="keyword">ACTION</span> <span class="keyword">OF</span> CONTRACT, TORT <span class="keyword">OR</span> OTHERWISE, ARISING <span class="keyword">FROM</span>,</span><br><span class="line"># <span class="keyword">OUT</span> <span class="keyword">OF</span> <span class="keyword">OR</span> <span class="keyword">IN</span> <span class="keyword">CONNECTION</span> <span class="keyword">WITH</span> THE SOFTWARE <span class="keyword">OR</span> THE <span class="keyword">USE</span> <span class="keyword">OR</span> OTHER DEALINGS <span class="keyword">IN</span></span><br><span class="line"># THE SOFTWARE.</span><br><span class="line">#</span><br><span class="line"># Author: Konstantin Lepa &lt;konstantin.lepa@gmail.com&gt;</span><br><span class="line"></span><br><span class="line"><span class="string">"""ANSII Color formatting for output in terminal."""</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> print_function</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">__ALL__ = [ <span class="string">'colored'</span>, <span class="string">'cprint'</span> ]</span><br><span class="line"></span><br><span class="line"><span class="keyword">VERSION</span> = (<span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">ATTRIBUTES</span> = dict(</span><br><span class="line">        <span class="keyword">list</span>(zip([</span><br><span class="line">            <span class="string">'bold'</span>,</span><br><span class="line">            <span class="string">'dark'</span>,</span><br><span class="line">            <span class="string">''</span>,</span><br><span class="line">            <span class="string">'underline'</span>,</span><br><span class="line">            <span class="string">'blink'</span>,</span><br><span class="line">            <span class="string">''</span>,</span><br><span class="line">            <span class="string">'reverse'</span>,</span><br><span class="line">            <span class="string">'concealed'</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="keyword">list</span>(<span class="keyword">range</span>(<span class="number">1</span>, <span class="number">9</span>))</span><br><span class="line">            ))</span><br><span class="line">        )</span><br><span class="line">del <span class="keyword">ATTRIBUTES</span>[<span class="string">''</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">HIGHLIGHTS = dict(</span><br><span class="line">        <span class="keyword">list</span>(zip([</span><br><span class="line">            <span class="string">'on_grey'</span>,</span><br><span class="line">            <span class="string">'on_red'</span>,</span><br><span class="line">            <span class="string">'on_green'</span>,</span><br><span class="line">            <span class="string">'on_yellow'</span>,</span><br><span class="line">            <span class="string">'on_blue'</span>,</span><br><span class="line">            <span class="string">'on_magenta'</span>,</span><br><span class="line">            <span class="string">'on_cyan'</span>,</span><br><span class="line">            <span class="string">'on_white'</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="keyword">list</span>(<span class="keyword">range</span>(<span class="number">40</span>, <span class="number">48</span>))</span><br><span class="line">            ))</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">COLORS = dict(</span><br><span class="line">        <span class="keyword">list</span>(zip([</span><br><span class="line">            <span class="string">'grey'</span>,</span><br><span class="line">            <span class="string">'red'</span>,</span><br><span class="line">            <span class="string">'green'</span>,</span><br><span class="line">            <span class="string">'yellow'</span>,</span><br><span class="line">            <span class="string">'blue'</span>,</span><br><span class="line">            <span class="string">'magenta'</span>,</span><br><span class="line">            <span class="string">'cyan'</span>,</span><br><span class="line">            <span class="string">'white'</span>,</span><br><span class="line">            ],</span><br><span class="line">            <span class="keyword">list</span>(<span class="keyword">range</span>(<span class="number">30</span>, <span class="number">38</span>))</span><br><span class="line">            ))</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">RESET</span> = <span class="string">'\033[0m'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> colored(<span class="built_in">text</span>, color=<span class="keyword">None</span>, on_color=<span class="keyword">None</span>, attrs=<span class="keyword">None</span>):</span><br><span class="line">    <span class="string">"""Colorize text.</span><br><span class="line"></span><br><span class="line">    Available text colors:</span><br><span class="line">        red, green, yellow, blue, magenta, cyan, white.</span><br><span class="line"></span><br><span class="line">    Available text highlights:</span><br><span class="line">        on_red, on_green, on_yellow, on_blue, on_magenta, on_cyan, on_white.</span><br><span class="line"></span><br><span class="line">    Available attributes:</span><br><span class="line">        bold, dark, underline, blink, reverse, concealed.</span><br><span class="line"></span><br><span class="line">    Example:</span><br><span class="line">        colored('Hello, World!', 'red', 'on_grey', ['blue', 'blink'])</span><br><span class="line">        colored('Hello, World!', 'green')</span><br><span class="line">    """</span></span><br><span class="line">    <span class="keyword">if</span> os.getenv(<span class="string">'ANSI_COLORS_DISABLED'</span>) <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">        fmt_str = <span class="string">'\033[%dm%s'</span></span><br><span class="line">        <span class="keyword">if</span> color <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">            <span class="built_in">text</span> = fmt_str % (COLORS[color], <span class="built_in">text</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> on_color <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">            <span class="built_in">text</span> = fmt_str % (HIGHLIGHTS[on_color], <span class="built_in">text</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> attrs <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">            <span class="keyword">for</span> <span class="keyword">attr</span> <span class="keyword">in</span> attrs:</span><br><span class="line">                <span class="built_in">text</span> = fmt_str % (<span class="keyword">ATTRIBUTES</span>[<span class="keyword">attr</span>], <span class="built_in">text</span>)</span><br><span class="line"></span><br><span class="line">        <span class="built_in">text</span> += <span class="keyword">RESET</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">text</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> cprint(<span class="built_in">text</span>, color=<span class="keyword">None</span>, on_color=<span class="keyword">None</span>, attrs=<span class="keyword">None</span>, **kwargs):</span><br><span class="line">    <span class="string">"""Print colorize text.</span><br><span class="line"></span><br><span class="line">    It accepts arguments of print function.</span><br><span class="line">    """</span></span><br><span class="line"></span><br><span class="line">    print((colored(<span class="built_in">text</span>, color, on_color, attrs)), **kwargs)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    print(<span class="string">'Current terminal type: %s'</span> % os.getenv(<span class="string">'TERM'</span>))</span><br><span class="line">    print(<span class="string">'Test basic colors:'</span>)</span><br><span class="line">    cprint(<span class="string">'Grey color'</span>, <span class="string">'grey'</span>)</span><br><span class="line">    cprint(<span class="string">'Red color'</span>, <span class="string">'red'</span>)</span><br><span class="line">    cprint(<span class="string">'Green color'</span>, <span class="string">'green'</span>)</span><br><span class="line">    cprint(<span class="string">'Yellow color'</span>, <span class="string">'yellow'</span>)</span><br><span class="line">    cprint(<span class="string">'Blue color'</span>, <span class="string">'blue'</span>)</span><br><span class="line">    cprint(<span class="string">'Magenta color'</span>, <span class="string">'magenta'</span>)</span><br><span class="line">    cprint(<span class="string">'Cyan color'</span>, <span class="string">'cyan'</span>)</span><br><span class="line">    cprint(<span class="string">'White color'</span>, <span class="string">'white'</span>)</span><br><span class="line">    print((<span class="string">'-'</span> * <span class="number">78</span>))</span><br><span class="line"></span><br><span class="line">    print(<span class="string">'Test highlights:'</span>)</span><br><span class="line">    cprint(<span class="string">'On grey color'</span>, on_color=<span class="string">'on_grey'</span>)</span><br><span class="line">    cprint(<span class="string">'On red color'</span>, on_color=<span class="string">'on_red'</span>)</span><br><span class="line">    cprint(<span class="string">'On green color'</span>, on_color=<span class="string">'on_green'</span>)</span><br><span class="line">    cprint(<span class="string">'On yellow color'</span>, on_color=<span class="string">'on_yellow'</span>)</span><br><span class="line">    cprint(<span class="string">'On blue color'</span>, on_color=<span class="string">'on_blue'</span>)</span><br><span class="line">    cprint(<span class="string">'On magenta color'</span>, on_color=<span class="string">'on_magenta'</span>)</span><br><span class="line">    cprint(<span class="string">'On cyan color'</span>, on_color=<span class="string">'on_cyan'</span>)</span><br><span class="line">    cprint(<span class="string">'On white color'</span>, color=<span class="string">'grey'</span>, on_color=<span class="string">'on_white'</span>)</span><br><span class="line">    print(<span class="string">'-'</span> * <span class="number">78</span>)</span><br><span class="line"></span><br><span class="line">    print(<span class="string">'Test attributes:'</span>)</span><br><span class="line">    cprint(<span class="string">'Bold grey color'</span>, <span class="string">'grey'</span>, attrs=[<span class="string">'bold'</span>])</span><br><span class="line">    cprint(<span class="string">'Dark red color'</span>, <span class="string">'red'</span>, attrs=[<span class="string">'dark'</span>])</span><br><span class="line">    cprint(<span class="string">'Underline green color'</span>, <span class="string">'green'</span>, attrs=[<span class="string">'underline'</span>])</span><br><span class="line">    cprint(<span class="string">'Blink yellow color'</span>, <span class="string">'yellow'</span>, attrs=[<span class="string">'blink'</span>])</span><br><span class="line">    cprint(<span class="string">'Reversed blue color'</span>, <span class="string">'blue'</span>, attrs=[<span class="string">'reverse'</span>])</span><br><span class="line">    cprint(<span class="string">'Concealed Magenta color'</span>, <span class="string">'magenta'</span>, attrs=[<span class="string">'concealed'</span>])</span><br><span class="line">    cprint(<span class="string">'Bold underline reverse cyan color'</span>, <span class="string">'cyan'</span>,</span><br><span class="line">            attrs=[<span class="string">'bold'</span>, <span class="string">'underline'</span>, <span class="string">'reverse'</span>])</span><br><span class="line">    cprint(<span class="string">'Dark blink concealed white color'</span>, <span class="string">'white'</span>,</span><br><span class="line">            attrs=[<span class="string">'dark'</span>, <span class="string">'blink'</span>, <span class="string">'concealed'</span>])</span><br><span class="line">    print((<span class="string">'-'</span> * <span class="number">78</span>))</span><br><span class="line"></span><br><span class="line">    print(<span class="string">'Test mixing:'</span>)</span><br><span class="line">    cprint(<span class="string">'Underline red on grey color'</span>, <span class="string">'red'</span>, <span class="string">'on_grey'</span>,</span><br><span class="line">            [<span class="string">'underline'</span>])</span><br><span class="line">    cprint(<span class="string">'Reversed green on red color'</span>, <span class="string">'green'</span>, <span class="string">'on_red'</span>, [<span class="string">'reverse'</span>])</span><br></pre></td></tr></table></figure>
+<p>不过它不支持 Windows，另外有一个复杂一些但是全平台通用的 colorama，见 <a href="http://stackoverflow.com/questions/21858567/why-termcolor-doesnt-work-in-python" target="_blank" rel="external">http://stackoverflow.com/questions/21858567/why-termcolor-doesnt-work-in-python</a></p>
+<p>代码中设置颜色的部分有点费解，查阅其用到的知识点如下</p>
+<h1 id="ANSI-控制码"><a href="#ANSI-控制码" class="headerlink" title="ANSI 控制码"></a>ANSI 控制码</h1><p>ANSI 控制码即控制序列（Control Sequence）。大多数终端模拟器（Unix，Linux，Windows）都支持 ANSI 控制码。ANSI 控制码以 ESC 字符（ASCII 27/0x1b/033）开头，分为两类：</p>
+<ul>
+<li>非 CSI 序列<br>  双字符控制码，格式为<code>ESC``字符</code>，第二个字符的范围是 ASCII 64~95 (‘@’~’_’) </li>
+<li>CSI 序列<br>  多于两个字符，格式为<code>ESC[``其余字符</code></li>
+</ul>
+<p>常用序列表可见 <a href="https://en.wikipedia.org/wiki/ANSI_escape_code" target="_blank" rel="external">https://en.wikipedia.org/wiki/ANSI_escape_code</a></p>
+<h1 id="颜色控制"><a href="#颜色控制" class="headerlink" title="颜色控制"></a>颜色控制</h1><p>其中设定终端文本颜色的序列格式为<code>ESC[``编号``;编号``m</code>    </p>
+<p>颜色分为字体色（前景色）和背景色，30~37用来设置字体色，40~47设置背景色，其他常用控制码：</p>
+<ul>
+<li>\033[0m   重置所有属性   </li>
+<li>\033[1m   设置高亮度   </li>
+<li>\033[4m   下划线   </li>
+<li>\033[5m   闪烁   </li>
+<li>\033[7m   反色   </li>
+</ul>
+<h1 id="用例"><a href="#用例" class="headerlink" title="用例"></a>用例</h1><p><code>\033[1;31;40m</code><br>1-高亮显示，31-前景色红色，40-背景色黑色</p>
+<p><code>\033[0m</code><br>重置，即恢复默认设置</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag">#Python</a>
+          
+            <a href="/tags/ANSI/" rel="tag">#ANSI</a>
+          
+            <a href="/tags/termcolor/" rel="tag">#termcolor</a>
+          
+            <a href="/tags/colorama/" rel="tag">#colorama</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/11/python-magic/" rel="next" title="python-magic has no attribute 'from_file'">
+                <i class="fa fa-chevron-left"></i> python-magic has no attribute 'from_file'
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/10/12/python-termcolor/"
+           data-title="Python 控制终端输出颜色 & ANSI 控制码" data-url="http://answerrrrrrrrr.io/2016/10/12/python-termcolor/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Air9" />
+          <p class="site-author-name" itemprop="name">Air9</p>
+          <p class="site-description motion-element" itemprop="description">なぜベストを尽くしたのか</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">40</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+          
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">84</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ANSI-控制码"><span class="nav-number">1.</span> <span class="nav-text">ANSI 控制码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#颜色控制"><span class="nav-number">2.</span> <span class="nav-text">颜色控制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用例"><span class="nav-number">3.</span> <span class="nav-text">用例</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Air9</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.scheme !== 'Pisces' && (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always')) {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"answerrrrrrrrr"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+
+</body>
+</html>
