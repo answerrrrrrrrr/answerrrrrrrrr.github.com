@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://answerrrrrrrrr.io/"/>
-  <updated>2016-10-11T02:00:32.000Z</updated>
+  <updated>2016-10-12T12:22:09.000Z</updated>
   <id>http://answerrrrrrrrr.io/</id>
   
   <author>
@@ -14,6 +14,56 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Python 控制终端输出颜色 &amp; ANSI 控制码</title>
+    <link href="http://answerrrrrrrrr.io/2016/10/12/python-termcolor/"/>
+    <id>http://answerrrrrrrrr.io/2016/10/12/python-termcolor/</id>
+    <published>2016-10-12T11:12:40.000Z</published>
+    <updated>2016-10-12T12:22:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>今天知道了一个控制终端输出颜色的第三方库 termcolor，代码很简单：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"># coding: utf-8</span><br><span class="line"># Copyright (c) 2008-2011 Volvox Development Team</span><br><span class="line">#</span><br><span class="line"># Permission is hereby granted, free of charge, to any person obtaining a copy</span><br><span class="line"># of this software and associated documentation files (the "Software"), to deal</span><br><span class="line"># in the Software without restriction, including without limitation the rights</span><br><span class="line"># to <span class="keyword">use</span>, copy, <span class="keyword">modify</span>, <span class="keyword">merge</span>, publish, <span class="keyword">distribute</span>, sublicense, <span class="keyword">and</span>/<span class="keyword">or</span> sell</span><br><span class="line"># copies <span class="keyword">of</span> the Software, <span class="keyword">and</span> <span class="keyword">to</span> permit persons <span class="keyword">to</span> whom the Software <span class="keyword">is</span></span><br><span class="line"># furnished <span class="keyword">to</span> <span class="keyword">do</span> so, subject <span class="keyword">to</span> the <span class="keyword">following</span> conditions:</span><br><span class="line">#</span><br><span class="line"># The above copyright <span class="keyword">notice</span> <span class="keyword">and</span> this permission <span class="keyword">notice</span> shall be included <span class="keyword">in</span></span><br><span class="line"># all copies <span class="keyword">or</span> substantial portions <span class="keyword">of</span> the Software.</span><br><span class="line">#</span><br><span class="line"># THE SOFTWARE <span class="keyword">IS</span> PROVIDED <span class="string">"AS IS"</span>, <span class="keyword">WITHOUT</span> WARRANTY <span class="keyword">OF</span> <span class="keyword">ANY</span> KIND, EXPRESS <span class="keyword">OR</span></span><br><span class="line"># IMPLIED, <span class="keyword">INCLUDING</span> BUT <span class="keyword">NOT</span> LIMITED <span class="keyword">TO</span> THE WARRANTIES <span class="keyword">OF</span> MERCHANTABILITY,</span><br><span class="line"># FITNESS <span class="keyword">FOR</span> A PARTICULAR PURPOSE <span class="keyword">AND</span> NONINFRINGEMENT. <span class="keyword">IN</span> <span class="keyword">NO</span> <span class="keyword">EVENT</span> SHALL THE</span><br><span class="line"># <span class="keyword">AUTHORS</span> <span class="keyword">OR</span> COPYRIGHT HOLDERS BE LIABLE <span class="keyword">FOR</span> <span class="keyword">ANY</span> CLAIM, DAMAGES <span class="keyword">OR</span> OTHER</span><br><span class="line"># LIABILITY, WHETHER <span class="keyword">IN</span> AN <span class="keyword">ACTION</span> <span class="keyword">OF</span> CONTRACT, TORT <span class="keyword">OR</span> OTHERWISE, ARISING <span class="keyword">FROM</span>,</span><br><span class="line"># <span class="keyword">OUT</span> <span class="keyword">OF</span> <span class="keyword">OR</span> <span class="keyword">IN</span> <span class="keyword">CONNECTION</span> <span class="keyword">WITH</span> THE SOFTWARE <span class="keyword">OR</span> THE <span class="keyword">USE</span> <span class="keyword">OR</span> OTHER DEALINGS <span class="keyword">IN</span></span><br><span class="line"># THE SOFTWARE.</span><br><span class="line">#</span><br><span class="line"># Author: Konstantin Lepa &lt;konstantin.lepa@gmail.com&gt;</span><br><span class="line"></span><br><span class="line"><span class="string">"""ANSII Color formatting for output in terminal."""</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> print_function</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">__ALL__ = [ <span class="string">'colored'</span>, <span class="string">'cprint'</span> ]</span><br><span class="line"></span><br><span class="line"><span class="keyword">VERSION</span> = (<span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">ATTRIBUTES</span> = dict(</span><br><span class="line">        <span class="keyword">list</span>(zip([</span><br><span class="line">            <span class="string">'bold'</span>,</span><br><span class="line">            <span class="string">'dark'</span>,</span><br><span class="line">            <span class="string">''</span>,</span><br><span class="line">            <span class="string">'underline'</span>,</span><br><span class="line">            <span class="string">'blink'</span>,</span><br><span class="line">            <span class="string">''</span>,</span><br><span class="line">            <span class="string">'reverse'</span>,</span><br><span class="line">            <span class="string">'concealed'</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="keyword">list</span>(<span class="keyword">range</span>(<span class="number">1</span>, <span class="number">9</span>))</span><br><span class="line">            ))</span><br><span class="line">        )</span><br><span class="line">del <span class="keyword">ATTRIBUTES</span>[<span class="string">''</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">HIGHLIGHTS = dict(</span><br><span class="line">        <span class="keyword">list</span>(zip([</span><br><span class="line">            <span class="string">'on_grey'</span>,</span><br><span class="line">            <span class="string">'on_red'</span>,</span><br><span class="line">            <span class="string">'on_green'</span>,</span><br><span class="line">            <span class="string">'on_yellow'</span>,</span><br><span class="line">            <span class="string">'on_blue'</span>,</span><br><span class="line">            <span class="string">'on_magenta'</span>,</span><br><span class="line">            <span class="string">'on_cyan'</span>,</span><br><span class="line">            <span class="string">'on_white'</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="keyword">list</span>(<span class="keyword">range</span>(<span class="number">40</span>, <span class="number">48</span>))</span><br><span class="line">            ))</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">COLORS = dict(</span><br><span class="line">        <span class="keyword">list</span>(zip([</span><br><span class="line">            <span class="string">'grey'</span>,</span><br><span class="line">            <span class="string">'red'</span>,</span><br><span class="line">            <span class="string">'green'</span>,</span><br><span class="line">            <span class="string">'yellow'</span>,</span><br><span class="line">            <span class="string">'blue'</span>,</span><br><span class="line">            <span class="string">'magenta'</span>,</span><br><span class="line">            <span class="string">'cyan'</span>,</span><br><span class="line">            <span class="string">'white'</span>,</span><br><span class="line">            ],</span><br><span class="line">            <span class="keyword">list</span>(<span class="keyword">range</span>(<span class="number">30</span>, <span class="number">38</span>))</span><br><span class="line">            ))</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">RESET</span> = <span class="string">'\033[0m'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> colored(<span class="built_in">text</span>, color=<span class="keyword">None</span>, on_color=<span class="keyword">None</span>, attrs=<span class="keyword">None</span>):</span><br><span class="line">    <span class="string">"""Colorize text.</span><br><span class="line"></span><br><span class="line">    Available text colors:</span><br><span class="line">        red, green, yellow, blue, magenta, cyan, white.</span><br><span class="line"></span><br><span class="line">    Available text highlights:</span><br><span class="line">        on_red, on_green, on_yellow, on_blue, on_magenta, on_cyan, on_white.</span><br><span class="line"></span><br><span class="line">    Available attributes:</span><br><span class="line">        bold, dark, underline, blink, reverse, concealed.</span><br><span class="line"></span><br><span class="line">    Example:</span><br><span class="line">        colored('Hello, World!', 'red', 'on_grey', ['blue', 'blink'])</span><br><span class="line">        colored('Hello, World!', 'green')</span><br><span class="line">    """</span></span><br><span class="line">    <span class="keyword">if</span> os.getenv(<span class="string">'ANSI_COLORS_DISABLED'</span>) <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">        fmt_str = <span class="string">'\033[%dm%s'</span></span><br><span class="line">        <span class="keyword">if</span> color <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">            <span class="built_in">text</span> = fmt_str % (COLORS[color], <span class="built_in">text</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> on_color <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">            <span class="built_in">text</span> = fmt_str % (HIGHLIGHTS[on_color], <span class="built_in">text</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> attrs <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">            <span class="keyword">for</span> <span class="keyword">attr</span> <span class="keyword">in</span> attrs:</span><br><span class="line">                <span class="built_in">text</span> = fmt_str % (<span class="keyword">ATTRIBUTES</span>[<span class="keyword">attr</span>], <span class="built_in">text</span>)</span><br><span class="line"></span><br><span class="line">        <span class="built_in">text</span> += <span class="keyword">RESET</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">text</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> cprint(<span class="built_in">text</span>, color=<span class="keyword">None</span>, on_color=<span class="keyword">None</span>, attrs=<span class="keyword">None</span>, **kwargs):</span><br><span class="line">    <span class="string">"""Print colorize text.</span><br><span class="line"></span><br><span class="line">    It accepts arguments of print function.</span><br><span class="line">    """</span></span><br><span class="line"></span><br><span class="line">    print((colored(<span class="built_in">text</span>, color, on_color, attrs)), **kwargs)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    print(<span class="string">'Current terminal type: %s'</span> % os.getenv(<span class="string">'TERM'</span>))</span><br><span class="line">    print(<span class="string">'Test basic colors:'</span>)</span><br><span class="line">    cprint(<span class="string">'Grey color'</span>, <span class="string">'grey'</span>)</span><br><span class="line">    cprint(<span class="string">'Red color'</span>, <span class="string">'red'</span>)</span><br><span class="line">    cprint(<span class="string">'Green color'</span>, <span class="string">'green'</span>)</span><br><span class="line">    cprint(<span class="string">'Yellow color'</span>, <span class="string">'yellow'</span>)</span><br><span class="line">    cprint(<span class="string">'Blue color'</span>, <span class="string">'blue'</span>)</span><br><span class="line">    cprint(<span class="string">'Magenta color'</span>, <span class="string">'magenta'</span>)</span><br><span class="line">    cprint(<span class="string">'Cyan color'</span>, <span class="string">'cyan'</span>)</span><br><span class="line">    cprint(<span class="string">'White color'</span>, <span class="string">'white'</span>)</span><br><span class="line">    print((<span class="string">'-'</span> * <span class="number">78</span>))</span><br><span class="line"></span><br><span class="line">    print(<span class="string">'Test highlights:'</span>)</span><br><span class="line">    cprint(<span class="string">'On grey color'</span>, on_color=<span class="string">'on_grey'</span>)</span><br><span class="line">    cprint(<span class="string">'On red color'</span>, on_color=<span class="string">'on_red'</span>)</span><br><span class="line">    cprint(<span class="string">'On green color'</span>, on_color=<span class="string">'on_green'</span>)</span><br><span class="line">    cprint(<span class="string">'On yellow color'</span>, on_color=<span class="string">'on_yellow'</span>)</span><br><span class="line">    cprint(<span class="string">'On blue color'</span>, on_color=<span class="string">'on_blue'</span>)</span><br><span class="line">    cprint(<span class="string">'On magenta color'</span>, on_color=<span class="string">'on_magenta'</span>)</span><br><span class="line">    cprint(<span class="string">'On cyan color'</span>, on_color=<span class="string">'on_cyan'</span>)</span><br><span class="line">    cprint(<span class="string">'On white color'</span>, color=<span class="string">'grey'</span>, on_color=<span class="string">'on_white'</span>)</span><br><span class="line">    print(<span class="string">'-'</span> * <span class="number">78</span>)</span><br><span class="line"></span><br><span class="line">    print(<span class="string">'Test attributes:'</span>)</span><br><span class="line">    cprint(<span class="string">'Bold grey color'</span>, <span class="string">'grey'</span>, attrs=[<span class="string">'bold'</span>])</span><br><span class="line">    cprint(<span class="string">'Dark red color'</span>, <span class="string">'red'</span>, attrs=[<span class="string">'dark'</span>])</span><br><span class="line">    cprint(<span class="string">'Underline green color'</span>, <span class="string">'green'</span>, attrs=[<span class="string">'underline'</span>])</span><br><span class="line">    cprint(<span class="string">'Blink yellow color'</span>, <span class="string">'yellow'</span>, attrs=[<span class="string">'blink'</span>])</span><br><span class="line">    cprint(<span class="string">'Reversed blue color'</span>, <span class="string">'blue'</span>, attrs=[<span class="string">'reverse'</span>])</span><br><span class="line">    cprint(<span class="string">'Concealed Magenta color'</span>, <span class="string">'magenta'</span>, attrs=[<span class="string">'concealed'</span>])</span><br><span class="line">    cprint(<span class="string">'Bold underline reverse cyan color'</span>, <span class="string">'cyan'</span>,</span><br><span class="line">            attrs=[<span class="string">'bold'</span>, <span class="string">'underline'</span>, <span class="string">'reverse'</span>])</span><br><span class="line">    cprint(<span class="string">'Dark blink concealed white color'</span>, <span class="string">'white'</span>,</span><br><span class="line">            attrs=[<span class="string">'dark'</span>, <span class="string">'blink'</span>, <span class="string">'concealed'</span>])</span><br><span class="line">    print((<span class="string">'-'</span> * <span class="number">78</span>))</span><br><span class="line"></span><br><span class="line">    print(<span class="string">'Test mixing:'</span>)</span><br><span class="line">    cprint(<span class="string">'Underline red on grey color'</span>, <span class="string">'red'</span>, <span class="string">'on_grey'</span>,</span><br><span class="line">            [<span class="string">'underline'</span>])</span><br><span class="line">    cprint(<span class="string">'Reversed green on red color'</span>, <span class="string">'green'</span>, <span class="string">'on_red'</span>, [<span class="string">'reverse'</span>])</span><br></pre></td></tr></table></figure>
+<p>不过它不支持 Windows，另外有一个复杂一些但是全平台通用的 colorama，见 <a href="http://stackoverflow.com/questions/21858567/why-termcolor-doesnt-work-in-python" target="_blank" rel="external">http://stackoverflow.com/questions/21858567/why-termcolor-doesnt-work-in-python</a></p>
+<p>代码中设置颜色的部分有点费解，查阅其用到的知识点如下</p>
+<h1 id="ANSI-控制码"><a href="#ANSI-控制码" class="headerlink" title="ANSI 控制码"></a>ANSI 控制码</h1><p>ANSI 控制码即控制序列（Control Sequence）。大多数终端模拟器（Unix，Linux，Windows）都支持 ANSI 控制码。ANSI 控制码以 ESC 字符（ASCII 27/0x1b/033）开头，分为两类：</p>
+<ul>
+<li>非 CSI 序列<br>  双字符控制码，格式为<code>ESC``字符</code>，第二个字符的范围是 ASCII 64~95 (‘@’~’_’) </li>
+<li>CSI 序列<br>  多于两个字符，格式为<code>ESC[``其余字符</code></li>
+</ul>
+<p>常用序列表可见 <a href="https://en.wikipedia.org/wiki/ANSI_escape_code" target="_blank" rel="external">https://en.wikipedia.org/wiki/ANSI_escape_code</a></p>
+<h1 id="颜色控制"><a href="#颜色控制" class="headerlink" title="颜色控制"></a>颜色控制</h1><p>其中设定终端文本颜色的序列格式为<code>ESC[``编号``;编号``m</code>    </p>
+<p>颜色分为字体色（前景色）和背景色，30~37用来设置字体色，40~47设置背景色，其他常用控制码：</p>
+<ul>
+<li>\033[0m   重置所有属性   </li>
+<li>\033[1m   设置高亮度   </li>
+<li>\033[4m   下划线   </li>
+<li>\033[5m   闪烁   </li>
+<li>\033[7m   反色   </li>
+</ul>
+<h1 id="用例"><a href="#用例" class="headerlink" title="用例"></a>用例</h1><p><code>\033[1;31;40m</code><br>1-高亮显示，31-前景色红色，40-背景色黑色</p>
+<p><code>\033[0m</code><br>重置，即恢复默认设置</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;今天知道了一个控制终端输出颜色的第三方库 termcolor，代码很简单：&lt;/p&gt;
+&lt;figure class=&quot;highlight sql&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;# coding: utf
+    
+    </summary>
+    
+      <category term="Python" scheme="http://answerrrrrrrrr.io/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="http://answerrrrrrrrr.io/tags/Python/"/>
+    
+      <category term="ANSI" scheme="http://answerrrrrrrrr.io/tags/ANSI/"/>
+    
+      <category term="termcolor" scheme="http://answerrrrrrrrr.io/tags/termcolor/"/>
+    
+      <category term="colorama" scheme="http://answerrrrrrrrr.io/tags/colorama/"/>
+    
+  </entry>
   
   <entry>
     <title>python-magic has no attribute &#39;from_file&#39;</title>
@@ -439,9 +489,9 @@
       <category term="Flask" scheme="http://answerrrrrrrrr.io/categories/Flask/"/>
     
     
-      <category term="Flask" scheme="http://answerrrrrrrrr.io/tags/Flask/"/>
-    
       <category term="Flask-SQLAlchemy" scheme="http://answerrrrrrrrr.io/tags/Flask-SQLAlchemy/"/>
+    
+      <category term="Flask" scheme="http://answerrrrrrrrr.io/tags/Flask/"/>
     
       <category term="relationship" scheme="http://answerrrrrrrrr.io/tags/relationship/"/>
     
@@ -597,7 +647,7 @@
     
       <category term="UTF-8" scheme="http://answerrrrrrrrr.io/tags/UTF-8/"/>
     
-      <category term="Unicode" scheme="http://answerrrrrrrrr.io/tags/Unicode/"/>
+      <category term="ANSI" scheme="http://answerrrrrrrrr.io/tags/ANSI/"/>
     
       <category term="字符集" scheme="http://answerrrrrrrrr.io/tags/%E5%AD%97%E7%AC%A6%E9%9B%86/"/>
     
@@ -605,7 +655,7 @@
     
       <category term="ASCII" scheme="http://answerrrrrrrrr.io/tags/ASCII/"/>
     
-      <category term="ANSI" scheme="http://answerrrrrrrrr.io/tags/ANSI/"/>
+      <category term="Unicode" scheme="http://answerrrrrrrrr.io/tags/Unicode/"/>
     
   </entry>
   
@@ -837,7 +887,7 @@
 <p>然后是实例（参考<a href="https://segmentfault.com/q/1010000005111826/a-1020000005112829）" target="_blank" rel="external">https://segmentfault.com/q/1010000005111826/a-1020000005112829）</a></p>
 <figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line">s = <span class="string">'aB23'</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sorted_with_key</span><span class="params">(s, key)</span>:</span></span><br><span class="line">    s = sorted(s, key=key)</span><br><span class="line">    <span class="keyword">print</span> s</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'keys: '</span>,</span><br><span class="line">    <span class="keyword">print</span> [key(x) <span class="keyword">for</span> x <span class="keyword">in</span> s]</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> <span class="string">'\nstr.lower'</span></span><br><span class="line">sorted_with_key(s, str.lower)</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> <span class="string">'\nstr.islower'</span></span><br><span class="line">sorted_with_key(s, str.islower)</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> <span class="string">'\nlambda x: x.isdigit() and int(x) % 2 == 0'</span></span><br><span class="line">sorted_with_key(s, <span class="keyword">lambda</span> x: x.isdigit() <span class="keyword">and</span> int(x) % <span class="number">2</span> == <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> <span class="string">'\nlambda x: x.isdigit(), x.isdigit() and int(x) % 2==0, x.isupper(), x.islower(), x'</span></span><br><span class="line"><span class="comment"># 排序:小写-大写-奇数-偶数</span></span><br><span class="line">sorted_with_key(s, <span class="keyword">lambda</span> x: (x.isdigit(), x.isdigit() <span class="keyword">and</span> int(x) %</span><br><span class="line">                              <span class="number">2</span> == <span class="number">0</span>, x.isupper(), x.islower(), x))</span><br></pre></td></tr></table></figure>
 <p>output</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">str.lower</span><br><span class="line">[<span class="string">'2'</span>, <span class="string">'3'</span>, <span class="string">'a'</span>, <span class="string">'B'</span>]</span><br><span class="line">keys:  [<span class="string">'2'</span>, <span class="string">'3'</span>, <span class="string">'a'</span>, <span class="string">'b'</span>]</span><br><span class="line"></span><br><span class="line">str.islower</span><br><span class="line">[<span class="string">'B'</span>, <span class="string">'2'</span>, <span class="string">'3'</span>, <span class="string">'a'</span>]</span><br><span class="line">keys:  [<span class="keyword">False</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, <span class="keyword">True</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">lambda</span> x: x.isdigit() <span class="keyword">and</span> int(x) % <span class="number">2</span> == <span class="number">0</span></span><br><span class="line">[<span class="string">'a'</span>, <span class="string">'B'</span>, <span class="string">'3'</span>, <span class="string">'2'</span>]</span><br><span class="line">keys:  [<span class="keyword">False</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, <span class="keyword">True</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">lambda</span> x: (x.isdigit(), x.isdigit() <span class="keyword">and</span> int(x) % <span class="number">2</span>==<span class="number">0</span>, x.isupper(), x.islower(), x)</span><br><span class="line">[<span class="string">'a'</span>, <span class="string">'B'</span>, <span class="string">'3'</span>, <span class="string">'2'</span>]</span><br><span class="line">keys:  [(<span class="keyword">False</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, <span class="keyword">True</span>, <span class="string">'a'</span>), (<span class="keyword">False</span>, <span class="keyword">False</span>, <span class="keyword">True</span>, <span class="keyword">False</span>, <span class="string">'B'</span>), (<span class="keyword">True</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, <span class="string">'3'</span>), (<span class="keyword">True</span>, <span class="keyword">True</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, <span class="string">'2'</span>)]</span><br></pre></td></tr></table></figure>
+<figure class="highlight autoit"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">str.lower</span><br><span class="line">[<span class="string">'2'</span>, <span class="string">'3'</span>, <span class="string">'a'</span>, <span class="string">'B'</span>]</span><br><span class="line">keys:  [<span class="string">'2'</span>, <span class="string">'3'</span>, <span class="string">'a'</span>, <span class="string">'b'</span>]</span><br><span class="line"></span><br><span class="line">str.islower</span><br><span class="line">[<span class="string">'B'</span>, <span class="string">'2'</span>, <span class="string">'3'</span>, <span class="string">'a'</span>]</span><br><span class="line">keys:  [<span class="literal">False</span>, <span class="literal">False</span>, <span class="literal">False</span>, <span class="literal">True</span>]</span><br><span class="line"></span><br><span class="line">lambda x: x.isdigit() <span class="literal">and</span> <span class="built_in">int</span>(x) % <span class="number">2</span> == <span class="number">0</span></span><br><span class="line">[<span class="string">'a'</span>, <span class="string">'B'</span>, <span class="string">'3'</span>, <span class="string">'2'</span>]</span><br><span class="line">keys:  [<span class="literal">False</span>, <span class="literal">False</span>, <span class="literal">False</span>, <span class="literal">True</span>]</span><br><span class="line"></span><br><span class="line">lambda x: (x.isdigit(), x.isdigit() <span class="literal">and</span> <span class="built_in">int</span>(x) % <span class="number">2</span>==<span class="number">0</span>, x.isupper(), x.islower(), x)</span><br><span class="line">[<span class="string">'a'</span>, <span class="string">'B'</span>, <span class="string">'3'</span>, <span class="string">'2'</span>]</span><br><span class="line">keys:  [(<span class="literal">False</span>, <span class="literal">False</span>, <span class="literal">False</span>, <span class="literal">True</span>, <span class="string">'a'</span>), (<span class="literal">False</span>, <span class="literal">False</span>, <span class="literal">True</span>, <span class="literal">False</span>, <span class="string">'B'</span>), (<span class="literal">True</span>, <span class="literal">False</span>, <span class="literal">False</span>, <span class="literal">False</span>, <span class="string">'3'</span>), (<span class="literal">True</span>, <span class="literal">True</span>, <span class="literal">False</span>, <span class="literal">False</span>, <span class="string">'2'</span>)]</span><br></pre></td></tr></table></figure>
 <h1 id="2016-7-9-补充"><a href="#2016-7-9-补充" class="headerlink" title="2016.7.9 补充"></a>2016.7.9 补充</h1><p>今天看了 cookbook 5.2，Python 2.4 之前是不支持<code>key</code>的，书中提供了一个类似的思路，感觉对理解<code>key</code>的实现很有帮助，摘录如下：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">case_insensitive_sorted</span><span class="params">(string_list)</span>:</span></span><br><span class="line">    auxiliary_list = [(x.lower(), x) <span class="keyword">for</span> x <span class="keyword">in</span> string_list] <span class="comment"># decorate</span></span><br><span class="line">    auxiliary_list.sort()                                  <span class="comment"># sort</span></span><br><span class="line">    <span class="keyword">return</span> [x[<span class="number">1</span>] <span class="keyword">for</span> x <span class="keyword">in</span> auxiliary_list]                  <span class="comment"># undecorate</span></span><br></pre></td></tr></table></figure>]]></content>
     
@@ -906,63 +956,13 @@
       <category term="Flask" scheme="http://answerrrrrrrrr.io/categories/Flask/"/>
     
     
-      <category term="Flask-SQLAlchemy" scheme="http://answerrrrrrrrr.io/tags/Flask-SQLAlchemy/"/>
-    
       <category term="Python" scheme="http://answerrrrrrrrr.io/tags/Python/"/>
+    
+      <category term="Flask-SQLAlchemy" scheme="http://answerrrrrrrrr.io/tags/Flask-SQLAlchemy/"/>
     
       <category term="Alembic" scheme="http://answerrrrrrrrr.io/tags/Alembic/"/>
     
       <category term="Flask-Migrate" scheme="http://answerrrrrrrrr.io/tags/Flask-Migrate/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SohuSpider</title>
-    <link href="http://answerrrrrrrrr.io/2016/04/13/SohuSpider/"/>
-    <id>http://answerrrrrrrrr.io/2016/04/13/SohuSpider/</id>
-    <published>2016-04-13T07:55:31.000Z</published>
-    <updated>2016-07-06T14:06:33.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><blockquote>
-<p>请设计一个系统，自动完成对于手机搜狐(<a href="http://m.sohu.com/" target="_blank" rel="external">http://m.sohu.com/</a> )系统可靠性的检测。具体要求：  </p>
-<ol>
-<li>定时递归检测所有m.sohu.com域名的页面以及这些页面上的链接的可达性，即有没有出现不可访问情况。  </li>
-<li>m.sohu.com域名页面很多，从各个方面考虑性能优化。  </li>
-<li>对于错误的链接记录到日志中，日志包括：连接，时间，错误状态等。  </li>
-<li>考虑多线程的方式实现  </li>
-</ol>
-<p>要求：用Python实现，不使用爬取框架，一周内回复。</p>
-</blockquote>
-<h1 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h1><p>因为之前才刚刚写了一个爬虫，本以为里面的线程池拿来就能用<br>结果昨天晚上大致改了个雏形出来，发觉爬到5分钟必定卡死，改了一晚上都没有解决<br>一怒之下 Google 了一记。。。<br>搜出来两位可能是去年实习的仁兄的答案，其中一位也是用的线程池，才意识到问题应该不在这里<br>抬头一看12点了，还突然停水不能洗脚。。。草草刷个牙郁闷地滚去睡了</p>
-<p>今天学习了一下二位前辈的代码，彻底重写了一个，还是卡在5分钟，实在莫名其妙<br>Google 百度 各种改来改去无果，差点绝望了   </p>
-<p>后来想到，没头绪的缘由还是因为卡住的时候连个报错都没有，没有好的切入点<br>那我就多加点 logger 好了</p>
-<p>这才发现，5分钟的时候提取 URL 会出现大片的<code>None</code>，在这之前有个链接是 <a href="http://m.sohu.com/f/521204/?_once_=000067_ayy" target="_blank" rel="external">http://m.sohu.com/f/521204/?_once_=000067_ayy</a><br>手动打开的话会弹窗下载 搜狐新闻 apk<br>难道是因为这个原因导致 BeautifulSoup 提取不出来 href 了？</p>
-<p>另外有个意外发现。。。<br>这回看见卡住了之后没有急着顺手 kill 掉<br>结果居然等了几分钟就好了。。。跑得那叫一个顺畅。。。<br>我也不知道这算什么情况了。。。   </p>
-<p>把 crontab 的自动定时加上，这样大致算是完成了吧<br>明天再看看能做什么调整</p>
-<p>还有论文没看呢。。。</p>
-<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p><a href="https://github.com/answerrrrrrrrr/SohuSpider/blob/master/SohuSpider.py" target="_blank" rel="external">https://github.com/answerrrrrrrrr/SohuSpider/blob/master/SohuSpider.py</a></p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><a href="https://github.com/zhangity/sohu_crawled/blob/master/sohu1-5.py" target="_blank" rel="external">https://github.com/zhangity/sohu_crawled/blob/master/sohu1-5.py</a></li>
-<li><a href="https://github.com/lan2720/deadurl_detector/blob/master/crawl.py#L2" target="_blank" rel="external">https://github.com/lan2720/deadurl_detector/blob/master/crawl.py#L2</a></li>
-<li><a href="http://honglu.me/2014/09/20/OSX%E7%B3%BB%E7%BB%9F%E6%B7%BB%E5%8A%A0%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/" target="_blank" rel="external">http://honglu.me/2014/09/20/OSX%E7%B3%BB%E7%BB%9F%E6%B7%BB%E5%8A%A0%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/</a></li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;题目&quot;&gt;&lt;a href=&quot;#题目&quot; class=&quot;headerlink&quot; title=&quot;题目&quot;&gt;&lt;/a&gt;题目&lt;/h1&gt;&lt;blockquote&gt;
-&lt;p&gt;请设计一个系统，自动完成对于手机搜狐(&lt;a href=&quot;http://m.sohu.com/&quot; target=&quot;_
-    
-    </summary>
-    
-      <category term="Python" scheme="http://answerrrrrrrrr.io/categories/Python/"/>
-    
-    
-      <category term="Python" scheme="http://answerrrrrrrrr.io/tags/Python/"/>
-    
-      <category term="sohu" scheme="http://answerrrrrrrrr.io/tags/sohu/"/>
-    
-      <category term="Spider" scheme="http://answerrrrrrrrr.io/tags/Spider/"/>
     
   </entry>
   

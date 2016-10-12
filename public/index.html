@@ -216,6 +216,141 @@
             
               
                 
+                <a class="post-title-link" href="/2016/10/12/python-termcolor/" itemprop="url">
+                  Python 控制终端输出颜色 & ANSI 控制码
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-10-12T19:12:40+08:00" content="2016-10-12">
+              2016-10-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/12/python-termcolor/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/12/python-termcolor/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>今天知道了一个控制终端输出颜色的第三方库 termcolor，代码很简单：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"># coding: utf-8</span><br><span class="line"># Copyright (c) 2008-2011 Volvox Development Team</span><br><span class="line">#</span><br><span class="line"># Permission is hereby granted, free of charge, to any person obtaining a copy</span><br><span class="line"># of this software and associated documentation files (the "Software"), to deal</span><br><span class="line"># in the Software without restriction, including without limitation the rights</span><br><span class="line"># to <span class="keyword">use</span>, copy, <span class="keyword">modify</span>, <span class="keyword">merge</span>, publish, <span class="keyword">distribute</span>, sublicense, <span class="keyword">and</span>/<span class="keyword">or</span> sell</span><br><span class="line"># copies <span class="keyword">of</span> the Software, <span class="keyword">and</span> <span class="keyword">to</span> permit persons <span class="keyword">to</span> whom the Software <span class="keyword">is</span></span><br><span class="line"># furnished <span class="keyword">to</span> <span class="keyword">do</span> so, subject <span class="keyword">to</span> the <span class="keyword">following</span> conditions:</span><br><span class="line">#</span><br><span class="line"># The above copyright <span class="keyword">notice</span> <span class="keyword">and</span> this permission <span class="keyword">notice</span> shall be included <span class="keyword">in</span></span><br><span class="line"># all copies <span class="keyword">or</span> substantial portions <span class="keyword">of</span> the Software.</span><br><span class="line">#</span><br><span class="line"># THE SOFTWARE <span class="keyword">IS</span> PROVIDED <span class="string">"AS IS"</span>, <span class="keyword">WITHOUT</span> WARRANTY <span class="keyword">OF</span> <span class="keyword">ANY</span> KIND, EXPRESS <span class="keyword">OR</span></span><br><span class="line"># IMPLIED, <span class="keyword">INCLUDING</span> BUT <span class="keyword">NOT</span> LIMITED <span class="keyword">TO</span> THE WARRANTIES <span class="keyword">OF</span> MERCHANTABILITY,</span><br><span class="line"># FITNESS <span class="keyword">FOR</span> A PARTICULAR PURPOSE <span class="keyword">AND</span> NONINFRINGEMENT. <span class="keyword">IN</span> <span class="keyword">NO</span> <span class="keyword">EVENT</span> SHALL THE</span><br><span class="line"># <span class="keyword">AUTHORS</span> <span class="keyword">OR</span> COPYRIGHT HOLDERS BE LIABLE <span class="keyword">FOR</span> <span class="keyword">ANY</span> CLAIM, DAMAGES <span class="keyword">OR</span> OTHER</span><br><span class="line"># LIABILITY, WHETHER <span class="keyword">IN</span> AN <span class="keyword">ACTION</span> <span class="keyword">OF</span> CONTRACT, TORT <span class="keyword">OR</span> OTHERWISE, ARISING <span class="keyword">FROM</span>,</span><br><span class="line"># <span class="keyword">OUT</span> <span class="keyword">OF</span> <span class="keyword">OR</span> <span class="keyword">IN</span> <span class="keyword">CONNECTION</span> <span class="keyword">WITH</span> THE SOFTWARE <span class="keyword">OR</span> THE <span class="keyword">USE</span> <span class="keyword">OR</span> OTHER DEALINGS <span class="keyword">IN</span></span><br><span class="line"># THE SOFTWARE.</span><br><span class="line">#</span><br><span class="line"># Author: Konstantin Lepa &lt;konstantin.lepa@gmail.com&gt;</span><br><span class="line"></span><br><span class="line"><span class="string">"""ANSII Color formatting for output in terminal."""</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> print_function</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">__ALL__ = [ <span class="string">'colored'</span>, <span class="string">'cprint'</span> ]</span><br><span class="line"></span><br><span class="line"><span class="keyword">VERSION</span> = (<span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">ATTRIBUTES</span> = dict(</span><br><span class="line">        <span class="keyword">list</span>(zip([</span><br><span class="line">            <span class="string">'bold'</span>,</span><br><span class="line">            <span class="string">'dark'</span>,</span><br><span class="line">            <span class="string">''</span>,</span><br><span class="line">            <span class="string">'underline'</span>,</span><br><span class="line">            <span class="string">'blink'</span>,</span><br><span class="line">            <span class="string">''</span>,</span><br><span class="line">            <span class="string">'reverse'</span>,</span><br><span class="line">            <span class="string">'concealed'</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="keyword">list</span>(<span class="keyword">range</span>(<span class="number">1</span>, <span class="number">9</span>))</span><br><span class="line">            ))</span><br><span class="line">        )</span><br><span class="line">del <span class="keyword">ATTRIBUTES</span>[<span class="string">''</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">HIGHLIGHTS = dict(</span><br><span class="line">        <span class="keyword">list</span>(zip([</span><br><span class="line">            <span class="string">'on_grey'</span>,</span><br><span class="line">            <span class="string">'on_red'</span>,</span><br><span class="line">            <span class="string">'on_green'</span>,</span><br><span class="line">            <span class="string">'on_yellow'</span>,</span><br><span class="line">            <span class="string">'on_blue'</span>,</span><br><span class="line">            <span class="string">'on_magenta'</span>,</span><br><span class="line">            <span class="string">'on_cyan'</span>,</span><br><span class="line">            <span class="string">'on_white'</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="keyword">list</span>(<span class="keyword">range</span>(<span class="number">40</span>, <span class="number">48</span>))</span><br><span class="line">            ))</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">COLORS = dict(</span><br><span class="line">        <span class="keyword">list</span>(zip([</span><br><span class="line">            <span class="string">'grey'</span>,</span><br><span class="line">            <span class="string">'red'</span>,</span><br><span class="line">            <span class="string">'green'</span>,</span><br><span class="line">            <span class="string">'yellow'</span>,</span><br><span class="line">            <span class="string">'blue'</span>,</span><br><span class="line">            <span class="string">'magenta'</span>,</span><br><span class="line">            <span class="string">'cyan'</span>,</span><br><span class="line">            <span class="string">'white'</span>,</span><br><span class="line">            ],</span><br><span class="line">            <span class="keyword">list</span>(<span class="keyword">range</span>(<span class="number">30</span>, <span class="number">38</span>))</span><br><span class="line">            ))</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">RESET</span> = <span class="string">'\033[0m'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> colored(<span class="built_in">text</span>, color=<span class="keyword">None</span>, on_color=<span class="keyword">None</span>, attrs=<span class="keyword">None</span>):</span><br><span class="line">    <span class="string">"""Colorize text.</span><br><span class="line"></span><br><span class="line">    Available text colors:</span><br><span class="line">        red, green, yellow, blue, magenta, cyan, white.</span><br><span class="line"></span><br><span class="line">    Available text highlights:</span><br><span class="line">        on_red, on_green, on_yellow, on_blue, on_magenta, on_cyan, on_white.</span><br><span class="line"></span><br><span class="line">    Available attributes:</span><br><span class="line">        bold, dark, underline, blink, reverse, concealed.</span><br><span class="line"></span><br><span class="line">    Example:</span><br><span class="line">        colored('Hello, World!', 'red', 'on_grey', ['blue', 'blink'])</span><br><span class="line">        colored('Hello, World!', 'green')</span><br><span class="line">    """</span></span><br><span class="line">    <span class="keyword">if</span> os.getenv(<span class="string">'ANSI_COLORS_DISABLED'</span>) <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">        fmt_str = <span class="string">'\033[%dm%s'</span></span><br><span class="line">        <span class="keyword">if</span> color <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">            <span class="built_in">text</span> = fmt_str % (COLORS[color], <span class="built_in">text</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> on_color <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">            <span class="built_in">text</span> = fmt_str % (HIGHLIGHTS[on_color], <span class="built_in">text</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> attrs <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">            <span class="keyword">for</span> <span class="keyword">attr</span> <span class="keyword">in</span> attrs:</span><br><span class="line">                <span class="built_in">text</span> = fmt_str % (<span class="keyword">ATTRIBUTES</span>[<span class="keyword">attr</span>], <span class="built_in">text</span>)</span><br><span class="line"></span><br><span class="line">        <span class="built_in">text</span> += <span class="keyword">RESET</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">text</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> cprint(<span class="built_in">text</span>, color=<span class="keyword">None</span>, on_color=<span class="keyword">None</span>, attrs=<span class="keyword">None</span>, **kwargs):</span><br><span class="line">    <span class="string">"""Print colorize text.</span><br><span class="line"></span><br><span class="line">    It accepts arguments of print function.</span><br><span class="line">    """</span></span><br><span class="line"></span><br><span class="line">    print((colored(<span class="built_in">text</span>, color, on_color, attrs)), **kwargs)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    print(<span class="string">'Current terminal type: %s'</span> % os.getenv(<span class="string">'TERM'</span>))</span><br><span class="line">    print(<span class="string">'Test basic colors:'</span>)</span><br><span class="line">    cprint(<span class="string">'Grey color'</span>, <span class="string">'grey'</span>)</span><br><span class="line">    cprint(<span class="string">'Red color'</span>, <span class="string">'red'</span>)</span><br><span class="line">    cprint(<span class="string">'Green color'</span>, <span class="string">'green'</span>)</span><br><span class="line">    cprint(<span class="string">'Yellow color'</span>, <span class="string">'yellow'</span>)</span><br><span class="line">    cprint(<span class="string">'Blue color'</span>, <span class="string">'blue'</span>)</span><br><span class="line">    cprint(<span class="string">'Magenta color'</span>, <span class="string">'magenta'</span>)</span><br><span class="line">    cprint(<span class="string">'Cyan color'</span>, <span class="string">'cyan'</span>)</span><br><span class="line">    cprint(<span class="string">'White color'</span>, <span class="string">'white'</span>)</span><br><span class="line">    print((<span class="string">'-'</span> * <span class="number">78</span>))</span><br><span class="line"></span><br><span class="line">    print(<span class="string">'Test highlights:'</span>)</span><br><span class="line">    cprint(<span class="string">'On grey color'</span>, on_color=<span class="string">'on_grey'</span>)</span><br><span class="line">    cprint(<span class="string">'On red color'</span>, on_color=<span class="string">'on_red'</span>)</span><br><span class="line">    cprint(<span class="string">'On green color'</span>, on_color=<span class="string">'on_green'</span>)</span><br><span class="line">    cprint(<span class="string">'On yellow color'</span>, on_color=<span class="string">'on_yellow'</span>)</span><br><span class="line">    cprint(<span class="string">'On blue color'</span>, on_color=<span class="string">'on_blue'</span>)</span><br><span class="line">    cprint(<span class="string">'On magenta color'</span>, on_color=<span class="string">'on_magenta'</span>)</span><br><span class="line">    cprint(<span class="string">'On cyan color'</span>, on_color=<span class="string">'on_cyan'</span>)</span><br><span class="line">    cprint(<span class="string">'On white color'</span>, color=<span class="string">'grey'</span>, on_color=<span class="string">'on_white'</span>)</span><br><span class="line">    print(<span class="string">'-'</span> * <span class="number">78</span>)</span><br><span class="line"></span><br><span class="line">    print(<span class="string">'Test attributes:'</span>)</span><br><span class="line">    cprint(<span class="string">'Bold grey color'</span>, <span class="string">'grey'</span>, attrs=[<span class="string">'bold'</span>])</span><br><span class="line">    cprint(<span class="string">'Dark red color'</span>, <span class="string">'red'</span>, attrs=[<span class="string">'dark'</span>])</span><br><span class="line">    cprint(<span class="string">'Underline green color'</span>, <span class="string">'green'</span>, attrs=[<span class="string">'underline'</span>])</span><br><span class="line">    cprint(<span class="string">'Blink yellow color'</span>, <span class="string">'yellow'</span>, attrs=[<span class="string">'blink'</span>])</span><br><span class="line">    cprint(<span class="string">'Reversed blue color'</span>, <span class="string">'blue'</span>, attrs=[<span class="string">'reverse'</span>])</span><br><span class="line">    cprint(<span class="string">'Concealed Magenta color'</span>, <span class="string">'magenta'</span>, attrs=[<span class="string">'concealed'</span>])</span><br><span class="line">    cprint(<span class="string">'Bold underline reverse cyan color'</span>, <span class="string">'cyan'</span>,</span><br><span class="line">            attrs=[<span class="string">'bold'</span>, <span class="string">'underline'</span>, <span class="string">'reverse'</span>])</span><br><span class="line">    cprint(<span class="string">'Dark blink concealed white color'</span>, <span class="string">'white'</span>,</span><br><span class="line">            attrs=[<span class="string">'dark'</span>, <span class="string">'blink'</span>, <span class="string">'concealed'</span>])</span><br><span class="line">    print((<span class="string">'-'</span> * <span class="number">78</span>))</span><br><span class="line"></span><br><span class="line">    print(<span class="string">'Test mixing:'</span>)</span><br><span class="line">    cprint(<span class="string">'Underline red on grey color'</span>, <span class="string">'red'</span>, <span class="string">'on_grey'</span>,</span><br><span class="line">            [<span class="string">'underline'</span>])</span><br><span class="line">    cprint(<span class="string">'Reversed green on red color'</span>, <span class="string">'green'</span>, <span class="string">'on_red'</span>, [<span class="string">'reverse'</span>])</span><br></pre></td></tr></table></figure>
+<p>不过它不支持 Windows，另外有一个复杂一些但是全平台通用的 colorama，见 <a href="http://stackoverflow.com/questions/21858567/why-termcolor-doesnt-work-in-python" target="_blank" rel="external">http://stackoverflow.com/questions/21858567/why-termcolor-doesnt-work-in-python</a></p>
+<p>代码中设置颜色的部分有点费解，查阅其用到的知识点如下</p>
+<h1 id="ANSI-控制码"><a href="#ANSI-控制码" class="headerlink" title="ANSI 控制码"></a>ANSI 控制码</h1><p>ANSI 控制码即控制序列（Control Sequence）。大多数终端模拟器（Unix，Linux，Windows）都支持 ANSI 控制码。ANSI 控制码以 ESC 字符（ASCII 27/0x1b/033）开头，分为两类：</p>
+<ul>
+<li>非 CSI 序列<br>  双字符控制码，格式为<code>ESC``字符</code>，第二个字符的范围是 ASCII 64~95 (‘@’~’_’) </li>
+<li>CSI 序列<br>  多于两个字符，格式为<code>ESC[``其余字符</code></li>
+</ul>
+<p>常用序列表可见 <a href="https://en.wikipedia.org/wiki/ANSI_escape_code" target="_blank" rel="external">https://en.wikipedia.org/wiki/ANSI_escape_code</a></p>
+<h1 id="颜色控制"><a href="#颜色控制" class="headerlink" title="颜色控制"></a>颜色控制</h1><p>其中设定终端文本颜色的序列格式为<code>ESC[``编号``;编号``m</code>    </p>
+<p>颜色分为字体色（前景色）和背景色，30~37用来设置字体色，40~47设置背景色，其他常用控制码：</p>
+<ul>
+<li>\033[0m   重置所有属性   </li>
+<li>\033[1m   设置高亮度   </li>
+<li>\033[4m   下划线   </li>
+<li>\033[5m   闪烁   </li>
+<li>\033[7m   反色   </li>
+</ul>
+<h1 id="用例"><a href="#用例" class="headerlink" title="用例"></a>用例</h1><p><code>\033[1;31;40m</code><br>1-高亮显示，31-前景色红色，40-背景色黑色</p>
+<p><code>\033[0m</code><br>重置，即恢复默认设置</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/10/11/python-magic/" itemprop="url">
                   python-magic has no attribute 'from_file'
                 </a>
@@ -1410,130 +1545,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/28/hexo-rss-sitemap/" itemprop="url">
-                  hexo-rss-sitemap
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-07-28T10:42:46+08:00" content="2016-07-28">
-              2016-07-28
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">hexo</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/28/hexo-rss-sitemap/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/28/hexo-rss-sitemap/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>今天突然发现没给博客添加<code>RSS</code>订阅和<code>sitemap</code>（站点地图，方便搜索引擎的收录）<br>尝试了一下发觉还挺方便的   </p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">npm <span class="keyword">install</span> hexo-generator-feed <span class="comment">--save</span></span><br><span class="line">npm <span class="keyword">install</span> hexo-generator-baidu-sitemap <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
-<p>这里一定要加上<code>--save</code>，否则无法<code>generate</code>对应的 xml</p>
-<p>然后在根目录的<code>_config.xml</code>加入</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"># RSS &amp; sitemap</span><br><span class="line"># Extensions</span><br><span class="line">Plugins:</span><br><span class="line">- hexo-generator-feed</span><br><span class="line">- hexo-generator-sitemap</span><br><span class="line"></span><br><span class="line"># Feed Atom</span><br><span class="line">feed:</span><br><span class="line">  type: atom</span><br><span class="line">  path: atom.xml</span><br><span class="line">  limit: 20</span><br><span class="line"></span><br><span class="line"># sitemap</span><br><span class="line">sitemap:</span><br><span class="line">  path: sitemap.xml</span><br></pre></td></tr></table></figure>
-<p>然后<code>hexo g</code>即可生成对应 xml</p>
-<blockquote>
-<p>INFO  Start processing<br>INFO  Files loaded in 650 ms<br>INFO  Generated: atom.xml<br>INFO  Generated: sitemap.xml<br>INFO  2 files generated in 2.47 s</p>
-</blockquote>
-<p>这时访问对应路径即可验证，另外边栏也可以看见<code>RSS</code>图标了</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1579,7 +1590,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">39</span>
+              <span class="site-state-item-count">40</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1587,7 +1598,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -1596,7 +1607,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">82</span>
+                <span class="site-state-item-count">84</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

@@ -216,6 +216,132 @@
             
               
                 
+                <a class="post-title-link" href="/2016/03/10/capstone/" itemprop="url">
+                  ropgadget capstone
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-03-10T15:41:52+08:00" content="2016-03-10">
+              2016-03-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/rop/" itemprop="url" rel="index">
+                    <span itemprop="name">rop</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/03/10/capstone/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/10/capstone/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="import-error"><a href="#import-error" class="headerlink" title="import error"></a>import error</h1><p><a href="https://github.com/aquynh/capstone" target="_blank" rel="external">capstone</a>是一个著名的反汇编框架<br><a href="https://github.com/JonathanSalwan/ROPgadget" target="_blank" rel="external">ropgadget</a>会用到</p>
+<p>但是每次<code>pip install ropgadget</code>之后都会报错<br><code>import error:ERROR: fail to load the dynamic library.</code></p>
+<blockquote>
+<p>2016.5.10 补充：ropgadget 里的依赖的 capstone 版本为2.1，而目前最新版本为3.0.4，pip更新 ropgadget 后会降级。。。需<code>pip install -U capstone</code></p>
+</blockquote>
+<p>原因在于所需的动态库文件libcapstone.dylib没有位于capstone主目录<br>所以找到libcapstone.dylib并拷贝一个就可以了</p>
+<p>有两种方法</p>
+<h2 id="sudo-find-name-‘libcapstone-’"><a href="#sudo-find-name-‘libcapstone-’" class="headerlink" title="sudo find / -name ‘libcapstone.*’"></a>sudo find / -name ‘libcapstone.*’</h2><p>原来作者把动态库写在了这么一个奇葩的地址<br><code>/usr/local/lib/python2.7/site-packages/usr/local/Cellar/python/2.7.11/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/capstone/libcapstone.dylib</code><br>大概是写掉了一个<code>/</code>吧，参考 <a href="https://github.com/aquynh/capstone/pull/406" target="_blank" rel="external">https://github.com/aquynh/capstone/pull/406</a></p>
+<h2 id="pip-uninstall-capstone"><a href="#pip-uninstall-capstone" class="headerlink" title="pip uninstall capstone"></a>pip uninstall capstone</h2><p>这个方法略显鸡贼，但更快一点<br>可以发现列出了所有与capstone相关的文件<br>其中最后一个就是要找的libcapstone.dylib</p>
+<h1 id="then"><a href="#then" class="headerlink" title="then"></a>then</h1><figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">$ cp <span class="regexp">/usr/</span>local<span class="regexp">/lib/</span>python2.<span class="number">7</span><span class="regexp">/site-packages/u</span>sr<span class="regexp">/local/</span>Cellar<span class="regexp">/python/</span><span class="number">2.7</span>.<span class="number">11</span><span class="regexp">/Frameworks/</span>Python.framework<span class="regexp">/Versions/</span><span class="number">2.7</span><span class="regexp">/lib/</span>python2.<span class="number">7</span><span class="regexp">/site-packages/</span>capstone<span class="regexp">/libcapstone.dylib /u</span>sr<span class="regexp">/local/</span>lib<span class="regexp">/python2.7/</span>site-packages<span class="regexp">/capstone/</span>libcapstone.dylib</span><br><span class="line">$ ropgadget</span><br><span class="line">Need a binary filename (--binary<span class="regexp">/--console or --help)</span></span><br></pre></td></tr></table></figure>
+<p>已经可以正常使用了</p>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><p>在kali rolling里试了一下<br>第二种方法行不通<br>只能用find<br>可以找到一个<code>/usr/lib/libcapstone.so.3</code><br>然后<br><code>cp /usr/lib/libcapstone.so.3 /usr/local/lib/python2.7/dist-packages/capstone/libcapstone.dylib</code><br>解决</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/03/09/hexo-scripts/" itemprop="url">
                   hexo-scripts
                 </a>
@@ -1352,7 +1478,7 @@ set background=light
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">39</span>
+              <span class="site-state-item-count">40</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1360,7 +1486,7 @@ set background=light
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -1369,7 +1495,7 @@ set background=light
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">82</span>
+                <span class="site-state-item-count">84</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
