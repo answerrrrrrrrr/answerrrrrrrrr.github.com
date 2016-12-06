@@ -216,6 +216,127 @@
             
               
                 
+                <a class="post-title-link" href="/2016/11/30/keystone/" itemprop="url">
+                  keystone
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-11-30T15:37:27+08:00" content="2016-11-30">
+              2016-11-30
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/rop/" itemprop="url" rel="index">
+                    <span itemprop="name">rop</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/30/keystone/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/30/keystone/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Python 的反汇编框架很多，尤其是 capstone 非常好用<br>但是将常见汇编语句汇编成对应机器码的框架居然一直没找到<br>难道没有其他懒得记机器码的人了吗╮(╯_╰)╭</p>
+<p>今天突然发现 capstone 的作者似乎居然早就听到了我的心声<br>在上半年就发布了一个汇编框架 <a href="http://www.keystone-engine.org/" target="_blank" rel="external">keystone</a><br><code>pip install keystone-engine</code> 就可以安装，用法和 capstone 非常相似<br>甚至连毛病也一样，把动态库放到正确的位置才能正常使用…</p>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">cp <span class="regexp">/usr/</span>local<span class="regexp">/lib/</span>python2.<span class="number">7</span><span class="regexp">/site-packages/u</span>sr<span class="regexp">/local/</span>Cellar<span class="regexp">/python/</span><span class="number">2.7</span>.<span class="number">12</span>_1<span class="regexp">/Frameworks/</span>Python.framework<span class="regexp">/Versions/</span><span class="number">2.7</span><span class="regexp">/lib/</span>python2.<span class="number">7</span><span class="regexp">/site-packages/</span>keystone<span class="regexp">/libkeystone.dylib /u</span>sr<span class="regexp">/local/</span>lib<span class="regexp">/python2.7/</span>site-packages<span class="regexp">/keystone/</span>libkeystone.dylib</span><br></pre></td></tr></table></figure>
+<p>使用起来非常简单</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> print_function</span><br><span class="line"><span class="keyword">from</span> keystone <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ks_asm</span><span class="params">(code, arch=KS_ARCH_X86, mode=KS_MODE_64, syntax=<span class="number">0</span>)</span>:</span></span><br><span class="line">    ks = Ks(arch, mode)</span><br><span class="line">    <span class="keyword">if</span> syntax != <span class="number">0</span>:</span><br><span class="line">        ks.syntax = syntax</span><br><span class="line"></span><br><span class="line">    encoding, count = ks.asm(code)</span><br><span class="line">    <span class="comment"># print(encoding)</span></span><br><span class="line"></span><br><span class="line">    print(<span class="string">'&#123;&#125; = '</span>.format(code), end=<span class="string">''</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> encoding:</span><br><span class="line">        print(<span class="string">'&#123;:02x&#125; '</span>.format(i), end=<span class="string">''</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">code = <span class="string">'mov rax, rsp; syscall; nop; pop rbx; ret'</span></span><br><span class="line">ks_asm(code)</span><br><span class="line"><span class="comment"># mov rax, rsp; syscall; nop; pop rbx; ret = 48 89 e0 0f 05 90 5b c3</span></span><br></pre></td></tr></table></figure>
+<p>另外官方用例：<a href="https://github.com/keystone-engine/keystone/blob/master/bindings/python/sample.py" target="_blank" rel="external">https://github.com/keystone-engine/keystone/blob/master/bindings/python/sample.py</a></p>
+<p>简直爱死这个作者了 -0-<br>另外发现他还有一个 CPU emulator 框架 <a href="http://www.unicorn-engine.org/docs/tutorial.html" target="_blank" rel="external">Unicorn</a><br>有时间了可以学习下</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/10/12/python-termcolor/" itemprop="url">
                   Python 控制终端输出颜色 & ANSI 控制码
                 </a>
@@ -1420,136 +1541,11 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/16/Flask-relationship-backref/" itemprop="url">
-                  Flask-SQLAlchemy 中的 relationship & backref
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-08-16T14:29:07+08:00" content="2016-08-16">
-              2016-08-16
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Flask/" itemprop="url" rel="index">
-                    <span itemprop="name">Flask</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/08/16/Flask-relationship-backref/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/16/Flask-relationship-backref/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>今天重看 Flask 时，发现对<code>backref</code>仍然没有理解透彻。查阅<a href="http://flask-sqlalchemy.pocoo.org/2.1/models/" target="_blank" rel="external">文档</a>后发现，以前试图孤立地理解<code>backref</code>是问题之源，<code>backref</code>是与<code>relationship</code>配合使用的。</p>
-<h1 id="一对多关系"><a href="#一对多关系" class="headerlink" title="一对多关系"></a>一对多关系</h1><p><code>db.relationship()</code>用于在两个表之间建立<code>一对多关系</code>。例如书中 roles 表中一个 User 角色，可以对应 users 表中多个实际的普通用户。实现这种关系时，要在“多”这一侧加入一个外键，指向“一”这一侧联接的记录。</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Role</span><span class="params">(db.Model)</span>:</span></span><br><span class="line">	<span class="comment"># ...</span></span><br><span class="line">	users = db.relationship(<span class="string">'User'</span>, backref=<span class="string">'role'</span>)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span><span class="params">(db.Model)</span>:</span></span><br><span class="line">	<span class="comment"># ...</span></span><br><span class="line">	role_id = db.Column(db.Integer, db.ForeignKey(<span class="string">'roles.id'</span>))</span><br></pre></td></tr></table></figure>
-<h2 id="relationship-amp-ForeighKey"><a href="#relationship-amp-ForeighKey" class="headerlink" title="relationship &amp; ForeighKey"></a>relationship &amp; ForeighKey</h2><p>大多数情况下, db.relationship() 都能自行找到关系中的外键, 但有时却无法决定把 哪一列作为外键。 例如, 如果 User 模型中有两个或以上的列定义为 Role 模型的外键, SQLAlchemy 就不知道该使用哪列。如果无法决定外键,你就要为 db.relationship() 提供额外参数,从而确定所用外键。（见书 P49）</p>
-<h2 id="relationship-amp-backref"><a href="#relationship-amp-backref" class="headerlink" title="relationship &amp; backref"></a>relationship &amp; backref</h2><p>通过<code>db.relationship()</code>，Role 模型有了一个可以获得对应角色所有用户的属性<code>users</code>。默认是列表形式，<code>lazy=&#39;dynamic&#39;</code>时返回的是一个 query 对象。即<code>relationship</code>提供了 Role 对 User 的访问。</p>
-<p>而<code>backref</code>正好相反，提供了 User 对 Role 的访问。</p>
-<p>不妨设一个 Role 实例为 <code>user_role</code>，一个 User 实例为 <code>u</code>。relationship 使 <code>user_role.users</code> 可以访问所有符合角色的用户，而 backref 使 <code>u.role</code> 可以获得用户对应的角色。</p>
-<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$ p manage.py shell</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>user_role = Role.query.filter_by(name=<span class="string">'User'</span>).all()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>user_role</span><br><span class="line">[&lt;Role <span class="string">u'User'</span>&gt;]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>user_role = Role.query.filter_by(name=<span class="string">'User'</span>).first()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>user_role</span><br><span class="line">&lt;Role <span class="string">u'User'</span>&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>user_role.users</span><br><span class="line">&lt;sqlalchemy.orm.dynamic.AppenderBaseQuery object at <span class="number">0x1087c1050</span>&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>user_role.users.order_by(User.username).all()</span><br><span class="line">[&lt;User <span class="string">u'alice78'</span>&gt;, &lt;User <span class="string">u'andrea86'</span>&gt;, &lt;User <span class="string">u'hmr'</span>&gt;]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Role.query.all()</span><br><span class="line">[&lt;Role <span class="string">u'Moderator'</span>&gt;, &lt;Role <span class="string">u'Administrator'</span>&gt;, &lt;Role <span class="string">u'User'</span>&gt;]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>user_role.users.count()</span><br><span class="line"><span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>u = User.query.filter_by(username=<span class="string">'hmr'</span>).first()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>u</span><br><span class="line">&lt;User <span class="string">u'hmr'</span>&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>u.role</span><br><span class="line">&lt;Role <span class="string">u'User'</span>&gt;</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
-<h1 id="一对一关系"><a href="#一对一关系" class="headerlink" title="一对一关系"></a>一对一关系</h1><p>除了一对多之外, 还有几种其他的关系类型。一对一关系可以用前面介绍的一对多关系表示, 但调用 db.relationship() 时要把 uselist 设为 False , 把“多”变成“一”。 </p>
-<h1 id="多对多关系"><a href="#多对多关系" class="headerlink" title="多对多关系"></a>多对多关系</h1><p><code>多对多关系</code>在书 P131 讲得很清楚。</p>
-<p>在 P134 的实际例子中，使用两个一对多关系实现多对多关系。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1590,7 +1586,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">40</span>
+              <span class="site-state-item-count">41</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1607,7 +1603,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">84</span>
+                <span class="site-state-item-count">87</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
