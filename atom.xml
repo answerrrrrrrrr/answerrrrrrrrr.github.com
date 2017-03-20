@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://answerrrrrrrrr.io/"/>
-  <updated>2017-03-20T06:23:37.000Z</updated>
+  <updated>2017-03-20T06:28:18.000Z</updated>
   <id>http://answerrrrrrrrr.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://answerrrrrrrrr.io/2017/03/16/Linux%E7%A8%8B%E5%BA%8F%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B/"/>
     <id>http://answerrrrrrrrr.io/2017/03/16/Linux程序启动过程/</id>
     <published>2017-03-16T07:37:27.000Z</published>
-    <updated>2017-03-20T06:23:37.000Z</updated>
+    <updated>2017-03-20T06:28:18.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Linux-x86-elf-程序启动过程"><a href="#Linux-x86-elf-程序启动过程" class="headerlink" title="Linux x86 elf 程序启动过程"></a>Linux x86 elf 程序启动过程</h1><p>Kali rolling x86-64 环境，默认动态链接<br>参考 32 位： <a href="http://dbp-consulting.com/tutorials/debugging/linuxProgramStartup.html" target="_blank" rel="external">http://dbp-consulting.com/tutorials/debugging/linuxProgramStartup.html</a> </p>
 <p>流程图如下：</p>
@@ -55,7 +55,7 @@
 <p><code>__libc_start_main</code>定义如下：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">int __libc_start_main(  </div><div class="line">    int (*main) (int, char * *, char * *),</div><div class="line">    int argc, </div><div class="line">    char * * ubp_av,</div><div class="line">    void (*init) (void),</div><div class="line">    void (*fini) (void),</div><div class="line">    void (*rtld_fini) (void),</div><div class="line">    void (* stack_end)</div><div class="line"> );</div></pre></td></tr></table></figure>
 <p><code>main</code>的完整参数调用应该是<code>int main(int argc, char** argv, char** envp)</code>, 但是<code>__libc_start_main</code>中却并不包含 envp</p>
-<p>使用 gdb 调试 prog1, 在<code>_start</code>处下断点, 运行初始状态如下:<br><img src="/2017/03/16/Linux程序启动过程/" alt="_start"><br>可以看到从栈顶向栈底依次放置的是: argc, argv, 0x0, 环境变量. 可见 envp 其实可以由 argc 和 argv 计算得到</p>
+<p>使用 gdb 调试 prog1, 在<code>_start</code>处下断点, 运行初始状态如下:<br><img src="/2017/03/16/Linux程序启动过程/_start.png" alt="_start"><br>可以看到从栈顶向栈底依次放置的是: argc, argv, 0x0, 环境变量. 可见 envp 其实可以由 argc 和 argv 计算得到</p>
 
 
 
