@@ -284,7 +284,7 @@
       
         <p>这两天在 Coursera 上学习 Bootstrap<br>第四周的作业是把非 JavaScript 实现的 Modal 改成用 JavaScript 实现（<a href="https://www.coursera.org/learn/web-frameworks/peer/jAXUU/assignment-4-detailed-instructions-and-submission）" target="_blank" rel="external">https://www.coursera.org/learn/web-frameworks/peer/jAXUU/assignment-4-detailed-instructions-and-submission）</a>   </p>
 <p>按照 <a href="http://getbootstrap.com/javascript/#modals-methods" target="_blank" rel="external">http://getbootstrap.com/javascript/#modals-methods</a> 找到了解决方案：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    $(<span class="string">'#reserveButton'</span>).on(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        $(<span class="string">'#reserveModal'</span>).modal(<span class="string">'toggle'</span>);</span><br><span class="line">    &#125;);</span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">    $(<span class="string">'#reserveButton'</span>).on(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        $(<span class="string">'#reserveModal'</span>).modal(<span class="string">'toggle'</span>);</div><div class="line">    &#125;);</div><div class="line"><span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></div></pre></td></tr></table></figure>
 <p>作业是解决了，但是发现一个小问题：不管我怎么改<code>keyboard</code>属性，都不能用<code>esc</code>关闭<code>modal</code></p>
 <p>搜了一下得知：在<code>modal</code>所在<code>div</code>中加入<code>tabindex=&quot;-1&quot;</code>属性即可<br>那么问题又来了…这个<code>tabindex=&quot;-1&quot;</code>是什么鬼…   </p>
 <p>搜索加测试了一下之后终于搞清楚了<br><code>tabindex</code>用来帮助键盘党使用<code>tab</code>键定位网页元素，按其值由小到大跳转，默认是 0<br>如果值相等，则按先后顺序跳转</p>
@@ -408,7 +408,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">41</span>
+              <span class="site-state-item-count">42</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -416,7 +416,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -425,7 +425,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">87</span>
+                <span class="site-state-item-count">94</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -487,7 +487,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2016</span>
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
