@@ -284,12 +284,12 @@
       
         <p>今天重看 Flask 时，发现对<code>backref</code>仍然没有理解透彻。查阅<a href="http://flask-sqlalchemy.pocoo.org/2.1/models/" target="_blank" rel="external">文档</a>后发现，以前试图孤立地理解<code>backref</code>是问题之源，<code>backref</code>是与<code>relationship</code>配合使用的。</p>
 <h1 id="一对多关系"><a href="#一对多关系" class="headerlink" title="一对多关系"></a>一对多关系</h1><p><code>db.relationship()</code>用于在两个表之间建立<code>一对多关系</code>。例如书中 roles 表中一个 User 角色，可以对应 users 表中多个实际的普通用户。实现这种关系时，要在“多”这一侧加入一个外键，指向“一”这一侧联接的记录。</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Role</span><span class="params">(db.Model)</span>:</span></span><br><span class="line">	<span class="comment"># ...</span></span><br><span class="line">	users = db.relationship(<span class="string">'User'</span>, backref=<span class="string">'role'</span>)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span><span class="params">(db.Model)</span>:</span></span><br><span class="line">	<span class="comment"># ...</span></span><br><span class="line">	role_id = db.Column(db.Integer, db.ForeignKey(<span class="string">'roles.id'</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight py"><table><tr><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Role</span><span class="params">(db.Model)</span>:</span></div><div class="line">	<span class="comment"># ...</span></div><div class="line">	users = db.relationship(<span class="string">'User'</span>, backref=<span class="string">'role'</span>)</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span><span class="params">(db.Model)</span>:</span></div><div class="line">	<span class="comment"># ...</span></div><div class="line">	role_id = db.Column(db.Integer, db.ForeignKey(<span class="string">'roles.id'</span>))</div></pre></td></tr></table></figure>
 <h2 id="relationship-amp-ForeighKey"><a href="#relationship-amp-ForeighKey" class="headerlink" title="relationship &amp; ForeighKey"></a>relationship &amp; ForeighKey</h2><p>大多数情况下, db.relationship() 都能自行找到关系中的外键, 但有时却无法决定把 哪一列作为外键。 例如, 如果 User 模型中有两个或以上的列定义为 Role 模型的外键, SQLAlchemy 就不知道该使用哪列。如果无法决定外键,你就要为 db.relationship() 提供额外参数,从而确定所用外键。（见书 P49）</p>
 <h2 id="relationship-amp-backref"><a href="#relationship-amp-backref" class="headerlink" title="relationship &amp; backref"></a>relationship &amp; backref</h2><p>通过<code>db.relationship()</code>，Role 模型有了一个可以获得对应角色所有用户的属性<code>users</code>。默认是列表形式，<code>lazy=&#39;dynamic&#39;</code>时返回的是一个 query 对象。即<code>relationship</code>提供了 Role 对 User 的访问。</p>
 <p>而<code>backref</code>正好相反，提供了 User 对 Role 的访问。</p>
 <p>不妨设一个 Role 实例为 <code>user_role</code>，一个 User 实例为 <code>u</code>。relationship 使 <code>user_role.users</code> 可以访问所有符合角色的用户，而 backref 使 <code>u.role</code> 可以获得用户对应的角色。</p>
-<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$ p manage.py shell</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>user_role = Role.query.filter_by(name=<span class="string">'User'</span>).all()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>user_role</span><br><span class="line">[&lt;Role <span class="string">u'User'</span>&gt;]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>user_role = Role.query.filter_by(name=<span class="string">'User'</span>).first()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>user_role</span><br><span class="line">&lt;Role <span class="string">u'User'</span>&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>user_role.users</span><br><span class="line">&lt;sqlalchemy.orm.dynamic.AppenderBaseQuery object at <span class="number">0x1087c1050</span>&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>user_role.users.order_by(User.username).all()</span><br><span class="line">[&lt;User <span class="string">u'alice78'</span>&gt;, &lt;User <span class="string">u'andrea86'</span>&gt;, &lt;User <span class="string">u'hmr'</span>&gt;]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Role.query.all()</span><br><span class="line">[&lt;Role <span class="string">u'Moderator'</span>&gt;, &lt;Role <span class="string">u'Administrator'</span>&gt;, &lt;Role <span class="string">u'User'</span>&gt;]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>user_role.users.count()</span><br><span class="line"><span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>u = User.query.filter_by(username=<span class="string">'hmr'</span>).first()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>u</span><br><span class="line">&lt;User <span class="string">u'hmr'</span>&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>u.role</span><br><span class="line">&lt;Role <span class="string">u'User'</span>&gt;</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">$ p manage.py shell</div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>user_role = Role.query.filter_by(name=<span class="string">'User'</span>).all()</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>user_role</div><div class="line">[&lt;Role <span class="string">u'User'</span>&gt;]</div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>user_role = Role.query.filter_by(name=<span class="string">'User'</span>).first()</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>user_role</div><div class="line">&lt;Role <span class="string">u'User'</span>&gt;</div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>user_role.users</div><div class="line">&lt;sqlalchemy.orm.dynamic.AppenderBaseQuery object at <span class="number">0x1087c1050</span>&gt;</div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>user_role.users.order_by(User.username).all()</div><div class="line">[&lt;User <span class="string">u'alice78'</span>&gt;, &lt;User <span class="string">u'andrea86'</span>&gt;, &lt;User <span class="string">u'hmr'</span>&gt;]</div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>Role.query.all()</div><div class="line">[&lt;Role <span class="string">u'Moderator'</span>&gt;, &lt;Role <span class="string">u'Administrator'</span>&gt;, &lt;Role <span class="string">u'User'</span>&gt;]</div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>user_role.users.count()</div><div class="line"><span class="number">3</span></div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>u = User.query.filter_by(username=<span class="string">'hmr'</span>).first()</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>u</div><div class="line">&lt;User <span class="string">u'hmr'</span>&gt;</div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>u.role</div><div class="line">&lt;Role <span class="string">u'User'</span>&gt;</div><div class="line">&gt;&gt;&gt;</div></pre></td></tr></table></figure>
 <h1 id="一对一关系"><a href="#一对一关系" class="headerlink" title="一对一关系"></a>一对一关系</h1><p>除了一对多之外, 还有几种其他的关系类型。一对一关系可以用前面介绍的一对多关系表示, 但调用 db.relationship() 时要把 uselist 设为 False , 把“多”变成“一”。 </p>
 <h1 id="多对多关系"><a href="#多对多关系" class="headerlink" title="多对多关系"></a>多对多关系</h1><p><code>多对多关系</code>在书 P131 讲得很清楚。</p>
 <p>在 P134 的实际例子中，使用两个一对多关系实现多对多关系。</p>
@@ -404,7 +404,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">41</span>
+              <span class="site-state-item-count">42</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -412,7 +412,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -421,7 +421,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">87</span>
+                <span class="site-state-item-count">94</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -483,7 +483,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2016</span>
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

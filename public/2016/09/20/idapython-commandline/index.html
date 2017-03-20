@@ -335,7 +335,7 @@
 <p>-S 参数用于指定 ida 在分析完数据之后执行的 idc 脚本，<strong>注意：该选项和参数之间没有空格</strong>，并且搜索目录为 ida 目录下的 idc 目录。</p>
 <p>-B 参数指定批量模式，等效于-A –c  –Sanylysis.idc.在分析完成后会自动生成相关的数据库和 asm 代码。并且在最后关闭 ida，以保存新的数据库。</p>
 <p><em><a href="http://www.h4ck.org.cn/2012/03/ida-batch-mode/" target="_blank" rel="external">这篇文章</a><sup>2</sup>比较详细地讲解了批量模式的用法</em> </p>
-<h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1><figure class="highlight py"><figcaption><span>test.py</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> idautils <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> idaapi <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> idc</span><br><span class="line"></span><br><span class="line">idc.Wait()	<span class="comment"># idaapi.autoWait()</span></span><br><span class="line"></span><br><span class="line">ea = BeginEA()</span><br><span class="line">dll_functions = []</span><br><span class="line"></span><br><span class="line">fp = open(<span class="string">"fun_output.txt"</span>, <span class="string">"w"</span>)</span><br><span class="line">fp.write(<span class="string">"check"</span>)</span><br><span class="line"><span class="keyword">for</span> funcea <span class="keyword">in</span> Functions(SegStart(ea), SegEnd(ea)):</span><br><span class="line">    functionName = GetFunctionName(funcea)</span><br><span class="line">    dll_functions.append(functionName)</span><br><span class="line">    fp.write(functionName)</span><br><span class="line">    print(functionName)</span><br><span class="line">fp.close()</span><br><span class="line"></span><br><span class="line">idc.Exit(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1><figure class="highlight py"><figcaption><span>test.py</span></figcaption><table><tr><td class="code"><pre><div class="line"><span class="keyword">from</span> idautils <span class="keyword">import</span> *</div><div class="line"><span class="keyword">from</span> idaapi <span class="keyword">import</span> *</div><div class="line"><span class="keyword">import</span> idc</div><div class="line"></div><div class="line">idc.Wait()	<span class="comment"># idaapi.autoWait()</span></div><div class="line"></div><div class="line">ea = BeginEA()</div><div class="line">dll_functions = []</div><div class="line"></div><div class="line">fp = open(<span class="string">"fun_output.txt"</span>, <span class="string">"w"</span>)</div><div class="line">fp.write(<span class="string">"check"</span>)</div><div class="line"><span class="keyword">for</span> funcea <span class="keyword">in</span> Functions(SegStart(ea), SegEnd(ea)):</div><div class="line">    functionName = GetFunctionName(funcea)</div><div class="line">    dll_functions.append(functionName)</div><div class="line">    fp.write(functionName)</div><div class="line">    print(functionName)</div><div class="line">fp.close()</div><div class="line"></div><div class="line">idc.Exit(<span class="number">0</span>)</div></pre></td></tr></table></figure>
 <p><em>其中<code>idc.Wait()</code>表示带有<code>-A</code>参数时，等待 ida 自动分析过程完成后再运行后续脚本，<code>idc.Exit(0)</code>表示脚本运行结束后自动关闭 ida</em></p>
 <p>不过在实际测试时，<code>idaq -c -A -Stest.py heap_test</code>失败且没有任何错误提示，参阅了<a href="http://researchcenter.paloaltonetworks.com/2016/06/unit42-using-idapython-to-make-your-life-easier-part-6/" target="_blank" rel="external">Using IDAPython to Make Your Life Easier: Part 6
 </a><sup>3</sup>，脚本和命令都没什么问题，不知是不是因为 Demo 版的缘故。。。</p>
@@ -454,7 +454,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">41</span>
+              <span class="site-state-item-count">42</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -462,7 +462,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -471,7 +471,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">87</span>
+                <span class="site-state-item-count">94</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -533,7 +533,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2016</span>
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

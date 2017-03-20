@@ -284,9 +284,9 @@
       
         <p>Python 的反汇编框架很多，尤其是 capstone 非常好用<br>但是将常见汇编语句汇编成对应机器码的框架居然一直没找到<br>难道没有其他懒得记机器码的人了吗╮(╯_╰)╭</p>
 <p>今天突然发现 capstone 的作者似乎居然早就听到了我的心声<br>在上半年就发布了一个汇编框架 <a href="http://www.keystone-engine.org/" target="_blank" rel="external">keystone</a><br><code>pip install keystone-engine</code> 就可以安装，用法和 capstone 非常相似<br>甚至连毛病也一样，把动态库放到正确的位置才能正常使用…</p>
-<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">cp <span class="regexp">/usr/</span>local<span class="regexp">/lib/</span>python2.<span class="number">7</span><span class="regexp">/site-packages/u</span>sr<span class="regexp">/local/</span>Cellar<span class="regexp">/python/</span><span class="number">2.7</span>.<span class="number">12</span>_1<span class="regexp">/Frameworks/</span>Python.framework<span class="regexp">/Versions/</span><span class="number">2.7</span><span class="regexp">/lib/</span>python2.<span class="number">7</span><span class="regexp">/site-packages/</span>keystone<span class="regexp">/libkeystone.dylib /u</span>sr<span class="regexp">/local/</span>lib<span class="regexp">/python2.7/</span>site-packages<span class="regexp">/keystone/</span>libkeystone.dylib</span><br></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="code"><pre><div class="line">cp <span class="regexp">/usr/</span>local<span class="regexp">/lib/</span>python2.<span class="number">7</span><span class="regexp">/site-packages/u</span>sr<span class="regexp">/local/</span>Cellar<span class="regexp">/python/</span><span class="number">2.7</span>.<span class="number">12</span>_1<span class="regexp">/Frameworks/</span>Python.framework<span class="regexp">/Versions/</span><span class="number">2.7</span><span class="regexp">/lib/</span>python2.<span class="number">7</span><span class="regexp">/site-packages/</span>keystone<span class="regexp">/libkeystone.dylib /u</span>sr<span class="regexp">/local/</span>lib<span class="regexp">/python2.7/</span>site-packages<span class="regexp">/keystone/</span>libkeystone.dylib</div></pre></td></tr></table></figure>
 <p>使用起来非常简单</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> print_function</span><br><span class="line"><span class="keyword">from</span> keystone <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ks_asm</span><span class="params">(code, arch=KS_ARCH_X86, mode=KS_MODE_64, syntax=<span class="number">0</span>)</span>:</span></span><br><span class="line">    ks = Ks(arch, mode)</span><br><span class="line">    <span class="keyword">if</span> syntax != <span class="number">0</span>:</span><br><span class="line">        ks.syntax = syntax</span><br><span class="line"></span><br><span class="line">    encoding, count = ks.asm(code)</span><br><span class="line">    <span class="comment"># print(encoding)</span></span><br><span class="line"></span><br><span class="line">    print(<span class="string">'&#123;&#125; = '</span>.format(code), end=<span class="string">''</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> encoding:</span><br><span class="line">        print(<span class="string">'&#123;:02x&#125; '</span>.format(i), end=<span class="string">''</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">code = <span class="string">'mov rax, rsp; syscall; nop; pop rbx; ret'</span></span><br><span class="line">ks_asm(code)</span><br><span class="line"><span class="comment"># mov rax, rsp; syscall; nop; pop rbx; ret = 48 89 e0 0f 05 90 5b c3</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/python</span></div><div class="line"></div><div class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> print_function</div><div class="line"><span class="keyword">from</span> keystone <span class="keyword">import</span> *</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">ks_asm</span><span class="params">(code, arch=KS_ARCH_X86, mode=KS_MODE_64, syntax=<span class="number">0</span>)</span>:</span></div><div class="line">    ks = Ks(arch, mode)</div><div class="line">    <span class="keyword">if</span> syntax != <span class="number">0</span>:</div><div class="line">        ks.syntax = syntax</div><div class="line"></div><div class="line">    encoding, count = ks.asm(code)</div><div class="line">    <span class="comment"># print(encoding)</span></div><div class="line"></div><div class="line">    print(<span class="string">'&#123;&#125; = '</span>.format(code), end=<span class="string">''</span>)</div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> encoding:</div><div class="line">        print(<span class="string">'&#123;:02x&#125; '</span>.format(i), end=<span class="string">''</span>)</div><div class="line"></div><div class="line"></div><div class="line">code = <span class="string">'mov rax, rsp; syscall; nop; pop rbx; ret'</span></div><div class="line">ks_asm(code)</div><div class="line"><span class="comment"># mov rax, rsp; syscall; nop; pop rbx; ret = 48 89 e0 0f 05 90 5b c3</span></div></pre></td></tr></table></figure>
 <p>另外官方用例：<a href="https://github.com/keystone-engine/keystone/blob/master/bindings/python/sample.py" target="_blank" rel="external">https://github.com/keystone-engine/keystone/blob/master/bindings/python/sample.py</a></p>
 <p>简直爱死这个作者了 -0-<br>另外发现他还有一个 CPU emulator 框架 <a href="http://www.unicorn-engine.org/docs/tutorial.html" target="_blank" rel="external">Unicorn</a><br>有时间了可以学习下</p>
 
@@ -323,6 +323,10 @@
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/16/Linux程序启动过程/" rel="prev" title="Linux x86 elf 程序启动过程">
+                Linux x86 elf 程序启动过程 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -394,7 +398,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">41</span>
+              <span class="site-state-item-count">42</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -402,7 +406,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -411,7 +415,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">87</span>
+                <span class="site-state-item-count">94</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -473,7 +477,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2016</span>
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

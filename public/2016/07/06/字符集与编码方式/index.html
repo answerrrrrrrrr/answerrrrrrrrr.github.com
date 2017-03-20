@@ -328,7 +328,7 @@
 <p>由于 UTF-8 可以兼容 ASCII，且其变长特性能相对高效地利用空间，在应用或传输过程中一般使用的是 UTF-8。例如 Python shell 中 str 使用的就是 ASCII(UTF-8)。</p>
 <p>而内存一般使用的是这种「Unicode 编码」，所以在进行编码转换时，通常将各类编码<code>decode</code>成「Unicode 编码」，在<code>encode</code>成最终编码形式。</p>
 <p>eg:</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a=<span class="string">'在'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a</span><br><span class="line"><span class="string">'\xe5\x9c\xa8'</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b=unicode(a,<span class="string">'utf8'</span>) // 或 b=a.decode(<span class="string">'utf8'</span>)，其中<span class="string">'utf-8'</span>等同于<span class="string">'utf8'</span> </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b</span><br><span class="line"><span class="string">u'\u5728'</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b.encode(<span class="string">'gbk'</span>)</span><br><span class="line"><span class="string">'\xd4\xda'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight py"><table><tr><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>a=<span class="string">'在'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>a</div><div class="line"><span class="string">'\xe5\x9c\xa8'</span></div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>b=unicode(a,<span class="string">'utf8'</span>) // 或 b=a.decode(<span class="string">'utf8'</span>)，其中<span class="string">'utf-8'</span>等同于<span class="string">'utf8'</span> </div><div class="line"><span class="meta">&gt;&gt;&gt; </span>b</div><div class="line"><span class="string">u'\u5728'</span></div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>b.encode(<span class="string">'gbk'</span>)</div><div class="line"><span class="string">'\xd4\xda'</span></div></pre></td></tr></table></figure>
 <p>在 Python 2.x 版本中，字符串实际上是字节串，这种字符串中的每个字符长度为 1，实际上就是一个字节，等同于 ASCII。（参考《Python Cookbook》1.21）</p>
 <p>不过在 Python 3.x 版本中，把 ‘xxx’ 和 u’xxx’ 统一成了 Unicode 编码，即写不写前缀 u 都是一样的，而以字节形式表示的字符串则必须加上 b 前缀。</p>
 
@@ -448,7 +448,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">41</span>
+              <span class="site-state-item-count">42</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -456,7 +456,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -465,7 +465,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">87</span>
+                <span class="site-state-item-count">94</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -527,7 +527,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2016</span>
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
