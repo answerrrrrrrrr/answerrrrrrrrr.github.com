@@ -2,7 +2,7 @@
 title: keystone
 date: 2016-11-30 15:37:27
 category: rop
-tags: [rop, keystone，capstone, unicorn]
+tags: [rop, keystone, capstone, unicorn]
 ---
 
 Python 的反汇编框架很多，尤其是 capstone 非常好用
