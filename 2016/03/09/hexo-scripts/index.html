@@ -18,7 +18,7 @@
 <meta property="og:description" content="偷师自http://www.xuxu1988.com/2015/05/16/config-my-hexo/
 ./commit.sh COMMIT_LOG#!/bin/shcommit_log=$@hexo gechohexo dechogit add .echogit commit -m $commit_logechogit push origin hexo:hexo
 ./edit.sh FILE">
-<meta property="og:updated_time" content="2016-06-26T06:37:52.000Z">
+<meta property="og:updated_time" content="2017-05-29T13:11:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hexo-scripts">
 <meta name="twitter:description" content="偷师自http://www.xuxu1988.com/2015/05/16/config-my-hexo/
@@ -150,6 +150,7 @@
         <p>偷师自<a href="http://www.xuxu1988.com/2015/05/16/config-my-hexo/" target="_blank" rel="external">http://www.xuxu1988.com/2015/05/16/config-my-hexo/</a></p>
 <h1 id="commit-sh-COMMIT-LOG"><a href="#commit-sh-COMMIT-LOG" class="headerlink" title="./commit.sh COMMIT_LOG"></a>./commit.sh COMMIT_LOG</h1><figure class="highlight sh"><table><tr><td class="code"><pre><div class="line"><span class="meta">#!/bin/sh</span></div><div class="line"></div><div class="line">commit_log=<span class="variable">$@</span></div><div class="line"></div><div class="line">hexo g</div><div class="line"></div><div class="line"><span class="built_in">echo</span></div><div class="line">hexo d</div><div class="line"></div><div class="line"><span class="built_in">echo</span></div><div class="line">git add .</div><div class="line"></div><div class="line"><span class="built_in">echo</span></div><div class="line">git commit -m <span class="variable">$commit_log</span></div><div class="line"></div><div class="line"><span class="built_in">echo</span></div><div class="line">git push origin hexo:hexo</div></pre></td></tr></table></figure>
 <h1 id="edit-sh-FILENAME"><a href="#edit-sh-FILENAME" class="headerlink" title="./edit.sh FILENAME"></a>./edit.sh FILENAME</h1><figure class="highlight sh"><table><tr><td class="code"><pre><div class="line"><span class="meta">#!/bin/sh</span></div><div class="line"></div><div class="line">filename=<span class="variable">$@</span></div><div class="line">file=./<span class="built_in">source</span>/_posts/<span class="variable">$filename</span>.md</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> [ ! <span class="_">-e</span> <span class="string">"<span class="variable">$file</span>"</span> ]   <span class="comment"># NOT '$file'</span></div><div class="line"><span class="keyword">then</span> </div><div class="line">    hexo new <span class="variable">$filename</span></div><div class="line"><span class="keyword">fi</span> </div><div class="line"></div><div class="line">open <span class="_">-a</span> /Applications/MacDown.app <span class="variable">$file</span></div></pre></td></tr></table></figure>
+
       
 
       
@@ -170,7 +171,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">sh</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
         		</li>
       		
 		</ul>
@@ -182,7 +183,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/scripts/" class="article-tag-list-link color3">scripts</a>
+        			<a href="/categories/shell/" class="article-tag-list-link color1">shell</a>
         		</li>
       		
 		</ul>
@@ -426,14 +427,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">sorted</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">key</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
@@ -463,6 +456,14 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">gdb</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">sorted</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">key</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -502,15 +503,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">argparse</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">ThreadPool</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">logging</a>
+                <a href="javascript:void(0)" class="js-tag color4">argparse</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -518,11 +515,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">requests</a>
+                <a href="javascript:void(0)" class="js-tag color3">logging</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">doctest</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">requests</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -550,6 +551,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">vmtools</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">bootstrap</a>
               </li>
              
@@ -562,18 +567,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Refactoring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">vmtools</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ropgadget</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Brackets</a>
               </li>
              
@@ -583,6 +576,14 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">browser-sync</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">ropgadget</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Refactoring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -650,14 +651,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">UTF-8</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">proxy</a>
               </li>
              
@@ -683,6 +676,14 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">iTerm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">UTF-8</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -714,18 +715,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ANSI</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">termcolor</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">colorama</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
@@ -735,6 +724,18 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">mac</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">ANSI</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">termcolor</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">colorama</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -755,6 +756,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Unicode</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
             
             <div class="clearfix"></div>
