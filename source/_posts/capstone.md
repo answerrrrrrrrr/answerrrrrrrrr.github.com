@@ -1,7 +1,7 @@
 ---
 title: ropgadget capstone 
 date: 2016-03-10 15:41:52
-tags: [ropgadget, capstone]
+tags: [python, ropgadget, capstone]
 category: rop
 ---
 

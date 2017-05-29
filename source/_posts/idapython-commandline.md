@@ -2,7 +2,7 @@
 title: 命令行调用 idapython 脚本
 date: 2016-09-20 10:40:41
 category: ida
-tags:   [ida, idapython, idc]
+tags: [python, ida, idapython, idc]
 ---
 
 # 安装
@@ -83,3 +83,4 @@ _其中`idc.Wait()`表示带有`-A`参数时，等待 ida 自动分析过程完�
 1. http://blog.csdn.net/zhangmiaoping23/article/details/14521995
 2. http://www.h4ck.org.cn/2012/03/ida-batch-mode/
 3. http://researchcenter.paloaltonetworks.com/2016/06/unit42-using-idapython-to-make-your-life-easier-part-6/
+

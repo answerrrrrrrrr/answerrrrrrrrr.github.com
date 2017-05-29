@@ -162,7 +162,7 @@
     <link href="http://answerrrrrrrrr.github.io/2016/11/30/keystone/"/>
     <id>http://answerrrrrrrrr.github.io/2016/11/30/keystone/</id>
     <published>2016-11-30T07:37:27.000Z</published>
-    <updated>2017-05-15T07:05:01.000Z</updated>
+    <updated>2017-05-29T13:10:43.000Z</updated>
     
     <content type="html"><![CDATA[<p>Python 的反汇编框架很多，尤其是 capstone 非常好用<br>但是将常见汇编语句汇编成对应机器码的框架居然一直没找到<br>难道没有其他懒得记机器码的人了吗╮(╯_╰)╭</p>
 <p>今天突然发现 capstone 的作者似乎居然早就听到了我的心声<br>在上半年就发布了一个汇编框架 <a href="http://www.keystone-engine.org/" target="_blank" rel="external">keystone</a><br><code>pip install keystone-engine</code> 就可以安装，用法和 capstone 非常相似<br>甚至连毛病也一样，把动态库放到正确的位置才能正常使用…</p>
@@ -184,6 +184,8 @@
     
     
       <category term="capstone" scheme="http://answerrrrrrrrr.github.io/tags/capstone/"/>
+    
+      <category term="python" scheme="http://answerrrrrrrrr.github.io/tags/python/"/>
     
       <category term="rop" scheme="http://answerrrrrrrrr.github.io/tags/rop/"/>
     
@@ -497,7 +499,7 @@
     <link href="http://answerrrrrrrrr.github.io/2016/09/20/idapython-commandline/"/>
     <id>http://answerrrrrrrrr.github.io/2016/09/20/idapython-commandline/</id>
     <published>2016-09-20T02:40:41.000Z</published>
-    <updated>2016-09-20T10:08:08.000Z</updated>
+    <updated>2017-05-29T13:11:24.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><ol>
 <li><p>安装 Python 2.7</p>
@@ -557,6 +559,8 @@
       <category term="idapython" scheme="http://answerrrrrrrrr.github.io/tags/idapython/"/>
     
       <category term="idc" scheme="http://answerrrrrrrrr.github.io/tags/idc/"/>
+    
+      <category term="python" scheme="http://answerrrrrrrrr.github.io/tags/python/"/>
     
   </entry>
   
