@@ -62,7 +62,7 @@
 <meta name="description" content="なぜベストを尽くしたのか">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Answerrrrrrrrr">
-<meta property="og:url" content="http://answerrrrrrrrr.io/index.html">
+<meta property="og:url" content="http://answerrrrrrrrr.github.io/index.html">
 <meta property="og:site_name" content="Answerrrrrrrrr">
 <meta property="og:description" content="なぜベストを尽くしたのか">
 <meta name="twitter:card" content="summary">
@@ -216,6 +216,131 @@
             
               
                 
+                <a class="post-title-link" href="/2017/04/03/polipo-ss实现终端代理/" itemprop="url">
+                  polipo+ss实现 iTerm2 终端科学上网
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2017-04-03T15:55:00+08:00" content="2017-04-03">
+              2017-04-03
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/proxy/" itemprop="url" rel="index">
+                    <span itemprop="name">proxy</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/04/03/polipo-ss实现终端代理/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/04/03/polipo-ss实现终端代理/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="polipo"><a href="#polipo" class="headerlink" title="polipo"></a>polipo</h1><p>似乎 10.11 引入 SIP 以来 Proxychains 就不能正常工作了, 导致终端代理一直出问题, 今天意外发现 polipo 这个不受 SIP 影响的工具, 尝试了一下果然不错</p>
+<figure class="highlight mipsasm"><table><tr><td class="code"><pre><div class="line"><span class="keyword">brew </span><span class="keyword">install </span>polipo</div><div class="line">polipo socksParentProxy=localhost:<span class="number">1086</span></div></pre></td></tr></table></figure>
+<p>即可实现配合 Shadowsocks(sock5 默认工作在 1086 端口)</p>
+<p>为了方便日常切换, 在<code>.zshrc</code>中加入</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line"><span class="comment">#proxy</span></div><div class="line"><span class="built_in">alias</span> proxy=<span class="string">"polipo socksParentProxy=localhost:1086"</span></div><div class="line"><span class="built_in">export</span> no_proxy=<span class="string">"localhost,127.0.0.1,localaddress,.localdomain.com"</span></div><div class="line"><span class="function"><span class="title">pon</span></span> () &#123;</div><div class="line">    <span class="built_in">export</span> http_proxy=<span class="string">"http://127.0.0.1:8123/"</span></div><div class="line">    <span class="built_in">export</span> https_proxy=<span class="string">"http://127.0.0.1:8123/"</span></div><div class="line">    <span class="built_in">export</span> ftp_proxy=<span class="string">"http://127.0.0.1:8123/"</span></div><div class="line">&#125;</div><div class="line"><span class="function"><span class="title">poff</span></span> () &#123;</div><div class="line">    <span class="built_in">unset</span> http_proxy</div><div class="line">    <span class="built_in">unset</span> https_proxy</div><div class="line">    <span class="built_in">unset</span> ftp_proxy</div><div class="line">&#125;</div><div class="line"><span class="comment"># charles proxy</span></div><div class="line"><span class="function"><span class="title">pch</span></span> () &#123;</div><div class="line">    <span class="built_in">export</span> http_proxy=<span class="string">"http://127.0.0.1:8888/"</span></div><div class="line">    <span class="built_in">export</span> https_proxy=<span class="string">"http://127.0.0.1:8888/"</span></div><div class="line">    <span class="built_in">export</span> ftp_proxy=<span class="string">"http://127.0.0.1:8888/"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>以后常驻一个 pane 挂着<code>proxy</code>, 然后其他 pane 通过<code>pon</code>和<code>poff</code>切换即可</p>
+<h1 id="Charles"><a href="#Charles" class="headerlink" title="Charles"></a>Charles</h1><p>其中附加的<code>pch</code>, 可以实现 Charles 对终端的抓包</p>
+<p>如果 Charles 打开 macOS 模式, 同时将 External Proxy 端口设置为 1087(Shadowsocks http/https 代理的默认端口), 可以翻墙的同时进行抓包</p>
+<p>需要注意的是, 在没有导入证书的情况下对 HTTPS 抓包会出现失败或是乱码等问题</p>
+<h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><figure class="highlight stylus"><table><tr><td class="code"><pre><div class="line">&gt; $ pon</div><div class="line"></div><div class="line">&gt; $ curl ip<span class="selector-class">.cn</span></div><div class="line">当前 IP：x<span class="selector-class">.x</span><span class="selector-class">.x</span><span class="selector-class">.x</span> 来自：香港特别行政区 xTom</div><div class="line"></div><div class="line">&gt; $ poff</div><div class="line"></div><div class="line">&gt; $ curl ip<span class="selector-class">.cn</span></div><div class="line">当前 IP：x<span class="selector-class">.x</span><span class="selector-class">.x</span><span class="selector-class">.x</span> 来自：北京市 电信</div><div class="line"></div><div class="line">&gt; $ pch</div><div class="line"></div><div class="line">&gt; $ curl ip<span class="selector-class">.cn</span></div><div class="line">当前 IP：x<span class="selector-class">.x</span><span class="selector-class">.x</span><span class="selector-class">.x</span> 来自：香港特别行政区 xTom</div></pre></td></tr></table></figure>
+<p><img src="https://ww1.sinaimg.cn/large/006tNbRwgy1fe9k951wo6j31kw0ydgti.jpg" alt=""></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/03/16/Linux程序启动过程/" itemprop="url">
                   Linux x86 elf 程序启动过程
                 </a>
@@ -285,24 +410,28 @@
       
         
           
-            <h1 id="Linux-x86-elf-程序启动过程"><a href="#Linux-x86-elf-程序启动过程" class="headerlink" title="Linux x86 elf 程序启动过程"></a>Linux x86 elf 程序启动过程</h1><p>Kali rolling x86-64 环境，默认动态链接<br>参考 32 位： <a href="http://dbp-consulting.com/tutorials/debugging/linuxProgramStartup.html" target="_blank" rel="external">http://dbp-consulting.com/tutorials/debugging/linuxProgramStartup.html</a> </p>
+            <p>Kali rolling x86-64 环境，默认动态链接<br>参考 32 位： <a href="http://dbp-consulting.com/tutorials/debugging/linuxProgramStartup.html" target="_blank" rel="external">http://dbp-consulting.com/tutorials/debugging/linuxProgramStartup.html</a> </p>
 <p>流程图如下：</p>
 <p><img src="http://dbp-consulting.com/tutorials/debugging/images/callgraph.png" alt="流程图"></p>
-<h2 id="最简单的-main"><a href="#最简单的-main" class="headerlink" title="最简单的 main"></a>最简单的 main</h2><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">int main()</div><div class="line">&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>64 位草图</p>
+<p><img src="https://ww3.sinaimg.cn/large/006tNbRwly1fdunwuca6tj31120kuwro.jpg" alt=""></p>
+<h1 id="最简单的-main"><a href="#最简单的-main" class="headerlink" title="最简单的 main"></a>最简单的 main</h1><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">int main()</div><div class="line">&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p><code>gcc -ggdb -o prog1 prog1.c</code></p>
-<h2 id="execve"><a href="#execve" class="headerlink" title="execve"></a>execve</h2><p>运行程序时，shell 或者 gui 调用 execve() 函数触发系统调用：</p>
+<h1 id="execve"><a href="#execve" class="headerlink" title="execve"></a>execve</h1><p>运行程序时，shell 或者 gui 调用 execve() 函数触发系统调用：</p>
 <ul>
 <li>系统会分配栈区并将 argc, argv, envp 压栈</li>
 <li>按照 shell 设定 FD</li>
 <li>装载器负责重定位和调用<code>preinitializers</code>（图中<code>preinitarray1..n</code>）</li>
 <li>从程序代码段中 _start 位置开始执行程序</li>
 </ul>
-<h2 id="start"><a href="#start" class="headerlink" title="_start"></a>_start</h2><p><code>_start</code> 是程序执行的初始位置，通过<code>objdump -d prog1</code>查看汇编</p>
-<figure class="highlight perl"><table><tr><td class="code"><pre><div class="line"><span class="number">00000000004003</span>b<span class="number">0</span> &lt;_start&gt;:</div><div class="line">  <span class="number">4003</span>b<span class="number">0</span>:       <span class="number">31</span> ed                   <span class="keyword">xor</span>    %ebp,%ebp</div><div class="line">  <span class="number">4003</span>b2:       <span class="number">49</span> <span class="number">89</span> d1                mov    %rdx,%r9                 <span class="comment"># argv</span></div><div class="line">  <span class="number">4003</span>b5:       <span class="number">5</span>e                      <span class="keyword">pop</span>    %rsi                     <span class="comment"># argc</span></div><div class="line">  <span class="number">4003</span>b6:       <span class="number">48</span> <span class="number">89</span> e2                mov    %rsp,%rdx                <span class="comment"># linker destructor</span></div><div class="line">  <span class="number">4003</span>b9:       <span class="number">48</span> <span class="number">83</span> e4 f<span class="number">0</span>             <span class="keyword">and</span>    $0xfffffffffffffff<span class="number">0</span>,%rsp</div><div class="line">  <span class="number">4003</span>bd:       <span class="number">50</span>                      <span class="keyword">push</span>   %rax</div><div class="line">  <span class="number">4003</span>be:       <span class="number">54</span>                      <span class="keyword">push</span>   %rsp</div><div class="line">  <span class="number">4003</span>bf:       <span class="number">49</span> c7 c<span class="number">0</span> <span class="number">30</span> <span class="number">05</span> <span class="number">40</span> <span class="number">00</span>    mov    $0x40053<span class="number">0</span>,%r8            <span class="comment"># &lt;__libc_csu_fini&gt;</span></div><div class="line">  <span class="number">4003</span>c6:       <span class="number">48</span> c7 c1 c<span class="number">0</span> <span class="number">04</span> <span class="number">40</span> <span class="number">00</span>    mov    $0x4004c<span class="number">0</span>,%rcx           <span class="comment"># &lt;__libc_csu_init&gt;</span></div><div class="line">  <span class="number">4003</span>cd:       <span class="number">48</span> c7 c7 a6 <span class="number">04</span> <span class="number">40</span> <span class="number">00</span>    mov    $0x4004a6,%rdi           <span class="comment"># &lt;main&gt;</span></div><div class="line">  <span class="number">4003</span>d4:       ff <span class="number">15</span> <span class="number">16</span> 0c <span class="number">20</span> <span class="number">00</span>       callq  *<span class="number">0x200c16</span>(%rip)        <span class="comment"># 600ff0 &lt;__libc_start_main@GLIBC_2.2.5&gt;</span></div><div class="line">  <span class="number">4003</span>da:       f4                      hlt</div><div class="line">  <span class="number">4003</span>db:       0f <span class="number">1</span>f <span class="number">44</span> <span class="number">00</span> <span class="number">00</span>          nopl   <span class="number">0x0</span>(%rax,%rax,<span class="number">1</span>)</div></pre></td></tr></table></figure>
+<h1 id="start"><a href="#start" class="headerlink" title="_start"></a>_start</h1><p><code>_start</code> 是程序执行的初始位置，通过<code>objdump -d prog1</code>查看汇编</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">00000000004003b0 &lt;_start&gt;:</div><div class="line">  4003b0:       31 ed                   xor    %ebp,%ebp</div><div class="line">  4003b2:       49 89 d1                mov    %rdx,%r9                 # argv</div><div class="line">  4003b5:       5e                      pop    %rsi                     # argc</div><div class="line">  4003b6:       48 89 e2                mov    %rsp,%rdx                # linker destructor</div><div class="line">  4003b9:       48 83 e4 f0             and    $0xfffffffffffffff0,%rsp</div><div class="line">  4003bd:       50                      push   %rax</div><div class="line">  4003be:       54                      push   %rsp</div><div class="line">  4003bf:       49 c7 c0 30 05 40 00    mov    $0x400530,%r8            # &lt;__libc_csu_fini&gt;</div><div class="line">  4003c6:       48 c7 c1 c0 04 40 00    mov    $0x4004c0,%rcx           # &lt;__libc_csu_init&gt;</div><div class="line">  4003cd:       48 c7 c7 a6 04 40 00    mov    $0x4004a6,%rdi           # &lt;main&gt;</div><div class="line">  4003d4:       ff 15 16 0c 20 00       callq  *0x200c16(%rip)        # 600ff0 &lt;__libc_start_main@GLIBC_2.2.5&gt;</div><div class="line">  4003da:       f4                      hlt</div><div class="line">  4003db:       0f 1f 44 00 00          nopl   0x0(%rax,%rax,1)</div></pre></td></tr></table></figure>
 <p><code>_start</code>的作用就是配置<code>__libc_start_main</code>的参数并进行调用：</p>
 <ul>
-<li><code>xor %ebp, %ebp</code>用于将 <code>%ebp</code> 清零，同时作为最外层标记</li>
-<li>对 <code>%rdi</code>, <code>%rsi</code>, <code>%rdx</code>, <code>%rcx</code>, <code>%r8</code>, <code>%r9</code> 的操作均为传参，因为共 7 个参数，还用到了栈来传递第一个参数<ol>
+<li><p><code>xor %ebp, %ebp</code>用于将 <code>%ebp</code> 清零，同时作为最外层标记</p>
+</li>
+<li><p>对 <code>%rdi</code>, <code>%rsi</code>, <code>%rdx</code>, <code>%rcx</code>, <code>%r8</code>, <code>%r9</code> 的操作均为传参，因为共 7 个参数，还用到了栈来传递第一个参数</p>
+<ol>
 <li><code>main</code>地址, 由<code>__libc_start_main</code>调用, 另外在程序终止后<code>main</code>的返回值会由<code>__libc_start_main</code>传递给<code>exit</code></li>
 <li><code>argc</code></li>
 <li><code>argv</code></li>
@@ -312,17 +441,39 @@
 <li>栈 - 函数调用前的<code>%rsp</code></li>
 </ol>
 </li>
-<li>为了<a href="http://coolshell.cn/articles/11377.html" target="_blank" rel="external">提升访存效率</a>，编译器通常采用 16B 对齐。为了保证函数调用时的新栈帧是 16B 对齐的，使用<code>and</code>指令将 %esp 对齐。</li>
-<li>同时，为了将 %esp 保存在 16B 对齐的位置，使用<code>push %rax</code>提前填充 8B</li>
+<li><p>为了<a href="http://coolshell.cn/articles/11377.html" target="_blank" rel="external">提升访存效率</a>，编译器通常采用 16B 对齐。为了保证函数调用时的新栈帧是 16B 对齐的，使用<code>and</code>指令将 %esp 对齐。</p>
+</li>
+<li><p>同时，为了将 %esp 保存在 16B 对齐的位置，使用<code>push %rax</code>提前填充 8B</p>
+</li>
 </ul>
-<p><code>__libc_start_main</code>定义如下：</p>
+<p><code>_start</code>调用<code>__libc_start_main</code>前的状态:</p>
+<p><img src="https://ww3.sinaimg.cn/large/006tNbRwly1fdu8v5ggcqj30ze138n64.jpg" alt="before __libc_start_main"></p>
+<h1 id="libc-start-main"><a href="#libc-start-main" class="headerlink" title="__libc_start_main"></a>__libc_start_main</h1><p><code>__libc_start_main</code>定义如下：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">int __libc_start_main(  </div><div class="line">    int (*main) (int, char * *, char * *),</div><div class="line">    int argc, </div><div class="line">    char * * ubp_av,</div><div class="line">    void (*init) (void),</div><div class="line">    void (*fini) (void),</div><div class="line">    void (*rtld_fini) (void),</div><div class="line">    void (* stack_end)</div><div class="line"> );</div></pre></td></tr></table></figure>
-<p><code>main</code>的完整参数调用应该是<code>int main(int argc, char** argv, char** envp)</code>, 但是<code>__libc_start_main</code>中却并不包含 envp</p>
-<p>使用 gdb 调试 prog1, 在<code>_start</code>处下断点, 运行初始状态如下:<br><img src="/2017/03/16/Linux程序启动过程/_start.png" alt="_start"><br>可以看到从栈顶向栈底依次放置的是: argc, argv, 0x0, 环境变量. 可见 envp 其实可以由 argc 和 argv 计算得到</p>
-
-
-
+<p><code>main</code>的完整参数调用应该是<code>int main(int argc, char** argv, char** envp)</code>, 但是<code>__libc_start_main</code>中却并不包含 <code>envp</code>, 因为<code>envp</code>可以由<code>argc</code>和<code>argv</code>计算得到</p>
+<h2 id="ELF-auxiliary-vector"><a href="#ELF-auxiliary-vector" class="headerlink" title="ELF auxiliary vector"></a>ELF auxiliary vector</h2><p>使用 gdb 调试 prog1, 在<code>_start</code>处下断点, 运行初始状态如下:<br><img src="https://ww4.sinaimg.cn/large/006tNbRwly1fdtk4hiplwj30za13u145.jpg" alt="_start"><br>可以看到从栈顶向栈底依次放置的是: argc, argv, 0x0, 环境变量等, 即<a href="http://articles.manugarg.com/aboutelfauxiliaryvectors.html" target="_blank" rel="external"><code>ELF 辅助向量</code></a>. </p>
+<h2 id="libc-start-main-的主要功能"><a href="#libc-start-main-的主要功能" class="headerlink" title="__libc_start_main 的主要功能"></a>__libc_start_main 的主要功能</h2><ul>
+<li><p>setuid, setgid</p>
+</li>
+<li><p>启动线程</p>
+</li>
+<li><p>寄存<code>fini</code>和<code>rtld_fini</code>的参数, 等待<code>at_exit</code>调用</p>
+</li>
+<li><p>调用<code>__libc_csu_init</code></p>
+</li>
+<li><p>调用<code>main</code></p>
+</li>
+<li><p>调用<code>exit</code></p>
+<p>​</p>
+</li>
+</ul>
+<h1 id="libc-csu-init"><a href="#libc-csu-init" class="headerlink" title="__libc_csu_init"></a>__libc_csu_init</h1><p><img src="https://ww2.sinaimg.cn/large/006tNbRwly1fdua01wgboj30zg124tj5.jpg" alt="调用__libc_csu_init之前"></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">void __libc_csu_init (int argc, char **argv, char **envp)</div><div class="line">&#123;</div><div class="line"></div><div class="line">  _init ();</div><div class="line"></div><div class="line">  const size_t size = __init_array_end - __init_array_start;</div><div class="line">  for (size_t i = 0; i &lt; size; i++)</div><div class="line">      (*__init_array_start [i]) (argc, argv, envp);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">00000000004004c0 &lt;__libc_csu_init&gt;:</div><div class="line">  4004c0:	41 57                	push   %r15</div><div class="line">  4004c2:	41 56                	push   %r14</div><div class="line">  4004c4:	41 89 ff             	mov    %edi,%r15d</div><div class="line">  4004c7:	41 55                	push   %r13</div><div class="line">  4004c9:	41 54                	push   %r12</div><div class="line">  4004cb:	4c 8d 25 76 09 20 00 	lea    0x200976(%rip),%r12        # 600e48 &lt;__frame_dummy_init_array_entry&gt;</div><div class="line">  4004d2:	55                   	push   %rbp</div><div class="line">  4004d3:	48 8d 2d 76 09 20 00 	lea    0x200976(%rip),%rbp        # 600e50 &lt;__init_array_end&gt;</div><div class="line">  4004da:	53                   	push   %rbx</div><div class="line">  4004db:	49 89 f6             	mov    %rsi,%r14</div><div class="line">  4004de:	49 89 d5             	mov    %rdx,%r13</div><div class="line">  4004e1:	4c 29 e5             	sub    %r12,%rbp</div><div class="line">  4004e4:	48 83 ec 08          	sub    $0x8,%rsp</div><div class="line">  4004e8:	48 c1 fd 03          	sar    $0x3,%rbp</div><div class="line">  4004ec:	e8 9f fe ff ff       	callq  400390 &lt;_init&gt;</div><div class="line">  4004f1:	48 85 ed             	test   %rbp,%rbp</div><div class="line">  4004f4:	74 20                	je     400516 &lt;__libc_csu_init+0x56&gt;</div><div class="line">  4004f6:	31 db                	xor    %ebx,%ebx</div><div class="line">  4004f8:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)</div><div class="line">  4004ff:	00</div><div class="line">  400500:	4c 89 ea             	mov    %r13,%rdx</div><div class="line">  400503:	4c 89 f6             	mov    %r14,%rsi</div><div class="line">  400506:	44 89 ff             	mov    %r15d,%edi</div><div class="line">  400509:	41 ff 14 dc          	callq  *(%r12,%rbx,8)</div><div class="line">  40050d:	48 83 c3 01          	add    $0x1,%rbx</div><div class="line">  400511:	48 39 dd             	cmp    %rbx,%rbp</div><div class="line">  400514:	75 ea                	jne    400500 &lt;__libc_csu_init+0x40&gt;</div><div class="line">  400516:	48 83 c4 08          	add    $0x8,%rsp</div><div class="line">  40051a:	5b                   	pop    %rbx</div><div class="line">  40051b:	5d                   	pop    %rbp</div><div class="line">  40051c:	41 5c                	pop    %r12</div><div class="line">  40051e:	41 5d                	pop    %r13</div><div class="line">  400520:	41 5e                	pop    %r14</div><div class="line">  400522:	41 5f                	pop    %r15</div><div class="line">  400524:	c3                   	retq</div><div class="line">  400525:	90                   	nop</div><div class="line">  400526:	66 2e 0f 1f 84 00 00 	nopw   %cs:0x0(%rax,%rax,1)</div><div class="line">  40052d:	00 00 00</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">0000000000400390 &lt;_init&gt;:</div><div class="line">  400390:	48 83 ec 08          	sub    $0x8,%rsp</div><div class="line">  400394:	48 8b 05 5d 0c 20 00 	mov    0x200c5d(%rip),%rax        # 600ff8 &lt;__gmon_start__&gt;</div><div class="line">  40039b:	48 85 c0             	test   %rax,%rax</div><div class="line">  40039e:	74 02                	je     4003a2 &lt;_init+0x12&gt;</div><div class="line">  4003a0:	ff d0                	callq  *%rax</div><div class="line">  4003a2:	48 83 c4 08          	add    $0x8,%rsp</div><div class="line">  4003a6:	c3                   	retq</div></pre></td></tr></table></figure>
+<p><code>__libc_csu_init</code>返回<code>__libc_start_main</code>前:</p>
+<p><img src="https://ww2.sinaimg.cn/large/006tNbRwly1fduntp9dfcj30z412caip.jpg" alt=""></p>
+
           
         
       
@@ -817,7 +968,7 @@
         
           
             <h1 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h1><figure class="highlight md"><table><tr><td class="code"><pre><div class="line">.</div><div class="line">├── batch.py</div><div class="line">├── detail</div><div class="line">│   ├── heap_test.txt</div><div class="line">│   ├── heap<span class="emphasis">_test_</span>static.txt</div><div class="line">│   ├── libc2.21.txt</div><div class="line">│   ├── ls.txt</div><div class="line">│   ├── mv.txt</div><div class="line">│   ├── stack_test.txt</div><div class="line">│   └── stack<span class="emphasis">_test_</span>static.txt</div><div class="line">├── elf</div><div class="line">│   ├── heap_test</div><div class="line">│   ├── heap<span class="emphasis">_test_</span>static</div><div class="line">│   ├── libc2.21</div><div class="line">│   ├── ls</div><div class="line">│   ├── mv</div><div class="line">│   ├── stack_test</div><div class="line">│   └── stack<span class="emphasis">_test_</span>static</div><div class="line">├── fragment</div><div class="line">│   ├── heap_test.txt</div><div class="line">│   ├── heap<span class="emphasis">_test_</span>static.txt</div><div class="line">│   ├── libc2.21.txt</div><div class="line">│   ├── ls.txt</div><div class="line">│   ├── mv.txt</div><div class="line">│   ├── stack_test.txt</div><div class="line">│   └── stack<span class="emphasis">_test_</span>static.txt</div><div class="line">├── ganalyzer.py</div><div class="line">├── gcollector.py</div><div class="line">├── gvalidator.py</div><div class="line">├── lib</div><div class="line">│   ├── <span class="strong">__init__</span>.py</div><div class="line">│   ├── <span class="strong">__init__</span>.pyc</div><div class="line">│   ├── classifier.py</div><div class="line">│   ├── classifier.pyc</div><div class="line">│   ├── extra_archinfo.py</div><div class="line">│   ├── extra_archinfo.pyc</div><div class="line">│   ├── gadget.py</div><div class="line">│   ├── gadget.pyc</div><div class="line">│   ├── utils.py</div><div class="line">│   ├── utils.pyc</div><div class="line">│   ├── validator.py</div><div class="line">│   └── validator.pyc</div><div class="line">├── pin</div><div class="line">│   ├── heap_test.txt</div><div class="line">│   ├── heap<span class="emphasis">_test_</span>static.txt</div><div class="line">│   ├── libc2.21.txt</div><div class="line">│   ├── ls.txt</div><div class="line">│   ├── mv.txt</div><div class="line">│   ├── stack_test.txt</div><div class="line">│   └── stack<span class="emphasis">_test_</span>static.txt</div><div class="line">└── result.txt</div><div class="line"></div><div class="line">5 directories, 46 files</div></pre></td></tr></table></figure>
-<h1 id="执行流程"><a href="#执行流程" class="headerlink" title="执行流程"></a>执行流程</h1><p><img src="/2016/10/08/idapython-elf-gadget/idapython-elf-gadget.png" alt="img"></p>
+<h1 id="执行流程"><a href="#执行流程" class="headerlink" title="执行流程"></a>执行流程</h1><p><img src="/images/idapython-elf-gadget.png" alt="img"></p>
 <h1 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h1><ol>
 <li>将要分析的 elf 文件放入 elf 目录</li>
 <li>在主目录运行<code>python batch.py</code></li>
@@ -1563,11 +1714,1185 @@
 
 
     
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/08/23/Q判断Gadget时遇到align伪指令的问题/" itemprop="url">
+                  Q 判断 Gadget 时遇到 align 伪指令的问题
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-08-23T13:13:57+08:00" content="2016-08-23">
+              2016-08-23
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Q/" itemprop="url" rel="index">
+                    <span itemprop="name">Q</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/23/Q判断Gadget时遇到align伪指令的问题/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/23/Q判断Gadget时遇到align伪指令的问题/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>今天在利用 Q 判断 Gadget 时发现，在 IDA 中静态分析时显示如下的指令片段：</p>
+<figure class="highlight x86asm"><table><tr><td class="code"><pre><div class="line"><span class="meta">align</span> <span class="number">10h</span></div><div class="line"><span class="keyword">ret</span></div></pre></td></tr></table></figure>
+<p>会被判断为 Gadget，并且还莫名其妙扯上了 esi</p>
+<figure class="highlight x86asm"><table><tr><td class="code"><pre><div class="line">8d7600c3</div><div class="line">MoveReg(Address: <span class="number">0x40000</span>, Complexity <span class="number">0.67</span>, Stack <span class="number">0x4</span>, <span class="built_in">Ip</span> <span class="number">0x0</span>, Output: <span class="built_in">esi</span>, Inputs [<span class="built_in">esi</span>])</div><div class="line">AndGadget(Address: <span class="number">0x40000</span>, Complexity <span class="number">0.67</span>, Stack <span class="number">0x4</span>, <span class="built_in">Ip</span> <span class="number">0x0</span>, Output: <span class="built_in">esi</span>, Inputs [<span class="built_in">esi</span>, <span class="built_in">esi</span>])</div><div class="line">OrGadget(Address: <span class="number">0x40000</span>, Complexity <span class="number">0.67</span>, Stack <span class="number">0x4</span>, <span class="built_in">Ip</span> <span class="number">0x0</span>, Output: <span class="built_in">esi</span>, Inputs [<span class="built_in">esi</span>, <span class="built_in">esi</span>])</div></pre></td></tr></table></figure>
+<p>实在百思不得其解   </p>
+<p>按理说<code>伪指令</code>并没有实际的机器码与之对应，但是<code>ret</code>对应<code>c3</code>，那么只能解释为<code>align 10h</code>对应<code>8d7600</code>了</p>
+<p>好在 Google 到了<a href="http://www.codingnow.com/2000/frame.htm?http://www.codingnow.com/2000/essay/align.htm" target="_blank" rel="external">一篇文章</a>，提到了汇编器处理<code>align</code>伪指令的原理</p>
+<blockquote>
+<p>我原来以为, VC 将插入 NOP 来对齐代码, 结果发现, 为了提高效率, VC 按情况填入了单字节,双字节, 三字节指令做空操作, 使空操作的时间最短. 当需要插入 1 字节时, 理所当然的插入一个 0x90 (NOP); 需要插入 2 字节时则是 0x8b 0xff (MOV DI,DI) 这也无可厚非, 此指令不破坏任何寄存器, 也不影响标志位; 可需要填入 3 个字节的时候, 我用的 VC6 却令人费解的填入了 0x8d 0x49 0x00 (LEA CX,[BX+DI+00]), 很明显它影响了 CX, 而风魂的代码就是受到了它的影响.</p>
+</blockquote>
+<p>我这才恍然大悟，拿 capstone 反汇编了一下<code>8d7600</code>得到</p>
+<figure class="highlight x86asm"><table><tr><td class="code"><pre><div class="line"><span class="keyword">lea</span>	<span class="built_in">esi</span>, <span class="built_in">dword</span> <span class="built_in">ptr</span> [<span class="built_in">esi</span>]</div></pre></td></tr></table></figure>
+<p>果然，汇编器在处理<code>align</code>时，插入了这样一个<code>不破坏任何寄存器也不影响标志位</code>的指令来实现对齐效果</p>
+<p>而 Q（使用 capstone 反汇编）接收到传入的指令时，自然会按照实际的机器指令而不是<code>align 10h</code>来进行 Gadget 判断，所以出现了上面的结果</p>
+<p>大致如此…</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/08/16/Flask-relationship-backref/" itemprop="url">
+                  Flask-SQLAlchemy 中的 relationship & backref
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-08-16T14:29:07+08:00" content="2016-08-16">
+              2016-08-16
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Flask/" itemprop="url" rel="index">
+                    <span itemprop="name">Flask</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/16/Flask-relationship-backref/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/16/Flask-relationship-backref/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>今天重看 Flask 时，发现对<code>backref</code>仍然没有理解透彻。查阅<a href="http://flask-sqlalchemy.pocoo.org/2.1/models/" target="_blank" rel="external">文档</a>后发现，以前试图孤立地理解<code>backref</code>是问题之源，<code>backref</code>是与<code>relationship</code>配合使用的。</p>
+<h1 id="一对多关系"><a href="#一对多关系" class="headerlink" title="一对多关系"></a>一对多关系</h1><p><code>db.relationship()</code>用于在两个表之间建立<code>一对多关系</code>。例如书中 roles 表中一个 User 角色，可以对应 users 表中多个实际的普通用户。实现这种关系时，要在“多”这一侧加入一个外键，指向“一”这一侧联接的记录。</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Role</span><span class="params">(db.Model)</span>:</span></div><div class="line">	<span class="comment"># ...</span></div><div class="line">	users = db.relationship(<span class="string">'User'</span>, backref=<span class="string">'role'</span>)</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span><span class="params">(db.Model)</span>:</span></div><div class="line">	<span class="comment"># ...</span></div><div class="line">	role_id = db.Column(db.Integer, db.ForeignKey(<span class="string">'roles.id'</span>))</div></pre></td></tr></table></figure>
+<h2 id="relationship-amp-ForeighKey"><a href="#relationship-amp-ForeighKey" class="headerlink" title="relationship &amp; ForeighKey"></a>relationship &amp; ForeighKey</h2><p>大多数情况下, db.relationship() 都能自行找到关系中的外键, 但有时却无法决定把 哪一列作为外键。 例如, 如果 User 模型中有两个或以上的列定义为 Role 模型的外键, SQLAlchemy 就不知道该使用哪列。如果无法决定外键,你就要为 db.relationship() 提供额外参数,从而确定所用外键。（见书 P49）</p>
+<h2 id="relationship-amp-backref"><a href="#relationship-amp-backref" class="headerlink" title="relationship &amp; backref"></a>relationship &amp; backref</h2><p>通过<code>db.relationship()</code>，Role 模型有了一个可以获得对应角色所有用户的属性<code>users</code>。默认是列表形式，<code>lazy=&#39;dynamic&#39;</code>时返回的是一个 query 对象。即<code>relationship</code>提供了 Role 对 User 的访问。</p>
+<p>而<code>backref</code>正好相反，提供了 User 对 Role 的访问。</p>
+<p>不妨设一个 Role 实例为 <code>user_role</code>，一个 User 实例为 <code>u</code>。relationship 使 <code>user_role.users</code> 可以访问所有符合角色的用户，而 backref 使 <code>u.role</code> 可以获得用户对应的角色。</p>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">$ p manage.py shell</div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>user_role = Role.query.filter_by(name=<span class="string">'User'</span>).all()</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>user_role</div><div class="line">[&lt;Role <span class="string">u'User'</span>&gt;]</div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>user_role = Role.query.filter_by(name=<span class="string">'User'</span>).first()</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>user_role</div><div class="line">&lt;Role <span class="string">u'User'</span>&gt;</div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>user_role.users</div><div class="line">&lt;sqlalchemy.orm.dynamic.AppenderBaseQuery object at <span class="number">0x1087c1050</span>&gt;</div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>user_role.users.order_by(User.username).all()</div><div class="line">[&lt;User <span class="string">u'alice78'</span>&gt;, &lt;User <span class="string">u'andrea86'</span>&gt;, &lt;User <span class="string">u'hmr'</span>&gt;]</div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>Role.query.all()</div><div class="line">[&lt;Role <span class="string">u'Moderator'</span>&gt;, &lt;Role <span class="string">u'Administrator'</span>&gt;, &lt;Role <span class="string">u'User'</span>&gt;]</div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>user_role.users.count()</div><div class="line"><span class="number">3</span></div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>u = User.query.filter_by(username=<span class="string">'hmr'</span>).first()</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>u</div><div class="line">&lt;User <span class="string">u'hmr'</span>&gt;</div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>u.role</div><div class="line">&lt;Role <span class="string">u'User'</span>&gt;</div><div class="line">&gt;&gt;&gt;</div></pre></td></tr></table></figure>
+<h1 id="一对一关系"><a href="#一对一关系" class="headerlink" title="一对一关系"></a>一对一关系</h1><p>除了一对多之外, 还有几种其他的关系类型。一对一关系可以用前面介绍的一对多关系表示, 但调用 db.relationship() 时要把 uselist 设为 False , 把“多”变成“一”。 </p>
+<h1 id="多对多关系"><a href="#多对多关系" class="headerlink" title="多对多关系"></a>多对多关系</h1><p><code>多对多关系</code>在书 P131 讲得很清楚。</p>
+<p>在 P134 的实际例子中，使用两个一对多关系实现多对多关系。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/28/hexo-rss-sitemap/" itemprop="url">
+                  hexo-rss-sitemap
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-07-28T10:42:46+08:00" content="2016-07-28">
+              2016-07-28
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/hexo/" itemprop="url" rel="index">
+                    <span itemprop="name">hexo</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/28/hexo-rss-sitemap/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/28/hexo-rss-sitemap/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>今天突然发现没给博客添加<code>RSS</code>订阅和<code>sitemap</code>（站点地图，方便搜索引擎的收录）<br>尝试了一下发觉还挺方便的   </p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><div class="line">npm <span class="keyword">install</span> hexo-generator-feed <span class="comment">--save</span></div><div class="line">npm <span class="keyword">install</span> hexo-generator-baidu-sitemap <span class="comment">--save</span></div></pre></td></tr></table></figure>
+<p>这里一定要加上<code>--save</code>，否则无法<code>generate</code>对应的 xml</p>
+<p>然后在根目录的<code>_config.xml</code>加入</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><div class="line"># RSS &amp; sitemap</div><div class="line"># Extensions</div><div class="line">Plugins:</div><div class="line">- hexo-generator-feed</div><div class="line">- hexo-generator-sitemap</div><div class="line"></div><div class="line"># Feed Atom</div><div class="line">feed:</div><div class="line">  type: atom</div><div class="line">  path: atom.xml</div><div class="line">  limit: 20</div><div class="line"></div><div class="line"># sitemap</div><div class="line">sitemap:</div><div class="line">  path: sitemap.xml</div></pre></td></tr></table></figure>
+<p>然后<code>hexo g</code>即可生成对应 xml</p>
+<blockquote>
+<p>INFO  Start processing<br>INFO  Files loaded in 650 ms<br>INFO  Generated: atom.xml<br>INFO  Generated: sitemap.xml<br>INFO  2 files generated in 2.47 s</p>
+</blockquote>
+<p>这时访问对应路径即可验证，另外边栏也可以看见<code>RSS</code>图标了</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/25/Python闭包/" itemprop="url">
+                  Python 中的闭包与装饰器
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-07-25T10:18:09+08:00" content="2016-07-25">
+              2016-07-25
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/25/Python闭包/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/25/Python闭包/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Closure-闭包"><a href="#Closure-闭包" class="headerlink" title="Closure(闭包)"></a>Closure(闭包)</h1><p>什么是闭包?简单说,闭包就是根据不同的配置信息得到不同的结果。</p>
+<p>专业的解释:闭包（Closure）是词法闭包（Lexical Closure）的简称，是引用了自由变量的函数。这个被引用的自由变量将和这个函数一同存在，即使已经离开了创造它的环境也不例外。所以，有另一种说法认为闭包是由函数和与其相关的引用环境组合而成的实体。</p>
+<p>概念总是有点抽象，下面结合示例说下我自己的理解。</p>
+<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ul>
+<li>外部函数包裹内部函数</li>
+<li>外部函数最终返回一个函数对象，即一个内部函数实例</li>
+<li>外部函数传入的参数不同时，会返回不同的内部函数实例</li>
+<li>外部函数用于<code>绑定</code>，内部函数用于<code>处理</code></li>
+<li>外部函数绑定的参数为<code>函数</code>时，即为<code>装饰器</code></li>
+</ul>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight py"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">plus</span><span class="params">(augend)</span>:</span></div><div class="line">    <span class="keyword">print</span> <span class="string">'augend:'</span>, augend</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">plus_inside</span><span class="params">(addend)</span>:</span></div><div class="line">        <span class="keyword">print</span> <span class="string">'addend:'</span>, addend</div><div class="line">        result = augend + addend</div><div class="line">        <span class="keyword">print</span> <span class="string">'result:'</span>, result</div><div class="line">        <span class="keyword">return</span> result</div><div class="line"></div><div class="line">    <span class="keyword">return</span> plus_inside</div><div class="line"></div><div class="line">p20 = plus(<span class="number">20</span>)</div><div class="line"><span class="comment"># -&gt; augend: 20</span></div><div class="line"><span class="comment"># 只打印 augend 说明内部处理函数尚未执行</span></div><div class="line"><span class="comment"># 只是完成了将 augend 与处理函数绑定的操作</span></div><div class="line"></div><div class="line">p20(<span class="number">1</span>)</div><div class="line"><span class="comment"># -&gt; addend: 1</span></div><div class="line"><span class="comment"># -&gt; result: 21</span></div></pre></td></tr></table></figure>
+<h1 id="Decorator-装饰器"><a href="#Decorator-装饰器" class="headerlink" title="Decorator(装饰器)"></a>Decorator(装饰器)</h1><p>前面已经提到，装饰器本质就是外部函数绑定参数为函数的闭包。</p>
+<p>另外 Python 给它添加了一个更优雅的调用方式，用在被绑定函数<code>f</code>之前添加<code>@wrapper</code>的方式，代替在被绑定函数<code>f</code>定义后使用<code>f = wrapper(f)</code>手动赋值的方式，来进行绑定。</p>
+<h2 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h2><figure class="highlight py"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">makebold</span><span class="params">(fn)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapped</span><span class="params">()</span>:</span></div><div class="line">        <span class="keyword">return</span> <span class="string">"&lt;b&gt;"</span> + fn() + <span class="string">"&lt;/b&gt;"</span></div><div class="line">    <span class="keyword">return</span> wrapped</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">makeitalic</span><span class="params">(fn)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapped</span><span class="params">()</span>:</span></div><div class="line">        <span class="keyword">return</span> <span class="string">"&lt;i&gt;"</span> + fn() + <span class="string">"&lt;/i&gt;"</span></div><div class="line">    <span class="keyword">return</span> wrapped</div><div class="line"></div><div class="line"><span class="meta">@makebold</span></div><div class="line"><span class="meta">@makeitalic</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">return</span> <span class="string">"hello world"</span></div><div class="line"></div><div class="line"><span class="keyword">print</span> hello() </div><div class="line"><span class="comment"># -&gt; &lt;b&gt;&lt;i&gt;hello world&lt;/i&gt;&lt;/b&gt;</span></div><div class="line"><span class="comment"># 注意&lt;b&gt;和&lt;i&gt;的顺序</span></div></pre></td></tr></table></figure>
+<h2 id="保持函数默认参数常新的装饰器"><a href="#保持函数默认参数常新的装饰器" class="headerlink" title="保持函数默认参数常新的装饰器"></a>保持函数默认参数常新的装饰器</h2><p>Cookbook 20.1 里有个特别的例子。</p>
+<p>Python 里函数的默认参数只在函数定义时求值一次，然后存入函数内建的 func_defaults 元组内。如果是不可变参数（如 1、’qwe’、None 等），完全没有问题；但如果是类似列表这样的可变参数，重新调用函数时默认的列表可能已经面目全非。</p>
+<p>书中提供了两种解决该问题的方法：</p>
+<h3 id="标准方法"><a href="#标准方法" class="headerlink" title="标准方法"></a>标准方法</h3><figure class="highlight py"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">packitem</span><span class="params">(item, pkg=None)</span>:</span></div><div class="line">    <span class="keyword">if</span> pkg <span class="keyword">is</span> <span class="keyword">None</span>:</div><div class="line">        pkg = []</div><div class="line">    pkg.append(item)</div><div class="line">    <span class="keyword">return</span> pkg</div></pre></td></tr></table></figure>
+<h3 id="装饰器方法"><a href="#装饰器方法" class="headerlink" title="装饰器方法"></a>装饰器方法</h3><figure class="highlight py"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> copy</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">freshdefaults</span><span class="params">(f)</span>:</span></div><div class="line">    <span class="string">"a decorator to wrap f and keep its default values fresh between calls"</span></div><div class="line">    fdefaults = f.func_defaults</div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">refresher</span><span class="params">(*args, **kwds)</span>:</span></div><div class="line">        f.func_defaults = deepcopy(fdefaults)</div><div class="line">        <span class="keyword">return</span> f(*args, **kwds)</div><div class="line">        </div><div class="line">    <span class="comment"># 用于在 print 时区别不同的被绑定函数，2.4 后有效，见 Cookbook 20.1 </span></div><div class="line">    refresher.__name__ = f.__name__</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> refresher</div><div class="line"></div><div class="line"><span class="comment"># usage as a decorator, in python 2.4:</span></div><div class="line"><span class="meta">@freshdefaults</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">packitem</span><span class="params">(item, pkg=[])</span>:</span></div><div class="line">    pkg.append(item)</div><div class="line">    <span class="keyword">return</span> pkg</div><div class="line"><span class="comment"># usage in python 2.3: after the function definition, explicitly assign:</span></div><div class="line"><span class="comment"># f = freshdefaults(f)</span></div></pre></td></tr></table></figure>
+<h3 id="Ref"><a href="#Ref" class="headerlink" title="Ref."></a>Ref.</h3><ul>
+<li><a href="http://www.cnblogs.com/ma6174/archive/2013/04/15/3022548.html" target="_blank" rel="external">http://www.cnblogs.com/ma6174/archive/2013/04/15/3022548.html</a></li>
+<li>Cookbook 20.1</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/06/字符集与编码方式/" itemprop="url">
+                  字符集与编码
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-07-06T19:04:36+08:00" content="2016-07-06">
+              2016-07-06
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/编码/" itemprop="url" rel="index">
+                    <span itemprop="name">编码</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/06/字符集与编码方式/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/06/字符集与编码方式/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>以前对「字符集与编码」的认识完全来源于<a href="http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/001386819196283586a37629844456ca7e5a7faa9b94ee8000" target="_blank" rel="external">廖雪峰的这篇文章</a>，但是总容易忘记<br>而且依稀记得很早的时候在知乎看到梁海大神提到过字符集与编码是不一样的概念</p>
+<p>今天仔细查阅了一下，记录如下</p>
+<h1 id="字符集与编码"><a href="#字符集与编码" class="headerlink" title="字符集与编码"></a>字符集与编码</h1><p>顾名思义，「字符」的「集合」，每个「字符」有一个唯一的「数字」与之对应<br>而如何将「数字」改写成内存中的「字节」，即所谓的「编码」或「编码方式」</p>
+<p>引自<a href="https://www.zhihu.com/question/21887246/answer/19631235" target="_blank" rel="external">字符集和编码方式的区别？ - 梁海的回答</a>：</p>
+<blockquote>
+<p>「字符集」和「编码」等几个层次的概念被彻底分离且模块化的这样一个模型，其实是 Unicode 时代才得到广泛认同的。</p>
+<p>而对于 ASCII、GB2312、Big5 之类的遗留（legacy）方案，其字符集及其编码的关系基本是锁定的，所以常常用「字符编码」（character encoding）、「代码页」（code page）等概念来统称它们那样从字符到编码字节流的整体方案。比如 ASCII 本身就既是字符集又是编码方案，而 GB2312 用的都是 EUC-CN 编码方案。</p>
+</blockquote>
+<h1 id="ASCII"><a href="#ASCII" class="headerlink" title="ASCII"></a>ASCII</h1><p>ASCII 既是字符集又是编码方案，其字符集为「它所能表示的 128 种字符（包括控制字符和显示字符）」，编码方案为「128 个字节码与字符集间的映射」</p>
+<h1 id="ANSI"><a href="#ANSI" class="headerlink" title="ANSI"></a>ANSI</h1><p>ASCII 本身就是 ANSI(American National Standard Institute) 制定的标准。虽然 ASCII 使用一个字节即 8 位的长度，但由于在英文世界中 7 位已经完全够用，所以最高位始终为 0。其他国家便将最高位利用起来，用于扩展表示其他语言的字符。</p>
+<p>ANSI 指的是这样一种编码方式：表示通用英文字符时，最高位为 0，使用 ASCII 编码，长度为一个字节；表示其他语言的专有字符时，最高位为 1，使用其他编码。其中「其他编码」可以是 ANSI 标准中的任意一页，比如「GB2312」，用两个最高位为 1 的字节来表示一个简体中文字符。</p>
+<h1 id="Unicode-字符集"><a href="#Unicode-字符集" class="headerlink" title="Unicode 字符集"></a>Unicode 字符集</h1><p>Unicode 原本只是个字符集，<a href="http://www.freebuf.com/articles/others-articles/25623.html" target="_blank" rel="external">freebuf 的一篇译文</a>讲得很生动：</p>
+<blockquote>
+<p>Unicode 背后的想法非常简单，然而却被普遍的误解了。Unicode 就像一个电话本，标记着字符和数字之间的映射关系。Joel 称之为「神奇数字」，因为它们可能是随机指定的，而且不会给出任何解释。官方术语是码位（Code Point），总是用 U+ 开头。理论上每种语言中的每种字符都被 Unicode 协会指定了一个神奇数字。例如希伯来文中的第一个字母 א，是 U+2135，字母 A 是 U+0061。</p>
+<p>Unicode 并不涉及字符是怎么在字节中表示的，它仅仅指定了字符对应的数字，仅此而已。</p>
+<p>关于 Unicode 的其它误解包括：Unicode 支持的字符上限是 65536 个，Unicode 字符必须占两个字节。告诉你这些的人应该去换换脑子了。</p>
+<p>记住，Unicode 只是一个用来映射字符和数字的标准。它对支持字符的数量没有限制，也不要求字符必须占两个、三个或者其它任意数量的字节。</p>
+</blockquote>
+<h1 id="Unicode-编码"><a href="#Unicode-编码" class="headerlink" title="Unicode 编码"></a>Unicode 编码</h1><p>Unicode 的实现方式不同于编码方式。一个字符的 Unicode 编码是确定的。但是在实际传输过程中，由于不同系统平台的设计不一定一致，以及出于节省空间的目的，对 Unicode 编码的实现方式有所不同。Unicode 的实现方式称为  Unicode 转换格式（Unicode Transformation Format，简称为 UTF）。</p>
+<h2 id="UTF-8-编码"><a href="#UTF-8-编码" class="headerlink" title="UTF-8 编码"></a>UTF-8 编码</h2><p>如果一个仅包含基本 7 位 ASCII 字符的 Unicode 文件，如果每个字符都使用 2 字节的原 Unicode 编码传输，其第一字节的 8 位始终为 0 。这就造成了比较大的浪费。</p>
+<p>对于这种情况，可以使用 UTF-8 编码，这是一种变长编码，它将基本 7 位 ASCII 字符仍用 7 位编码表示，占用一个字节（首位补 0）。</p>
+<p>而遇到与其他 Unicode 字符混合的情况，将按一定算法转换，每个字符使用 1-3 个字节编码，并利用首位为 0 或 1 进行识别。这样对以 7 位 ASCII 字符为主的西文文档就大大节省了编码长度（具体方案参见 UTF-8）。</p>
+<h2 id="UTF-16-编码"><a href="#UTF-16-编码" class="headerlink" title="UTF-16 编码"></a>UTF-16 编码</h2><p>类似的，另一个流行的可变长度编码方案是 UTF-16，它使用 2 个或者 4 个字节来存储字符。然而，人们逐渐意识到 UTF-16 可能会浪费存储空间，但那是另一个话题了。</p>
+<h2 id="狭义的-Unicode-编码"><a href="#狭义的-Unicode-编码" class="headerlink" title="狭义的 Unicode 编码"></a>狭义的 Unicode 编码</h2><p>需要注意的是，狭义的 Unicode 编码方式与 ISO 10646 的通用字符集（Universal Character Set，UCS）概念相对应，目前实际应用的 Unicode 版本对应于 UCS-2 ，使用 16 位的编码空间。也就是每个字符占用 2 个字节。</p>
+<p>这样理论上一共最多可以表示 216 即 65536 个字符。基本满足各种语言的使用。实际上当前版本的 Unicode 尚未填满这 16 位编码，保留了大量空间作为特殊使用或将来扩展。</p>
+<p>以 Python 为例，<code>unicode(s,&#39;utf8&#39;)</code> 所返回的结果就是这种狭义的 Unicode 编码。</p>
+<p>又是梁海在<a href="https://www.zhihu.com/question/19817672/answer/13055185" target="_blank" rel="external">廖雪峰答案</a>的评论里提到:</p>
+<blockquote>
+<p>廖雪峰说的「Unicode」指的是 UCS-2（所以不能改成「UTF-32」）。当年只有 BMP 的时候 UCS-2 和 UTF-16 是等价的，又被称作「Unicode」（所以这里不是「Unicode 是字符集，不是编码方式」这个问题，只是 UCS-2 也被称作「Unicode」而已）。但现在这种用「Unicode」指代 UCS-2/UTF-16 的做法已经过时了，很不合适。</p>
+</blockquote>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>简单总结一下，Unicode 是「字符集」而不是「编码」。但由于历史原因，某些时候提到的「Unicode 编码」指的是曾经定长的 UCS-2/UTF-16（现在 UTF-16 也是变长）。</p>
+<p>由于 UTF-8 可以兼容 ASCII，且其变长特性能相对高效地利用空间，在应用或传输过程中一般使用的是 UTF-8。例如 Python shell 中 str 使用的就是 ASCII(UTF-8)。</p>
+<p>而内存一般使用的是这种「Unicode 编码」，所以在进行编码转换时，通常将各类编码<code>decode</code>成「Unicode 编码」，在<code>encode</code>成最终编码形式。</p>
+<p>eg:</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>a=<span class="string">'在'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>a</div><div class="line"><span class="string">'\xe5\x9c\xa8'</span></div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>b=unicode(a,<span class="string">'utf8'</span>) // 或 b=a.decode(<span class="string">'utf8'</span>)，其中<span class="string">'utf-8'</span>等同于<span class="string">'utf8'</span> </div><div class="line"><span class="meta">&gt;&gt;&gt; </span>b</div><div class="line"><span class="string">u'\u5728'</span></div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>b.encode(<span class="string">'gbk'</span>)</div><div class="line"><span class="string">'\xd4\xda'</span></div></pre></td></tr></table></figure>
+<p>在 Python 2.x 版本中，字符串实际上是字节串，这种字符串中的每个字符长度为 1，实际上就是一个字节，等同于 ASCII。（参考《Python Cookbook》1.21）</p>
+<p>不过在 Python 3.x 版本中，把 ‘xxx’ 和 u’xxx’ 统一成了 Unicode 编码，即写不写前缀 u 都是一样的，而以字节形式表示的字符串则必须加上 b 前缀。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/06/AngularJS-ngResource-save/" itemprop="url">
+                  AngularJS-ngResource-save
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-07-06T14:43:02+08:00" content="2016-07-06">
+              2016-07-06
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/AngularJS/" itemprop="url" rel="index">
+                    <span itemprop="name">AngularJS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/06/AngularJS-ngResource-save/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/06/AngularJS-ngResource-save/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Coursera AngularJS 课程的最后一个任务，添加提交 feedback 到 server 的功能<br>之前已经实现了添加 feedback 并保存在 client 的功能<br>现在只需要利用<code>$resource</code>的<code>$save</code>方法将 feedback 的 json 对象<code>post</code>到 server   </p>
+<p>本以为照葫芦画瓢很简单，结果总是会报错如下</p>
+<blockquote>
+<p>TypeError: feedbackFactory.getFeedbacks(…).$save is not a function</p>
+</blockquote>
+<p>仔细对照<a href="https://docs.angularjs.org/api/ngResource/service/$resource" target="_blank" rel="external">官方文档</a>找到原因：</p>
+<blockquote>
+<p>The action methods on the class object or instance object can be invoked with the following parameters:</p>
+<ul>
+<li>HTTP GET “class” actions: Resource.action([parameters], [success], [error])</li>
+<li>non-GET “class” actions: Resource.action([parameters], postData, [success], [error])</li>
+<li>non-GET instance actions: instance.$action([parameters], [success], [error])</li>
+</ul>
+</blockquote>
+<p>问题出在我试图使用<code>non-GET &quot;class&quot; actions</code>，却加了<code>$</code>符号且没有带上<code>postData</code>   </p>
+<p>所以解决方式有两种</p>
+<h1 id="non-GET-“class”-actions"><a href="#non-GET-“class”-actions" class="headerlink" title="non-GET “class” actions"></a>non-GET “class” actions</h1><figure class="highlight js"><figcaption><span>services.js</span></figcaption><table><tr><td class="code"><pre><div class="line">...</div><div class="line">        .constant(<span class="string">"baseURL"</span>, <span class="string">"http://localhost:3000/"</span>)</div><div class="line">        .service(<span class="string">'feedbackFactory'</span>, [<span class="string">'$resource'</span>, <span class="string">'baseURL'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$resource,baseURL</span>) </span>&#123; </div><div class="line"></div><div class="line">            <span class="keyword">this</span>.getFeedbacks = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">                <span class="keyword">return</span> $resource(baseURL+<span class="string">"feedback"</span>,<span class="literal">null</span>);</div><div class="line">            &#125;;</div><div class="line"></div><div class="line">        &#125;])</div><div class="line">...</div></pre></td></tr></table></figure>
+<figure class="highlight js"><figcaption><span>controllers.js</span></figcaption><table><tr><td class="code"><pre><div class="line">...</div><div class="line">        .controller(<span class="string">'FeedbackController'</span>, [<span class="string">'$scope'</span>, <span class="string">'feedbackFactory'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$scope, feedbackFactory</span>) </span>&#123;</div><div class="line"></div><div class="line">            $scope.feedbacks = feedbackFactory.getFeedbacks().query(</div><div class="line">                <span class="function"><span class="keyword">function</span>(<span class="params">response</span>)</span>&#123;</div><div class="line">                    $scope.feedbacks = response;</div><div class="line">                    <span class="built_in">console</span>.log($scope.feedbacks);</div><div class="line">                &#125;</div><div class="line">            );</div><div class="line"></div><div class="line">            $scope.sendFeedback = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line"></div><div class="line">                <span class="built_in">console</span>.log($scope.feedbacks);</div><div class="line"></div><div class="line">                $scope.feedbacks.push($scope.feedback);</div><div class="line">                feedbackFactory.getFeedbacks().save($scope.feedback);</div><div class="line"></div><div class="line">                <span class="keyword">if</span> ($scope.feedback.agree &amp;&amp; ($scope.feedback.mychannel == <span class="string">""</span>)) &#123;</div><div class="line">                    $scope.invalidChannelSelection = <span class="literal">true</span>;</div><div class="line">                    <span class="built_in">console</span>.log(<span class="string">'incorrect'</span>);</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">else</span> &#123;</div><div class="line">                    $scope.invalidChannelSelection = <span class="literal">false</span>;</div><div class="line">                    $scope.feedback = &#123;<span class="attr">mychannel</span>:<span class="string">""</span>, <span class="attr">firstName</span>:<span class="string">""</span>, <span class="attr">lastName</span>:<span class="string">""</span>, <span class="attr">agree</span>:<span class="literal">false</span>, <span class="attr">email</span>:<span class="string">""</span> &#125;;</div><div class="line">                    $scope.feedbackForm.$setPristine();</div><div class="line">                    <span class="built_in">console</span>.log($scope.feedback);</div><div class="line">                &#125;</div><div class="line">            &#125;;</div><div class="line">        &#125;])</div><div class="line">...</div></pre></td></tr></table></figure>
+<h1 id="non-GET-instance-actions"><a href="#non-GET-instance-actions" class="headerlink" title="non-GET instance actions"></a>non-GET instance actions</h1><figure class="highlight js"><figcaption><span>service.js</span></figcaption><table><tr><td class="code"><pre><div class="line">...</div><div class="line">        .constant(<span class="string">"baseURL"</span>, <span class="string">"http://localhost:3000/"</span>)</div><div class="line">        .service(<span class="string">'feedbackFactory'</span>, [<span class="string">'$resource'</span>, <span class="string">'baseURL'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$resource,baseURL</span>) </span>&#123; </div><div class="line"></div><div class="line">                <span class="keyword">return</span> $resource(baseURL+<span class="string">"feedback/:id"</span>,<span class="literal">null</span>);</div><div class="line"></div><div class="line">        &#125;])</div><div class="line">...</div></pre></td></tr></table></figure>
+<figure class="highlight js"><figcaption><span>controllers.js</span></figcaption><table><tr><td class="code"><pre><div class="line">...</div><div class="line">        .controller(<span class="string">'FeedbackController'</span>, [<span class="string">'$scope'</span>, <span class="string">'feedbackFactory'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$scope, feedbackFactory</span>) </span>&#123;</div><div class="line"></div><div class="line">            <span class="comment">// $scope.feedbacks = feedbackFactory.getFeedbacks().query(</span></div><div class="line">            <span class="comment">//     function(response)&#123;</span></div><div class="line">            <span class="comment">//         $scope.feedbacks = response;</span></div><div class="line">            <span class="comment">//         console.log($scope.feedbacks);</span></div><div class="line">            <span class="comment">//     &#125;</span></div><div class="line">            <span class="comment">// );</span></div><div class="line"></div><div class="line">            $scope.sendFeedback = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line"></div><div class="line">                <span class="keyword">var</span> newFeedback = <span class="keyword">new</span> feedbackFactory($scope.feedback);</div><div class="line">                newFeedback.$save();</div><div class="line"></div><div class="line">                <span class="comment">// $scope.feedbacks.push($scope.feedback);</span></div><div class="line">                <span class="comment">// feedbackFactory.getFeedbacks().save($scope.feedback);</span></div><div class="line"></div><div class="line">                <span class="keyword">if</span> ($scope.feedback.agree &amp;&amp; ($scope.feedback.mychannel == <span class="string">""</span>)) &#123;</div><div class="line">                    $scope.invalidChannelSelection = <span class="literal">true</span>;</div><div class="line">                    <span class="built_in">console</span>.log(<span class="string">'incorrect'</span>);</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">else</span> &#123;</div><div class="line">                    $scope.invalidChannelSelection = <span class="literal">false</span>;</div><div class="line">                    $scope.feedback = &#123;<span class="attr">mychannel</span>:<span class="string">""</span>, <span class="attr">firstName</span>:<span class="string">""</span>, <span class="attr">lastName</span>:<span class="string">""</span>, <span class="attr">agree</span>:<span class="literal">false</span>, <span class="attr">email</span>:<span class="string">""</span> &#125;;</div><div class="line">                    $scope.feedbackForm.$setPristine();</div><div class="line">                    <span class="built_in">console</span>.log($scope.feedback);</div><div class="line">                &#125;</div><div class="line">            &#125;;</div><div class="line">        &#125;])</div><div class="line">...</div></pre></td></tr></table></figure>
+<p>由于第二种方式没有加上<code>[success], [error]</code>处理，看起来要简单许多<br><a href="http://stackoverflow.com/questions/36558499/angularjs-post-changes-to-the-server-using-resource/36564415#36564415" target="_blank" rel="external">Stackoverflow</a> 里一位疑似该课程的同学用的就是这种方式<br>不过相对来说第一种方式跟其他部分代码风格更统一   </p>
+<p>大致如此.</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/05/brackets-live-preview-gulp/" itemprop="url">
+                  brackets-live-preview-gulp
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-07-05T18:23:57+08:00" content="2016-07-05">
+              2016-07-05
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/AngularJS/" itemprop="url" rel="index">
+                    <span itemprop="name">AngularJS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/05/brackets-live-preview-gulp/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/05/brackets-live-preview-gulp/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>今天学习 Coursera 的 AngularJS 课程时尝试使用<code>ng-include</code>添加模板<br>发觉 Brackets 的 Live Preview 在 Chrome 里总是无法正常显示   </p>
+<p><a href="http://blog.csdn.net/aitangyong/article/details/43490117" target="_blank" rel="external">这篇博文</a>提到：</p>
+<blockquote>
+<p>chrome提示很明显：不能跨域访问。通过上面的错误提示，可以看到:使用ng-include指令的时候，会用到AJAX请求XMLHttpRequest。但是我们是直接用浏览器打开的parent.html，并没有通过web容器访问，所以存在跨域访问问题，加载child.html也就失败了。解决办法很简单：将代码部署到tomcat等web容器下，通过http访问即可。</p>
+</blockquote>
+<p><a href="https://www.coursera.org/learn/angular-js/discussions/weeks/3/threads/rWCY3qGmEeWF6gpqp4BTmQ" target="_blank" rel="external">Coursera Discussions</a> 里也有人提到了这个问题，可以有 3 种解决方式</p>
+<h1 id="gulp"><a href="#gulp" class="headerlink" title="gulp"></a>gulp</h1><p>之前的课程刚好提到 gulp 可以使用 brower-sync 建立一个 Web 容器来访问项目<br>把<code>Gulpfile.js</code>略作修改之后<code>gulp watch</code>却仍然无法访问   </p>
+<p>在 stackoverflow (<a href="http://stackoverflow.com/questions/32171725/chrome-cant-open-localhost3000-with-gulp-browsersync?rq=1" target="_blank" rel="external">1</a>, <a href="http://stackoverflow.com/questions/30233218/browser-sync-is-blocked-by-chrome-csp" target="_blank" rel="external">2</a>) 找到答案，又是 Chrome 的锅，触发了其<code>Content-Security-Policy</code>   </p>
+<p>修改端口号即可解决</p>
+<h1 id="Brackets-Live-Preview"><a href="#Brackets-Live-Preview" class="headerlink" title="Brackets Live Preview"></a>Brackets Live Preview</h1><p>尝试之后发现，我在预览单个 html 时，使用的是<code>file</code>协议，在 Chrome 里无法跨域访问<br>而使用 Brackets 打开整个项目时，Live Preview 将项目放入了自建的 Web 容器里，使用的是<code>http</code>协议，即可在 Chrome 中正常跨域访问</p>
+<h1 id="http-server-or-json-server"><a href="#http-server-or-json-server" class="headerlink" title="http-server or json-server"></a>http-server or json-server</h1><p>使用 node 安装其它小型 Web 容器后放入运行也可解决</p>
+<p>大致如此.</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/06/28/bootstrap-keyboard-tagIndex/" itemprop="url">
+                  bootstrap-keyboard-tagIndex
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-06-28T16:16:57+08:00" content="2016-06-28">
+              2016-06-28
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/28/bootstrap-keyboard-tagIndex/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/28/bootstrap-keyboard-tagIndex/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>这两天在 Coursera 上学习 Bootstrap<br>第四周的作业是把非 JavaScript 实现的 Modal 改成用 JavaScript 实现（<a href="https://www.coursera.org/learn/web-frameworks/peer/jAXUU/assignment-4-detailed-instructions-and-submission）" target="_blank" rel="external">https://www.coursera.org/learn/web-frameworks/peer/jAXUU/assignment-4-detailed-instructions-and-submission）</a>   </p>
+<p>按照 <a href="http://getbootstrap.com/javascript/#modals-methods" target="_blank" rel="external">http://getbootstrap.com/javascript/#modals-methods</a> 找到了解决方案：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">    $(<span class="string">'#reserveButton'</span>).on(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        $(<span class="string">'#reserveModal'</span>).modal(<span class="string">'toggle'</span>);</div><div class="line">    &#125;);</div><div class="line"><span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></div></pre></td></tr></table></figure>
+<p>作业是解决了，但是发现一个小问题：不管我怎么改<code>keyboard</code>属性，都不能用<code>esc</code>关闭<code>modal</code></p>
+<p>搜了一下得知：在<code>modal</code>所在<code>div</code>中加入<code>tabindex=&quot;-1&quot;</code>属性即可<br>那么问题又来了…这个<code>tabindex=&quot;-1&quot;</code>是什么鬼…   </p>
+<p>搜索加测试了一下之后终于搞清楚了<br><code>tabindex</code>用来帮助键盘党使用<code>tab</code>键定位网页元素，按其值由小到大跳转，默认是 0<br>如果值相等，则按先后顺序跳转</p>
+<p>在未加入<code>tabindex=&quot;-1&quot;</code>时，<code>modal</code>和主页中所有元素值都是 0<br>当前键盘的焦点仍然在主页而非<code>modal</code>上，相当于在主页按<code>esc</code>，<code>modal</code>监听不到所以无任何反应<br>加入<code>tabindex=&quot;-1&quot;</code>后，<code>modal</code>的优先级最高，键盘焦点到了<code>modal</code>上，这时再按<code>esc</code>就能正确触发关闭<code>modal</code>事件了</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="http://blog.163.com/huan12_8/blog/static/1305190902011274739628/" target="_blank" rel="external">http://blog.163.com/huan12_8/blog/static/1305190902011274739628/</a></li>
+<li><a href="https://segmentfault.com/q/1010000004954562" target="_blank" rel="external">https://segmentfault.com/q/1010000004954562</a></li>
+<li><a href="http://www.w3school.com.cn/tags/att_standard_tabindex.asp" target="_blank" rel="external">http://www.w3school.com.cn/tags/att_standard_tabindex.asp</a></li>
+<li><a href="http://www.mamicode.com/info-detail-494399.html" target="_blank" rel="external">http://www.mamicode.com/info-detail-494399.html</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/06/16/git-push-error/" itemprop="url">
+                  Permission denied (publickey)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-06-16T08:21:06+08:00" content="2016-06-16">
+              2016-06-16
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/git/" itemprop="url" rel="index">
+                    <span itemprop="name">git</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/16/git-push-error/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/16/git-push-error/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>今天把学习 flask 的本地库上传到 github 时报错</p>
+<figure class="highlight livecodeserver"><table><tr><td class="code"><pre><div class="line">$ git push -u origin master</div><div class="line">Permission denied (publickey).</div><div class="line">fatal: Could <span class="keyword">not</span> <span class="built_in">read</span> <span class="built_in">from</span> remote repository.</div><div class="line"></div><div class="line">Please make sure you have <span class="keyword">the</span> correct access rights</div><div class="line"><span class="keyword">and</span> <span class="keyword">the</span> repository exists.</div></pre></td></tr></table></figure>
+<p>在 <a href="http://stackoverflow.com/questions/26953071/github-authentication-failed-github-does-not-provide-shell-access" target="_blank" rel="external">stackoverflow</a> 找到解决方案</p>
+<figure class="highlight dsconfig"><table><tr><td class="code"><pre><div class="line"><span class="string">git </span><span class="string">remote </span><span class="built_in">set-url</span> <span class="string">origin </span><span class="string">git@</span><span class="string">github.</span><span class="string">com:lut/</span><span class="string">EvolutionApp.</span><span class="string">git</span></div><div class="line"><span class="string">git </span><span class="string">remote </span><span class="string">show </span><span class="string">origin</span></div></pre></td></tr></table></figure>
+<p>简单记录一下…</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1608,7 +2933,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">42</span>
+              <span class="site-state-item-count">40</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1616,7 +2941,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -1625,7 +2950,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">94</span>
+                <span class="site-state-item-count">100</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

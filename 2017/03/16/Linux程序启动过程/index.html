@@ -59,33 +59,43 @@
 
 
 
-<meta name="description" content="Linux x86 elf 程序启动过程Kali rolling x86-64 环境，默认动态链接参考 32 位： http://dbp-consulting.com/tutorials/debugging/linuxProgramStartup.html 
+<meta name="description" content="Kali rolling x86-64 环境，默认动态链接参考 32 位： http://dbp-consulting.com/tutorials/debugging/linuxProgramStartup.html 
 流程图如下：
+
+64 位草图
 
 最简单的 mainint main()&amp;#123;&amp;#125;
 gcc -ggdb -o prog1 prog1.c
-exe">
+execve运行程序时，she">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux x86 elf 程序启动过程">
-<meta property="og:url" content="http://answerrrrrrrrr.io/2017/03/16/Linux程序启动过程/index.html">
+<meta property="og:url" content="http://answerrrrrrrrr.github.io/2017/03/16/Linux程序启动过程/index.html">
 <meta property="og:site_name" content="Answerrrrrrrrr">
-<meta property="og:description" content="Linux x86 elf 程序启动过程Kali rolling x86-64 环境，默认动态链接参考 32 位： http://dbp-consulting.com/tutorials/debugging/linuxProgramStartup.html 
+<meta property="og:description" content="Kali rolling x86-64 环境，默认动态链接参考 32 位： http://dbp-consulting.com/tutorials/debugging/linuxProgramStartup.html 
 流程图如下：
+
+64 位草图
 
 最简单的 mainint main()&amp;#123;&amp;#125;
 gcc -ggdb -o prog1 prog1.c
-exe">
+execve运行程序时，she">
 <meta property="og:image" content="http://dbp-consulting.com/tutorials/debugging/images/callgraph.png">
-<meta property="og:image" content="http://answerrrrrrrrr.io/2017/03/16/Linux程序启动过程/_start.png">
-<meta property="og:updated_time" content="2017-03-20T06:28:18.000Z">
+<meta property="og:image" content="https://ww3.sinaimg.cn/large/006tNbRwly1fdunwuca6tj31120kuwro.jpg">
+<meta property="og:image" content="https://ww3.sinaimg.cn/large/006tNbRwly1fdu8v5ggcqj30ze138n64.jpg">
+<meta property="og:image" content="https://ww4.sinaimg.cn/large/006tNbRwly1fdtk4hiplwj30za13u145.jpg">
+<meta property="og:image" content="https://ww2.sinaimg.cn/large/006tNbRwly1fdua01wgboj30zg124tj5.jpg">
+<meta property="og:image" content="https://ww2.sinaimg.cn/large/006tNbRwly1fduntp9dfcj30z412caip.jpg">
+<meta property="og:updated_time" content="2017-03-21T14:43:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux x86 elf 程序启动过程">
-<meta name="twitter:description" content="Linux x86 elf 程序启动过程Kali rolling x86-64 环境，默认动态链接参考 32 位： http://dbp-consulting.com/tutorials/debugging/linuxProgramStartup.html 
+<meta name="twitter:description" content="Kali rolling x86-64 环境，默认动态链接参考 32 位： http://dbp-consulting.com/tutorials/debugging/linuxProgramStartup.html 
 流程图如下：
+
+64 位草图
 
 最简单的 mainint main()&amp;#123;&amp;#125;
 gcc -ggdb -o prog1 prog1.c
-exe">
+execve运行程序时，she">
 <meta name="twitter:image" content="http://dbp-consulting.com/tutorials/debugging/images/callgraph.png">
 
 
@@ -297,24 +307,28 @@ exe">
       
 
       
-        <h1 id="Linux-x86-elf-程序启动过程"><a href="#Linux-x86-elf-程序启动过程" class="headerlink" title="Linux x86 elf 程序启动过程"></a>Linux x86 elf 程序启动过程</h1><p>Kali rolling x86-64 环境，默认动态链接<br>参考 32 位： <a href="http://dbp-consulting.com/tutorials/debugging/linuxProgramStartup.html" target="_blank" rel="external">http://dbp-consulting.com/tutorials/debugging/linuxProgramStartup.html</a> </p>
+        <p>Kali rolling x86-64 环境，默认动态链接<br>参考 32 位： <a href="http://dbp-consulting.com/tutorials/debugging/linuxProgramStartup.html" target="_blank" rel="external">http://dbp-consulting.com/tutorials/debugging/linuxProgramStartup.html</a> </p>
 <p>流程图如下：</p>
 <p><img src="http://dbp-consulting.com/tutorials/debugging/images/callgraph.png" alt="流程图"></p>
-<h2 id="最简单的-main"><a href="#最简单的-main" class="headerlink" title="最简单的 main"></a>最简单的 main</h2><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">int main()</div><div class="line">&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>64 位草图</p>
+<p><img src="https://ww3.sinaimg.cn/large/006tNbRwly1fdunwuca6tj31120kuwro.jpg" alt=""></p>
+<h1 id="最简单的-main"><a href="#最简单的-main" class="headerlink" title="最简单的 main"></a>最简单的 main</h1><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">int main()</div><div class="line">&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p><code>gcc -ggdb -o prog1 prog1.c</code></p>
-<h2 id="execve"><a href="#execve" class="headerlink" title="execve"></a>execve</h2><p>运行程序时，shell 或者 gui 调用 execve() 函数触发系统调用：</p>
+<h1 id="execve"><a href="#execve" class="headerlink" title="execve"></a>execve</h1><p>运行程序时，shell 或者 gui 调用 execve() 函数触发系统调用：</p>
 <ul>
 <li>系统会分配栈区并将 argc, argv, envp 压栈</li>
 <li>按照 shell 设定 FD</li>
 <li>装载器负责重定位和调用<code>preinitializers</code>（图中<code>preinitarray1..n</code>）</li>
 <li>从程序代码段中 _start 位置开始执行程序</li>
 </ul>
-<h2 id="start"><a href="#start" class="headerlink" title="_start"></a>_start</h2><p><code>_start</code> 是程序执行的初始位置，通过<code>objdump -d prog1</code>查看汇编</p>
-<figure class="highlight perl"><table><tr><td class="code"><pre><div class="line"><span class="number">00000000004003</span>b<span class="number">0</span> &lt;_start&gt;:</div><div class="line">  <span class="number">4003</span>b<span class="number">0</span>:       <span class="number">31</span> ed                   <span class="keyword">xor</span>    %ebp,%ebp</div><div class="line">  <span class="number">4003</span>b2:       <span class="number">49</span> <span class="number">89</span> d1                mov    %rdx,%r9                 <span class="comment"># argv</span></div><div class="line">  <span class="number">4003</span>b5:       <span class="number">5</span>e                      <span class="keyword">pop</span>    %rsi                     <span class="comment"># argc</span></div><div class="line">  <span class="number">4003</span>b6:       <span class="number">48</span> <span class="number">89</span> e2                mov    %rsp,%rdx                <span class="comment"># linker destructor</span></div><div class="line">  <span class="number">4003</span>b9:       <span class="number">48</span> <span class="number">83</span> e4 f<span class="number">0</span>             <span class="keyword">and</span>    $0xfffffffffffffff<span class="number">0</span>,%rsp</div><div class="line">  <span class="number">4003</span>bd:       <span class="number">50</span>                      <span class="keyword">push</span>   %rax</div><div class="line">  <span class="number">4003</span>be:       <span class="number">54</span>                      <span class="keyword">push</span>   %rsp</div><div class="line">  <span class="number">4003</span>bf:       <span class="number">49</span> c7 c<span class="number">0</span> <span class="number">30</span> <span class="number">05</span> <span class="number">40</span> <span class="number">00</span>    mov    $0x40053<span class="number">0</span>,%r8            <span class="comment"># &lt;__libc_csu_fini&gt;</span></div><div class="line">  <span class="number">4003</span>c6:       <span class="number">48</span> c7 c1 c<span class="number">0</span> <span class="number">04</span> <span class="number">40</span> <span class="number">00</span>    mov    $0x4004c<span class="number">0</span>,%rcx           <span class="comment"># &lt;__libc_csu_init&gt;</span></div><div class="line">  <span class="number">4003</span>cd:       <span class="number">48</span> c7 c7 a6 <span class="number">04</span> <span class="number">40</span> <span class="number">00</span>    mov    $0x4004a6,%rdi           <span class="comment"># &lt;main&gt;</span></div><div class="line">  <span class="number">4003</span>d4:       ff <span class="number">15</span> <span class="number">16</span> 0c <span class="number">20</span> <span class="number">00</span>       callq  *<span class="number">0x200c16</span>(%rip)        <span class="comment"># 600ff0 &lt;__libc_start_main@GLIBC_2.2.5&gt;</span></div><div class="line">  <span class="number">4003</span>da:       f4                      hlt</div><div class="line">  <span class="number">4003</span>db:       0f <span class="number">1</span>f <span class="number">44</span> <span class="number">00</span> <span class="number">00</span>          nopl   <span class="number">0x0</span>(%rax,%rax,<span class="number">1</span>)</div></pre></td></tr></table></figure>
+<h1 id="start"><a href="#start" class="headerlink" title="_start"></a>_start</h1><p><code>_start</code> 是程序执行的初始位置，通过<code>objdump -d prog1</code>查看汇编</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">00000000004003b0 &lt;_start&gt;:</div><div class="line">  4003b0:       31 ed                   xor    %ebp,%ebp</div><div class="line">  4003b2:       49 89 d1                mov    %rdx,%r9                 # argv</div><div class="line">  4003b5:       5e                      pop    %rsi                     # argc</div><div class="line">  4003b6:       48 89 e2                mov    %rsp,%rdx                # linker destructor</div><div class="line">  4003b9:       48 83 e4 f0             and    $0xfffffffffffffff0,%rsp</div><div class="line">  4003bd:       50                      push   %rax</div><div class="line">  4003be:       54                      push   %rsp</div><div class="line">  4003bf:       49 c7 c0 30 05 40 00    mov    $0x400530,%r8            # &lt;__libc_csu_fini&gt;</div><div class="line">  4003c6:       48 c7 c1 c0 04 40 00    mov    $0x4004c0,%rcx           # &lt;__libc_csu_init&gt;</div><div class="line">  4003cd:       48 c7 c7 a6 04 40 00    mov    $0x4004a6,%rdi           # &lt;main&gt;</div><div class="line">  4003d4:       ff 15 16 0c 20 00       callq  *0x200c16(%rip)        # 600ff0 &lt;__libc_start_main@GLIBC_2.2.5&gt;</div><div class="line">  4003da:       f4                      hlt</div><div class="line">  4003db:       0f 1f 44 00 00          nopl   0x0(%rax,%rax,1)</div></pre></td></tr></table></figure>
 <p><code>_start</code>的作用就是配置<code>__libc_start_main</code>的参数并进行调用：</p>
 <ul>
-<li><code>xor %ebp, %ebp</code>用于将 <code>%ebp</code> 清零，同时作为最外层标记</li>
-<li>对 <code>%rdi</code>, <code>%rsi</code>, <code>%rdx</code>, <code>%rcx</code>, <code>%r8</code>, <code>%r9</code> 的操作均为传参，因为共 7 个参数，还用到了栈来传递第一个参数<ol>
+<li><p><code>xor %ebp, %ebp</code>用于将 <code>%ebp</code> 清零，同时作为最外层标记</p>
+</li>
+<li><p>对 <code>%rdi</code>, <code>%rsi</code>, <code>%rdx</code>, <code>%rcx</code>, <code>%r8</code>, <code>%r9</code> 的操作均为传参，因为共 7 个参数，还用到了栈来传递第一个参数</p>
+<ol>
 <li><code>main</code>地址, 由<code>__libc_start_main</code>调用, 另外在程序终止后<code>main</code>的返回值会由<code>__libc_start_main</code>传递给<code>exit</code></li>
 <li><code>argc</code></li>
 <li><code>argv</code></li>
@@ -324,17 +338,39 @@ exe">
 <li>栈 - 函数调用前的<code>%rsp</code></li>
 </ol>
 </li>
-<li>为了<a href="http://coolshell.cn/articles/11377.html" target="_blank" rel="external">提升访存效率</a>，编译器通常采用 16B 对齐。为了保证函数调用时的新栈帧是 16B 对齐的，使用<code>and</code>指令将 %esp 对齐。</li>
-<li>同时，为了将 %esp 保存在 16B 对齐的位置，使用<code>push %rax</code>提前填充 8B</li>
+<li><p>为了<a href="http://coolshell.cn/articles/11377.html" target="_blank" rel="external">提升访存效率</a>，编译器通常采用 16B 对齐。为了保证函数调用时的新栈帧是 16B 对齐的，使用<code>and</code>指令将 %esp 对齐。</p>
+</li>
+<li><p>同时，为了将 %esp 保存在 16B 对齐的位置，使用<code>push %rax</code>提前填充 8B</p>
+</li>
 </ul>
-<p><code>__libc_start_main</code>定义如下：</p>
+<p><code>_start</code>调用<code>__libc_start_main</code>前的状态:</p>
+<p><img src="https://ww3.sinaimg.cn/large/006tNbRwly1fdu8v5ggcqj30ze138n64.jpg" alt="before __libc_start_main"></p>
+<h1 id="libc-start-main"><a href="#libc-start-main" class="headerlink" title="__libc_start_main"></a>__libc_start_main</h1><p><code>__libc_start_main</code>定义如下：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">int __libc_start_main(  </div><div class="line">    int (*main) (int, char * *, char * *),</div><div class="line">    int argc, </div><div class="line">    char * * ubp_av,</div><div class="line">    void (*init) (void),</div><div class="line">    void (*fini) (void),</div><div class="line">    void (*rtld_fini) (void),</div><div class="line">    void (* stack_end)</div><div class="line"> );</div></pre></td></tr></table></figure>
-<p><code>main</code>的完整参数调用应该是<code>int main(int argc, char** argv, char** envp)</code>, 但是<code>__libc_start_main</code>中却并不包含 envp</p>
-<p>使用 gdb 调试 prog1, 在<code>_start</code>处下断点, 运行初始状态如下:<br><img src="/2017/03/16/Linux程序启动过程/_start.png" alt="_start"><br>可以看到从栈顶向栈底依次放置的是: argc, argv, 0x0, 环境变量. 可见 envp 其实可以由 argc 和 argv 计算得到</p>
-
-
-
+<p><code>main</code>的完整参数调用应该是<code>int main(int argc, char** argv, char** envp)</code>, 但是<code>__libc_start_main</code>中却并不包含 <code>envp</code>, 因为<code>envp</code>可以由<code>argc</code>和<code>argv</code>计算得到</p>
+<h2 id="ELF-auxiliary-vector"><a href="#ELF-auxiliary-vector" class="headerlink" title="ELF auxiliary vector"></a>ELF auxiliary vector</h2><p>使用 gdb 调试 prog1, 在<code>_start</code>处下断点, 运行初始状态如下:<br><img src="https://ww4.sinaimg.cn/large/006tNbRwly1fdtk4hiplwj30za13u145.jpg" alt="_start"><br>可以看到从栈顶向栈底依次放置的是: argc, argv, 0x0, 环境变量等, 即<a href="http://articles.manugarg.com/aboutelfauxiliaryvectors.html" target="_blank" rel="external"><code>ELF 辅助向量</code></a>. </p>
+<h2 id="libc-start-main-的主要功能"><a href="#libc-start-main-的主要功能" class="headerlink" title="__libc_start_main 的主要功能"></a>__libc_start_main 的主要功能</h2><ul>
+<li><p>setuid, setgid</p>
+</li>
+<li><p>启动线程</p>
+</li>
+<li><p>寄存<code>fini</code>和<code>rtld_fini</code>的参数, 等待<code>at_exit</code>调用</p>
+</li>
+<li><p>调用<code>__libc_csu_init</code></p>
+</li>
+<li><p>调用<code>main</code></p>
+</li>
+<li><p>调用<code>exit</code></p>
+<p>​</p>
+</li>
+</ul>
+<h1 id="libc-csu-init"><a href="#libc-csu-init" class="headerlink" title="__libc_csu_init"></a>__libc_csu_init</h1><p><img src="https://ww2.sinaimg.cn/large/006tNbRwly1fdua01wgboj30zg124tj5.jpg" alt="调用__libc_csu_init之前"></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">void __libc_csu_init (int argc, char **argv, char **envp)</div><div class="line">&#123;</div><div class="line"></div><div class="line">  _init ();</div><div class="line"></div><div class="line">  const size_t size = __init_array_end - __init_array_start;</div><div class="line">  for (size_t i = 0; i &lt; size; i++)</div><div class="line">      (*__init_array_start [i]) (argc, argv, envp);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">00000000004004c0 &lt;__libc_csu_init&gt;:</div><div class="line">  4004c0:	41 57                	push   %r15</div><div class="line">  4004c2:	41 56                	push   %r14</div><div class="line">  4004c4:	41 89 ff             	mov    %edi,%r15d</div><div class="line">  4004c7:	41 55                	push   %r13</div><div class="line">  4004c9:	41 54                	push   %r12</div><div class="line">  4004cb:	4c 8d 25 76 09 20 00 	lea    0x200976(%rip),%r12        # 600e48 &lt;__frame_dummy_init_array_entry&gt;</div><div class="line">  4004d2:	55                   	push   %rbp</div><div class="line">  4004d3:	48 8d 2d 76 09 20 00 	lea    0x200976(%rip),%rbp        # 600e50 &lt;__init_array_end&gt;</div><div class="line">  4004da:	53                   	push   %rbx</div><div class="line">  4004db:	49 89 f6             	mov    %rsi,%r14</div><div class="line">  4004de:	49 89 d5             	mov    %rdx,%r13</div><div class="line">  4004e1:	4c 29 e5             	sub    %r12,%rbp</div><div class="line">  4004e4:	48 83 ec 08          	sub    $0x8,%rsp</div><div class="line">  4004e8:	48 c1 fd 03          	sar    $0x3,%rbp</div><div class="line">  4004ec:	e8 9f fe ff ff       	callq  400390 &lt;_init&gt;</div><div class="line">  4004f1:	48 85 ed             	test   %rbp,%rbp</div><div class="line">  4004f4:	74 20                	je     400516 &lt;__libc_csu_init+0x56&gt;</div><div class="line">  4004f6:	31 db                	xor    %ebx,%ebx</div><div class="line">  4004f8:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)</div><div class="line">  4004ff:	00</div><div class="line">  400500:	4c 89 ea             	mov    %r13,%rdx</div><div class="line">  400503:	4c 89 f6             	mov    %r14,%rsi</div><div class="line">  400506:	44 89 ff             	mov    %r15d,%edi</div><div class="line">  400509:	41 ff 14 dc          	callq  *(%r12,%rbx,8)</div><div class="line">  40050d:	48 83 c3 01          	add    $0x1,%rbx</div><div class="line">  400511:	48 39 dd             	cmp    %rbx,%rbp</div><div class="line">  400514:	75 ea                	jne    400500 &lt;__libc_csu_init+0x40&gt;</div><div class="line">  400516:	48 83 c4 08          	add    $0x8,%rsp</div><div class="line">  40051a:	5b                   	pop    %rbx</div><div class="line">  40051b:	5d                   	pop    %rbp</div><div class="line">  40051c:	41 5c                	pop    %r12</div><div class="line">  40051e:	41 5d                	pop    %r13</div><div class="line">  400520:	41 5e                	pop    %r14</div><div class="line">  400522:	41 5f                	pop    %r15</div><div class="line">  400524:	c3                   	retq</div><div class="line">  400525:	90                   	nop</div><div class="line">  400526:	66 2e 0f 1f 84 00 00 	nopw   %cs:0x0(%rax,%rax,1)</div><div class="line">  40052d:	00 00 00</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">0000000000400390 &lt;_init&gt;:</div><div class="line">  400390:	48 83 ec 08          	sub    $0x8,%rsp</div><div class="line">  400394:	48 8b 05 5d 0c 20 00 	mov    0x200c5d(%rip),%rax        # 600ff8 &lt;__gmon_start__&gt;</div><div class="line">  40039b:	48 85 c0             	test   %rax,%rax</div><div class="line">  40039e:	74 02                	je     4003a2 &lt;_init+0x12&gt;</div><div class="line">  4003a0:	ff d0                	callq  *%rax</div><div class="line">  4003a2:	48 83 c4 08          	add    $0x8,%rsp</div><div class="line">  4003a6:	c3                   	retq</div></pre></td></tr></table></figure>
+<p><code>__libc_csu_init</code>返回<code>__libc_start_main</code>前:</p>
+<p><img src="https://ww2.sinaimg.cn/large/006tNbRwly1fduntp9dfcj30z412caip.jpg" alt=""></p>
+
       
     </div>
 
@@ -379,6 +415,10 @@ exe">
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2017/04/03/polipo-ss实现终端代理/" rel="prev" title="polipo+ss实现 iTerm2 终端科学上网">
+                polipo+ss实现 iTerm2 终端科学上网 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -404,7 +444,7 @@ exe">
   <div class="comments" id="comments">
     
       <div class="ds-thread" data-thread-key="2017/03/16/Linux程序启动过程/"
-           data-title="Linux x86 elf 程序启动过程" data-url="http://answerrrrrrrrr.io/2017/03/16/Linux程序启动过程/">
+           data-title="Linux x86 elf 程序启动过程" data-url="http://answerrrrrrrrr.github.io/2017/03/16/Linux程序启动过程/">
       </div>
     
   </div>
@@ -449,7 +489,7 @@ exe">
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">42</span>
+              <span class="site-state-item-count">40</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -457,7 +497,7 @@ exe">
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -466,7 +506,7 @@ exe">
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">94</span>
+                <span class="site-state-item-count">100</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -506,7 +546,7 @@ exe">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux-x86-elf-程序启动过程"><span class="nav-number">1.</span> <span class="nav-text">Linux x86 elf 程序启动过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#最简单的-main"><span class="nav-number">1.1.</span> <span class="nav-text">最简单的 main</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#execve"><span class="nav-number">1.2.</span> <span class="nav-text">execve</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#start"><span class="nav-number">1.3.</span> <span class="nav-text">_start</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#最简单的-main"><span class="nav-number">1.</span> <span class="nav-text">最简单的 main</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#execve"><span class="nav-number">2.</span> <span class="nav-text">execve</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#start"><span class="nav-number">3.</span> <span class="nav-text">_start</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#libc-start-main"><span class="nav-number">4.</span> <span class="nav-text">__libc_start_main</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ELF-auxiliary-vector"><span class="nav-number">4.1.</span> <span class="nav-text">ELF auxiliary vector</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#libc-start-main-的主要功能"><span class="nav-number">4.2.</span> <span class="nav-text">__libc_start_main 的主要功能</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#libc-csu-init"><span class="nav-number">5.</span> <span class="nav-text">__libc_csu_init</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">

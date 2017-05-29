@@ -62,15 +62,15 @@
 <meta name="description" content="目录结构.├── batch.py├── detail│   ├── heap_test.txt│   ├── heap_test_static.txt│   ├── libc2.21.txt│   ├── ls.txt│   ├── mv.txt│   ├── stack_test.txt│   └── stack_test_static.txt├── elf│   ├── heap_test│">
 <meta property="og:type" content="article">
 <meta property="og:title" content="idapython-elf-gadget">
-<meta property="og:url" content="http://answerrrrrrrrr.io/2016/10/08/idapython-elf-gadget/index.html">
+<meta property="og:url" content="http://answerrrrrrrrr.github.io/2016/10/08/idapython-elf-gadget/index.html">
 <meta property="og:site_name" content="Answerrrrrrrrr">
 <meta property="og:description" content="目录结构.├── batch.py├── detail│   ├── heap_test.txt│   ├── heap_test_static.txt│   ├── libc2.21.txt│   ├── ls.txt│   ├── mv.txt│   ├── stack_test.txt│   └── stack_test_static.txt├── elf│   ├── heap_test│">
-<meta property="og:image" content="http://answerrrrrrrrr.io/2016/10/08/idapython-elf-gadget/idapython-elf-gadget.png">
+<meta property="og:image" content="http://answerrrrrrrrr.github.io/images/idapython-elf-gadget.png">
 <meta property="og:updated_time" content="2016-10-09T02:59:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="idapython-elf-gadget">
 <meta name="twitter:description" content="目录结构.├── batch.py├── detail│   ├── heap_test.txt│   ├── heap_test_static.txt│   ├── libc2.21.txt│   ├── ls.txt│   ├── mv.txt│   ├── stack_test.txt│   └── stack_test_static.txt├── elf│   ├── heap_test│">
-<meta name="twitter:image" content="http://answerrrrrrrrr.io/2016/10/08/idapython-elf-gadget/idapython-elf-gadget.png">
+<meta name="twitter:image" content="http://answerrrrrrrrr.github.io/images/idapython-elf-gadget.png">
 
 
 
@@ -282,7 +282,7 @@
 
       
         <h1 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h1><figure class="highlight md"><table><tr><td class="code"><pre><div class="line">.</div><div class="line">├── batch.py</div><div class="line">├── detail</div><div class="line">│   ├── heap_test.txt</div><div class="line">│   ├── heap<span class="emphasis">_test_</span>static.txt</div><div class="line">│   ├── libc2.21.txt</div><div class="line">│   ├── ls.txt</div><div class="line">│   ├── mv.txt</div><div class="line">│   ├── stack_test.txt</div><div class="line">│   └── stack<span class="emphasis">_test_</span>static.txt</div><div class="line">├── elf</div><div class="line">│   ├── heap_test</div><div class="line">│   ├── heap<span class="emphasis">_test_</span>static</div><div class="line">│   ├── libc2.21</div><div class="line">│   ├── ls</div><div class="line">│   ├── mv</div><div class="line">│   ├── stack_test</div><div class="line">│   └── stack<span class="emphasis">_test_</span>static</div><div class="line">├── fragment</div><div class="line">│   ├── heap_test.txt</div><div class="line">│   ├── heap<span class="emphasis">_test_</span>static.txt</div><div class="line">│   ├── libc2.21.txt</div><div class="line">│   ├── ls.txt</div><div class="line">│   ├── mv.txt</div><div class="line">│   ├── stack_test.txt</div><div class="line">│   └── stack<span class="emphasis">_test_</span>static.txt</div><div class="line">├── ganalyzer.py</div><div class="line">├── gcollector.py</div><div class="line">├── gvalidator.py</div><div class="line">├── lib</div><div class="line">│   ├── <span class="strong">__init__</span>.py</div><div class="line">│   ├── <span class="strong">__init__</span>.pyc</div><div class="line">│   ├── classifier.py</div><div class="line">│   ├── classifier.pyc</div><div class="line">│   ├── extra_archinfo.py</div><div class="line">│   ├── extra_archinfo.pyc</div><div class="line">│   ├── gadget.py</div><div class="line">│   ├── gadget.pyc</div><div class="line">│   ├── utils.py</div><div class="line">│   ├── utils.pyc</div><div class="line">│   ├── validator.py</div><div class="line">│   └── validator.pyc</div><div class="line">├── pin</div><div class="line">│   ├── heap_test.txt</div><div class="line">│   ├── heap<span class="emphasis">_test_</span>static.txt</div><div class="line">│   ├── libc2.21.txt</div><div class="line">│   ├── ls.txt</div><div class="line">│   ├── mv.txt</div><div class="line">│   ├── stack_test.txt</div><div class="line">│   └── stack<span class="emphasis">_test_</span>static.txt</div><div class="line">└── result.txt</div><div class="line"></div><div class="line">5 directories, 46 files</div></pre></td></tr></table></figure>
-<h1 id="执行流程"><a href="#执行流程" class="headerlink" title="执行流程"></a>执行流程</h1><p><img src="/2016/10/08/idapython-elf-gadget/idapython-elf-gadget.png" alt="img"></p>
+<h1 id="执行流程"><a href="#执行流程" class="headerlink" title="执行流程"></a>执行流程</h1><p><img src="/images/idapython-elf-gadget.png" alt="img"></p>
 <h1 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h1><ol>
 <li>将要分析的 elf 文件放入 elf 目录</li>
 <li>在主目录运行<code>python batch.py</code></li>
@@ -379,7 +379,7 @@
   <div class="comments" id="comments">
     
       <div class="ds-thread" data-thread-key="2016/10/08/idapython-elf-gadget/"
-           data-title="idapython-elf-gadget" data-url="http://answerrrrrrrrr.io/2016/10/08/idapython-elf-gadget/">
+           data-title="idapython-elf-gadget" data-url="http://answerrrrrrrrr.github.io/2016/10/08/idapython-elf-gadget/">
       </div>
     
   </div>
@@ -424,7 +424,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">42</span>
+              <span class="site-state-item-count">40</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -432,7 +432,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -441,7 +441,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">94</span>
+                <span class="site-state-item-count">100</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
