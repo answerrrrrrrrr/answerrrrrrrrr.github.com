@@ -339,9 +339,9 @@
     
       <category term="ida" scheme="http://answerrrrrrrrr.github.io/tags/ida/"/>
     
-      <category term="idapython" scheme="http://answerrrrrrrrr.github.io/tags/idapython/"/>
-    
       <category term="python" scheme="http://answerrrrrrrrr.github.io/tags/python/"/>
+    
+      <category term="idapython" scheme="http://answerrrrrrrrr.github.io/tags/idapython/"/>
     
   </entry>
   
@@ -387,7 +387,7 @@
     <link href="http://answerrrrrrrrr.github.io/2016/09/25/code-smell/"/>
     <id>http://answerrrrrrrrr.github.io/2016/09/25/code-smell/</id>
     <published>2016-09-25T08:44:03.000Z</published>
-    <updated>2016-09-25T08:51:53.000Z</updated>
+    <updated>2017-05-29T13:14:56.000Z</updated>
     
     <content type="html"><![CDATA[<p>转自：<a href="http://www.nowamagic.net/librarys/veda/detail/2053" target="_blank" rel="external">http://www.nowamagic.net/librarys/veda/detail/2053</a></p>
 <p>Code Smell中文译名一般为“代码异味”，或“代码味道”，它是提示代码中某个地方存在错误的一个暗示，开发人员可以通过这种smell（异味）在代码中追捕到问题。</p>
@@ -556,11 +556,11 @@
     
       <category term="ida" scheme="http://answerrrrrrrrr.github.io/tags/ida/"/>
     
+      <category term="python" scheme="http://answerrrrrrrrr.github.io/tags/python/"/>
+    
       <category term="idapython" scheme="http://answerrrrrrrrr.github.io/tags/idapython/"/>
     
       <category term="idc" scheme="http://answerrrrrrrrr.github.io/tags/idc/"/>
-    
-      <category term="python" scheme="http://answerrrrrrrrr.github.io/tags/python/"/>
     
   </entry>
   
