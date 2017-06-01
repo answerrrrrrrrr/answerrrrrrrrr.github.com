@@ -1,8 +1,8 @@
 ---
 title: Mac 下使用 homebrew 安装 redis
 date: 2016-09-12 11:44:37
-category: redis
-tags: [redis, brew, mac]
+category: Mac
+tags: [redis, brew, Mac]
 ---
 
 ```

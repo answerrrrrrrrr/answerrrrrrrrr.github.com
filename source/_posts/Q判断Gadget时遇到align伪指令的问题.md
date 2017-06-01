@@ -1,7 +1,7 @@
 ---
 title: Q 判断 Gadget 时遇到 align 伪指令的问题
 date: 2016-08-23 13:13:57
-category: Q
+category: rop
 tags:	[Q, asm, align, capstone, ida]
 ---
 

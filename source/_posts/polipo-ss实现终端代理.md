@@ -1,10 +1,10 @@
 ---
 title: polipo+ss实现 iTerm2 终端科学上网
 date: 2017-04-03 15:55:00
-category: proxy
+category: Mac
 tags: 
 - proxy
-- iTer2
+- iTerm
 - polipo
 - Shadowsocks
 - Charles

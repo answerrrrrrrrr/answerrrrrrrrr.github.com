@@ -1,7 +1,6 @@
 ---
 title: Code Smell
 date: 2016-09-25 16:44:03
-category: Code
 tags: [Refactoring]
 ---
 转自：http://www.nowamagic.net/librarys/veda/detail/2053
