@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://answerrrrrrrrr.github.io/"/>
-  <updated>2017-04-03T08:53:45.000Z</updated>
+  <updated>2017-06-01T15:33:56.000Z</updated>
   <id>http://answerrrrrrrrr.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://answerrrrrrrrr.github.io/2017/04/03/polipo-ss%E5%AE%9E%E7%8E%B0%E7%BB%88%E7%AB%AF%E4%BB%A3%E7%90%86/"/>
     <id>http://answerrrrrrrrr.github.io/2017/04/03/polipo-ss实现终端代理/</id>
     <published>2017-04-03T07:55:00.000Z</published>
-    <updated>2017-04-03T08:53:45.000Z</updated>
+    <updated>2017-06-01T15:33:56.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="polipo"><a href="#polipo" class="headerlink" title="polipo"></a>polipo</h1><p>似乎 10.11 引入 SIP 以来 Proxychains 就不能正常工作了, 导致终端代理一直出问题, 今天意外发现 polipo 这个不受 SIP 影响的工具, 尝试了一下果然不错</p>
 <figure class="highlight mipsasm"><table><tr><td class="code"><pre><div class="line"><span class="keyword">brew </span><span class="keyword">install </span>polipo</div><div class="line">polipo socksParentProxy=localhost:<span class="number">1086</span></div></pre></td></tr></table></figure>
@@ -41,14 +41,14 @@
     
     </summary>
     
-      <category term="proxy" scheme="http://answerrrrrrrrr.github.io/categories/proxy/"/>
+      <category term="Mac" scheme="http://answerrrrrrrrr.github.io/categories/Mac/"/>
     
     
       <category term="Shadowsocks" scheme="http://answerrrrrrrrr.github.io/tags/Shadowsocks/"/>
     
       <category term="proxy" scheme="http://answerrrrrrrrr.github.io/tags/proxy/"/>
     
-      <category term="iTer2" scheme="http://answerrrrrrrrr.github.io/tags/iTer2/"/>
+      <category term="iTerm" scheme="http://answerrrrrrrrr.github.io/tags/iTerm/"/>
     
       <category term="polipo" scheme="http://answerrrrrrrrr.github.io/tags/polipo/"/>
     
@@ -387,7 +387,7 @@
     <link href="http://answerrrrrrrrr.github.io/2016/09/25/code-smell/"/>
     <id>http://answerrrrrrrrr.github.io/2016/09/25/code-smell/</id>
     <published>2016-09-25T08:44:03.000Z</published>
-    <updated>2017-05-29T13:14:56.000Z</updated>
+    <updated>2017-06-01T15:28:52.000Z</updated>
     
     <content type="html"><![CDATA[<p>转自：<a href="http://www.nowamagic.net/librarys/veda/detail/2053" target="_blank" rel="external">http://www.nowamagic.net/librarys/veda/detail/2053</a></p>
 <p>Code Smell中文译名一般为“代码异味”，或“代码味道”，它是提示代码中某个地方存在错误的一个暗示，开发人员可以通过这种smell（异味）在代码中追捕到问题。</p>
@@ -447,8 +447,6 @@
       &lt;p&gt;转自：&lt;a href=&quot;http://www.nowamagic.net/librarys/veda/detail/2053&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.nowamagic.net/librarys/veda/det
     
     </summary>
-    
-      <category term="Code" scheme="http://answerrrrrrrrr.github.io/categories/Code/"/>
     
     
       <category term="Refactoring" scheme="http://answerrrrrrrrr.github.io/tags/Refactoring/"/>
@@ -569,7 +567,7 @@
     <link href="http://answerrrrrrrrr.github.io/2016/09/12/redis-brew/"/>
     <id>http://answerrrrrrrrr.github.io/2016/09/12/redis-brew/</id>
     <published>2016-09-12T03:44:37.000Z</published>
-    <updated>2016-09-18T02:10:42.000Z</updated>
+    <updated>2017-06-01T15:40:35.000Z</updated>
     
     <content type="html"><![CDATA[<figure class="highlight coffeescript"><table><tr><td class="code"><pre><div class="line">$ brew install redis</div><div class="line">=<span class="function">=&gt;</span> Downloading https:<span class="regexp">//</span>homebrew.bintray.com/bottles/redis<span class="number">-3.2</span><span class="number">.3</span>.el_capitan.bottle.tar.gz</div><div class="line"><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span><span class="comment">######</span> <span class="number">100.0</span>%</div><div class="line">=<span class="function">=&gt;</span> Pouring redis<span class="number">-3.2</span><span class="number">.3</span>.el_capitan.bottle.tar.gz</div><div class="line">=<span class="function">=&gt;</span> Caveats</div><div class="line">To have launchd start redis now <span class="keyword">and</span> restart at login:</div><div class="line">  brew services start redis</div><div class="line">Or, <span class="keyword">if</span> you don<span class="string">'t want/need a background service you can just run:</span></div><div class="line">  redis-server /usr/local/etc/redis.conf</div><div class="line">==&gt; Summary</div><div class="line">🍺  /usr/local/Cellar/redis/3.2.3: 10 files, 1.7M</div></pre></td></tr></table></figure>
 <p>这样就安装好了，很是方便<br>不过暂时有一个问题：每次都要手动打开<code>redis-server</code>后才能<code>redis-cli</code>，否则提示<code>not connected</code>   </p>
@@ -585,14 +583,14 @@
     
     </summary>
     
-      <category term="redis" scheme="http://answerrrrrrrrr.github.io/categories/redis/"/>
+      <category term="Mac" scheme="http://answerrrrrrrrr.github.io/categories/Mac/"/>
     
+    
+      <category term="Mac" scheme="http://answerrrrrrrrr.github.io/tags/Mac/"/>
     
       <category term="redis" scheme="http://answerrrrrrrrr.github.io/tags/redis/"/>
     
       <category term="brew" scheme="http://answerrrrrrrrr.github.io/tags/brew/"/>
-    
-      <category term="mac" scheme="http://answerrrrrrrrr.github.io/tags/mac/"/>
     
   </entry>
   
@@ -601,7 +599,7 @@
     <link href="http://answerrrrrrrrr.github.io/2016/08/23/Q%E5%88%A4%E6%96%ADGadget%E6%97%B6%E9%81%87%E5%88%B0align%E4%BC%AA%E6%8C%87%E4%BB%A4%E7%9A%84%E9%97%AE%E9%A2%98/"/>
     <id>http://answerrrrrrrrr.github.io/2016/08/23/Q判断Gadget时遇到align伪指令的问题/</id>
     <published>2016-08-23T05:13:57.000Z</published>
-    <updated>2016-08-23T07:51:25.000Z</updated>
+    <updated>2017-06-01T15:30:04.000Z</updated>
     
     <content type="html"><![CDATA[<p>今天在利用 Q 判断 Gadget 时发现，在 IDA 中静态分析时显示如下的指令片段：</p>
 <figure class="highlight x86asm"><table><tr><td class="code"><pre><div class="line"><span class="meta">align</span> <span class="number">10h</span></div><div class="line"><span class="keyword">ret</span></div></pre></td></tr></table></figure>
@@ -627,7 +625,7 @@
     
     </summary>
     
-      <category term="Q" scheme="http://answerrrrrrrrr.github.io/categories/Q/"/>
+      <category term="rop" scheme="http://answerrrrrrrrr.github.io/categories/rop/"/>
     
     
       <category term="Q" scheme="http://answerrrrrrrrr.github.io/tags/Q/"/>
