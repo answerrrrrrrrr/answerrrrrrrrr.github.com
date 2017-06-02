@@ -1,7 +1,7 @@
 ---
 title: Markdown 同步 Evernote
-tags: [markdown, evernote, sublime, vscode]
 date: 2017-06-01 20:05:09
+tags: [markdown, evernote, sublime, vscode]
 ---
 
 
@@ -64,7 +64,7 @@ vscode 上有两个 evernote 相关的插件, evermonkey 远好于另外一个, 
 推荐插件 [https://github.com/varHarrie/Dawn-Blossoms/issues/10](https://github.com/varHarrie/Dawn-Blossoms/issues/10)
 
 ## shell
-> https://stackoverflow.com/questions/30065227/run-open-vscode-from-mac-terminal
+参考 https://stackoverflow.com/questions/30065227/run-open-vscode-from-mac-terminal
 
 `Command + Shift + P` 后 `Shell Command : Install code in PATH`, vscode 就会在 `/usr/local/bin` 加入一个脚本命令, 然后就能在终端直接`code .`了
 

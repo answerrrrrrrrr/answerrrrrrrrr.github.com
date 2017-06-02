@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://answerrrrrrrrr.github.io/"/>
-  <updated>2017-06-02T01:48:15.000Z</updated>
+  <updated>2017-06-02T15:50:14.000Z</updated>
   <id>http://answerrrrrrrrr.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://answerrrrrrrrr.github.io/2017/06/01/markdown-evernote/"/>
     <id>http://answerrrrrrrrr.github.io/2017/06/01/markdown-evernote/</id>
     <published>2017-06-01T12:05:09.000Z</published>
-    <updated>2017-06-02T01:48:15.000Z</updated>
+    <updated>2017-06-02T15:50:14.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="evernote-markdown"><a href="#evernote-markdown" class="headerlink" title="evernote markdown"></a>evernote markdown</h1><p>用 vim 写 markdown 还是太捉急了: 输入法切换, URL 换行, 列表换行…</p>
 <p>另外考虑到同步问题, 把笔记全都放到一个地方还是更便于管理一点, 最终决定是 evernote 了, 有道的 mac 客户端太渣了连个全局搜索的快捷键都没有…</p>
@@ -61,9 +61,7 @@
 <li>支持当前工作区设置, 项目目录下单独的配置文件, 十分简便</li>
 </ul>
 <p>推荐插件 <a href="https://github.com/varHarrie/Dawn-Blossoms/issues/10" target="_blank" rel="external">https://github.com/varHarrie/Dawn-Blossoms/issues/10</a></p>
-<h2 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h2><blockquote>
-<p><a href="https://stackoverflow.com/questions/30065227/run-open-vscode-from-mac-terminal" target="_blank" rel="external">https://stackoverflow.com/questions/30065227/run-open-vscode-from-mac-terminal</a></p>
-</blockquote>
+<h2 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h2><p>参考 <a href="https://stackoverflow.com/questions/30065227/run-open-vscode-from-mac-terminal" target="_blank" rel="external">https://stackoverflow.com/questions/30065227/run-open-vscode-from-mac-terminal</a></p>
 <p><code>Command + Shift + P</code> 后 <code>Shell Command : Install code in PATH</code>, vscode 就会在 <code>/usr/local/bin</code> 加入一个脚本命令, 然后就能在终端直接<code>code .</code>了</p>
 ]]></content>
     
