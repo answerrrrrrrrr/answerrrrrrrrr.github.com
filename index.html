@@ -122,6 +122,119 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-markdown-evernote" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/01/markdown-evernote/">Markdown 同步 Evernote</a>
+    </h1>
+  
+
+        
+        <a href="/2017/06/01/markdown-evernote/" class="archive-article-date">
+  	<time datetime="2017-06-01T12:05:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="evernote-markdown"><a href="#evernote-markdown" class="headerlink" title="evernote markdown"></a>evernote markdown</h1><p>用 vim 写 markdown 还是太捉急了: 输入法切换, URL 换行, 列表换行…</p>
+<p>另外考虑到同步问题, 把笔记全都放到一个地方还是更便于管理一点, 最终决定是 evernote 了, 有道的 mac 客户端太渣了连个全局搜索的快捷键都没有…</p>
+<h2 id="sublime-evernote"><a href="#sublime-evernote" class="headerlink" title="sublime evernote"></a>sublime evernote</h2><p>参照 <a href="http://www.tuicool.com/articles/MfMZveq" target="_blank" rel="external">http://www.tuicool.com/articles/MfMZveq</a> 配置好 sublime evernote 插件, 目前感觉还是挺不错的</p>
+<p>遇到了 package control 的同步问题(<a href="http://www.jianshu.com/p/a3af44257b15" target="_blank" rel="external">http://www.jianshu.com/p/a3af44257b15</a>), 其实 ss 切全局后重启 sublime 就可以了, 以后出问题了记得 cmd + `</p>
+<p>本来想试试 cmd markdown 将本地笔记导入 Evernote 的, 结果这是付费功能而且不能批量导入… 还是 sublime 手动导入吧…</p>
+<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><ul>
+<li>ever new</li>
+<li>ever send</li>
+<li>ever recent</li>
+<li>ever open</li>
+<li>ever update</li>
+</ul>
+<h2 id="vscode-evermonkey"><a href="#vscode-evermonkey" class="headerlink" title="vscode evermonkey"></a>vscode evermonkey</h2><p>vscode 上有两个 evernote 相关的插件, evermonkey 远好于另外一个, 功能更全, 但还是比不上 sublime 的 evernote 插件, 不过也够用了, 另外也好看得多.</p>
+<h3 id="常用命令-1"><a href="#常用命令-1" class="headerlink" title="常用命令"></a>常用命令</h3><ul>
+<li>ever new</li>
+<li>ever publish</li>
+<li>ever recent</li>
+<li>ever open</li>
+<li>ever client (用本地客户端打开, 这个很实用的功能是 sublime 没有的)</li>
+</ul>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>Markdown 高亮比 st 好看</li>
+<li>最后生成的笔记排版也更好看些</li>
+<li>交互信息更友好</li>
+</ul>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ul>
+<li>一旦保存文件到本地后, publish 附带的 update 功能就会失效, 会变成创建新文件</li>
+<li>open 后是一个 untitled 文件, 可能会出现莫名其妙的 html 标签</li>
+<li>不会记忆上一次的命令</li>
+</ul>
+<h1 id="vscode"><a href="#vscode" class="headerlink" title="vscode"></a>vscode</h1><p>今天这一折腾, 突然发现 vscode 原来是个非常棒的编辑器. 目前已发现的优点:</p>
+<ul>
+<li>整体性更强, 没有 st 的分裂感, 扩展和配置的管理比 st 更先进, 注释也非常友好</li>
+<li>速度略逊于 st, 但远好于 atom 那个渣渣…</li>
+<li>大部分默认快捷键都近似 st, 基本无缝切换</li>
+<li>vim 插件居然是官方提供的, 质量远高于 st</li>
+<li>支持当前工作区设置, 项目目录下单独的配置文件, 十分简便</li>
+</ul>
+<p>推荐插件 <a href="https://github.com/varHarrie/Dawn-Blossoms/issues/10" target="_blank" rel="external">https://github.com/varHarrie/Dawn-Blossoms/issues/10</a></p>
+<h2 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h2><blockquote>
+<p><a href="https://stackoverflow.com/questions/30065227/run-open-vscode-from-mac-terminal" target="_blank" rel="external">https://stackoverflow.com/questions/30065227/run-open-vscode-from-mac-terminal</a></p>
+</blockquote>
+<p><code>Command + Shift + P</code> 后 <code>Shell Command : Install code in PATH</code>, vscode 就会在 <code>/usr/local/bin</code> 加入一个脚本命令, 然后就能在终端直接<code>code .</code>了</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">markdown</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">evernote</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">sublime</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">vscode</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/06/01/markdown-evernote/">Show >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="post-polipo-ss实现终端代理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -2086,88 +2199,6 @@
 
 
   
-    <article id="post-git-push-error" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/16/git-push-error/">Permission denied (publickey)</a>
-    </h1>
-  
-
-        
-        <a href="/2016/06/16/git-push-error/" class="archive-article-date">
-  	<time datetime="2016-06-16T00:21:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-06-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>今天把学习 flask 的本地库上传到 github 时报错</p>
-<figure class="highlight livecodeserver"><table><tr><td class="code"><pre><div class="line">$ git push -u origin master</div><div class="line">Permission denied (publickey).</div><div class="line">fatal: Could <span class="keyword">not</span> <span class="built_in">read</span> <span class="built_in">from</span> remote repository.</div><div class="line"></div><div class="line">Please make sure you have <span class="keyword">the</span> correct access rights</div><div class="line"><span class="keyword">and</span> <span class="keyword">the</span> repository exists.</div></pre></td></tr></table></figure>
-<p>在 <a href="http://stackoverflow.com/questions/26953071/github-authentication-failed-github-does-not-provide-shell-access" target="_blank" rel="external">stackoverflow</a> 找到解决方案</p>
-<figure class="highlight dsconfig"><table><tr><td class="code"><pre><div class="line"><span class="string">git </span><span class="string">remote </span><span class="built_in">set-url</span> <span class="string">origin </span><span class="string">git@</span><span class="string">github.</span><span class="string">com:lut/</span><span class="string">EvolutionApp.</span><span class="string">git</span></div><div class="line"><span class="string">git </span><span class="string">remote </span><span class="string">show </span><span class="string">origin</span></div></pre></td></tr></table></figure>
-<p>简单记录一下…</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">github</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ssh</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/git/" class="article-tag-list-link color4">git</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/06/16/git-push-error/">Show >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -2356,6 +2387,18 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spider</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">ThreadPool</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">argparse</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Q</a>
               </li>
              
@@ -2376,23 +2419,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spider</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">ThreadPool</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">logging</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">argparse</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">requests</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2400,7 +2427,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">requests</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">doctest</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Archlinux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">pip</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2420,35 +2459,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Archlinux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">vmtools</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">bootstrap</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">keyboard</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">tagIndex</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">pip</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ropgadget</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2464,15 +2475,23 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">github</a>
+                <a href="javascript:void(0)" class="js-tag color5">ropgadget</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ssh</a>
+                <a href="javascript:void(0)" class="js-tag color5">bootstrap</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">keyboard</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">tagIndex</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2492,11 +2511,27 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">github</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ssh</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">idapython</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">idc</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">ionic</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2512,7 +2547,35 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">ionic</a>
+                <a href="javascript:void(0)" class="js-tag color4">markdown</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">evernote</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">sublime</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">vscode</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Mac</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">UTF-8</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2536,11 +2599,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Mac</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+                <a href="javascript:void(0)" class="js-tag color5">Powerline</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2560,26 +2619,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Powerline</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">UTF-8</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">brew</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">python-magic</a>
               </li>
              
@@ -2592,10 +2631,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">tmux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">ANSI</a>
               </li>
              
@@ -2605,6 +2640,18 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">colorama</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">brew</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">tmux</a>
               </li>
              
               <li class="article-tag-list-item">
