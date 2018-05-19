@@ -122,6 +122,104 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-bootstrap-keyboard-tagIndex" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/06/28/bootstrap-keyboard-tagIndex/">bootstrap-keyboard-tagIndex</a>
+    </h1>
+  
+
+        
+        <a href="/2016/06/28/bootstrap-keyboard-tagIndex/" class="archive-article-date">
+  	<time datetime="2016-06-28T08:16:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-06-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这两天在 Coursera 上学习 Bootstrap<br>第四周的作业是把非 JavaScript 实现的 Modal 改成用 JavaScript 实现（<a href="https://www.coursera.org/learn/web-frameworks/peer/jAXUU/assignment-4-detailed-instructions-and-submission）" target="_blank" rel="external">https://www.coursera.org/learn/web-frameworks/peer/jAXUU/assignment-4-detailed-instructions-and-submission）</a>   </p>
+<p>按照 <a href="http://getbootstrap.com/javascript/#modals-methods" target="_blank" rel="external">http://getbootstrap.com/javascript/#modals-methods</a> 找到了解决方案：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">    $(<span class="string">'#reserveButton'</span>).on(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        $(<span class="string">'#reserveModal'</span>).modal(<span class="string">'toggle'</span>);</div><div class="line">    &#125;);</div><div class="line"><span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></div></pre></td></tr></table></figure>
+<p>作业是解决了，但是发现一个小问题：不管我怎么改<code>keyboard</code>属性，都不能用<code>esc</code>关闭<code>modal</code></p>
+<p>搜了一下得知：在<code>modal</code>所在<code>div</code>中加入<code>tabindex=&quot;-1&quot;</code>属性即可<br>那么问题又来了…这个<code>tabindex=&quot;-1&quot;</code>是什么鬼…   </p>
+<p>搜索加测试了一下之后终于搞清楚了<br><code>tabindex</code>用来帮助键盘党使用<code>tab</code>键定位网页元素，按其值由小到大跳转，默认是 0<br>如果值相等，则按先后顺序跳转</p>
+<p>在未加入<code>tabindex=&quot;-1&quot;</code>时，<code>modal</code>和主页中所有元素值都是 0<br>当前键盘的焦点仍然在主页而非<code>modal</code>上，相当于在主页按<code>esc</code>，<code>modal</code>监听不到所以无任何反应<br>加入<code>tabindex=&quot;-1&quot;</code>后，<code>modal</code>的优先级最高，键盘焦点到了<code>modal</code>上，这时再按<code>esc</code>就能正确触发关闭<code>modal</code>事件了</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="http://blog.163.com/huan12_8/blog/static/1305190902011274739628/" target="_blank" rel="external">http://blog.163.com/huan12_8/blog/static/1305190902011274739628/</a></li>
+<li><a href="https://segmentfault.com/q/1010000004954562" target="_blank" rel="external">https://segmentfault.com/q/1010000004954562</a></li>
+<li><a href="http://www.w3school.com.cn/tags/att_standard_tabindex.asp" target="_blank" rel="external">http://www.w3school.com.cn/tags/att_standard_tabindex.asp</a></li>
+<li><a href="http://www.mamicode.com/info-detail-494399.html" target="_blank" rel="external">http://www.mamicode.com/info-detail-494399.html</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Coursera</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">bootstrap</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">keyboard</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">tagIndex</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/JavaScript/" class="article-tag-list-link color1">JavaScript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/06/28/bootstrap-keyboard-tagIndex/">Show >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="post-git-push-error" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1842,126 +1940,9 @@ bind-key -T root WheelDownPane if-shell -F -t = &quot;#{alternate_on}&quot; &quo
 
 
   
-    <article id="post-powerline" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/09/powerline/">iTerm下配置Powerline</a>
-    </h1>
-  
-
-        
-        <a href="/2016/03/09/powerline/" class="archive-article-date">
-  	<time datetime="2016-03-09T07:06:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-03-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Powerline"><a href="#Powerline" class="headerlink" title="Powerline"></a>Powerline</h1><p>今天指压师折腾powerline的时候也卡住了，帮他搞定之后，不禁想起以前我折腾这个的时候，网上各种教程都莫名其妙忽略了最关键的iTerm调字体部分，干脆把自己当时写的一篇笔记改一改发blog算了</p>
-<p><img src="https://raw.githubusercontent.com/answerrrrrrrrr/Res/master/Blog/2015-10-03-powerline/powerline.png" width="100%" height="100%"></p>
-<h2 id="For-zsh"><a href="#For-zsh" class="headerlink" title="For zsh"></a>For zsh</h2><ul>
-<li><p>手动下载 <a href="https://github.com/powerline/powerline" target="_blank" rel="external">powerline</a>并解压到主目录</p>
-<p>  或者 </p>
-<p>  $ <code>git clone https://github.com/powerline/powerline</code>            </p>
-</li>
-<li><p>$ <code>vim ~/.zshrc</code></p>
-</li>
-</ul>
-<p>在zsh配置文件里加入一行:  </p>
-<pre><code>. ~/powerline-develop/powerline/bindings/zsh/powerline.zsh
-</code></pre><p>然后启用新配置：</p>
-<p>$ <code>source ~/.zshrc</code></p>
-<ul>
-<li><p>手动下载 <a href="https://github.com/powerline/fonts" target="_blank" rel="external">powerline fonts</a></p>
-<p>  或者</p>
-<p>  $ <code>git clone https://github.com/powerline/fonts</code></p>
-</li>
-<li><p>然后安装：</p>
-<p>  $ <code>cd fonts</code></p>
-<p>  $ <code>./install.sh</code></p>
-</li>
-<li><p>打开 <code>iTerm</code> - <code>Preferences</code> - <code>Profiles</code> - <code>Text</code>  </p>
-<p>  将 <code>Regular Font</code> &amp; <code>Non-ASCII Font</code> 都改为带有 <code>for Powerline</code>后缀的字体</p>
-<p>  我感觉看着比较舒服的是<code>Source Code Pro for Powerline</code></p>
-<p>  选好的瞬间，iTerm里面的预览效果应该就已经出来了</p>
-<p>  稍微有点蛋疼的是，iTerm调了透明的时候，箭头符号却不会跟着透明，看着不太顺眼</p>
-</li>
-</ul>
-<h2 id="For-vim"><a href="#For-vim" class="headerlink" title="For vim"></a>For vim</h2><p>$ <code>vim ~/.vimrc</code></p>
-<p>加入:</p>
-<pre><code>set rtp+=~/powerline-develop/powerline/bindings/vim
-set guifont=Monaco\ for\ Powerline:h14.5
-set laststatus=2
-let g:Powerline_symbols = &apos;fancy&apos;
-set encoding=utf-8
-set t_Co=256
-set number
-set fillchars+=stl:\ ,stlnc:\
-set term=xterm-256color
-set termencoding=utf-8
-syntax enable
-set background=light    
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">iTerm</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Powerline</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Mac/" class="article-tag-list-link color4">Mac</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/03/09/powerline/">Show >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
     </nav>
   
 
@@ -1973,7 +1954,7 @@ set background=light
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2017 Air9
+    		&copy; 2018 Air9
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -2255,10 +2236,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Refactoring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
@@ -2272,6 +2249,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Refactoring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2291,6 +2272,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">ionic</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">rop</a>
               </li>
              
@@ -2300,10 +2285,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">unicorn</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">ionic</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2400,6 +2381,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">colorama</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">raspi</a>
               </li>
              
               <li class="article-tag-list-item">

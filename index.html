@@ -122,6 +122,91 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-raspi" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/19/raspi/">树莓派初体验</a>
+    </h1>
+  
+
+        
+        <a href="/2018/05/19/raspi/" class="archive-article-date">
+  	<time datetime="2018-05-19T14:37:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>树莓派</p>
+<p>都不清楚自己为啥好像一直很忙的样子, 买来树莓派吃灰了快一年, 今天终于有闲心再好好折腾下了</p>
+<p>首先是装系统, 按着这里 <a href="http://www.ruanyifeng.com/blog/2017/06/raspberry-pi-tutorial.html" target="_blank" rel="external">http://www.ruanyifeng.com/blog/2017/06/raspberry-pi-tutorial.html</a> 的步骤</p>
+<ul>
+<li>下载 NOOBS。</li>
+<li>在 mac 磁盘工具格式化 Micro SD 卡为 FAT 格式（操作指导）。</li>
+<li>解压 NOOBS.zip 到 Micro SD 卡根目录。</li>
+<li>插入 Micro SD 卡到树莓派底部的卡槽，接通电源，启动系统。<br>插上鼠标点击安装, 等个十来分钟就好, 然后把 ssh 打开, 密码改一下(顺便把 root 也改了)</li>
+</ul>
+<p>之前可能是没找对小触屏的驱动, 本来好好的系统一装完这个就挂了<br>今天好好看了下壳子上的版本号: KeDei 3.5 inch SPI TFTLCD version 6.3, 才发现官网其实很好找(只要用的是Google而不是百度…)<br><a href="http://www.kedei.net/raspberry/raspberry.html" target="_blank" rel="external">http://www.kedei.net/raspberry/raspberry.html</a><br>v6.3 用的应该就是这个驱动 <a href="http://www.kedei.net/raspberry/v6_1/LCD_show_v6_1_3.tar.gz" target="_blank" rel="external">http://www.kedei.net/raspberry/v6_1/LCD_show_v6_1_3.tar.gz</a></p>
+<p>不过保险起见, 先备份一下系统吧<br>shutdown 后拔下 SD 卡, 插回 mac 可以看到自动挂载了 /boot 和 /recover 分区, 但其实还有两个分区, 打开磁盘工具可以看到<br>mount 看一下 /boot 和 /recover 是什么盘符:<br>/dev/disk3s6                           68Mi   23Mi   45Mi    34%       0          0  100%   /Volumes/boot<br>/dev/disk3s1                          1.8Gi  1.7Gi   90Mi    96%       0          0  100%   /Volumes/RECOVERY</p>
+<p>所以把整个 disk3 备份一下就可以了<br>sudo dd if=/dev/disk3 of=/Users/air9/Downloads/raspi/backup.img<br>不过因为是整个 32G 的 SD 卡, 很是有些慢…</p>
+<p>以后要恢复的话, 反着来就行(当然也是要先 mount 看一下啦)<br>sudo dd if=/Users/air9/Downloads/raspi/backup.img of=/dev/disk3</p>
+<p>准备就绪, 开始尝试触屏了<br>将之前下载的 6.3 驱动 scp 到树莓派里<br>然后按照 <a href="http://blog.sina.com.cn/s/blog_163c3da910102whds.html" target="_blank" rel="external">http://blog.sina.com.cn/s/blog_163c3da910102whds.html</a> 的步骤<br>解压驱动并 cd 进入<br>sudo apt-get update<br>sudo ./LCD_backup  # 备份当前显示设置<br>sudo ./LCD35_v   # 切换到小触屏的显示设置, 并自动重启</p>
+<p>这时外接的大显示屏已经不亮了, 一开始还以为系统又挂了, 后来插上小触屏才发现…原来这俩显示模式不能共存…<br>然后用手指触控基本不可能…只能用一个上个世纪电阻屏手机的那种触控笔…<br>好吧…只能不情愿的接受这个设定了…</p>
+<p>这个命令切换回正常的显示模式<br>sudo ./LCD_restore</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">raspi</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/raspi/" class="article-tag-list-link color1">raspi</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/05/19/raspi/">Show >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="post-markdown-evernote" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -2099,107 +2184,9 @@
 
 
   
-    <article id="post-bootstrap-keyboard-tagIndex" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/28/bootstrap-keyboard-tagIndex/">bootstrap-keyboard-tagIndex</a>
-    </h1>
-  
-
-        
-        <a href="/2016/06/28/bootstrap-keyboard-tagIndex/" class="archive-article-date">
-  	<time datetime="2016-06-28T08:16:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-06-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这两天在 Coursera 上学习 Bootstrap<br>第四周的作业是把非 JavaScript 实现的 Modal 改成用 JavaScript 实现（<a href="https://www.coursera.org/learn/web-frameworks/peer/jAXUU/assignment-4-detailed-instructions-and-submission）" target="_blank" rel="external">https://www.coursera.org/learn/web-frameworks/peer/jAXUU/assignment-4-detailed-instructions-and-submission）</a>   </p>
-<p>按照 <a href="http://getbootstrap.com/javascript/#modals-methods" target="_blank" rel="external">http://getbootstrap.com/javascript/#modals-methods</a> 找到了解决方案：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">    $(<span class="string">'#reserveButton'</span>).on(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        $(<span class="string">'#reserveModal'</span>).modal(<span class="string">'toggle'</span>);</div><div class="line">    &#125;);</div><div class="line"><span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></div></pre></td></tr></table></figure>
-<p>作业是解决了，但是发现一个小问题：不管我怎么改<code>keyboard</code>属性，都不能用<code>esc</code>关闭<code>modal</code></p>
-<p>搜了一下得知：在<code>modal</code>所在<code>div</code>中加入<code>tabindex=&quot;-1&quot;</code>属性即可<br>那么问题又来了…这个<code>tabindex=&quot;-1&quot;</code>是什么鬼…   </p>
-<p>搜索加测试了一下之后终于搞清楚了<br><code>tabindex</code>用来帮助键盘党使用<code>tab</code>键定位网页元素，按其值由小到大跳转，默认是 0<br>如果值相等，则按先后顺序跳转</p>
-<p>在未加入<code>tabindex=&quot;-1&quot;</code>时，<code>modal</code>和主页中所有元素值都是 0<br>当前键盘的焦点仍然在主页而非<code>modal</code>上，相当于在主页按<code>esc</code>，<code>modal</code>监听不到所以无任何反应<br>加入<code>tabindex=&quot;-1&quot;</code>后，<code>modal</code>的优先级最高，键盘焦点到了<code>modal</code>上，这时再按<code>esc</code>就能正确触发关闭<code>modal</code>事件了</p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><a href="http://blog.163.com/huan12_8/blog/static/1305190902011274739628/" target="_blank" rel="external">http://blog.163.com/huan12_8/blog/static/1305190902011274739628/</a></li>
-<li><a href="https://segmentfault.com/q/1010000004954562" target="_blank" rel="external">https://segmentfault.com/q/1010000004954562</a></li>
-<li><a href="http://www.w3school.com.cn/tags/att_standard_tabindex.asp" target="_blank" rel="external">http://www.w3school.com.cn/tags/att_standard_tabindex.asp</a></li>
-<li><a href="http://www.mamicode.com/info-detail-494399.html" target="_blank" rel="external">http://www.mamicode.com/info-detail-494399.html</a></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Coursera</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">bootstrap</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">keyboard</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">tagIndex</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/JavaScript/" class="article-tag-list-link color1">JavaScript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/06/28/bootstrap-keyboard-tagIndex/">Show >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 
@@ -2211,7 +2198,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2017 Air9
+    		&copy; 2018 Air9
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -2493,10 +2480,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Refactoring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
@@ -2510,6 +2493,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Refactoring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2529,6 +2516,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">ionic</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">rop</a>
               </li>
              
@@ -2538,10 +2529,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">unicorn</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">ionic</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2638,6 +2625,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">colorama</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">raspi</a>
               </li>
              
               <li class="article-tag-list-item">
