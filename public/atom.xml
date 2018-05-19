@@ -776,9 +776,9 @@
       <category term="Flask" scheme="http://answerrrrrrrrr.github.io/categories/Flask/"/>
     
     
-      <category term="Flask" scheme="http://answerrrrrrrrr.github.io/tags/Flask/"/>
-    
       <category term="Flask-SQLAlchemy" scheme="http://answerrrrrrrrr.github.io/tags/Flask-SQLAlchemy/"/>
+    
+      <category term="Flask" scheme="http://answerrrrrrrrr.github.io/tags/Flask/"/>
     
       <category term="relationship" scheme="http://answerrrrrrrrr.github.io/tags/relationship/"/>
     
